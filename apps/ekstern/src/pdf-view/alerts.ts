@@ -49,6 +49,7 @@ function renderSanityAlertHtml({
           ? 'success'
           : 'info'
   const icon =
+    alert.type === 'local-alert' ||
     alert.type === 'inline-message' ||
     alertStatus === 'message' ||
     alertStatus === 'attention' ||
@@ -71,8 +72,12 @@ function renderSanityAlertHtml({
       })
     )
   )
+  const messageClass =
+    alert.type === 'info-card' && alertStatus === 'message'
+      ? ' pdf-sanity-alert--message'
+      : ''
 
-  return `<section class="pdf-sanity-alert pdf-sanity-alert--${tone}${alert.type === 'info-card' && alertStatus === 'message' ? ' pdf-sanity-alert--message' : ''}">
+  return `<section class="pdf-sanity-alert pdf-sanity-alert--${tone}${messageClass}">
   ${icon}
   <div class="pdf-sanity-alert__body">${title}${content}</div>
 </section>`
@@ -213,6 +218,7 @@ export function getOffentligTjenestePensjonAlertsText({
         alertData,
         id: alert.sanityId,
         intl,
+        dynamicValues: chunk ? { tpOrdning: chunk } : undefined,
       })
       return `${heading}${alertHtml ?? ''}`
     }
@@ -238,19 +244,26 @@ export function getOffentligTjenestePensjonAlertsText({
 export function getAfpOffentligAlertsText({
   afpOffentligAlertsList,
   intl,
+  alertData,
 }: {
   afpOffentligAlertsList: {
     variant: AlertVariant
     text: string
+    sanityId?: string
   }
   intl: IntlShape
+  alertData: SanityAlertData
 }): string {
-  if (
-    afpOffentligAlertsList.text ===
-    'beregning.alert.info.afp-offentlig-livsvarig'
-  ) {
-    return ''
+  if (afpOffentligAlertsList.sanityId) {
+    return (
+      renderSanityAlertHtml({
+        alertData,
+        id: afpOffentligAlertsList.sanityId,
+        intl,
+      }) ?? ''
+    )
   }
+
   const alertIcon =
     afpOffentligAlertsList.variant === 'info'
       ? INFO_SQUARE_ICON

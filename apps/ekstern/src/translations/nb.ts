@@ -356,11 +356,7 @@ const translations = {
   'beregning.toggle.enkel': 'Enkel',
   'beregning.toggle.avansert': 'Flere valg',
   'beregning.loading': 'Vent litt mens vi beregner pensjonen din.',
-  'beregning.error':
-    'Vi klarte dessverre ikke å beregne pensjonen din akkurat nå.',
   'beregning.livsvarig': 'livsvarig',
-  'beregning.lav_opptjening.aar':
-    'Du har ikke høy nok opptjening til å kunne starte uttak ved {startAar} år{startMaaned}. Prøv en høyere alder.',
   'beregning.button.faerre_aar': 'Færre år',
   'beregning.button.flere_aar': 'Flere år',
   'beregning.title': 'Årlig inntekt og pensjon',
@@ -675,10 +671,6 @@ const translations = {
   'pensjonsavtaler.private.title.ingen': 'Private pensjonsavtaler',
   'pensjonsavtaler.private.ingress.norsk_pensjon':
     'Avtaler fra privat sektor hentes fra <norskPensjonLink>Norsk Pensjon</norskPensjonLink>. Du kan ha andre avtaler enn det som finnes i Norsk Pensjon. Kontakt aktuell pensjonsordning.',
-  'pensjonsavtaler.private.ingress.error.pensjonsavtaler':
-    'Vi klarte ikke å hente dine private pensjonsavtaler. Prøv igjen senere.',
-  'pensjonsavtaler.private.ingress.error.pensjonsavtaler.partial':
-    'Vi klarte ikke å hente alle dine private pensjonsavtaler. Prøv igjen senere.',
   'pensjonsavtaler.ingress.error.samtykke_ingress':
     'Du har ikke samtykket til å hente inn pensjonsavtaler. ',
   'pensjonsavtaler.ingress.error.samtykke_link_1': 'Start en ny beregning',
@@ -694,14 +686,6 @@ const translations = {
   'pensjonsavtaler.til': 'til',
   'pensjonsavtaler.title': 'Pensjon fra andre',
   'pensjonsavtaler.offentligtp.title': 'Offentlig tjenestepensjon',
-  'pensjonsavtaler.offentligtp.er_medlem_annen_ordning':
-    'Du er eller har vært ansatt i offentlig sektor, men vi kan dessverre ikke hente inn offentlige pensjonsavtaler. Sjekk tjenestepensjonsavtalene dine hos aktuell tjenestepensjonsordning {chunk}.',
-  'pensjonsavtaler.offentligtp.error':
-    'Vi klarte ikke å sjekke om du har offentlige pensjonsavtaler. Har du vært eller er ansatt i offentlig sektor, kan du sjekke tjenestepensjonsavtalene dine hos aktuell tjenestepensjonsordning (f.eks. Statens Pensjonskasse, Kommunal Landspensjonskasse, Oslo Pensjonsforsikring).',
-  'pensjonsavtaler.offentligtp.teknisk_feil':
-    'Vi klarte ikke å hente din offentlige tjenestepensjon. Prøv igjen senere eller kontakt tjenestepensjonsordningen din {chunk}.',
-  'pensjonsavtaler.offentligtp.empty':
-    'Vi fikk ikke svar fra din offentlige tjenestepensjonsordning.',
   'pensjonsavtaler.offentligtp.subtitle.spk':
     'Alderspensjon fra Statens pensjonskasse (SPK)',
   'pensjonsavtaler.offentligtp.subtitle.afp_fra_spk':

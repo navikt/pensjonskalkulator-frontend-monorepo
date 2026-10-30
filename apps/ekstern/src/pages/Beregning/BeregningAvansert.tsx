@@ -1,4 +1,5 @@
 import { SanityGuidePanel } from '@pensjonskalkulator-frontend-monorepo/sanity'
+import { SanityAlert } from '@pensjonskalkulator-frontend-monorepo/sanity/SanityAlert'
 import { FetchBaseQueryError } from '@reduxjs/toolkit/query'
 import clsx from 'clsx'
 import { useContext, useEffect, useMemo } from 'react'
@@ -14,7 +15,6 @@ import { InfoOmLoependeVedtak } from '@/components/InfoOmLoependeVedtak'
 import { RedigerAvansertBeregning } from '@/components/RedigerAvansertBeregning'
 import { SavnerDuNoe } from '@/components/SavnerDuNoe'
 import { Simulering } from '@/components/Simulering'
-import { Alert as AlertDashBorder } from '@/components/common/Alert'
 import { BeregningContext } from '@/pages/Beregning/context'
 import { paths } from '@/router/constants'
 import {
@@ -49,6 +49,7 @@ import { ALERT_VIST } from '@/utils/loggerConstants'
 import { logger } from '@/utils/logging'
 import { getFormatMessageValues } from '@/utils/translations'
 
+import beregningStyles from './Beregning.module.scss'
 import styles from './BeregningAvansert.module.scss'
 
 export const BeregningAvansert = () => {
@@ -275,9 +276,14 @@ export const BeregningAvansert = () => {
               <FormattedMessage id="beregning.title" />
             </Heading>
 
-            <AlertDashBorder onRetry={onRetry}>
-              <FormattedMessage id="beregning.error" />
-            </AlertDashBorder>
+            <SanityAlert
+              id="beregning.beregningen-feilet"
+              className={clsx(
+                beregningStyles.beregningAlert,
+                beregningStyles.beregningErrorAlert
+              )}
+              onButtonClick={onRetry}
+            />
           </>
         ) : (
           <>

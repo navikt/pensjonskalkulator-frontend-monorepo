@@ -299,21 +299,33 @@
 							"marks": [],
 							"text": "Et alternativ er at du ved "
 						},
-						{ "_key": "a67fb01c3509", "_type": "dynamicValue", "key": "alder" },
+						{
+							"_key": "a67fb01c3509",
+							"_type": "dynamicValue",
+							"key": "alder"
+						},
 						{
 							"_key": "0b06160edd8a",
 							"_type": "span",
 							"marks": [],
 							"text": " kan ta ut "
 						},
-						{ "_key": "1928d78fd867", "_type": "dynamicValue", "key": "grad" },
+						{
+							"_key": "1928d78fd867",
+							"_type": "dynamicValue",
+							"key": "grad"
+						},
 						{
 							"_key": "4a9ae79c00af",
 							"_type": "span",
 							"marks": [],
 							"text": ""
 						},
-						{ "_key": "d0f60d22eb93", "_type": "dynamicValue", "key": "nbsp" },
+						{
+							"_key": "d0f60d22eb93",
+							"_type": "dynamicValue",
+							"key": "nbsp"
+						},
 						{
 							"_key": "6600f1d4ff4d",
 							"_type": "span",
@@ -344,14 +356,22 @@
 							"marks": [],
 							"text": "Bruker har vedtak om "
 						},
-						{ "_key": "88538180a852", "_type": "dynamicValue", "key": "grad" },
+						{
+							"_key": "88538180a852",
+							"_type": "dynamicValue",
+							"key": "grad"
+						},
 						{
 							"_key": "7d9e7af7b151",
 							"_type": "span",
 							"marks": [],
 							"text": ""
 						},
-						{ "_key": "e9b47300a048", "_type": "dynamicValue", "key": "nbsp" },
+						{
+							"_key": "e9b47300a048",
+							"_type": "dynamicValue",
+							"key": "nbsp"
+						},
 						{
 							"_key": "e41a9942c5c4",
 							"_type": "span",
@@ -1294,7 +1314,12 @@
 						}
 					],
 					"markDefs": [
-						{ "_key": "59508407dbd8", "_type": "link", "className": "nowrap" }
+						{
+							"_key": "59508407dbd8",
+							"_type": "link",
+							"className": "nowrap",
+							"href": "tel:55553334"
+						}
 					],
 					"style": "normal"
 				}
@@ -1423,116 +1448,6 @@
 			"overskrift": "Vi klarte ikke å hente alle dine private pensjonsavtaler",
 			"status": "warning",
 			"type": "inline-message"
-		},
-		{
-			"buttonLabel": null,
-			"infoCardStatus": "info",
-			"innhold": [
-				{
-					"_key": "00aa989f8c79",
-					"_type": "block",
-					"children": [
-						{
-							"_key": "8ee3e88b9030",
-							"_type": "span",
-							"marks": [],
-							"text": "Opptjeningen din er ikke høy nok til uttak av alderspensjon ved "
-						},
-						{
-							"_key": "17eb7e68dff8",
-							"_type": "dynamicValue",
-							"key": "alder",
-							"valueType": "string"
-						},
-						{
-							"_key": "eee156051a6c",
-							"_type": "span",
-							"marks": [],
-							"text": ".\nKalkulatoren kan ikke beregne uttak etter "
-						},
-						{
-							"_key": "cb226017ed07",
-							"_type": "dynamicValue",
-							"key": "alder",
-							"valueType": "string"
-						},
-						{
-							"_key": "154039453644",
-							"_type": "span",
-							"marks": [],
-							"text": ". Hvis du tar ut alderspensjon og AFP senere enn dette, vil du i perioden fra du er 62 år frem til uttak ikke få uføretrygd. Kontakt Nav for veiledning hvis du vurderer å si fra deg uføretrygden.\nHar du rett til livsvarig AFP i offentlig sektor kan du ta ut AFP før alderspensjon. Kontakt tjenestepensjonsordningen din for veiledning."
-						}
-					],
-					"markDefs": [],
-					"style": "normal"
-				}
-			],
-			"name": "beregning.vilkaarsproeving.ikke_nok_opptjening_nedre_alder.ut_afp",
-			"overskrift": null,
-			"status": "info",
-			"type": "local-alert"
-		},
-		{
-			"buttonLabel": null,
-			"infoCardStatus": "info",
-			"innhold": [
-				{
-					"_key": "6c64c51419c2",
-					"_type": "block",
-					"children": [
-						{
-							"_key": "6d82ad4dc9c6",
-							"_type": "span",
-							"marks": [],
-							"text": "Opptjeningen din er ikke høy nok til ønsket uttak. Du må sette ned uttaksgraden."
-						}
-					],
-					"markDefs": [],
-					"style": "normal"
-				},
-				{
-					"_key": "1c97758e07c7",
-					"_type": "block",
-					"children": [
-						{
-							"_key": "6beee61db562",
-							"_type": "span",
-							"marks": [],
-							"text": "Et alternativ er at du ved "
-						},
-						{
-							"_key": "9e18dc82d6b0",
-							"_type": "dynamicValue",
-							"key": "helt_alder",
-							"valueType": "string"
-						},
-						{
-							"_key": "bc7e05f737d7",
-							"_type": "span",
-							"marks": [],
-							"text": " kan ta ut XX % alderspensjon, hvis du tar ut 100 % alderspensjon ved  "
-						},
-						{
-							"_key": "8e77cfcd587c",
-							"_type": "dynamicValue",
-							"key": "grad",
-							"valueType": "string"
-						},
-						{
-							"_key": "622e18982540",
-							"_type": "span",
-							"marks": [],
-							"text": " eller senere. Prøv gjerne andre kombinasjoner."
-						}
-					],
-					"markDefs": [],
-					"style": "normal"
-				}
-			],
-			"name": "beregning.vilkaarsproeving.ikke_nok_opptjening.ut_afp",
-			"overskrift": null,
-			"status": "info",
-			"type": "local-alert"
 		},
 		{
 			"buttonLabel": null,
@@ -1792,7 +1707,7 @@
 							"_type": "dynamicValue",
 							"key": "tidligst-endring-uttaksgrad-dato",
 							"openInNewTab": false,
-							"valueType": "number"
+							"valueType": "string"
 						},
 						{
 							"_key": "d55e205d9f00",

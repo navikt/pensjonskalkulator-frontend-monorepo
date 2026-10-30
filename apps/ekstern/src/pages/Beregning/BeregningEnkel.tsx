@@ -14,7 +14,6 @@ import { Signals } from '@/components/Signals'
 import { Simulering } from '@/components/Simulering'
 import { TidligstMuligUttaksalder } from '@/components/TidligstMuligUttaksalder'
 import { VelgUttaksalder } from '@/components/VelgUttaksalder'
-import { Alert as AlertDashBorder } from '@/components/common/Alert'
 import { Loader } from '@/components/common/Loader'
 import { paths } from '@/router/constants'
 import {
@@ -56,6 +55,7 @@ import {
 import { ALERT_VIST } from '@/utils/loggerConstants'
 import { logger } from '@/utils/logging'
 
+import beregningStyles from './Beregning.module.scss'
 import styles from './BeregningEnkel.module.scss'
 
 export const BeregningEnkel = () => {
@@ -339,22 +339,28 @@ export const BeregningEnkel = () => {
                 <FormattedMessage id="beregning.title" />
               </Heading>
 
-              <AlertDashBorder onRetry={harFeil ? onRetry : undefined}>
-                {harFeil ? (
-                  <FormattedMessage id="beregning.error" />
-                ) : (
-                  <FormattedMessage
-                    id="beregning.lav_opptjening.aar"
-                    values={{
-                      startAar: uttaksalder.aar,
-                      startMaaned:
-                        uttaksalder.maaneder > 0
-                          ? ` og ${uttaksalder.maaneder} måneder`
-                          : '',
-                    }}
-                  />
-                )}
-              </AlertDashBorder>
+              {harFeil ? (
+                <SanityAlert
+                  id="beregning.beregningen-feilet"
+                  className={clsx(
+                    beregningStyles.beregningAlert,
+                    beregningStyles.beregningErrorAlert
+                  )}
+                  onButtonClick={onRetry}
+                />
+              ) : (
+                <SanityAlert
+                  id="beregning.enkel.ikke-nok-opptjening"
+                  className={beregningStyles.beregningAlert}
+                  dynamicValues={{
+                    alder: `${uttaksalder.aar} år${
+                      uttaksalder.maaneder > 0
+                        ? ` og ${uttaksalder.maaneder} måneder`
+                        : ''
+                    }`,
+                  }}
+                />
+              )}
             </>
           ) : (
             <>
