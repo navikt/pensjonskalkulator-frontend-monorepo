@@ -73,6 +73,7 @@ export interface AlderspensjonResult {
 	tilleggspensjon?: number | null
 	pensjonstillegg?: number | null
 	skjermingstillegg?: number | null
+	minstenivaatilleggIndividuelt?: number | null
 	kapittel19Gjenlevendetillegg?: number | null
 }
 
