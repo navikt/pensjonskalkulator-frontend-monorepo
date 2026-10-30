@@ -122,6 +122,14 @@ export const innholdField = defineField({
 							options: {
 								list: [
 									{ title: 'Valgt alder for uttak', value: 'alder' },
+									{
+										title: 'Normert pensjonsalder',
+										value: 'normertPensjoneringsalder',
+									},
+									{
+										title: 'Nedre aldersgrense (normert minus 5 år)',
+										value: 'nedreAldersgrense',
+									},
 									{ title: 'Uttaksgrad fra vedtak', value: 'grad' },
 									{
 										title: 'Uttaksgrad ved gradert uttak - NAU',

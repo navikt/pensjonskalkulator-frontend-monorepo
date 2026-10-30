@@ -1837,7 +1837,7 @@ describe('AvansertSkjemaForAndreBrukere', () => {
         }
       )
       expect(
-        screen.getByText('beregning.vilkaarsproeving.intro', { exact: false })
+        screen.getByTestId('beregning.vilkaarsproeving.ikke_nok_opptjening')
       ).toBeVisible()
     })
   })

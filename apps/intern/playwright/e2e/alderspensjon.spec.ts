@@ -64,6 +64,62 @@ function trackSimuleringRequests(page: Page) {
 }
 
 test.describe('Alderspensjon beregning', () => {
+	test('sender normert og nedre aldersgrense fra backend som props til Sanity-varsel', async ({
+		page,
+	}) => {
+		await setupLoependeAlderspensjonFoerEndringsfrist(page)
+		await mockApi(page, API_URLS.PERSON, MOCK_FILES.PERSON, {
+			pensjoneringAldre: {
+				normertPensjoneringsalder: { aar: 68, maaneder: 2 },
+				nedreAldersgrense: { aar: 64, maaneder: 0 },
+			},
+		})
+		await mockApi(page, API_URLS.SANITY, MOCK_FILES.SANITY_ALERT, {
+			result: [
+				{
+					name: 'beregning.ugyldig-uttaksgrad.12-maaneder',
+					type: 'local-alert',
+					status: 'info',
+					innhold: [
+						{
+							_type: 'block',
+							_key: 'age-block',
+							style: 'normal',
+							markDefs: [],
+							children: [
+								{
+									_type: 'dynamicValue',
+									_key: 'normert',
+									key: 'normertPensjoneringsalder',
+									valueType: 'string',
+								},
+								{
+									_type: 'span',
+									_key: 'separator',
+									text: ' / ',
+									marks: [],
+								},
+								{
+									_type: 'dynamicValue',
+									_key: 'nedre',
+									key: 'nedreAldersgrense',
+									valueType: 'string',
+								},
+							],
+						},
+					],
+				},
+			],
+		})
+		await navigateToApp(page)
+		await fillEndringAvUttaksgradFoerEndringsfrist(page)
+		await page.getByTestId('beregn-button').click()
+
+		await expect(
+			page.getByTestId('beregning.ugyldig-uttaksgrad.12-maaneder')
+		).toContainText('68 år og 2 måneder / 64 år')
+	})
+
 	test.describe('Skjema visning', () => {
 		test('viser beregningsskjema med alle hovedfelter', async ({ page }) => {
 			await setupDefaultMocks(page)

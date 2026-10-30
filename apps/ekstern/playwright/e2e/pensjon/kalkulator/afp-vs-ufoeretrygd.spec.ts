@@ -482,23 +482,21 @@ test.describe('AFP vs uføretrygd', () => {
           await expect(
             page.getByText('Pensjonsgivende årsinntekt frem til pensjon')
           ).toBeVisible()
-          await expect(
-            page.getByText(
-              'Opptjeningen din er ikke høy nok til ønsket uttak. Du må endre valgene dine.'
-            )
-          ).toBeVisible()
-
-          await expect(
-            page.getByText(
-              'Et alternativ er at du ved 62 år kan ta ut 80 % alderspensjon. Prøv gjerne andre kombinasjoner.'
-            )
-          ).toBeVisible()
+          const alert = page.getByTestId(
+            'beregning.vilkaarsproeving.medAFP.gradertUttak'
+          )
+          await expect(alert).toContainText(
+            'Opptjeningen din er ikke høy nok til ønsket uttak. Du må endre valgene dine.'
+          )
+          await expect(alert).toContainText(
+            'Et alternativ er at du ved 62 år kan ta ut 80 % alderspensjon. Prøv gjerne andre kombinasjoner.'
+          )
         })
       })
 
       test.describe('Når jeg har for lav opptjening til valgt uttak, med bruker som har valgt gradert uttak fra 62 år (nedre pensjonsalder) og 100 % tidligere enn 67 år (normert pensjonsalder),', () => {
         // 24
-        test('forventer jeg informasjon om at jeg ikke har høy nok opptjening, og at jeg må endre valgene mine. Jeg forventer å få ett ett alternativt forslag om hvilken grad jeg kan ta ved 62 år, og hvilken alder jeg kan ta 100%.', async ({
+        test('forventer jeg informasjon om at jeg må sette ned uttaksgraden, med forslag om grad ved nedre alder og alder for 100 % uttak.', async ({
           page,
         }) => {
           await selectUttaksgrad(page, '80 %')
@@ -534,17 +532,15 @@ test.describe('AFP vs uføretrygd', () => {
             page.getByText('Pensjonsgivende årsinntekt frem til pensjon')
           ).toBeVisible()
 
-          await expect(
-            page.getByText(
-              'Opptjeningen din er ikke høy nok til ønsket uttak. Du må endre valgene dine.'
-            )
-          ).toBeVisible()
-
-          await expect(
-            page.getByText(
-              'Et alternativ er at du ved 62 år kan ta ut 60 % alderspensjon hvis du tar ut 100 % alderspensjon ved 66 år og 2 måneder eller senere. Prøv gjerne andre kombinasjoner.'
-            )
-          ).toBeVisible()
+          const alert = page.getByTestId(
+            'beregning.vilkaarsproeving.medAFP.heltOgGradertUttak'
+          )
+          await expect(alert).toContainText(
+            'Opptjeningen din er ikke høy nok til ønsket uttak. Du må sette ned uttaksgraden.'
+          )
+          await expect(alert).toContainText(
+            'Et alternativ er at du ved 62 år kan ta ut 60 % alderspensjon, hvis du tar ut 100 % alderspensjon ved 66 år og 2 måneder eller senere. Prøv gjerne andre kombinasjoner.'
+          )
         })
       })
 
@@ -581,24 +577,21 @@ test.describe('AFP vs uføretrygd', () => {
           await expect(
             page.getByText('Pensjonsgivende årsinntekt frem til pensjon')
           ).toBeVisible()
-          await expect(
-            page.getByText(
-              'Opptjeningen din er ikke høy nok til uttak av alderspensjon ved 62 år.'
-            )
-          ).toBeVisible()
-          await expect(
-            page.getByText('Kalkulatoren kan ikke beregne uttak etter 62 år.')
-          ).toBeVisible()
-          await expect(
-            page.getByText(
-              'Hvis du tar ut alderspensjon og AFP senere enn dette, vil du i perioden fra du er 62 år frem til uttak ikke få uføretrygd. Kontakt Nav for veiledning hvis du vurderer å si fra deg uføretrygden.'
-            )
-          ).toBeVisible()
-          await expect(
-            page.getByText(
-              'Har du rett til livsvarig AFP i offentlig sektor kan du ta ut AFP før alderspensjon. Kontakt tjenestepensjonsordningen din for veiledning.'
-            )
-          ).toBeVisible()
+          const alert = page.getByTestId(
+            'beregning.vilkaarsproeving.medAFP.ikkeNokOpptjening'
+          )
+          await expect(alert).toContainText(
+            'Opptjeningen din er ikke høy nok til uttak av alderspensjon ved 62 år.'
+          )
+          await expect(alert).toContainText(
+            'Kalkulatoren kan ikke beregne uttak etter 62 år.'
+          )
+          await expect(alert).toContainText(
+            'Hvis du tar ut alderspensjon og AFP senere enn dette, vil du i perioden fra du er 62 år frem til uttak ikke få uføretrygd. Kontakt Nav for veiledning hvis du vurderer å si fra deg uføretrygden.'
+          )
+          await expect(alert).toContainText(
+            'Har du rett til livsvarig AFP i offentlig sektor kan du ta ut AFP før alderspensjon. Kontakt tjenestepensjonsordningen din for veiledning.'
+          )
         })
       })
 

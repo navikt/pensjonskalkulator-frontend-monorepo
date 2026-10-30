@@ -2,7 +2,10 @@ import type {
 	Sivilstatus,
 	TilgangsnektAarsak,
 } from '@pensjonskalkulator-frontend-monorepo/types'
-import { formatInntekt } from '@pensjonskalkulator-frontend-monorepo/utils'
+import {
+	formatInntekt,
+	formaterAlderString,
+} from '@pensjonskalkulator-frontend-monorepo/utils'
 import {
 	calculateUttaksalderAsDate,
 	getAlderPlus1Maaned,
@@ -86,6 +89,18 @@ export const BeregningForm = () => {
 	const { data: grunnbeloep } = useGrunnbeloepQuery()
 	const dynamicGrunnbeloep: Record<string, string | number> = grunnbeloep
 		? { G: grunnbeloep.grunnbeløp }
+		: {}
+	const dynamicPensjonsaldre: Record<string, string> = person
+		? {
+				normertPensjoneringsalder: formaterAlderString(
+					person.pensjoneringAldre.normertPensjoneringsalder.aar,
+					person.pensjoneringAldre.normertPensjoneringsalder.maaneder
+				),
+				nedreAldersgrense: formaterAlderString(
+					person.pensjoneringAldre.nedreAldersgrense.aar,
+					person.pensjoneringAldre.nedreAldersgrense.maaneder
+				),
+			}
 		: {}
 	const { validate } = useFormValidation()
 	const [isSubmitDisabled, setIsSubmitDisabled] = useState(false)
@@ -252,14 +267,6 @@ export const BeregningForm = () => {
 	const partnerBetegnelse = getPartnerBetegnelse(sivilstatus)
 	const initialSivilstatus =
 		vedtak?.loependeAlderspensjon?.sivilstatus ?? (person && person.sivilstatus)
-	const sanityTextGradert =
-		beregning?.vilkaarsproevingsresultat?.alternativ?.gradertUttakAlder &&
-		beregning?.vilkaarsproevingsresultat?.alternativ?.heltUttakAlder &&
-		!isAlderLikAnnenAlder(
-			beregning?.vilkaarsproevingsresultat?.alternativ?.heltUttakAlder,
-			heltUttakAlder
-		)
-
 	const visGradert =
 		beregning?.vilkaarsproevingsresultat?.alternativ?.heltUttakAlder &&
 		isAlderLikAnnenAlder(
@@ -509,6 +516,7 @@ export const BeregningForm = () => {
 								className={styles.sanityAlert}
 								dynamicValues={{
 									...dynamicGrunnbeloep,
+									...dynamicPensjonsaldre,
 									'tidligst-endring-uttaksgrad-dato':
 										forTidligEndringAvUttaksgradDato,
 								}}
@@ -520,13 +528,14 @@ export const BeregningForm = () => {
 								<div data-testid="vilkaarsproeving-alert">
 									<SanityAlert
 										id={
-											sanityTextGradert
+											vilkaarAlternativGradert && !visGradert
 												? 'beregning.vilkaarsproeving.ikke_nok_opptjening_gradert'
 												: 'beregning.vilkaarsproeving.ikke_nok_opptjening'
 										}
 										className={styles.sanityAlert}
 										dynamicValues={{
 											...dynamicGrunnbeloep,
+											...dynamicPensjonsaldre,
 											...getVilkaarsproevingDynamicValues({
 												heltUttakAlder: vilkaarAlternativHelt,
 												gradertUttakAlder: vilkaarAlternativGradert,
@@ -568,6 +577,7 @@ export const BeregningForm = () => {
 										className={styles.sanityAlert}
 										dynamicValues={{
 											...dynamicGrunnbeloep,
+											...dynamicPensjonsaldre,
 											grad: fremtidigAlderspensjon?.grad ?? 100,
 											vedtakDato: fremtidigAlderspensjon
 												? format(

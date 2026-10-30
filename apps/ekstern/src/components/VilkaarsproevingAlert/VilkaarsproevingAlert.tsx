@@ -1,4 +1,5 @@
 /* c8 disable */
+import { SanityAlert } from '@pensjonskalkulator-frontend-monorepo/sanity/SanityAlert'
 import React from 'react'
 import { FormattedMessage, useIntl } from 'react-intl'
 import { useNavigate } from 'react-router'
@@ -15,7 +16,7 @@ import {
   selectSkalBeregneAfpKap19,
 } from '@/state/userInput/selectors'
 import { userInputActions } from '@/state/userInput/userInputSlice'
-import { formatUttaksalder } from '@/utils/alder'
+import { formatUttaksalder, isAlderOverAnnenAlder } from '@/utils/alder'
 import { ALERT_VIST } from '@/utils/loggerConstants'
 import { logger } from '@/utils/logging'
 import { getFormatMessageValues } from '@/utils/translations'
@@ -35,16 +36,20 @@ export const VilkaarsproevingAlert = ({
   const navigate = useNavigate()
   const dispatch = useAppDispatch()
   const { gradertUttaksperiode } = useAppSelector(selectCurrentSimulation)
-  const normertPensjonsalder = useAppSelector(selectNormertPensjonsalder)
   const nedreAldersgrense = useAppSelector(selectNedreAldersgrense)
+  const normertPensjoneringsalder = useAppSelector(selectNormertPensjonsalder)
   const skalBeregneAfpKap19 = useAppSelector(selectSkalBeregneAfpKap19)
-
-  const harIkkeNokOpptjening = React.useMemo(() => {
-    return (
-      JSON.stringify(alternativ?.heltUttaksalder) ===
-        JSON.stringify(normertPensjonsalder) && !alternativ?.gradertUttaksalder
-    )
-  }, [alternativ])
+  const dynamicPensjonsaldre = {
+    ...(nedreAldersgrense && {
+      nedreAldersgrense: formatUttaksalder(intl, nedreAldersgrense),
+    }),
+    ...(normertPensjoneringsalder && {
+      normertPensjoneringsalder: formatUttaksalder(
+        intl,
+        normertPensjoneringsalder
+      ),
+    }),
+  }
 
   const isHeltUttaksalderLik = React.useMemo(() => {
     return (
@@ -58,82 +63,36 @@ export const VilkaarsproevingAlert = ({
   const altUttaksgrad = alternativ?.uttaksgrad
 
   if (withAFP) {
-    if (!alternativ) {
-      logger(ALERT_VIST, {
-        tekst: intl.formatMessage({
-          id: 'beregning.vilkaarsproeving.alternativer.medAFP.ikkeNokOpptjening',
-        }),
-        variant: 'warning',
-      })
-    } else {
-      logger(ALERT_VIST, {
-        tekst: 'Beregning med AFP',
-        variant: 'warning',
-      })
-    }
+    const erKombinertUttak = Boolean(
+      altGradertUttaksalder &&
+      altHeltUttaksalder &&
+      altUttaksgrad != null &&
+      altUttaksgrad < (gradertUttaksperiode?.grad ?? 100) &&
+      isAlderOverAnnenAlder(altHeltUttaksalder, uttaksalder)
+    )
+    const alertId = !alternativ
+      ? 'beregning.vilkaarsproeving.medAFP.ikkeNokOpptjening'
+      : erKombinertUttak
+        ? 'beregning.vilkaarsproeving.medAFP.heltOgGradertUttak'
+        : 'beregning.vilkaarsproeving.medAFP.gradertUttak'
+
+    logger(ALERT_VIST, {
+      tekst: alertId,
+      variant: 'warning',
+    })
 
     return (
-      <Alert variant="warning" role="alert">
-        {alternativ ? (
-          <>
-            <FormattedMessage id="beregning.vilkaarsproeving.medAFP.intro" />
-
-            {isHeltUttaksalderLik && altGradertUttaksalder && (
-              <FormattedMessage
-                id="beregning.vilkaarsproeving.alternativer.medAFP.gradertUttak"
-                values={{
-                  ...getFormatMessageValues(),
-                  alternativtGrad: altUttaksgrad,
-                  nedreAldersgrense: formatUttaksalder(intl, nedreAldersgrense),
-                }}
-              />
-            )}
-
-            {!isHeltUttaksalderLik &&
-              altGradertUttaksalder &&
-              altHeltUttaksalder &&
-              gradertUttaksperiode && (
-                <FormattedMessage
-                  id="beregning.vilkaarsproeving.alternativer.medAFP.heltOgGradertUttak"
-                  values={{
-                    ...getFormatMessageValues(),
-                    alternativtGrad: altUttaksgrad,
-                    alternativtHeltStartAar: altHeltUttaksalder.aar,
-                    alternativtHeltStartMaaned: altHeltUttaksalder.maaneder,
-                    nedreAldersgrense: formatUttaksalder(
-                      intl,
-                      nedreAldersgrense
-                    ),
-                  }}
-                />
-              )}
-
-            {!isHeltUttaksalderLik &&
-              altGradertUttaksalder &&
-              !gradertUttaksperiode && (
-                <FormattedMessage
-                  id="beregning.vilkaarsproeving.alternativer.medAFP.heltOgGradertUttak100"
-                  values={{
-                    ...getFormatMessageValues(),
-                    alternativtGrad: altUttaksgrad,
-                    nedreAldersgrense: formatUttaksalder(
-                      intl,
-                      nedreAldersgrense
-                    ),
-                  }}
-                />
-              )}
-          </>
-        ) : (
-          <FormattedMessage
-            id="beregning.vilkaarsproeving.alternativer.medAFP.ikkeNokOpptjening"
-            values={{
-              ...getFormatMessageValues(),
-              nedreAldersgrense: formatUttaksalder(intl, nedreAldersgrense),
-            }}
-          />
-        )}
-      </Alert>
+      <SanityAlert
+        id={alertId}
+        role="alert"
+        dynamicValues={{
+          ...dynamicPensjonsaldre,
+          ...(altUttaksgrad != null && { grad_gradert: altUttaksgrad }),
+          ...(altHeltUttaksalder && {
+            helt_alder: formatUttaksalder(intl, altHeltUttaksalder),
+          }),
+        }}
+      />
     )
   }
 
@@ -194,56 +153,43 @@ export const VilkaarsproevingAlert = ({
     )
   }
 
+  const alternativAlder = altGradertUttaksalder || altHeltUttaksalder
+  const erKombinertUttak =
+    !isHeltUttaksalderLik &&
+    Boolean(altGradertUttaksalder && altHeltUttaksalder)
+
+  if (alternativAlder && altHeltUttaksalder) {
+    return (
+      <SanityAlert
+        id={
+          erKombinertUttak
+            ? 'beregning.vilkaarsproeving.ikke_nok_opptjening_gradert'
+            : 'beregning.vilkaarsproeving.ikke_nok_opptjening'
+        }
+        role="alert"
+        dynamicValues={{
+          ...dynamicPensjonsaldre,
+          grad: altGradertUttaksalder ? (altUttaksgrad ?? 100) : 100,
+          alder: formatUttaksalder(
+            intl,
+            erKombinertUttak ? altHeltUttaksalder : alternativAlder
+          ),
+          grad_gradert: altGradertUttaksalder ? (altUttaksgrad ?? 100) : 100,
+          gradert_alder: formatUttaksalder(intl, alternativAlder),
+          helt_alder: formatUttaksalder(intl, altHeltUttaksalder),
+          nbsp: '\u00A0',
+        }}
+      />
+    )
+  }
+
   return (
     <Alert variant="warning" role="alert">
       <FormattedMessage id="beregning.vilkaarsproeving.intro" />
       <FormattedMessage
-        id={
-          harIkkeNokOpptjening
-            ? 'beregning.vilkaarsproeving.intro.ikke_nok_opptjening'
-            : 'beregning.vilkaarsproeving.intro.optional'
-        }
-        values={{
-          ...getFormatMessageValues(),
-          normertPensjonsalder: formatUttaksalder(intl, normertPensjonsalder),
-        }}
+        id="beregning.vilkaarsproeving.intro.optional"
+        values={getFormatMessageValues()}
       />
-      {!harIkkeNokOpptjening &&
-        !altGradertUttaksalder &&
-        altHeltUttaksalder && (
-          <FormattedMessage
-            id="beregning.vilkaarsproeving.alternativer.heltUttak"
-            values={{
-              ...getFormatMessageValues(),
-              alternativtHeltStartAar: altHeltUttaksalder.aar,
-              alternativtHeltStartMaaned: altHeltUttaksalder.maaneder,
-            }}
-          />
-        )}
-      {isHeltUttaksalderLik && altGradertUttaksalder && (
-        <FormattedMessage
-          id="beregning.vilkaarsproeving.alternativer.gradertUttak"
-          values={{
-            ...getFormatMessageValues(),
-            alternativtGrad: altUttaksgrad,
-            alternativtGradertStartAar: altGradertUttaksalder.aar,
-            alternativtGradertStartMaaned: altGradertUttaksalder.maaneder,
-          }}
-        />
-      )}
-      {!isHeltUttaksalderLik && altGradertUttaksalder && altHeltUttaksalder && (
-        <FormattedMessage
-          id="beregning.vilkaarsproeving.alternativer.heltOgGradertUttak"
-          values={{
-            ...getFormatMessageValues(),
-            alternativtGrad: altUttaksgrad,
-            alternativtGradertStartAar: altGradertUttaksalder.aar,
-            alternativtGradertStartMaaned: altGradertUttaksalder.maaneder,
-            alternativtHeltStartAar: altHeltUttaksalder.aar,
-            alternativtHeltStartMaaned: altHeltUttaksalder.maaneder,
-          }}
-        />
-      )}
     </Alert>
   )
 }

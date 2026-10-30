@@ -1,6 +1,218 @@
 {
 	"result": [
 		{
+			"name": "beregning.vilkaarsproeving.medAFP.gradertUttak",
+			"type": "local-alert",
+			"status": "warning",
+			"infoCardStatus": null,
+			"overskrift": null,
+			"buttonLabel": null,
+			"innhold": [
+				{
+					"_key": "afp-gradert-intro",
+					"_type": "block",
+					"style": "normal",
+					"markDefs": [],
+					"children": [
+						{
+							"_key": "intro",
+							"_type": "span",
+							"marks": [],
+							"text": "Opptjeningen din er ikke høy nok til ønsket uttak. Du må endre valgene dine."
+						}
+					]
+				},
+				{
+					"_key": "afp-gradert-alternativ",
+					"_type": "block",
+					"style": "normal",
+					"markDefs": [],
+					"children": [
+						{
+							"_key": "alternativ",
+							"_type": "span",
+							"marks": [],
+							"text": "Et alternativ er at du ved "
+						},
+						{
+							"_key": "nedre-alder",
+							"_type": "dynamicValue",
+							"key": "nedreAldersgrense",
+							"valueType": "string"
+						},
+						{
+							"_key": "uttak",
+							"_type": "span",
+							"marks": [],
+							"text": " kan ta ut "
+						},
+						{
+							"_key": "grad",
+							"_type": "dynamicValue",
+							"key": "grad_gradert",
+							"valueType": "number"
+						},
+						{
+							"_key": "avslutning",
+							"_type": "span",
+							"marks": [],
+							"text": " % alderspensjon. Prøv gjerne andre kombinasjoner."
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "beregning.vilkaarsproeving.medAFP.heltOgGradertUttak",
+			"type": "local-alert",
+			"status": "warning",
+			"infoCardStatus": null,
+			"overskrift": null,
+			"buttonLabel": null,
+			"innhold": [
+				{
+					"_key": "afp-kombinert-intro",
+					"_type": "block",
+					"style": "normal",
+					"markDefs": [],
+					"children": [
+						{
+							"_key": "intro",
+							"_type": "span",
+							"marks": [],
+							"text": "Opptjeningen din er ikke høy nok til ønsket uttak. Du må sette ned uttaksgraden."
+						}
+					]
+				},
+				{
+					"_key": "afp-kombinert-alternativ",
+					"_type": "block",
+					"style": "normal",
+					"markDefs": [],
+					"children": [
+						{
+							"_key": "alternativ",
+							"_type": "span",
+							"marks": [],
+							"text": "Et alternativ er at du ved "
+						},
+						{
+							"_key": "nedre-alder",
+							"_type": "dynamicValue",
+							"key": "nedreAldersgrense",
+							"valueType": "string"
+						},
+						{
+							"_key": "uttak",
+							"_type": "span",
+							"marks": [],
+							"text": " kan ta ut "
+						},
+						{
+							"_key": "grad",
+							"_type": "dynamicValue",
+							"key": "grad_gradert",
+							"valueType": "number"
+						},
+						{
+							"_key": "helt-uttak",
+							"_type": "span",
+							"marks": [],
+							"text": " % alderspensjon, hvis du tar ut 100 % alderspensjon ved "
+						},
+						{
+							"_key": "helt-alder",
+							"_type": "dynamicValue",
+							"key": "helt_alder",
+							"valueType": "string"
+						},
+						{
+							"_key": "avslutning",
+							"_type": "span",
+							"marks": [],
+							"text": " eller senere. Prøv gjerne andre kombinasjoner."
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "beregning.vilkaarsproeving.medAFP.ikkeNokOpptjening",
+			"type": "local-alert",
+			"status": "warning",
+			"infoCardStatus": null,
+			"overskrift": null,
+			"buttonLabel": null,
+			"innhold": [
+				{
+					"_key": "afp-uten-alternativ-intro",
+					"_type": "block",
+					"style": "normal",
+					"markDefs": [],
+					"children": [
+						{
+							"_key": "intro",
+							"_type": "span",
+							"marks": [],
+							"text": "Opptjeningen din er ikke høy nok til uttak av alderspensjon ved "
+						},
+						{
+							"_key": "nedre-alder",
+							"_type": "dynamicValue",
+							"key": "nedreAldersgrense",
+							"valueType": "string"
+						},
+						{
+							"_key": "punktum",
+							"_type": "span",
+							"marks": [],
+							"text": "."
+						}
+					]
+				},
+				{
+					"_key": "afp-uten-alternativ-begrensning",
+					"_type": "block",
+					"style": "normal",
+					"markDefs": [],
+					"children": [
+						{
+							"_key": "begrensning",
+							"_type": "span",
+							"marks": [],
+							"text": "Kalkulatoren kan ikke beregne uttak etter "
+						},
+						{
+							"_key": "nedre-alder",
+							"_type": "dynamicValue",
+							"key": "nedreAldersgrense",
+							"valueType": "string"
+						},
+						{
+							"_key": "ufoeretrygd",
+							"_type": "span",
+							"marks": [],
+							"text": ". Hvis du tar ut alderspensjon og AFP senere enn dette, vil du i perioden fra du er 62 år frem til uttak ikke få uføretrygd. Kontakt Nav for veiledning hvis du vurderer å si fra deg uføretrygden."
+						}
+					]
+				},
+				{
+					"_key": "afp-uten-alternativ-offentlig-afp",
+					"_type": "block",
+					"style": "normal",
+					"markDefs": [],
+					"children": [
+						{
+							"_key": "offentlig-afp",
+							"_type": "span",
+							"marks": [],
+							"text": "Har du rett til livsvarig AFP i offentlig sektor kan du ta ut AFP før alderspensjon. Kontakt tjenestepensjonsordningen din for veiledning."
+						}
+					]
+				}
+			]
+		},
+		{
 			"buttonLabel": null,
 			"infoCardStatus": "message",
 			"innhold": [
@@ -88,7 +300,7 @@
 							"_key": "c64ab319d3b2",
 							"_type": "dynamicValue",
 							"key": "grad_gradert",
-							"valueType": "string"
+							"valueType": "number"
 						},
 						{
 							"_key": "614b448f744c",
