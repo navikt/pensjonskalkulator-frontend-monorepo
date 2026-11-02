@@ -494,6 +494,50 @@ test.describe('AFP vs uføretrygd', () => {
         })
       })
 
+      test.describe('Når jeg har for lav opptjening til 100 % alderspensjon og AFP ved nedre alder,', () => {
+        test('viser eget Sanity-varsel for 100 % uttak med forslag om lavere grad.', async ({
+          page,
+        }) => {
+          await selectUttaksgrad(page, '100 %')
+          await checkInntektVsaHeltUttakNei(page)
+
+          await page.route(
+            /\/pensjon\/kalkulator\/api\/v9\/alderspensjon\/simulering/,
+            async (route) => {
+              await route.fulfill({
+                status: 200,
+                contentType: 'application/json',
+                body: JSON.stringify({
+                  alderspensjon: [],
+                  vilkaarsproeving: {
+                    vilkaarErOppfylt: false,
+                    alternativ: {
+                      heltUttaksalder: { aar: 62, maaneder: 10 },
+                      gradertUttaksalder: { aar: 62, maaneder: 0 },
+                      uttaksgrad: 40,
+                    },
+                  },
+                }),
+              })
+            }
+          )
+
+          await clickBeregnPensjon(page)
+
+          const alert = page.getByTestId(
+            'beregning.vilkaarsproeving.ikke_nok_opptjening.ut_afp_100'
+          )
+          await expect(alert).toContainText(
+            'Et alternativ er at du ved 62 år kan ta ut 40 % alderspensjon. Prøv gjerne andre kombinasjoner.'
+          )
+          await expect(
+            page.getByTestId(
+              'beregning.vilkaarsproeving.ikke_nok_opptjening.ut_afp'
+            )
+          ).toHaveCount(0)
+        })
+      })
+
       test.describe('Når jeg har for lav opptjening til valgt uttak, med bruker som har valgt gradert uttak fra 62 år (nedre pensjonsalder) og 100 % tidligere enn 67 år (normert pensjonsalder),', () => {
         // 24
         test('forventer jeg informasjon om at jeg må sette ned uttaksgraden, med forslag om grad ved nedre alder og alder for 100 % uttak.', async ({

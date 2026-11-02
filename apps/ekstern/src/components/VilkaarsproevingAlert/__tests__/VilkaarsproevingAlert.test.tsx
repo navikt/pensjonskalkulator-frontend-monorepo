@@ -168,35 +168,46 @@ describe('VilkaarsproevingAlert', () => {
         heltUttaksalder: { aar: 68, maaneder: 1 },
         gradertUttaksperiode: null,
         grad: 40,
-        alertId: 'beregning.vilkaarsproeving.ikke_nok_opptjening.ut_afp',
+        alertId: 'beregning.vilkaarsproeving.ikke_nok_opptjening.ut_afp_100',
         intro:
           'Opptjeningen din er ikke høy nok til ønsket uttak. Du må sette ned uttaksgraden.',
         forslag:
-          'Et alternativ er at du ved 64 år og 2 måneder kan ta ut 40 % alderspensjon, hvis du tar ut 100 % alderspensjon ved 68 år og 1 måned eller senere. Prøv gjerne andre kombinasjoner.',
+          'Et alternativ er at du ved 64 år og 2 måneder kan ta ut 40 % alderspensjon. Prøv gjerne andre kombinasjoner.',
+      },
+      {
+        variant:
+          '100 % uttak med forslag om gradering og uendret helt uttaksalder',
+        heltUttaksalder: uttaksalder,
+        gradertUttaksperiode: null,
+        grad: 40,
+        alertId:
+          'beregning.vilkaarsproeving.ikke_nok_opptjening_gradert.ut_afp',
+        intro:
+          'Opptjeningen din er ikke høy nok til ønsket uttak. Du må endre valgene dine.',
+        forslag:
+          'Et alternativ er at du ved 64 år og 2 måneder kan ta ut 40 % alderspensjon. Prøv gjerne andre kombinasjoner.',
       },
       {
         variant: 'uendret grad selv om helt uttak er senere',
         heltUttaksalder: { aar: 68, maaneder: 1 },
         gradertUttaksperiode: { grad: 80, uttaksalder: nedreAldersgrense },
         grad: 80,
-        alertId:
-          'beregning.vilkaarsproeving.ikke_nok_opptjening_gradert.ut_afp',
+        alertId: 'beregning.vilkaarsproeving.ikke_nok_opptjening.ut_afp',
         intro:
-          'Opptjeningen din er ikke høy nok til ønsket uttak. Du må endre valgene dine.',
+          'Opptjeningen din er ikke høy nok til ønsket uttak. Du må sette ned uttaksgraden.',
         forslag:
-          'Et alternativ er at du ved 64 år og 2 måneder kan ta ut 80 % alderspensjon. Prøv gjerne andre kombinasjoner.',
+          'Et alternativ er at du ved 64 år og 2 måneder kan ta ut 80 % alderspensjon, hvis du tar ut 100 % alderspensjon ved 68 år og 1 måned eller senere. Prøv gjerne andre kombinasjoner.',
       },
       {
         variant: 'lavere grad og tidligere helt uttak i samme år',
         heltUttaksalder: { aar: 67, maaneder: 2 },
         gradertUttaksperiode: { grad: 80, uttaksalder: nedreAldersgrense },
         grad: 60,
-        alertId:
-          'beregning.vilkaarsproeving.ikke_nok_opptjening_gradert.ut_afp',
+        alertId: 'beregning.vilkaarsproeving.ikke_nok_opptjening.ut_afp',
         intro:
-          'Opptjeningen din er ikke høy nok til ønsket uttak. Du må endre valgene dine.',
+          'Opptjeningen din er ikke høy nok til ønsket uttak. Du må sette ned uttaksgraden.',
         forslag:
-          'Et alternativ er at du ved 64 år og 2 måneder kan ta ut 60 % alderspensjon. Prøv gjerne andre kombinasjoner.',
+          'Et alternativ er at du ved 64 år og 2 måneder kan ta ut 60 % alderspensjon, hvis du tar ut 100 % alderspensjon ved 67 år og 2 måneder eller senere. Prøv gjerne andre kombinasjoner.',
       },
       {
         variant: 'lavere grad og én måned senere helt uttak',
@@ -262,6 +273,62 @@ describe('VilkaarsproevingAlert', () => {
         expect(screen.getAllByRole('alert')).toHaveLength(1)
       }
     )
+
+    it('oppdaterer varselet når valgt alder for helt uttak endres', () => {
+      const alternativ = {
+        heltUttaksalder: normertPensjoneringsalder,
+        gradertUttaksalder: nedreAldersgrense,
+        uttaksgrad: 40,
+      }
+      const { rerender } = render(
+        <IntlProvider locale="nb" messages={nb}>
+          <VilkaarsproevingAlert
+            alternativ={alternativ}
+            uttaksalder={uttaksalder}
+            withAFP
+          />
+        </IntlProvider>,
+        {
+          preloadedState: {
+            userInput: {
+              ...userInputInitialState,
+              currentSimulation: {
+                ...userInputInitialState.currentSimulation,
+                gradertUttaksperiode: null,
+              },
+            },
+          },
+          preloadedApiState: { getPerson: person },
+        }
+      )
+
+      expect(
+        screen.getByTestId(
+          'beregning.vilkaarsproeving.ikke_nok_opptjening.ut_afp_100'
+        )
+      ).toBeInTheDocument()
+
+      rerender(
+        <IntlProvider locale="nb" messages={nb}>
+          <VilkaarsproevingAlert
+            alternativ={alternativ}
+            uttaksalder={normertPensjoneringsalder}
+            withAFP
+          />
+        </IntlProvider>
+      )
+
+      expect(
+        screen.getByTestId(
+          'beregning.vilkaarsproeving.ikke_nok_opptjening_gradert.ut_afp'
+        )
+      ).toBeInTheDocument()
+      expect(
+        screen.queryByTestId(
+          'beregning.vilkaarsproeving.ikke_nok_opptjening.ut_afp_100'
+        )
+      ).not.toBeInTheDocument()
+    })
 
     it.each([null, undefined])(
       'viser ny variant når backend ikke finner alternativ for 20 %% ved nedre alder og 100 %% ved normert alder (%s)',

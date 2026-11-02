@@ -16,7 +16,7 @@ import {
   selectSkalBeregneAfpKap19,
 } from '@/state/userInput/selectors'
 import { userInputActions } from '@/state/userInput/userInputSlice'
-import { formatUttaksalder, isAlderOverAnnenAlder } from '@/utils/alder'
+import { formatUttaksalder } from '@/utils/alder'
 import { ALERT_VIST } from '@/utils/loggerConstants'
 import { logger } from '@/utils/logging'
 import { getFormatMessageValues } from '@/utils/translations'
@@ -56,25 +56,33 @@ export const VilkaarsproevingAlert = ({
       JSON.stringify(alternativ?.heltUttaksalder) ===
       JSON.stringify(uttaksalder)
     )
-  }, [alternativ])
+  }, [alternativ, uttaksalder])
 
   const altGradertUttaksalder = alternativ?.gradertUttaksalder
   const altHeltUttaksalder = alternativ?.heltUttaksalder
   const altUttaksgrad = alternativ?.uttaksgrad
+  const erKombinertUttak =
+    !isHeltUttaksalderLik &&
+    Boolean(altGradertUttaksalder && altHeltUttaksalder)
 
   if (withAFP) {
-    const erKombinertUttak = Boolean(
-      altGradertUttaksalder &&
-      altHeltUttaksalder &&
-      altUttaksgrad != null &&
-      altUttaksgrad < (gradertUttaksperiode?.grad ?? 100) &&
-      isAlderOverAnnenAlder(altHeltUttaksalder, uttaksalder)
-    )
-    const alertId = !alternativ
-      ? 'beregning.vilkaarsproeving.ikke_nok_opptjening_nedre_alder.ut_afp'
-      : erKombinertUttak
-        ? 'beregning.vilkaarsproeving.ikke_nok_opptjening.ut_afp'
-        : 'beregning.vilkaarsproeving.ikke_nok_opptjening_gradert.ut_afp'
+    const getAlertId = () => {
+      if (!alternativ) {
+        return 'beregning.vilkaarsproeving.ikke_nok_opptjening_nedre_alder.ut_afp'
+      }
+
+      if (!erKombinertUttak) {
+        return 'beregning.vilkaarsproeving.ikke_nok_opptjening_gradert.ut_afp'
+      }
+
+      if (gradertUttaksperiode) {
+        return 'beregning.vilkaarsproeving.ikke_nok_opptjening.ut_afp'
+      }
+
+      return 'beregning.vilkaarsproeving.ikke_nok_opptjening.ut_afp_100'
+    }
+
+    const alertId = getAlertId()
 
     logger(ALERT_VIST, {
       tekst: alertId,
@@ -154,9 +162,6 @@ export const VilkaarsproevingAlert = ({
   }
 
   const alternativAlder = altGradertUttaksalder || altHeltUttaksalder
-  const erKombinertUttak =
-    !isHeltUttaksalderLik &&
-    Boolean(altGradertUttaksalder && altHeltUttaksalder)
 
   if (alternativAlder && altHeltUttaksalder) {
     return (
