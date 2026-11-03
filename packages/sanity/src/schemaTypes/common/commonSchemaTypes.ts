@@ -60,8 +60,49 @@ export const languageField = defineField({
 export const nameField = defineField({
 	name: 'name',
 	type: 'string',
-	description: 'Denne brukes som ID i koden',
-	validation: (rule) => rule.required().error('Påkrevd'),
+	description:
+		'Denne brukes som ID i koden og må være unik for dokumenttypen og språket. Alert-navn må være unike uavhengig av språk.',
+	validation: (rule) => [
+		rule.required().error('Påkrevd'),
+		rule.custom(async (value, context) => {
+			if (!value) {
+				return true
+			}
+			if (!value.trim()) {
+				return 'Påkrevd'
+			}
+
+			const document = context.document
+			if (!document) {
+				return 'Kunne ikke kontrollere om navnet er unikt. Prøv igjen.'
+			}
+
+			const id = document._id.replace(/^drafts\./, '')
+			const client = context
+				.getClient({ apiVersion: '2025-07-02' })
+				.withConfig({ useCdn: false, perspective: 'raw' })
+
+			try {
+				const duplicateCount = await client.fetch<number>(
+					'count(*[_type == $type && name == $name && !(_id in [$id, $draftId]) && ($type == "alert" || coalesce(language, "") == $language)])',
+					{
+						type: document._type,
+						name: value,
+						id,
+						draftId: `drafts.${id}`,
+						language:
+							typeof document.language === 'string' ? document.language : '',
+					}
+				)
+				return duplicateCount === 0
+					? true
+					: 'Et dokument med samme navn finnes allerede. Velg et annet navn.'
+			} catch (error) {
+				console.error('Kunne ikke kontrollere om Sanity-navnet er unikt', error)
+				return 'Kunne ikke kontrollere om navnet er unikt. Prøv igjen.'
+			}
+		}),
+	],
 })
 
 export const overskriftField = defineField({

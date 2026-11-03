@@ -3,6 +3,18 @@ import translations_en from '@/translations/en'
 import translations_nb from '@/translations/nb'
 import translations_nn from '@/translations/nn'
 
+export function getSanityDataset(
+  hostname: string
+): 'development' | 'production' {
+  if (hostname === 'staging.ekstern.dev.nav.no') {
+    return 'production'
+  }
+
+  return hostname.includes('ekstern.dev') || hostname.includes('localhost')
+    ? 'development'
+    : 'production'
+}
+
 export function setCookie(
   name: string,
   value: string,
