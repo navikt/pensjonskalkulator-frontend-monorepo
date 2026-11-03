@@ -2065,7 +2065,7 @@
 							"_type": "dynamicValue",
 							"key": "tidligst-endring-uttaksgrad-dato",
 							"openInNewTab": false,
-							"valueType": "number"
+							"valueType": "string"
 						},
 						{
 							"_key": "d55e205d9f00",
