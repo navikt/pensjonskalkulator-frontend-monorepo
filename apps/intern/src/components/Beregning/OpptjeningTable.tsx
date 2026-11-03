@@ -2,6 +2,7 @@ import type {
 	Opptjening,
 	OpptjeningAvdoed,
 } from '@pensjonskalkulator-frontend-monorepo/types'
+import { getMaanedNavn } from '@pensjonskalkulator-frontend-monorepo/utils/dates'
 import { useEffect, useState } from 'react'
 
 import { BodyShort, Box, Heading, ReadMore, Table } from '@navikt/ds-react'
@@ -21,20 +22,52 @@ const merknadTextMap: Record<string, string> = {
 		'Du er godskrevet omsorgsopptjening for ulønnet omsorgsarbeid i dette året',
 	GRADERT_UTTAK: 'Gradert uttak',
 	HELT_UTTAK: 'Alderspensjon: 100 %',
+	UTTAK_STOPPET: 'Uttak stoppet',
+}
+
+type OpptjeningMerknad =
+	| Opptjening[number]['merknadListe'][number]
+	| OpptjeningAvdoed[number]['merknadListe'][number]
+
+type Uttaksgrad = NonNullable<
+	Extract<OpptjeningMerknad, { kode: string }>['uttaksgrad']
+>
+
+function formatUttaksmerknad(kode: string, uttaksgrad?: Uttaksgrad | null) {
+	const tekst = merknadTextMap[kode] ?? ''
+	const erUttaksmerknad =
+		kode === 'GRADERT_UTTAK' ||
+		kode === 'HELT_UTTAK' ||
+		kode === 'UTTAK_STOPPET'
+	if (!uttaksgrad || !erUttaksmerknad) return tekst
+
+	const maaned = getMaanedNavn(uttaksgrad.kalendermaanedFom)
+	return `Alderspensjon: ${uttaksgrad.grad} %${maaned ? ` (${maaned})` : ''}`
+}
+
+function getMerknadKode(merknad: OpptjeningMerknad): string {
+	return typeof merknad === 'string' ? merknad : merknad.kode
 }
 
 export function mapMerknadListe(
-	merknadListe: string[],
+	merknadListe: OpptjeningMerknad[],
 	ufoeretrygdgrad?: number | null
 ): string {
 	if (merknadListe.length === 0) return ''
 	return merknadListe
-		.filter((merknad) => merknad !== 'NONE' && merknad !== 'UNKNOWN')
+		.filter((merknad) => {
+			const kode = getMerknadKode(merknad)
+			return kode !== 'NONE' && kode !== 'UNKNOWN'
+		})
 		.map((merknad) => {
-			if (merknad === 'UFOEREGRAD') {
+			const kode = getMerknadKode(merknad)
+			if (kode === 'UFOEREGRAD') {
 				return ufoeretrygdgrad != null ? `Uføretrygd: ${ufoeretrygdgrad} %` : ''
 			}
-			return merknadTextMap[merknad] ?? ''
+			return formatUttaksmerknad(
+				kode,
+				typeof merknad === 'string' ? null : merknad.uttaksgrad
+			)
 		})
 		.join(', ')
 }
@@ -43,7 +76,7 @@ export function selectOpptjeningRows(
 	opptjening: Opptjening | OpptjeningAvdoed,
 	heltUttakAarstall?: number | null,
 	inntektSlutterAarstall?: number | null
-): Opptjening | OpptjeningAvdoed {
+): (Opptjening[number] | OpptjeningAvdoed[number])[] {
 	const sisteAarstall = inntektSlutterAarstall ?? heltUttakAarstall
 
 	return [...opptjening]
@@ -52,7 +85,9 @@ export function selectOpptjeningRows(
 				(sisteAarstall == null || entry.aarstall <= sisteAarstall) &&
 				!(
 					entry.merknadListe.length > 0 &&
-					entry.merknadListe.every((merknad) => merknad === 'INGEN_OPPTJENING')
+					entry.merknadListe.every(
+						(merknad) => getMerknadKode(merknad) === 'INGEN_OPPTJENING'
+					)
 				)
 		)
 		.sort((a, b) => b.aarstall - a.aarstall)
