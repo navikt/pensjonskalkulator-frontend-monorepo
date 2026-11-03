@@ -144,6 +144,16 @@ describe('mapOpptjeningToTableRows', () => {
 			uttaksgrad: null,
 			forventet: 'Uttak stoppet',
 		},
+		{
+			kode: 'GRADERT_UTTAK' as const,
+			uttaksgrad: { grad: 20 },
+			forventet: 'Alderspensjon: 20 %',
+		},
+		{
+			kode: 'HELT_UTTAK' as const,
+			uttaksgrad: { grad: 100, kalendermaanedFom: null },
+			forventet: 'Alderspensjon: 100 %',
+		},
 	])(
 		'mapper $kode med uttaksgrad $uttaksgrad til "$forventet"',
 		({ kode, uttaksgrad, forventet }) => {
