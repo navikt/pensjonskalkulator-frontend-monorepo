@@ -40,6 +40,54 @@ describe('AvansertSkjemaForAndreBrukere', () => {
   }
   const agePickerMonth = getPreviousMonth()
 
+  it.each([
+    { pre2025OffentligAfp: true, aar: 66, vises: true },
+    { pre2025OffentligAfp: true, aar: 67, vises: false },
+    { pre2025OffentligAfp: false, aar: 66, vises: false },
+  ])(
+    'viser AFP-varsel: $vises ved uttak fra $aar år og pre2025OffentligAfp: $pre2025OffentligAfp',
+    ({ pre2025OffentligAfp, aar, vises }) => {
+      render(
+        <BeregningContext.Provider value={contextMockedValues}>
+          <AvansertSkjemaForAndreBrukere />
+        </BeregningContext.Provider>,
+        {
+          preloadedState: {
+            userInput: {
+              ...userInputInitialState,
+              currentSimulation: {
+                ...userInputInitialState.currentSimulation,
+                uttaksalder: { aar, maaneder: 0 },
+              },
+            },
+          },
+          preloadedApiState: {
+            getPerson: personMock,
+            getLoependeVedtak: {
+              ...loependeVedtak0UfoeregradMock,
+              pre2025OffentligAfp: pre2025OffentligAfp
+                ? { fom: '2024-01-01' }
+                : undefined,
+            },
+          },
+        }
+      )
+
+      const alert = screen.queryByTestId(
+        'beregning.ap-kan-ikke-kombineres-med-afp'
+      )
+      if (vises) {
+        expect(alert).toBeVisible()
+        expect(alert).toHaveAttribute('aria-live', 'polite')
+        expect(alert).toHaveTextContent(
+          'AFP i offentlig sektor kan ikke kombineres med alderspensjon.'
+        )
+      } else {
+        expect(alert).not.toBeInTheDocument()
+      }
+    }
+  )
+
   it('vises informasjon om inntekt, uttaksgrad og pensjonsalder', async () => {
     render(
       <BeregningContext.Provider
@@ -1837,7 +1885,7 @@ describe('AvansertSkjemaForAndreBrukere', () => {
         }
       )
       expect(
-        screen.getByText('beregning.vilkaarsproeving.intro', { exact: false })
+        screen.getByTestId('beregning.vilkaarsproeving.ikke_nok_opptjening')
       ).toBeVisible()
     })
   })
@@ -2057,14 +2105,18 @@ describe('AvansertSkjemaForAndreBrukere', () => {
         screen.getByText('beregning.avansert.button.beregn.endring')
       )
 
-      expect(
-        screen.getByText(
-          'Du kan tidligst endre uttaksgrad til 20, 40, 50, 60 eller 80 % fra',
-          {
-            exact: false,
-          }
-        )
-      ).toBeVisible()
+      const alert = screen.getByTestId(
+        'beregning.ugyldig-uttaksgrad.12-maaneder'
+      )
+      expect(alert).toBeVisible()
+      expect(alert).toHaveTextContent('12-månedersregel')
+      const forventetDato = `01.${String(new Date().getMonth() + 1).padStart(2, '0')}.${new Date().getFullYear() + 1}`
+      expect(alert).toHaveTextContent(
+        `Du kan derfor tidligst endre uttaksgrad fra ${forventetDato}.`
+      )
+      expect(alert).toHaveTextContent(
+        'Du kan endre til 0 eller 100 % så ofte du vil.'
+      )
       expect(scrollToMock).toHaveBeenCalledWith(0, 0)
     })
   })

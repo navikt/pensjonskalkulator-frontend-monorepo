@@ -406,7 +406,7 @@ const generatePdfContent = (params: {
 
   // Omstillingsstoenad alert
   const omstillingsstoenadAlert = harOmstillingsstoenadLoependeSak
-    ? getOmstillingsstoenadAlert(intl, alertData)
+    ? getOmstillingsstoenadAlert(intl, alertData, normertPensjonsalder)
     : ''
 
   const apotekerError = showApotekerAlert
