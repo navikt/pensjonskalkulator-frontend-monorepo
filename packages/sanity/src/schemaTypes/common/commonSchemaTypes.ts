@@ -162,46 +162,46 @@ export const innholdField = defineField({
 							hidden: ({ parent }) => isGMultipleParent(parent),
 							options: {
 								list: [
-									{ title: 'Valgt alder for uttak', value: 'alder' },
+									{ title: 'Valgt alder for uttak (Tekst)', value: 'alder' },
 									{
-										title: 'Normert pensjonsalder',
+										title: 'Normert pensjonsalder (Tekst)',
 										value: 'normertPensjoneringsalder',
 									},
 									{
-										title: 'Nedre aldersgrense (normert minus 5 år)',
+										title: 'Nedre aldersgrense (normert minus 5 år) (Tekst)',
 										value: 'nedreAldersgrense',
 									},
-									{ title: 'Uttaksgrad fra vedtak', value: 'grad' },
+									{ title: 'Uttaksgrad fra vedtak (Tall)', value: 'grad' },
 									{
-										title: 'Uttaksgrad ved gradert uttak - NAU',
+										title: 'Uttaksgrad ved gradert uttak - NAU (Tall)',
 										value: 'grad_gradert',
 									},
 									{
-										title: 'Alder ved gradert uttak - NAU',
+										title: 'Alder ved gradert uttak - NAU (Tekst)',
 										value: 'gradert_alder',
 									},
 									{
-										title: 'Alder ved helt uttak - NAU',
+										title: 'Alder ved helt uttak - NAU (Tekst)',
 										value: 'helt_alder',
 									},
-									{ title: 'Dato for vedtak', value: 'vedtakDato' },
+									{ title: 'Dato for vedtak (Tekst)', value: 'vedtakDato' },
 									{
-										title: 'Tidligste endringsdato',
-										value: 'tidligstEndringDato',
+										title: 'Tidligste endringsdato (Tekst)',
+										value: 'tidligst-endring-ved-fremtidig-vedtak',
 									},
 									{
 										title:
-											'Tidligste dato for endring av uttaksgrad - 12 måneders regel',
+											'Tidligste dato for endring av uttaksgrad - 12 måneders regel (Tekst)',
 										value: 'tidligst-endring-uttaksgrad-dato',
 									},
-									{ title: 'TP-ordning', value: 'tpOrdning' },
+									{ title: 'TP-ordning (Tekst)', value: 'tpOrdning' },
 									{
-										title: 'Minste månedsinntekt for AFP (1G/12)',
+										title: 'Minste månedsinntekt for AFP (1G/12) (Tall)',
 										value: 'afpMinsteMaanedsinntekt',
 									},
-									{ title: 'Fornavn', value: 'fornavn' },
-									{ title: 'Fødselsdato', value: 'foedselsdato' },
-									{ title: 'Mellomrom', value: 'nbsp' },
+									{ title: 'Fornavn (Tekst)', value: 'fornavn' },
+									{ title: 'Fødselsdato (Tekst)', value: 'foedselsdato' },
+									{ title: 'Mellomrom (Tekst)', value: 'nbsp' },
 								],
 								layout: 'dropdown',
 							},

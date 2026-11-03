@@ -3,6 +3,8 @@ import { type AlertQueryResult } from '@pensjonskalkulator-frontend-monorepo/san
 import { createIntl } from 'react-intl'
 import { describe, expect, it } from 'vitest'
 
+import nb from '@/translations/nb'
+
 import {
   getAfpOffentligAlertsText,
   getOffentligTjenestePensjonAlertsText,
@@ -56,21 +58,31 @@ describe('PDF Sanity alerts', () => {
     }
   )
 
-  it('renders the omstillingsstønad alert from Sanity', () => {
-    const html = getOmstillingsstoenadAlert(
-      createIntl({ locale: 'nb', messages: {} }),
-      alertData
-    )
+  it.each([
+    { alder: { aar: 70, maaneder: 0 }, formatertAlder: '70 år' },
+    { alder: { aar: 68, maaneder: 1 }, formatertAlder: '68 år og 1 måned' },
+  ])(
+    'renders the omstillingsstønad alert with normert age $formatertAlder',
+    ({ alder, formatertAlder }) => {
+      const html = getOmstillingsstoenadAlert(
+        createIntl({ locale: 'nb', messages: nb }),
+        alertData,
+        alder
+      )
 
-    expect(html).toContain('pdf-sanity-alert--info')
-    expect(html).toContain('pdf-sanity-alert--message')
-    expect(html).not.toContain('pdf-sanity-alert__title')
-    expect(html).toContain(
-      'Alderspensjon kan ikke kombineres med gjenlevendepensjon eller omstillingsstønad'
-    )
-    expect(html).toContain('55 55 33 34')
-    expect(html).toContain('href="tel:')
-  })
+      expect(html).toContain('pdf-sanity-alert--info')
+      expect(html).toContain('pdf-sanity-alert--message')
+      expect(html).not.toContain('pdf-sanity-alert__title')
+      expect(html).toContain(
+        'Alderspensjon kan ikke kombineres med gjenlevendepensjon eller omstillingsstønad'
+      )
+      expect(html).toContain('55 55 33 34')
+      expect(html).toContain('href="tel:')
+      expect(html).toContain(formatertAlder)
+      expect(html).not.toContain('67 år')
+      expect(html).not.toContain('{normertPensjoneringsalder}')
+    }
+  )
 
   it('renders the unsupported public pension alert from Sanity', () => {
     const html = getPensjonsavtalerAlertsText({

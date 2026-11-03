@@ -1014,7 +1014,7 @@ test.describe('Hovedhistorie', () => {
               .check()
 
             await expect(
-              page.getByTestId('afp-etterfulgt-ap-informasjon')
+              page.getByTestId('afp.inntekt-siste-maaned')
             ).toBeVisible()
           })
 
