@@ -393,7 +393,7 @@ export const AvansertSkjemaForBrukereMedKap19Afp: React.FC<{
                 <SanityAlert
                   id="afp.inntekt-siste-maaned"
                   role="alert"
-                  onLinkClick={() => {
+                  onRouteClick={() => {
                     dispatch(
                       userInputActions.setAfpInntektMaanedFoerUttak(null)
                     )

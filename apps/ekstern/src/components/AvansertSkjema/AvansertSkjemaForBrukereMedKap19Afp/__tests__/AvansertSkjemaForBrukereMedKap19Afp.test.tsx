@@ -441,6 +441,27 @@ describe('AvansertSkjemaForBrukereMedKap19Afp', () => {
           )
           expect(link).toHaveAttribute('href', '/pensjon/kalkulator/afp')
 
+          const userInputBeforeClick = store.getState().userInput
+          for (const clickOptions of [
+            { ctrlKey: true },
+            { metaKey: true },
+            { shiftKey: true },
+            { altKey: true },
+            { button: 1 },
+          ]) {
+            window.addEventListener(
+              'click',
+              (event) => event.preventDefault(),
+              {
+                once: true,
+              }
+            )
+            fireEvent.click(link, clickOptions)
+
+            expect(store.getState().userInput).toEqual(userInputBeforeClick)
+            expect(navigateToRoute).not.toHaveBeenCalled()
+          }
+
           await user.click(link)
 
           expect(store.getState().userInput).toMatchObject({
