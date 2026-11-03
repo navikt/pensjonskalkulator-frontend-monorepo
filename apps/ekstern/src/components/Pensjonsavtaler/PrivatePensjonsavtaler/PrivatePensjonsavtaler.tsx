@@ -1,4 +1,5 @@
 /* eslint-disable react/prop-types */
+import { SanityAlert } from '@pensjonskalkulator-frontend-monorepo/sanity/SanityAlert'
 import { FormattedMessage } from 'react-intl'
 import { Fragment } from 'react/jsx-runtime'
 
@@ -34,40 +35,43 @@ export const PrivatePensjonsavtaler: React.FC<PrivatePensjonsavtalerProps> = ({
   // TODO PEK-812 Bør vi ha en håndtering av loading?
   return (
     <>
-      {alertsList.map(
-        (alert: {
-          alertTextId: string
-          variant: 'info' | 'warning'
-          logText?: string
-          headingId?: string
-          className?: string
-        }) => {
-          if (alert.logText) {
-            logger(ALERT_VIST, {
-              tekst: alert.logText,
-              variant: alert.variant,
-            })
-          }
-
-          return (
-            <Fragment key={alert.alertTextId}>
-              {alert.headingId && (
-                <Heading level={headingLevel} size="small" spacing>
-                  <FormattedMessage id={alert.headingId} />
-                </Heading>
-              )}
-
-              <Alert
-                inline
-                variant={alert.variant}
-                className={alert.className ?? styles.alert__margin}
-              >
-                <FormattedMessage id={alert.alertTextId} />
-              </Alert>
-            </Fragment>
-          )
+      {alertsList.map((alert) => {
+        if (alert.logText) {
+          logger(ALERT_VIST, {
+            tekst: alert.logText,
+            variant: alert.variant,
+          })
         }
-      )}
+
+        const alertKey = alert.sanityId ?? alert.alertTextId
+        if (!alertKey) return null
+
+        const alertContent = alert.sanityId ? (
+          <SanityAlert
+            id={alert.sanityId}
+            className={alert.className ?? styles.alert__margin}
+          />
+        ) : alert.alertTextId ? (
+          <Alert
+            inline
+            variant={alert.variant}
+            className={alert.className ?? styles.alert__margin}
+          >
+            <FormattedMessage id={alert.alertTextId} />
+          </Alert>
+        ) : null
+
+        return (
+          <Fragment key={alertKey}>
+            {alert.headingId && (
+              <Heading level={headingLevel} size="small" spacing>
+                <FormattedMessage id={alert.headingId} />
+              </Heading>
+            )}
+            {alertContent}
+          </Fragment>
+        )
+      })}
 
       {isSuccess &&
         privatePensjonsavtaler &&

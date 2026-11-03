@@ -1,8 +1,8 @@
-import { describe, expect, it } from 'vitest'
+import { afterEach, describe, expect, it, vi } from 'vitest'
 
 import { personMock } from '@/mocks'
 import { userInputInitialState } from '@/state/userInput/userInputSlice'
-import { render, screen } from '@/test-utils'
+import { fireEvent, render, screen } from '@/test-utils'
 
 import { MaanedligPensjon } from '../MaanedligPensjon'
 
@@ -50,7 +50,7 @@ describe('MaanedligPensjon', () => {
     },
   ]
 
-  it('rendrer riktig', () => {
+  const renderMaanedsbeloep = (uttaksalder: Alder | null) =>
     render(
       <MaanedligPensjon
         alderspensjonMaanedligVedEndring={{
@@ -67,7 +67,7 @@ describe('MaanedligPensjon', () => {
             ...userInputInitialState,
             currentSimulation: {
               ...userInputInitialState.currentSimulation,
-              uttaksalder: { aar: 67, maaneder: 0 },
+              uttaksalder,
             },
           },
         },
@@ -75,34 +75,52 @@ describe('MaanedligPensjon', () => {
       }
     )
 
+  const kopier = (fra: Node, til: Node) => {
+    const range = document.createRange()
+    range.setStartBefore(fra)
+    range.setEndAfter(til)
+    window.getSelection()?.removeAllRanges()
+    window.getSelection()?.addRange(range)
+    const setData = vi.fn()
+    fireEvent.copy(fra, { clipboardData: { setData } })
+    return setData.mock.calls[0]?.[1] as string
+  }
+
+  const rader = (table: HTMLTableElement) =>
+    Array.from(table.rows, (row) =>
+      Array.from(row.cells, (cell) => cell.textContent?.trim()).join(' ')
+    ).join('\n')
+
+  afterEach(() => {
+    window.getSelection()?.removeAllRanges()
+  })
+
+  it('rendrer riktig', () => {
+    renderMaanedsbeloep({ aar: 67, maaneder: 0 })
     expect(screen.getByTestId('maanedlig-pensjon')).toBeInTheDocument()
   })
 
-  it('returnerer null når uttaksalder ikke er definert', async () => {
-    const { container } = render(
-      <MaanedligPensjon
-        alderspensjonMaanedligVedEndring={{
-          heltUttakMaanedligBeloep: 20000,
-          gradertUttakMaanedligBeloep: 15000,
-        }}
-        afpPrivatListe={[]}
-        afpOffentligListe={afpOffentligListe}
-        pensjonsavtaler={pensjonsavtaler}
-      />,
-      {
-        preloadedState: {
-          userInput: {
-            ...userInputInitialState,
-            currentSimulation: {
-              ...userInputInitialState.currentSimulation,
-              uttaksalder: null,
-            },
-          },
-        },
-        preloadedApiState: { getPerson: personMock },
-      }
-    )
+  it('kopierer én rad per linje med etikett og beløp på samme linje', () => {
+    renderMaanedsbeloep({ aar: 67, maaneder: 0 })
+    const table = screen
+      .getByTestId('maanedlig-pensjon')
+      .querySelector('table')!
 
+    expect(kopier(table, table)).toBe(rader(table))
+  })
+
+  it('kopierer ikke skjult innhold', () => {
+    renderMaanedsbeloep({ aar: 67, maaneder: 0 })
+    const box = screen.getByTestId('maanedlig-pensjon')
+    const [heading, desktop, mobile] = Array.from(box.children) as HTMLElement[]
+    const mobileTable = mobile.querySelector('table')!
+    desktop.style.display = 'none'
+
+    expect(kopier(heading, mobileTable).match(/Sum pensjon/g)).toHaveLength(1)
+  })
+
+  it('returnerer null når uttaksalder ikke er definert', () => {
+    const { container } = renderMaanedsbeloep(null)
     expect(container).toBeEmptyDOMElement()
   })
 })

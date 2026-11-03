@@ -1,11 +1,11 @@
 @use '../../../scss/variables';
 
 .main {
-  background: var(--a-gray-100);
+  background: var(--ax-neutral-200);
   min-height: 55vh;
 
   &__white {
-    background: var(--a-white);
+    background: var(--ax-bg-default);
   }
 
   &__noMinHeight {
@@ -14,7 +14,7 @@
 }
 
 .content {
-  padding: var(--a-spacing-6) 0 0 0;
+  padding: var(--ax-space-24) 0 0 0;
   display: flex;
   flex-flow: column;
   align-items: start;
@@ -26,10 +26,10 @@
 
 .headerGroup {
   width: 100%;
-  padding-bottom: var(--a-spacing-4);
+  padding-bottom: var(--ax-space-16);
 
-  @media (min-width: variables.$a-breakpoint-lg) {
-    width: variables.$a-breakpoint-lg;
+  @media (min-width: variables.$ax-breakpoint-lg) {
+    width: variables.$ax-breakpoint-lg;
     margin: 0 auto;
   }
 
@@ -37,33 +37,33 @@
     display: flex;
     align-items: center;
     width: 100%;
-    padding: 0 var(--a-spacing-6) 0 var(--a-spacing-6);
+    padding: 0 var(--ax-space-24) 0 var(--ax-space-24);
 
     &__logo {
-      margin-right: var(--a-spacing-4);
+      margin-right: var(--ax-space-16);
       height: 48px;
       width: 48px;
 
-      @media (min-width: variables.$a-breakpoint-md) {
+      @media (min-width: variables.$ax-breakpoint-md) {
         height: 56px;
         width: 56px;
       }
     }
 
-    @media (min-width: variables.$a-breakpoint-lg) {
+    @media (min-width: variables.$ax-breakpoint-lg) {
       padding: 0;
     }
 
     &__isFramed {
       margin: 0 auto;
-      padding: 0 var(--a-spacing-6) 0 var(--a-spacing-6);
+      padding: 0 var(--ax-space-24) 0 var(--ax-space-24);
 
-      @media (min-width: variables.$a-breakpoint-md) {
+      @media (min-width: variables.$ax-breakpoint-md) {
         padding: 0;
         width: variables.$container-max-width;
       }
 
-      @media (min-width: variables.$a-breakpoint-lg) {
+      @media (min-width: variables.$ax-breakpoint-lg) {
         margin: 0;
       }
     }

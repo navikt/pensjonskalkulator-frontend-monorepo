@@ -241,9 +241,9 @@ describe('Simulering-utils-highcharts', () => {
         expect(tooltipUpdateMock).toHaveBeenCalled()
         expect(pointUpdateMock).toHaveBeenCalledTimes(3)
         expect(pointUpdateMock.mock.calls).toEqual([
-          [{ color: 'var(--a-deepblue-200)' }, false],
-          [{ color: 'var(--a-data-surface-5-subtle)' }, false],
-          [{ color: 'var(--a-purple-200)' }, false],
+          [{ color: 'var(--ax-bg-accent-moderate-pressed)' }, false],
+          [{ color: 'var(--ax-bg-success-moderate-pressed)' }, false],
+          [{ color: 'var(--ax-bg-meta-purple-moderate-pressed)' }, false],
         ])
         expect(redrawMock).toHaveBeenCalledOnce()
         expect(tooltipRefreshMock).toHaveBeenCalledOnce()
@@ -292,9 +292,9 @@ describe('Simulering-utils-highcharts', () => {
           vi.advanceTimersByTime(150)
           expect(pointUpdateMock).toHaveBeenCalledTimes(3)
           expect(pointUpdateMock.mock.calls).toEqual([
-            [{ color: 'var(--a-deepblue-500)' }, false],
-            [{ color: 'var(--a-data-surface-5)' }, false],
-            [{ color: 'var(--a-purple-400)' }, false],
+            [{ color: 'var(--ax-bg-accent-strong-hover)' }, false],
+            [{ color: 'var(--ax-bg-success-strong)' }, false],
+            [{ color: 'var(--ax-bg-meta-purple-strong)' }, false],
           ])
           expect(redrawMock).toHaveBeenCalledOnce()
           expect(tooltipUpdateMock).toHaveBeenCalledOnce()
@@ -317,37 +317,37 @@ describe('Simulering-utils-highcharts', () => {
           expect(pointUpdateMock.mock.calls).toEqual([
             [
               {
-                color: 'var(--a-deepblue-500)',
+                color: 'var(--ax-bg-accent-strong-hover)',
               },
               false,
             ],
             [
               {
-                color: 'var(--a-data-surface-5)',
+                color: 'var(--ax-bg-success-strong)',
               },
               false,
             ],
             [
               {
-                color: 'var(--a-purple-400)',
+                color: 'var(--ax-bg-meta-purple-strong)',
               },
               false,
             ],
             [
               {
-                color: 'var(--a-deepblue-500)',
+                color: 'var(--ax-bg-accent-strong-hover)',
               },
               false,
             ],
             [
               {
-                color: 'var(--a-data-surface-5)',
+                color: 'var(--ax-bg-success-strong)',
               },
               false,
             ],
             [
               {
-                color: 'var(--a-purple-400)',
+                color: 'var(--ax-bg-meta-purple-strong)',
               },
               false,
             ],

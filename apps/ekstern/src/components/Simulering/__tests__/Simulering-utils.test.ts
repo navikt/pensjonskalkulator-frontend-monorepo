@@ -1376,10 +1376,16 @@ describe('Simulering-utils', () => {
 
   describe('getHoverColor og getNormalColor', () => {
     test.each([
-      ['var(--a-deepblue-500)', 'var(--a-deepblue-200)'],
-      ['var(--a-data-surface-5)', 'var(--a-data-surface-5-subtle)'],
-      ['var(--a-purple-400)', 'var(--a-purple-200)'],
-      ['var(--a-gray-500)', 'var(--a-gray-300)'],
+      [
+        'var(--ax-bg-accent-strong-hover)',
+        'var(--ax-bg-accent-moderate-pressed)',
+      ],
+      ['var(--ax-bg-success-strong)', 'var(--ax-bg-success-moderate-pressed)'],
+      [
+        'var(--ax-bg-meta-purple-strong)',
+        'var(--ax-bg-meta-purple-moderate-pressed)',
+      ],
+      ['var(--ax-bg-neutral-strong)', 'var(--ax-bg-neutral-moderate-pressed)'],
       ['#FF0000', ''],
     ])('returnerer riktig hover farge for: %s', async (a, expected) => {
       const color = getHoverColor(a)
@@ -1387,14 +1393,20 @@ describe('Simulering-utils', () => {
     })
 
     test.each([
-      ['var(--a-deepblue-200)', 'var(--a-deepblue-500)'],
-      ['var(--a-data-surface-5-subtle)', 'var(--a-data-surface-5)'],
-      ['var(--a-purple-200)', 'var(--a-purple-400)'],
-      ['var(--a-gray-300)', 'var(--a-gray-500)'],
-      ['var(--a-deepblue-500)', 'var(--a-deepblue-500)'],
-      ['var(--a-data-surface-5)', 'var(--a-data-surface-5)'],
-      ['var(--a-purple-400)', 'var(--a-purple-400)'],
-      ['var(--a-gray-500)', 'var(--a-gray-500)'],
+      [
+        'var(--ax-bg-accent-moderate-pressed)',
+        'var(--ax-bg-accent-strong-hover)',
+      ],
+      ['var(--ax-bg-success-moderate-pressed)', 'var(--ax-bg-success-strong)'],
+      [
+        'var(--ax-bg-meta-purple-moderate-pressed)',
+        'var(--ax-bg-meta-purple-strong)',
+      ],
+      ['var(--ax-bg-neutral-moderate-pressed)', 'var(--ax-bg-neutral-strong)'],
+      ['var(--ax-bg-accent-strong-hover)', 'var(--ax-bg-accent-strong-hover)'],
+      ['var(--ax-bg-success-strong)', 'var(--ax-bg-success-strong)'],
+      ['var(--ax-bg-meta-purple-strong)', 'var(--ax-bg-meta-purple-strong)'],
+      ['var(--ax-bg-neutral-strong)', 'var(--ax-bg-neutral-strong)'],
     ])('returnerer riktig normal farge for: %s', async (a, expected) => {
       const color = getNormalColor(a)
       expect(color).toEqual(expected)

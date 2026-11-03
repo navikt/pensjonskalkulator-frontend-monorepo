@@ -1,32 +1,32 @@
 @use '../../scss/variables';
 
 .section {
-  margin-top: var(--a-spacing-4);
+  margin-top: var(--ax-space-16);
 }
 
 .bodyshort {
-  color: var(--a-text-subtle);
-  margin-bottom: var(--a-spacing-4);
+  color: var(--ax-text-neutral-subtle);
+  margin-bottom: var(--ax-space-16);
 }
 
 .utenlandsperioder {
-  margin-block: var(--a-spacing-4);
+  margin-block: var(--ax-space-16);
 
   &Item {
     display: flex;
     flex-direction: column;
-    border: 1px solid var(--a-border-default);
-    border-radius: var(--a-border-radius-medium);
-    padding: var(--a-spacing-4);
+    border: 1px solid var(--ax-border-neutral);
+    border-radius: var(--ax-radius-4);
+    padding: var(--ax-space-16);
 
     &:not(:last-child) {
-      margin-bottom: var(--a-spacing-4);
+      margin-bottom: var(--ax-space-16);
     }
   }
 
   dd {
     margin-left: 0;
-    line-height: var(--a-font-line-height-xlarge);
+    line-height: var(--ax-font-line-height-xlarge);
   }
 
   &Buttons {
@@ -44,7 +44,7 @@
     }
   }
 
-  @media (min-width: variables.$a-breakpoint-md) {
+  @media (min-width: variables.$ax-breakpoint-md) {
     &Item {
       flex-direction: row;
     }
@@ -65,5 +65,5 @@
 }
 
 .error {
-  margin-top: var(--a-spacing-4);
+  margin-top: var(--ax-space-16);
 }

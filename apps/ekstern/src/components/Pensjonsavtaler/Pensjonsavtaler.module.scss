@@ -1,8 +1,8 @@
 @use '../../scss/variables';
 
 .footnote {
-  padding-top: var(--a-spacing-4);
-  margin-top: var(--a-spacing-4);
+  padding-top: var(--ax-space-16);
+  margin-top: var(--ax-space-16);
   width: 100%;
-  border-top: 1px solid var(--a-border-divider);
+  border-top: 1px solid var(--ax-border-neutral-subtle);
 }

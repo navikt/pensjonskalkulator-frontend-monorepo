@@ -33,6 +33,30 @@ export const PRINT_STYLES = `
   .pdf-table-type2 tbody > tr:last-child { font-weight: bold; }
   td.pdf-td-type2 { vertical-align: top; width: 33%; padding-top: 0; padding-right: 8px; }
   table.alert-box { border: 2px solid #0214317d; border-radius: 8px; }
+  .pdf-sanity-alert {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    margin: 0 0 1em;
+    padding: 12px 16px;
+    border: 1px solid #6a9fb7;
+    border-radius: 8px;
+    background: #eaf4f8;
+    color: #23262a;
+    break-inside: avoid;
+  }
+  .pdf-sanity-alert--warning { border-color: #c77300; background: #fff4df; }
+  .pdf-sanity-alert--danger { border-color: #c30000; background: #fff1f1; }
+  .pdf-sanity-alert--success { border-color: #06893a; background: #edfbf0; }
+  .pdf-sanity-alert__icon { flex: 0 0 16px; padding-top: 2px; }
+  .pdf-sanity-alert__icon svg { width: 16px; height: 16px; }
+  .pdf-sanity-alert__body { min-width: 0; flex: 1; }
+  .pdf-sanity-alert__title { margin: 0 0 4px; padding: 0; font-size: 16px; font-weight: 600; }
+  .pdf-sanity-alert__body p, .pdf-sanity-alert__body li { width: auto; font-size: 14px; line-height: 1.5; }
+  .pdf-sanity-alert__body p { margin: 0; }
+  .pdf-sanity-alert__body p + p { margin-top: 8px; }
+  .pdf-sanity-alert__body a { color: inherit; text-decoration: none; }
+  .pdf-sanity-alert__body a svg { display: none; }
   div.pdf-metadata { margin-top: -1em; }
   div.utenlandsopphold-land-item { border: 1px solid rgb(2 20 49 / 49%); border-radius: 8px; padding: 8px; margin-bottom: 1em; }
   .display-inline { display: inline; }

@@ -42,7 +42,7 @@ test.describe('Hovedhistorie', () => {
 
   const checkForValidationErrors = async (page: Page): Promise<string[]> => {
     const validationMessages = page.locator(
-      '[role="alert"], .navds-alert--error, [data-testid*="validation"], [data-testid*="error"]'
+      '[role="alert"], [data-testid*="validation"], [data-testid*="error"]'
     )
     const count = await validationMessages.count()
     const errors: string[] = []
@@ -256,7 +256,7 @@ test.describe('Hovedhistorie', () => {
         ])
 
         await expect(
-          page.locator('[data-intl="stegvisning.fremtidigvedtak.alert"]')
+          page.getByTestId('start.fremtidig-vedtak-uten-gjeldende')
         ).toBeVisible()
       })
     })
@@ -1014,7 +1014,7 @@ test.describe('Hovedhistorie', () => {
               .check()
 
             await expect(
-              page.getByTestId('afp-etterfulgt-ap-informasjon')
+              page.getByTestId('afp.inntekt-siste-maaned')
             ).toBeVisible()
           })
 
@@ -1408,7 +1408,8 @@ test.describe('Hovedhistorie', () => {
         await page.getByTestId('inntekt-textfield').fill('100000')
         await page.getByTestId('inntekt.endre_inntekt_modal.button').click()
 
-        await expect(page.getByTestId('alert-inntekt')).toBeVisible()
+        const alert = page.getByTestId('beregning.endret-inntekt')
+        await expect(alert).toBeVisible()
       })
 
       test('ønsker jeg å kunne starte på nytt og at inntekt da er tilbake til siste årsinntekt', async ({

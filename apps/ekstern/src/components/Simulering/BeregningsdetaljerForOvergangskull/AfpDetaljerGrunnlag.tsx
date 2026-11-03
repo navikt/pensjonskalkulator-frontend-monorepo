@@ -90,13 +90,17 @@ export const AfpDetaljerGrunnlag: React.FC<Props> = ({
 
   return (
     <VStack
-      gap="14"
+      gap="space-56"
       width="100%"
       data-testid="beregningsdetaljer-for-overgangskull"
     >
       {afpDetaljerListe.map((afpDetaljForValgtUttak, index) => (
         <Box key={index}>
-          <VStack gap="4 8" width="100%" marginBlock="6 4">
+          <VStack
+            gap="space-16 space-32"
+            width="100%"
+            marginBlock="space-24 space-16"
+          >
             {shouldRenderHeading(afpDetaljForValgtUttak) &&
               renderAfpHeading(afpDetaljForValgtUttak, index)}
             {renderDetaljer(afpDetaljForValgtUttak)}

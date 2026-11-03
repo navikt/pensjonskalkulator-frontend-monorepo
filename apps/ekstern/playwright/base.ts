@@ -201,6 +201,10 @@ export async function setupInterceptions(
       overrideJsonResponse: { active: false },
     },
     {
+      url: /^https?:\/\/g2by7q6m\.apicdn\.sanity\.io.*alert/,
+      mockFileName: 'sanity-alert-data.json',
+    },
+    {
       url: /^https?:\/\/g2by7q6m\.apicdn\.sanity\.io.*readmore/,
       mockFileName: 'sanity-readmore-data.json',
     },

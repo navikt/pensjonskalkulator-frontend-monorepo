@@ -117,7 +117,7 @@ export const PrivatePensjonsavtalerDesktop: React.FC<Props> = ({
   }, [pensjonsavtaler])
 
   return (
-    <VStack gap="2" data-testid="private-pensjonsavtaler-desktop">
+    <VStack gap="space-8" data-testid="private-pensjonsavtaler-desktop">
       {Object.entries(gruppertePensjonsavtaler).map(
         ([avtaleGruppeNavn, gruppePensjonsavtaler]) => (
           <AvtaleGruppe

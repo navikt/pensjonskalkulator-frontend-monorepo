@@ -833,13 +833,18 @@ test.describe('Med samtykke - Offentlig tjenestepensjon', () => {
           page,
         }) => {
           await expect(
-            page.getByRole('heading', { name: /Offentlig tjenestepensjon/i })
+            page.getByRole('heading', {
+              name: 'Offentlig tjenestepensjon',
+              exact: true,
+            })
           ).toBeVisible()
-          await expect(
-            page.getByText(
-              /Du er eller har vært ansatt i offentlig sektor.*kan dessverre ikke hente inn offentlige pensjonsavtaler.*Oslo Pensjonsforsikring/i
-            )
-          ).toBeVisible()
+          const alert = page.getByTestId(
+            'pensjonsavtaler.kan-ikke-hente-alle-offentlige'
+          )
+          await expect(alert).toBeVisible()
+          await expect(alert).toContainText(
+            /Du er eller har vært ansatt i offentlig sektor.*kan dessverre ikke hente pensjonsavtaler fra alle offentlige tjenestepensjonsordninger.*Oslo Pensjonsforsikring/i
+          )
         })
       })
     })

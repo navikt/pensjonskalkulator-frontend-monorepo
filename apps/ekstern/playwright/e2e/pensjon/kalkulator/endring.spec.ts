@@ -207,7 +207,9 @@ test.describe('Endring av alderspensjon', () => {
             page,
           }) => {
             await expect(page).toHaveURL(/\/beregning/)
-            await expect(page.getByTestId('apotekere-warning')).toBeVisible()
+            await expect(
+              page.getByTestId('apoteker.beregning-med-afp-feil')
+            ).toBeVisible()
           })
         })
 

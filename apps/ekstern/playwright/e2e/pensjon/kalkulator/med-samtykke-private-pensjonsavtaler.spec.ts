@@ -206,8 +206,11 @@ test.describe('Med samtykke private pensjonsavtaler', () => {
       test('forventer jeg at pensjonsavtaler ikke vises i graf eller tabell.', async ({
         page,
       }) => {
-        // Verify pensjonsavtaler is not in chart legend
-        await expect(page.getByText('Pensjon fra andre')).toHaveCount(2)
+        await expect(
+          page
+            .getByTestId('highcharts-aria-wrapper')
+            .getByText('Pensjon fra andre')
+        ).toHaveCount(0)
       })
 
       // 9
@@ -265,8 +268,15 @@ test.describe('Med samtykke private pensjonsavtaler', () => {
       test('forventer jeg at pensjonsavtaler ikke vises i graf eller tabell.', async ({
         page,
       }) => {
-        // Verify pensjonsavtaler is not in chart legend
-        await expect(page.getByText('Pensjon fra andre')).toHaveCount(2)
+        await expect(
+          page
+            .getByTestId('highcharts-aria-wrapper')
+            .getByText('Pensjon fra andre')
+        ).toHaveCount(0)
+        await page.getByRole('button', { name: /Vis tabell/i }).click()
+        await expect(
+          page.getByRole('columnheader', { name: 'Pensjon fra andre' })
+        ).toHaveCount(0)
       })
 
       // 12

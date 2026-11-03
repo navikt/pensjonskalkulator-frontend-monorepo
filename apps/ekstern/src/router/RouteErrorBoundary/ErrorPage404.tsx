@@ -38,7 +38,7 @@ export const ErrorPage404 = () => {
                 </BodyLong>
               </List.Item>
             </List>
-            <VStack gap="4">
+            <VStack gap="space-16">
               <Link as={ReactRouterLink} to={paths.login}>
                 <FormattedMessage id="error.404.button.link_1" />
               </Link>

@@ -1,9 +1,9 @@
+import { SanityAlert } from '@pensjonskalkulator-frontend-monorepo/sanity/SanityAlert'
 import clsx from 'clsx'
 import React from 'react'
 import { FormattedMessage, useIntl } from 'react-intl'
 
 import {
-  Alert,
   BodyLong,
   Heading,
   HeadingProps,
@@ -115,7 +115,7 @@ export const OffentligTjenestepensjon = (props: {
     offentligTp?.simuleringsresultatStatus === 'OK' && tpNummer !== undefined
 
   return (
-    <VStack gap="3">
+    <VStack gap="space-12">
       <Divider smallMargin />
       <Heading id="tpo-heading" level={headingLevel} size="small">
         {intl.formatMessage({ id: 'pensjonsavtaler.offentligtp.title' })}
@@ -138,17 +138,12 @@ export const OffentligTjenestepensjon = (props: {
               : undefined
 
           return (
-            <Alert
-              key={`offentligtp-alert-${index}`}
-              inline
-              variant={alert.variant}
-              data-testid={alert.testId}
-            >
-              <FormattedMessage
-                id={alert.alertTextId}
-                values={{ chunk: chunk ? `(${chunk})` : '' }}
+            <div key={`offentligtp-alert-${index}`} data-testid={alert.testId}>
+              <SanityAlert
+                id={alert.sanityId}
+                dynamicValues={chunk ? { tpOrdning: chunk } : undefined}
               />
-            </Alert>
+            </div>
           )
         })}
 

@@ -68,7 +68,7 @@ export const GrunnlagAFP: React.FC = () => {
   ])
 
   return (
-    <VStack gap="1">
+    <VStack gap="space-4">
       <Heading
         level="3"
         size="small"

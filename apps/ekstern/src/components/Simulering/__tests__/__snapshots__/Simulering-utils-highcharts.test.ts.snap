@@ -39,9 +39,9 @@ exports[`Simulering-utils-highcharts > onPointClick og onPointUnclick > getChart
     },
     "itemMarginBottom": 5,
     "itemStyle": {
-      "color": "var(--a-text-default)",
+      "color": "var(--ax-text-neutral)",
       "cursor": "default",
-      "fontFamily": "var(--a-font-family)",
+      "fontFamily": "var(--ax-font-family)",
       "fontSize": "14px",
       "fontWeight": "regular",
       "zIndex": 0,
@@ -91,7 +91,7 @@ exports[`Simulering-utils-highcharts > onPointClick og onPointUnclick > getChart
           "xAxis": {
             "labels": {
               "style": {
-                "fontSize": "var(--a-font-size-small)",
+                "fontSize": "var(--ax-font-size-small)",
               },
             },
             "title": {
@@ -103,7 +103,7 @@ exports[`Simulering-utils-highcharts > onPointClick og onPointUnclick > getChart
               "formatter": [Function],
               "style": {
                 "backgroundColor": "transparent",
-                "fontSize": "var(--a-font-size-small)",
+                "fontSize": "var(--ax-font-size-small)",
               },
               "x": 0,
             },
@@ -111,7 +111,7 @@ exports[`Simulering-utils-highcharts > onPointClick og onPointUnclick > getChart
             "title": {
               "margin": -75,
               "style": {
-                "fontSize": "var(--a-font-size-small)",
+                "fontSize": "var(--ax-font-size-small)",
               },
               "text": "beregning.highcharts.yaxis.mobile",
               "x": -73,
@@ -153,19 +153,19 @@ exports[`Simulering-utils-highcharts > onPointClick og onPointUnclick > getChart
     "labels": {
       "formatter": [Function],
       "style": {
-        "color": "var(--a-text-subtle)",
-        "fontFamily": "var(--a-font-family)",
-        "fontSize": "var(--a-font-size-medium)",
+        "color": "var(--ax-text-neutral-subtle)",
+        "fontFamily": "var(--ax-font-family)",
+        "fontSize": "var(--ax-font-size-medium)",
       },
       "y": 20,
     },
-    "lineColor": "var(--a-text-subtle)",
+    "lineColor": "var(--ax-text-neutral-subtle)",
     "title": {
       "align": "high",
       "style": {
-        "color": "var(--a-text-subtle)",
-        "fontFamily": "var(--a-font-family)",
-        "fontSize": "var(--a-font-size-medium)",
+        "color": "var(--ax-text-neutral-subtle)",
+        "fontFamily": "var(--ax-font-family)",
+        "fontSize": "var(--ax-font-size-medium)",
       },
       "text": "beregning.highcharts.xaxis",
       "y": -5,
@@ -173,16 +173,16 @@ exports[`Simulering-utils-highcharts > onPointClick og onPointUnclick > getChart
   },
   "yAxis": {
     "allowDecimals": false,
-    "gridLineColor": "var(--a-gray-400)",
+    "gridLineColor": "var(--ax-neutral-500)",
     "gridLineWidth": 1,
     "labels": {
       "align": "left",
       "formatter": [Function],
       "style": {
-        "color": "var(--a-text-subtle)",
-        "fontFamily": "var(--a-font-family)",
-        "fontSize": "var(--a-font-size-medium)",
-        "paddingRight": "var(--a-spacing-3)",
+        "color": "var(--ax-text-neutral-subtle)",
+        "fontFamily": "var(--ax-font-family)",
+        "fontSize": "var(--ax-font-size-medium)",
+        "paddingRight": "var(--ax-space-12)",
       },
       "useHTML": true,
       "x": -55,
@@ -196,8 +196,8 @@ exports[`Simulering-utils-highcharts > onPointClick og onPointUnclick > getChart
       "align": "high",
       "rotation": 0,
       "style": {
-        "fontFamily": "var(--a-font-family)",
-        "fontSize": "var(--a-font-size-medium)",
+        "fontFamily": "var(--ax-font-family)",
+        "fontSize": "var(--ax-font-size-medium)",
         "zIndex": 0,
       },
       "text": "beregning.highcharts.yaxis",

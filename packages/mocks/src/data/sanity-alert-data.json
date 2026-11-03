@@ -1,6 +1,282 @@
 {
 	"result": [
 		{
+			"name": "beregning.vilkaarsproeving.ikke_nok_opptjening.ut_afp_100",
+			"type": "local-alert",
+			"status": "warning",
+			"infoCardStatus": null,
+			"overskrift": null,
+			"buttonLabel": null,
+			"innhold": [
+				{
+					"_key": "afp-100-intro",
+					"_type": "block",
+					"style": "normal",
+					"markDefs": [],
+					"children": [
+						{
+							"_key": "intro",
+							"_type": "span",
+							"marks": [],
+							"text": "Opptjeningen din er ikke høy nok til ønsket uttak. Du må sette ned uttaksgraden."
+						}
+					]
+				},
+				{
+					"_key": "afp-100-alternativ",
+					"_type": "block",
+					"style": "normal",
+					"markDefs": [],
+					"children": [
+						{
+							"_key": "alternativ",
+							"_type": "span",
+							"marks": [],
+							"text": "Et alternativ er at du ved "
+						},
+						{
+							"_key": "nedre-alder",
+							"_type": "dynamicValue",
+							"key": "nedreAldersgrense",
+							"valueType": "string"
+						},
+						{
+							"_key": "uttak",
+							"_type": "span",
+							"marks": [],
+							"text": " kan ta ut "
+						},
+						{
+							"_key": "grad",
+							"_type": "dynamicValue",
+							"key": "grad_gradert",
+							"valueType": "number"
+						},
+						{
+							"_key": "avslutning",
+							"_type": "span",
+							"marks": [],
+							"text": " % alderspensjon. Prøv gjerne andre kombinasjoner."
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "beregning.vilkaarsproeving.ikke_nok_opptjening_gradert.ut_afp",
+			"type": "local-alert",
+			"status": "warning",
+			"infoCardStatus": null,
+			"overskrift": null,
+			"buttonLabel": null,
+			"innhold": [
+				{
+					"_key": "afp-gradert-intro",
+					"_type": "block",
+					"style": "normal",
+					"markDefs": [],
+					"children": [
+						{
+							"_key": "intro",
+							"_type": "span",
+							"marks": [],
+							"text": "Opptjeningen din er ikke høy nok til ønsket uttak. Du må endre valgene dine."
+						}
+					]
+				},
+				{
+					"_key": "afp-gradert-alternativ",
+					"_type": "block",
+					"style": "normal",
+					"markDefs": [],
+					"children": [
+						{
+							"_key": "alternativ",
+							"_type": "span",
+							"marks": [],
+							"text": "Et alternativ er at du ved "
+						},
+						{
+							"_key": "nedre-alder",
+							"_type": "dynamicValue",
+							"key": "nedreAldersgrense",
+							"valueType": "string"
+						},
+						{
+							"_key": "uttak",
+							"_type": "span",
+							"marks": [],
+							"text": " kan ta ut "
+						},
+						{
+							"_key": "grad",
+							"_type": "dynamicValue",
+							"key": "grad_gradert",
+							"valueType": "number"
+						},
+						{
+							"_key": "avslutning",
+							"_type": "span",
+							"marks": [],
+							"text": " % alderspensjon. Prøv gjerne andre kombinasjoner."
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "beregning.vilkaarsproeving.ikke_nok_opptjening.ut_afp",
+			"type": "local-alert",
+			"status": "warning",
+			"infoCardStatus": null,
+			"overskrift": null,
+			"buttonLabel": null,
+			"innhold": [
+				{
+					"_key": "afp-kombinert-intro",
+					"_type": "block",
+					"style": "normal",
+					"markDefs": [],
+					"children": [
+						{
+							"_key": "intro",
+							"_type": "span",
+							"marks": [],
+							"text": "Opptjeningen din er ikke høy nok til ønsket uttak. Du må sette ned uttaksgraden."
+						}
+					]
+				},
+				{
+					"_key": "afp-kombinert-alternativ",
+					"_type": "block",
+					"style": "normal",
+					"markDefs": [],
+					"children": [
+						{
+							"_key": "alternativ",
+							"_type": "span",
+							"marks": [],
+							"text": "Et alternativ er at du ved "
+						},
+						{
+							"_key": "nedre-alder",
+							"_type": "dynamicValue",
+							"key": "nedreAldersgrense",
+							"valueType": "string"
+						},
+						{
+							"_key": "uttak",
+							"_type": "span",
+							"marks": [],
+							"text": " kan ta ut "
+						},
+						{
+							"_key": "grad",
+							"_type": "dynamicValue",
+							"key": "grad_gradert",
+							"valueType": "number"
+						},
+						{
+							"_key": "helt-uttak",
+							"_type": "span",
+							"marks": [],
+							"text": " % alderspensjon, hvis du tar ut 100 % alderspensjon ved "
+						},
+						{
+							"_key": "helt-alder",
+							"_type": "dynamicValue",
+							"key": "helt_alder",
+							"valueType": "string"
+						},
+						{
+							"_key": "avslutning",
+							"_type": "span",
+							"marks": [],
+							"text": " eller senere. Prøv gjerne andre kombinasjoner."
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "beregning.vilkaarsproeving.ikke_nok_opptjening_nedre_alder.ut_afp",
+			"type": "local-alert",
+			"status": "warning",
+			"infoCardStatus": null,
+			"overskrift": null,
+			"buttonLabel": null,
+			"innhold": [
+				{
+					"_key": "afp-uten-alternativ-intro",
+					"_type": "block",
+					"style": "normal",
+					"markDefs": [],
+					"children": [
+						{
+							"_key": "intro",
+							"_type": "span",
+							"marks": [],
+							"text": "Opptjeningen din er ikke høy nok til uttak av alderspensjon ved "
+						},
+						{
+							"_key": "nedre-alder",
+							"_type": "dynamicValue",
+							"key": "nedreAldersgrense",
+							"valueType": "string"
+						},
+						{
+							"_key": "punktum",
+							"_type": "span",
+							"marks": [],
+							"text": "."
+						}
+					]
+				},
+				{
+					"_key": "afp-uten-alternativ-begrensning",
+					"_type": "block",
+					"style": "normal",
+					"markDefs": [],
+					"children": [
+						{
+							"_key": "begrensning",
+							"_type": "span",
+							"marks": [],
+							"text": "Kalkulatoren kan ikke beregne uttak etter "
+						},
+						{
+							"_key": "nedre-alder",
+							"_type": "dynamicValue",
+							"key": "nedreAldersgrense",
+							"valueType": "string"
+						},
+						{
+							"_key": "ufoeretrygd",
+							"_type": "span",
+							"marks": [],
+							"text": ". Hvis du tar ut alderspensjon og AFP senere enn dette, vil du i perioden fra du er 62 år frem til uttak ikke få uføretrygd. Kontakt Nav for veiledning hvis du vurderer å si fra deg uføretrygden."
+						}
+					]
+				},
+				{
+					"_key": "afp-uten-alternativ-offentlig-afp",
+					"_type": "block",
+					"style": "normal",
+					"markDefs": [],
+					"children": [
+						{
+							"_key": "offentlig-afp",
+							"_type": "span",
+							"marks": [],
+							"text": "Har du rett til livsvarig AFP i offentlig sektor kan du ta ut AFP før alderspensjon. Kontakt tjenestepensjonsordningen din for veiledning."
+						}
+					]
+				}
+			]
+		},
+		{
+			"buttonLabel": null,
+			"infoCardStatus": "message",
 			"innhold": [
 				{
 					"_key": "84829762f054",
@@ -13,22 +289,38 @@
 							"text": "Vi har hentet din livsvarige AFP. Beløpet vises ikke i graf og tabell. Se detaljer under "
 						},
 						{
-							"_key": "4eeb022ae1b9",
+							"_key": "d3a823411c5c",
+							"_type": "span",
+							"marks": ["ba8970fb192e"],
+							"text": "AFP: Offentlig"
+						},
+						{
+							"_key": "5abdc13522e3",
 							"_type": "span",
 							"marks": ["strong"],
-							"text": "AFP: Offentlig."
+							"text": "."
 						}
 					],
-					"markDefs": [],
+					"markDefs": [
+						{
+							"_key": "ba8970fb192e",
+							"_type": "link",
+							"anchorId": "afp-offentlig-heading",
+							"className": "",
+							"linkType": "anchor"
+						}
+					],
 					"style": "normal"
 				}
 			],
 			"name": "afp.beloep-vises-ikke",
-			"overskrift": "(WIP) AFP beløp vises ikke",
+			"overskrift": "AFP beløp vises ikke",
 			"status": "info",
 			"type": "info-card"
 		},
 		{
+			"buttonLabel": null,
+			"infoCardStatus": "tips",
 			"innhold": [
 				{
 					"_key": "95419adcc4f3",
@@ -57,7 +349,8 @@
 						{
 							"_key": "a67fb01c3509",
 							"_type": "dynamicValue",
-							"key": "gradert_alder"
+							"key": "gradert_alder",
+							"valueType": "string"
 						},
 						{
 							"_key": "0b06160edd8a",
@@ -68,7 +361,8 @@
 						{
 							"_key": "c64ab319d3b2",
 							"_type": "dynamicValue",
-							"key": "grad_gradert"
+							"key": "grad_gradert",
+							"valueType": "number"
 						},
 						{
 							"_key": "614b448f744c",
@@ -76,21 +370,36 @@
 							"marks": [],
 							"text": ""
 						},
-						{ "_key": "aec625d5d035", "_type": "dynamicValue", "key": "nbsp" },
+						{
+							"_key": "aec625d5d035",
+							"_type": "dynamicValue",
+							"key": "nbsp",
+							"valueType": "string"
+						},
 						{
 							"_key": "6530daee9f0b",
 							"_type": "span",
 							"marks": [],
 							"text": "% alderspensjon hvis du tar ut 100"
 						},
-						{ "_key": "e83582663352", "_type": "dynamicValue", "key": "nbsp" },
+						{
+							"_key": "e83582663352",
+							"_type": "dynamicValue",
+							"key": "nbsp",
+							"valueType": "string"
+						},
 						{
 							"_key": "4ea2ca9672ac",
 							"_type": "span",
 							"marks": [],
 							"text": "% alderspensjon ved "
 						},
-						{ "_key": "a0856a1f5948", "_type": "dynamicValue", "key": "alder" },
+						{
+							"_key": "a0856a1f5948",
+							"_type": "dynamicValue",
+							"key": "alder",
+							"valueType": "string"
+						},
 						{
 							"_key": "a1f97e7c83b9",
 							"_type": "span",
@@ -103,11 +412,13 @@
 				}
 			],
 			"name": "beregning.vilkaarsproeving.ikke_nok_opptjening_gradert",
-			"overskrift": "Opptjening er ikke høy nok",
+			"overskrift": "(WIP) Du har ikke høy nok opptjening",
 			"status": "warning",
 			"type": "info-card"
 		},
 		{
+			"buttonLabel": null,
+			"infoCardStatus": "info",
 			"innhold": [
 				{
 					"_key": "c7e8f2a8ec19",
@@ -130,6 +441,8 @@
 			"type": "info-card"
 		},
 		{
+			"buttonLabel": null,
+			"infoCardStatus": null,
 			"innhold": [
 				{
 					"_key": "c0e48dd754e3",
@@ -152,6 +465,8 @@
 			"type": "local-alert"
 		},
 		{
+			"buttonLabel": null,
+			"infoCardStatus": null,
 			"innhold": [
 				{
 					"_key": "ab5befbd9be8",
@@ -174,6 +489,8 @@
 			"type": "local-alert"
 		},
 		{
+			"buttonLabel": null,
+			"infoCardStatus": "message",
 			"innhold": [
 				{
 					"_key": "dd7de6aa18a8",
@@ -183,37 +500,41 @@
 							"_key": "f754dee13785",
 							"_type": "span",
 							"marks": [],
-							"text": "Du kan bare beregne AFP hvis du har en inntekt på minst "
-						},
-						{
-							"_key": "26abe58ecad3",
-							"_type": "span",
-							"marks": ["strong"],
-							"text": "<12 924>"
-						},
-						{
-							"_key": "2f4d68fd7435",
-							"_type": "span",
-							"marks": [],
-							"text": " kr den siste måneden før du tar ut AFP. Beregn i stedet "
+							"text": "Du kan bare beregne AFP hvis du har en inntekt den siste måneden før du tar ut AFP som tilsvarer en årsinntekt på minst 1G. Beregn i stedet "
 						},
 						{
 							"_key": "d5eef42f72d4",
 							"_type": "span",
-							"marks": ["strong"],
-							"text": "alderspensjon uten AFP."
+							"marks": ["3f630032541a"],
+							"text": "alderspensjon uten AFP"
+						},
+						{
+							"_key": "c987558656f6",
+							"_type": "span",
+							"marks": [],
+							"text": "."
 						}
 					],
-					"markDefs": [],
+					"markDefs": [
+						{
+							"_key": "3f630032541a",
+							"_type": "link",
+							"className": "",
+							"linkType": "route",
+							"route": "/pensjon/kalkulator/afp"
+						}
+					],
 					"style": "normal"
 				}
 			],
 			"name": "afp.inntekt-siste-maaned",
-			"overskrift": "(WIP) Minimum inntekt siste måned før uttak",
+			"overskrift": "Minimum inntekt siste måned før uttak",
 			"status": "info",
 			"type": "info-card"
 		},
 		{
+			"buttonLabel": null,
+			"infoCardStatus": "warning",
 			"innhold": [
 				{
 					"_key": "95419adcc4f3",
@@ -271,6 +592,8 @@
 			"type": "info-card"
 		},
 		{
+			"buttonLabel": null,
+			"infoCardStatus": "warning",
 			"innhold": [
 				{
 					"_key": "07d96c9cb4e1",
@@ -310,7 +633,7 @@
 						{
 							"_key": "98c3ac13aadb",
 							"_type": "dynamicValue",
-							"key": "tidligstEndringDato"
+							"key": "tidligst-endring-ved-fremtidig-vedtak"
 						},
 						{
 							"_key": "622fd068561a",
@@ -329,6 +652,8 @@
 			"type": "info-card"
 		},
 		{
+			"buttonLabel": null,
+			"infoCardStatus": null,
 			"innhold": [
 				{
 					"_key": "84891dbad768",
@@ -338,19 +663,20 @@
 							"_key": "a2c9efeb3f34",
 							"_type": "span",
 							"marks": [],
-							"text": "Vi klarte ikke å hente din offentlige tjenestepensjon. Prøv igjen senere eller kontakt tjenestepensjonsordningen din "
+							"text": "Vi klarte ikke å hente din offentlige tjenestepensjon. Prøv igjen senere eller kontakt tjenestepensjonsordningen din ("
 						},
 						{
-							"_key": "c2e0fc9b2ea3",
-							"_type": "span",
-							"marks": ["strong"],
-							"text": "(<TP-ordning>)"
+							"_key": "ecb6d154f3c4",
+							"_type": "dynamicValue",
+							"key": "tpOrdning",
+							"openInNewTab": false,
+							"valueType": "string"
 						},
 						{
-							"_key": "282032604b77",
+							"_key": "91e5b54a4274",
 							"_type": "span",
 							"marks": [],
-							"text": "."
+							"text": ")."
 						}
 					],
 					"markDefs": [],
@@ -358,11 +684,13 @@
 				}
 			],
 			"name": "pensjonsavtaler.klarte-ikke-hente-offentlig-tjenestepensjon",
-			"overskrift": "(WIP) Klarte ikke hente din offentlige tjenestepensjon",
+			"overskrift": "Klarte ikke hente din offentlige tjenestepensjon",
 			"status": "warning",
 			"type": "inline-message"
 		},
 		{
+			"buttonLabel": null,
+			"infoCardStatus": "info",
 			"innhold": [
 				{
 					"_key": "98f1518897f9",
@@ -385,6 +713,8 @@
 			"type": "info-card"
 		},
 		{
+			"buttonLabel": null,
+			"infoCardStatus": "attention",
 			"innhold": [
 				{
 					"_key": "7abd3686033f",
@@ -407,6 +737,8 @@
 			"type": "info-card"
 		},
 		{
+			"buttonLabel": null,
+			"infoCardStatus": null,
 			"innhold": [
 				{
 					"_key": "62f4bdd223fc",
@@ -432,17 +764,25 @@
 						}
 					],
 					"markDefs": [
-						{ "_key": "19f8d56b9568", "_type": "link", "className": "" }
+						{
+							"_key": "19f8d56b9568",
+							"_type": "link",
+							"anchorId": "pensjonsavtaler-heading",
+							"className": "",
+							"linkType": "anchor"
+						}
 					],
 					"style": "normal"
 				}
 			],
 			"name": "pensjonsavtaler.noe-gikk-galt-ved-henting-offentlig-og-privat",
-			"overskrift": "(WIP) Pensjon fra andre",
+			"overskrift": "Pensjon fra andre",
 			"status": "warning",
 			"type": "local-alert"
 		},
 		{
+			"buttonLabel": null,
+			"infoCardStatus": "message",
 			"innhold": [
 				{
 					"_key": "36fa3024c6a7",
@@ -459,7 +799,7 @@
 					"style": "normal"
 				},
 				{
-					"_key": "9cadb2c7c7fb",
+					"_key": "e6d7ebd9b82f",
 					"_type": "block",
 					"children": [
 						{
@@ -479,6 +819,8 @@
 			"type": "info-card"
 		},
 		{
+			"buttonLabel": null,
+			"infoCardStatus": null,
 			"innhold": [
 				{
 					"_key": "4e78c46c2334",
@@ -501,6 +843,8 @@
 			"type": "inline-message"
 		},
 		{
+			"buttonLabel": null,
+			"infoCardStatus": null,
 			"innhold": [
 				{
 					"_key": "d0303e68018b",
@@ -523,6 +867,8 @@
 			"type": "local-alert"
 		},
 		{
+			"buttonLabel": null,
+			"infoCardStatus": null,
 			"innhold": [
 				{
 					"_key": "cd797489627e",
@@ -545,6 +891,8 @@
 			"type": "inline-message"
 		},
 		{
+			"buttonLabel": null,
+			"infoCardStatus": null,
 			"innhold": [
 				{
 					"_key": "436ed819703f",
@@ -567,6 +915,8 @@
 			"type": "local-alert"
 		},
 		{
+			"buttonLabel": null,
+			"infoCardStatus": null,
 			"innhold": [
 				{
 					"_key": "bd4b14d8e7d9",
@@ -589,6 +939,8 @@
 			"type": "inline-message"
 		},
 		{
+			"buttonLabel": null,
+			"infoCardStatus": "message",
 			"innhold": [
 				{
 					"_key": "8352155ab169",
@@ -611,6 +963,8 @@
 			"type": "info-card"
 		},
 		{
+			"buttonLabel": null,
+			"infoCardStatus": "warning",
 			"innhold": [
 				{
 					"_key": "5dc89a490082",
@@ -683,6 +1037,8 @@
 			"type": "info-card"
 		},
 		{
+			"buttonLabel": null,
+			"infoCardStatus": null,
 			"innhold": [
 				{
 					"_key": "01053d6d1208",
@@ -705,6 +1061,8 @@
 			"type": "local-alert"
 		},
 		{
+			"buttonLabel": null,
+			"infoCardStatus": "message",
 			"innhold": [
 				{
 					"_key": "6e1f91ad6054",
@@ -727,6 +1085,8 @@
 			"type": "info-card"
 		},
 		{
+			"buttonLabel": null,
+			"infoCardStatus": null,
 			"innhold": [
 				{
 					"_key": "b877908911b1",
@@ -751,10 +1111,16 @@
 							"text": ". Du kan også "
 						},
 						{
-							"_key": "fb0aa0148d13",
+							"_key": "e271277a177b",
+							"_type": "span",
+							"marks": ["5d6c991921ce"],
+							"text": "beregne alderspensjon uten AFP"
+						},
+						{
+							"_key": "f5bb9ac223cc",
 							"_type": "span",
 							"marks": ["strong"],
-							"text": "beregne alderspensjon uten AFP."
+							"text": "."
 						}
 					],
 					"markDefs": [
@@ -764,17 +1130,26 @@
 							"blank": true,
 							"className": "",
 							"href": "https://www.nav.no/afp-offentlig#hvem-kan-fa"
+						},
+						{
+							"_key": "5d6c991921ce",
+							"_type": "link",
+							"className": "",
+							"linkType": "route",
+							"route": "/pensjon/kalkulator/afp"
 						}
 					],
 					"style": "normal"
 				}
 			],
 			"name": "afp.vilkaarsproeving.vilkaar-ikke-oppfylt.ekstern",
-			"overskrift": "(WIP) Vilkår for AFP er ikke oppfylt",
+			"overskrift": "Vilkår for AFP er ikke oppfylt",
 			"status": "warning",
 			"type": "local-alert"
 		},
 		{
+			"buttonLabel": "Prøv på nytt",
+			"infoCardStatus": null,
 			"innhold": [
 				{
 					"_key": "086934934ac5",
@@ -789,28 +1164,16 @@
 					],
 					"markDefs": [],
 					"style": "normal"
-				},
-				{
-					"_key": "6c3f6972670b",
-					"_type": "block",
-					"children": [
-						{
-							"_key": "b43bdd786154",
-							"_type": "span",
-							"marks": ["strong"],
-							"text": "Prøv på nytt"
-						}
-					],
-					"markDefs": [],
-					"style": "normal"
 				}
 			],
 			"name": "beregning.beregningen-feilet",
-			"overskrift": "(WIP) Beregningen feilet",
+			"overskrift": "Beregningen feilet",
 			"status": "error",
 			"type": "local-alert"
 		},
 		{
+			"buttonLabel": null,
+			"infoCardStatus": null,
 			"innhold": [
 				{
 					"_key": "d52b2c432fd7",
@@ -833,6 +1196,8 @@
 			"type": "local-alert"
 		},
 		{
+			"buttonLabel": null,
+			"infoCardStatus": null,
 			"innhold": [
 				{
 					"_key": "2b6b44dca301",
@@ -855,6 +1220,8 @@
 			"type": "inline-message"
 		},
 		{
+			"buttonLabel": null,
+			"infoCardStatus": null,
 			"innhold": [
 				{
 					"_key": "4ff8488a652a",
@@ -880,17 +1247,25 @@
 						}
 					],
 					"markDefs": [
-						{ "_key": "d8a0b98d004e", "_type": "link", "className": "" }
+						{
+							"_key": "d8a0b98d004e",
+							"_type": "link",
+							"anchorId": "pensjonsavtaler-heading",
+							"className": "",
+							"linkType": "anchor"
+						}
 					],
 					"style": "normal"
 				}
 			],
 			"name": "pensjonsavtaler.noe-gikk-galt-ved-henting-offentlig",
-			"overskrift": "(WIP) Pensjon fra andre",
+			"overskrift": "Pensjon fra andre",
 			"status": "warning",
 			"type": "local-alert"
 		},
 		{
+			"buttonLabel": null,
+			"infoCardStatus": null,
 			"innhold": [
 				{
 					"_key": "36f39acc1d73",
@@ -900,19 +1275,19 @@
 							"_key": "6bb6d5a96ff7",
 							"_type": "span",
 							"marks": [],
-							"text": "Du er eller har vært ansatt i offentlig sektor. Vi kan dessverre ikke hente pensjonsavtaler fra alle offentlige tjenestepensjonsordninger. Sjekk avtalene hos din tjenestepensjonsordning "
+							"text": "Du er eller har vært ansatt i offentlig sektor. Vi kan dessverre ikke hente pensjonsavtaler fra alle offentlige tjenestepensjonsordninger. Sjekk avtalene hos din tjenestepensjonsordning ("
 						},
 						{
-							"_key": "f73e905cb2bc",
-							"_type": "span",
-							"marks": ["strong"],
-							"text": "(<TP-ordning>)"
+							"_key": "00be198a9624",
+							"_type": "dynamicValue",
+							"key": "tpOrdning",
+							"valueType": "string"
 						},
 						{
-							"_key": "f75b4b870714",
+							"_key": "de39d584733f",
 							"_type": "span",
 							"marks": [],
-							"text": "."
+							"text": ")."
 						}
 					],
 					"markDefs": [],
@@ -920,11 +1295,13 @@
 				}
 			],
 			"name": "pensjonsavtaler.kan-ikke-hente-alle-offentlige",
-			"overskrift": "(WIP) Kan ikke hente pensjonsavtaler fra alle offentlige tjenestepensjonsordninger",
+			"overskrift": "Kan ikke hente pensjonsavtaler fra alle offentlige tjenestepensjonsordninger",
 			"status": "warning",
 			"type": "inline-message"
 		},
 		{
+			"buttonLabel": null,
+			"infoCardStatus": null,
 			"innhold": [
 				{
 					"_key": "98360f949b0d",
@@ -947,6 +1324,8 @@
 			"type": "local-alert"
 		},
 		{
+			"buttonLabel": null,
+			"infoCardStatus": null,
 			"innhold": [
 				{
 					"_key": "dc6604530110",
@@ -969,6 +1348,8 @@
 			"type": "local-alert"
 		},
 		{
+			"buttonLabel": null,
+			"infoCardStatus": null,
 			"innhold": [
 				{
 					"_key": "36164b66c14d",
@@ -991,6 +1372,8 @@
 			"type": "inline-message"
 		},
 		{
+			"buttonLabel": null,
+			"infoCardStatus": null,
 			"innhold": [
 				{
 					"_key": "4764ce85763a",
@@ -1013,6 +1396,8 @@
 			"type": "local-alert"
 		},
 		{
+			"buttonLabel": null,
+			"infoCardStatus": null,
 			"innhold": [
 				{
 					"_key": "a82c0d6df816",
@@ -1038,17 +1423,25 @@
 						}
 					],
 					"markDefs": [
-						{ "_key": "672c776c118e", "_type": "link", "className": "" }
+						{
+							"_key": "672c776c118e",
+							"_type": "link",
+							"anchorId": "pensjonsavtaler-heading",
+							"className": "",
+							"linkType": "anchor"
+						}
 					],
 					"style": "normal"
 				}
 			],
 			"name": "pensjonsavtaler.starter-foer-valgt-alder",
-			"overskrift": "(WIP) Pensjonsavtaler starter før valgt alder",
+			"overskrift": "Pensjonsavtaler starter før valgt alder",
 			"status": "info",
 			"type": "inline-message"
 		},
 		{
+			"buttonLabel": null,
+			"infoCardStatus": null,
 			"innhold": [
 				{
 					"_key": "699e9754c111",
@@ -1091,6 +1484,8 @@
 			"type": "local-alert"
 		},
 		{
+			"buttonLabel": null,
+			"infoCardStatus": null,
 			"innhold": [
 				{
 					"_key": "68e09216e357",
@@ -1116,17 +1511,25 @@
 						}
 					],
 					"markDefs": [
-						{ "_key": "b302d5b748cd", "_type": "link", "className": "" }
+						{
+							"_key": "b302d5b748cd",
+							"_type": "link",
+							"anchorId": "pensjonsavtaler-heading",
+							"className": "",
+							"linkType": "anchor"
+						}
 					],
 					"style": "normal"
 				}
 			],
 			"name": "pensjonsavtaler.noe-gikk-galt-ved-henting-privat",
-			"overskrift": "(WIP) Pensjon fra andre",
+			"overskrift": "Pensjon fra andre",
 			"status": "warning",
 			"type": "local-alert"
 		},
 		{
+			"buttonLabel": null,
+			"infoCardStatus": "message",
 			"innhold": [
 				{
 					"_key": "ed4d4b0e4d2b",
@@ -1136,7 +1539,19 @@
 							"_key": "1197c15040c8",
 							"_type": "span",
 							"marks": [],
-							"text": "Alderspensjon kan ikke kombineres med gjenlevendepensjon eller omstillingsstønad. Ønsker du å ta ut alderspensjon før 67 år, må du si fra deg gjenlevendepensjon eller omstillingsstønad når du tar ut alderspensjon. Har du spørsmål, kan du kontakte oss på telefon "
+							"text": "Alderspensjon kan ikke kombineres med gjenlevendepensjon eller omstillingsstønad. Ønsker du å ta ut alderspensjon før "
+						},
+						{
+							"_key": "normert-pensjonsalder",
+							"_type": "dynamicValue",
+							"key": "normertPensjoneringsalder",
+							"valueType": "string"
+						},
+						{
+							"_key": "etter-normert-pensjonsalder",
+							"_type": "span",
+							"marks": [],
+							"text": ", må du si fra deg gjenlevendepensjon eller omstillingsstønad når du tar ut alderspensjon. Har du spørsmål, kan du kontakte oss på telefon "
 						},
 						{
 							"_key": "f58315fd6973",
@@ -1152,7 +1567,12 @@
 						}
 					],
 					"markDefs": [
-						{ "_key": "59508407dbd8", "_type": "link", "className": "nowrap" }
+						{
+							"_key": "59508407dbd8",
+							"_type": "link",
+							"className": "nowrap",
+							"href": "tel:55553334"
+						}
 					],
 					"style": "normal"
 				}
@@ -1163,6 +1583,8 @@
 			"type": "info-card"
 		},
 		{
+			"buttonLabel": null,
+			"infoCardStatus": "info",
 			"innhold": [
 				{
 					"_key": "5e36a06ce5b5",
@@ -1185,6 +1607,8 @@
 			"type": "info-card"
 		},
 		{
+			"buttonLabel": null,
+			"infoCardStatus": null,
 			"innhold": [
 				{
 					"_key": "a255c3402fbe",
@@ -1207,6 +1631,8 @@
 			"type": "local-alert"
 		},
 		{
+			"buttonLabel": null,
+			"infoCardStatus": null,
 			"innhold": [
 				{
 					"_key": "acacf8b62355",
@@ -1229,6 +1655,8 @@
 			"type": "inline-message"
 		},
 		{
+			"buttonLabel": null,
+			"infoCardStatus": null,
 			"innhold": [
 				{
 					"_key": "cfad53e52026",
@@ -1251,6 +1679,8 @@
 			"type": "local-alert"
 		},
 		{
+			"buttonLabel": null,
+			"infoCardStatus": null,
 			"innhold": [
 				{
 					"_key": "45561af75c9f",
@@ -1273,6 +1703,8 @@
 			"type": "inline-message"
 		},
 		{
+			"buttonLabel": null,
+			"infoCardStatus": null,
 			"innhold": [
 				{
 					"_key": "489b0f4238f6",
@@ -1295,6 +1727,8 @@
 			"type": "local-alert"
 		},
 		{
+			"buttonLabel": null,
+			"infoCardStatus": "message",
 			"innhold": [
 				{
 					"_key": "22419d100be7",
@@ -1317,6 +1751,8 @@
 			"type": "info-card"
 		},
 		{
+			"buttonLabel": null,
+			"infoCardStatus": null,
 			"innhold": [
 				{
 					"_key": "bff9a081d558",
@@ -1339,6 +1775,8 @@
 			"type": "local-alert"
 		},
 		{
+			"buttonLabel": null,
+			"infoCardStatus": "tips",
 			"innhold": [
 				{
 					"_key": "5d70f28c5467",
@@ -1351,16 +1789,17 @@
 							"text": "Beregningen viser at du ikke kan starte uttak av alderspensjon ved "
 						},
 						{
-							"_key": "ffec0f7a491f",
-							"_type": "span",
-							"marks": ["strong"],
-							"text": "<63>"
+							"_key": "742daff30adf",
+							"_type": "dynamicValue",
+							"key": "alder",
+							"openInNewTab": false,
+							"valueType": "string"
 						},
 						{
 							"_key": "aaeab0c1c1bc",
 							"_type": "span",
 							"marks": [],
-							"text": " år. Prøv en høyere alder."
+							"text": ". Prøv en høyere alder."
 						}
 					],
 					"markDefs": [],
@@ -1368,11 +1807,13 @@
 				}
 			],
 			"name": "beregning.enkel.ikke-nok-opptjening",
-			"overskrift": "(WIP) Du har ikke høy nok opptjening",
+			"overskrift": "Du har ikke høy nok opptjening",
 			"status": "info",
 			"type": "info-card"
 		},
 		{
+			"buttonLabel": null,
+			"infoCardStatus": "message",
 			"innhold": [
 				{
 					"_key": "3fa221ecd28c",
@@ -1409,6 +1850,8 @@
 			"type": "info-card"
 		},
 		{
+			"buttonLabel": null,
+			"infoCardStatus": "message",
 			"innhold": [
 				{
 					"_key": "7abf3d3e2f64",
@@ -1418,27 +1861,41 @@
 							"_key": "662f095bac6c",
 							"_type": "span",
 							"marks": [],
-							"text": "Beregningen viser kanskje ikke alt. Du kan ha rett til offentlig tjenestepensjon. "
+							"text": "Beregningen viser kanskje ikke alt. Du kan ha rett til offentlig tjenestepensjon. Les mer under "
 						},
 						{
-							"_key": "09706f0258c0",
+							"_key": "cde6a160eee9",
 							"_type": "span",
-							"marks": ["6d7f78ac092d"],
-							"text": "Les mer under pensjon fra andre."
+							"marks": ["50d500144715"],
+							"text": "pensjon fra andre"
+						},
+						{
+							"_key": "10382bd3f6ba",
+							"_type": "span",
+							"marks": [],
+							"text": "."
 						}
 					],
 					"markDefs": [
-						{ "_key": "6d7f78ac092d", "_type": "link", "className": "" }
+						{
+							"_key": "50d500144715",
+							"_type": "link",
+							"anchorId": "pensjonsavtaler-heading",
+							"className": "",
+							"linkType": "anchor"
+						}
 					],
 					"style": "normal"
 				}
 			],
 			"name": "pensjonsavtaler.kan-ha-rett-til-offentlig-tp",
-			"overskrift": "(WIP) Kan ha rett til offentlig tjenestepensjon",
+			"overskrift": "Kan ha rett til offentlig tjenestepensjon",
 			"status": "info",
 			"type": "info-card"
 		},
 		{
+			"buttonLabel": null,
+			"infoCardStatus": "message",
 			"innhold": [
 				{
 					"_key": "fee93b94b444",
@@ -1461,6 +1918,8 @@
 			"type": "info-card"
 		},
 		{
+			"buttonLabel": null,
+			"infoCardStatus": null,
 			"innhold": [
 				{
 					"_key": "cda5509e2d1c",
@@ -1483,6 +1942,8 @@
 			"type": "local-alert"
 		},
 		{
+			"buttonLabel": null,
+			"infoCardStatus": "tips",
 			"innhold": [
 				{
 					"_key": "976a51c65cc1",
@@ -1495,13 +1956,14 @@
 							"text": "Alderspensjon kan først endres til 20, 40, 50, 60 eller 80 % når det har gått 12 måneder siden du startet eller endret uttaket ditt. Du kan derfor tidligst endre uttaksgrad fra "
 						},
 						{
-							"_key": "82961b923935",
-							"_type": "span",
-							"marks": ["strong"],
-							"text": "<01.01.2026>"
+							"_key": "cfc1f0aecca2",
+							"_type": "dynamicValue",
+							"key": "tidligst-endring-uttaksgrad-dato",
+							"openInNewTab": false,
+							"valueType": "string"
 						},
 						{
-							"_key": "c7487c9e6f7d",
+							"_key": "d55e205d9f00",
 							"_type": "span",
 							"marks": [],
 							"text": ". Du kan endre til 0 eller 100 % så ofte du vil."
@@ -1512,11 +1974,13 @@
 				}
 			],
 			"name": "beregning.ugyldig-uttaksgrad.12-maaneder",
-			"overskrift": "(WIP) 12-månedersregel",
+			"overskrift": "12-månedersregel",
 			"status": "info",
 			"type": "info-card"
 		},
 		{
+			"buttonLabel": null,
+			"infoCardStatus": "warning",
 			"innhold": [
 				{
 					"_key": "4ffce15d72e3",
@@ -1531,7 +1995,8 @@
 						{
 							"_key": "bf06f56e44e2",
 							"_type": "dynamicValue",
-							"key": "tidligst-endring-uttaksgrad-dato"
+							"key": "tidligst-endring-uttaksgrad-dato",
+							"valueType": "string"
 						},
 						{
 							"_key": "08179098684e",
@@ -1550,6 +2015,8 @@
 			"type": "info-card"
 		},
 		{
+			"buttonLabel": null,
+			"infoCardStatus": "message",
 			"innhold": [
 				{
 					"_key": "2701b2842c75",
@@ -1562,10 +2029,17 @@
 							"text": "Du har vedtak om "
 						},
 						{
+							"_key": "a0dabf39841a",
+							"_type": "dynamicValue",
+							"key": "grad",
+							"openInNewTab": false,
+							"valueType": "number"
+						},
+						{
 							"_key": "4b17056ec7eb",
 							"_type": "span",
 							"marks": ["strong"],
-							"text": "50 %"
+							"text": " %"
 						},
 						{
 							"_key": "4c62f8e0fe0e",
@@ -1574,10 +2048,11 @@
 							"text": " alderspensjon fra "
 						},
 						{
-							"_key": "232ab87c021c",
-							"_type": "span",
-							"marks": ["strong"],
-							"text": "01.09.2025"
+							"_key": "5bd9ddb3751f",
+							"_type": "dynamicValue",
+							"key": "vedtakDato",
+							"openInNewTab": false,
+							"valueType": "string"
 						},
 						{
 							"_key": "b09b5a2f128e",
@@ -1591,7 +2066,7 @@
 				}
 			],
 			"name": "start.fremtidig-vedtak-uten-gjeldende",
-			"overskrift": "(WIP) Fremtidig vedtak",
+			"overskrift": "Fremtidig vedtak",
 			"status": "info",
 			"type": "info-card"
 		}

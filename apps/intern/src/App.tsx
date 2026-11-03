@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 
 import {
 	Box,
@@ -16,6 +16,7 @@ import {
 	useDecryptPidQuery,
 	useEnheterQuery,
 	useErApotekerQuery,
+	useFeatureToggleQuery,
 	useInntektQuery,
 	useInternsimulatorLagreBrevButtonQuery,
 	useOmstillingsstoenadQuery,
@@ -213,6 +214,38 @@ const AppContent = () => {
 }
 
 export const App = () => {
+	const { data: darkModeToggle } = useFeatureToggleQuery(
+		'internsimulator.dark-mode'
+	)
+	const darkModeEnabled = darkModeToggle?.enabled === true
+	const [selectedMode, setSelectedMode] = useState<'light' | 'dark'>(() => {
+		const systemMode = window.matchMedia?.('(prefers-color-scheme: dark)')
+			.matches
+			? 'dark'
+			: 'light'
+		try {
+			const savedMode = localStorage.getItem('intern-color-theme')
+			return savedMode === 'light' || savedMode === 'dark'
+				? savedMode
+				: systemMode
+		} catch {
+			return systemMode
+		}
+	})
+	const mode = darkModeEnabled ? selectedMode : 'light'
+
+	useEffect(() => {
+		document.documentElement.classList.toggle('dark', mode === 'dark')
+		document.documentElement.classList.toggle('light', mode === 'light')
+		if (!darkModeEnabled) return
+
+		try {
+			localStorage.setItem('intern-color-theme', selectedMode)
+		} catch {
+			return
+		}
+	}, [darkModeEnabled, mode, selectedMode])
+
 	const { data: lagreBrevButtonToggle } =
 		useInternsimulatorLagreBrevButtonQuery()
 	const visLagreBrevButton = lagreBrevButtonToggle?.enabled === true
@@ -223,12 +256,17 @@ export const App = () => {
 
 	return (
 		<SanityProvider>
-			<div className={styles.appContainer}>
-				<PesysHeader enhet={enhet} />
-				<Theme className="app-content">
+			<Theme theme={mode} hasBackground className={styles.appContainer}>
+				<PesysHeader
+					enhet={enhet}
+					mode={mode}
+					onModeChange={setSelectedMode}
+					showThemeToggle={darkModeEnabled}
+				/>
+				<div className="app-content">
 					<AppContent />
-				</Theme>
-			</div>
+				</div>
+			</Theme>
 		</SanityProvider>
 	)
 }

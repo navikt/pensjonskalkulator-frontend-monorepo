@@ -4,7 +4,7 @@
   width: 100%;
 
   :global {
-    .navds-read-more__content {
+    .aksel-read-more__content {
       border-left: 0;
       margin-left: 0;
       padding-left: 0;
@@ -14,27 +14,27 @@
 
 .table {
   :global {
-    .navds-table__expanded-row-content {
-      padding: var(--a-spacing-4) var(--a-spacing-3) var(--a-spacing-4) 4.25rem;
+    .aksel-table__expanded-row-content {
+      padding: var(--ax-space-16) var(--ax-space-12) var(--ax-space-16) 4.25rem;
     }
 
-    .navds-table__expandable-row--open td:last-child {
-      font-weight: var(--a-font-weight-bold);
+    .aksel-table__expandable-row--open td:last-child {
+      font-weight: var(--ax-font-weight-bold);
     }
   }
 
-  @media (min-width: variables.$a-breakpoint-lg) {
+  @media (min-width: variables.$ax-breakpoint-lg) {
     table-layout: fixed;
   }
 
   &MobileOnly {
-    @media (min-width: variables.$a-breakpoint-lg) {
+    @media (min-width: variables.$ax-breakpoint-lg) {
       display: none !important;
     }
   }
 
   &DesktopOnly {
-    @media (max-width: variables.$a-breakpoint-lg-down) {
+    @media (max-width: variables.$ax-breakpoint-lg-down) {
       display: none !important;
     }
   }
@@ -44,22 +44,22 @@
   display: grid;
   width: 100%;
   grid-template-columns: 1fr auto;
-  grid-gap: var(--a-spacing-3);
+  grid-gap: var(--ax-space-12);
   margin: 0;
-  font-size: var(--a-font-size-medium);
+  font-size: var(--ax-font-size-medium);
 
   &Item {
     &Right {
       text-align: right;
-      margin-inline-start: var(--a-spacing-4);
+      margin-inline-start: var(--ax-space-16);
     }
 
     &Bold {
-      font-weight: var(--a-font-weight-bold);
+      font-weight: var(--ax-font-weight-bold);
     }
   }
 
-  @media (min-width: variables.$a-breakpoint-sm) {
-    font-size: var(--a-font-size-large);
+  @media (min-width: variables.$ax-breakpoint-sm) {
+    font-size: var(--ax-font-size-large);
   }
 }

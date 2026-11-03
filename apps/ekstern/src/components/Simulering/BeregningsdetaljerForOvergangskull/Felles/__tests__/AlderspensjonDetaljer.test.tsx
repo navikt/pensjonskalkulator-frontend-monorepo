@@ -178,7 +178,7 @@ describe('Gitt at AlderspensjonDetaljer rendres', () => {
       />
     )
 
-    const vStack = container.querySelector('.navds-stack')
+    const vStack = container.querySelector('.aksel-stack')
     expect(vStack).toBeInTheDocument()
   })
 

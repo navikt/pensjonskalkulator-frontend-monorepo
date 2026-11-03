@@ -214,7 +214,7 @@ export function Sivilstand({
             </>
           )}
         </BodyLong>
-        <VStack gap="6">
+        <VStack gap="space-24">
           <Select
             className={styles.selectSivilstand}
             name="sivilstand"

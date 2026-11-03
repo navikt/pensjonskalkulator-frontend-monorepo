@@ -48,7 +48,7 @@ export const FrameComponent: React.FC<{
             representasjonstyper="PENSJON_LES,PENSJON_SKRIV,VERGE_PENSJON_LES,VERGE_PENSJON_SKRIV"
             redirectTo={`${window.location.origin}${BASE_PATH}/start`}
             style={{
-              marginBottom: 'var(--a-spacing-6)',
+              marginBottom: 'var(--ax-space-24)',
             }}
             breadcrumbs={JSON.stringify(breadcrumbs)}
           />

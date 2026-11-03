@@ -2,15 +2,15 @@
 
 .info {
   display: flex;
-  margin-bottom: var(--a-spacing-4);
+  margin-bottom: var(--ax-space-16);
 
   &Icon {
     flex-basis: 1.5rem;
     vertical-align: top;
-    margin-right: var(--a-spacing-2);
+    margin-right: var(--ax-space-8);
 
     &__orange {
-      color: var(--a-orange-600);
+      color: var(--ax-warning-700);
     }
   }
 
@@ -20,7 +20,7 @@
 }
 
 .bunntekst {
-  padding-top: var(--a-spacing-4);
-  font-size: var(--a-font-size-medium);
-  line-height: var(--a-font-line-height-large);
+  padding-top: var(--ax-space-16);
+  font-size: var(--ax-font-size-medium);
+  line-height: var(--ax-font-line-height-large);
 }
