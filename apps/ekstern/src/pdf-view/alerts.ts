@@ -214,29 +214,13 @@ export function getOffentligTjenestePensjonAlertsText({
 
     const heading = `<h4>${intl.formatMessage({ id: 'pensjonsavtaler.offentligtp.title' })}</h4>`
 
-    if (alert.sanityId) {
-      const alertHtml = renderSanityAlertHtml({
-        alertData,
-        id: alert.sanityId,
-        intl,
-        dynamicValues: chunk ? { tpOrdning: chunk } : undefined,
-      })
-      return `${heading}${alertHtml ?? ''}`
-    }
-
-    if (!alert.alertTextId) return heading
-
-    const alertIcon =
-      alert.variant === 'info' ? INFO_SQUARE_ICON : ALERT_TRIANGLE_ICON
-    const alertMessage = intl.formatMessage(
-      { id: alert.alertTextId },
-      {
-        ...pdfFormatMessageValues,
-        chunk: chunk ? `(${chunk})` : '',
-      }
-    )
-    return `${heading}
-      ${renderAlertTable({ alertIcon, alertMessage })}`
+    const alertHtml = renderSanityAlertHtml({
+      alertData,
+      id: alert.sanityId,
+      intl,
+      dynamicValues: chunk ? { tpOrdning: chunk } : undefined,
+    })
+    return `${heading}${alertHtml ?? ''}`
   })
 
   return html.join('')

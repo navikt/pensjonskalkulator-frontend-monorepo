@@ -280,7 +280,6 @@ export default {
   'beregning.avansert.rediger.beregningsvalg.med_afp.title': 'MANGLER_TEKST',
   'beregning.avansert.rediger.beregningsvalg.med_afp.description':
     'MANGLER_TEKST',
-  'beregning.avansert.rediger.pre2025_offentlig_afp.alert': 'MANGLER_TEKST',
   'beregning.toggle.enkel': 'MANGLER_TEKST',
   'beregning.toggle.avansert': 'MANGLER_TEKST',
   'beregning.loading': 'Vent litt medan vi reknar ut pensjonen din',

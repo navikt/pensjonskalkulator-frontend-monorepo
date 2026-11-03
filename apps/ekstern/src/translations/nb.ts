@@ -433,8 +433,6 @@ const translations = {
     'Uføretrygd og uførepensjon skal ikke være med.',
   'beregning.avansert.rediger.inntekt_frem_til_uttak.description':
     'kr per år før skatt',
-  'beregning.avansert.rediger.pre2025_offentlig_afp.alert':
-    'Du beregner nå uttak av alderspensjon før 67 år. AFP i offentlig sektor kan ikke kombineres med alderspensjon. Beregningen forutsetter derfor at du sier fra deg AFP. Kontakt tjenestepensjonsordningen din hvis du vurderer dette.',
   'beregning.avansert.rediger.uttaksgrad.label':
     'Hvor mye alderspensjon vil du ta ut?',
   'beregning.avansert.rediger.uttaksgrad.description': 'Velg uttaksgrad',

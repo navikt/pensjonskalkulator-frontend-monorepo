@@ -313,7 +313,6 @@ export default {
   'beregning.avansert.rediger.beregningsvalg.med_afp.title': 'MANGLER_TEKST',
   'beregning.avansert.rediger.beregningsvalg.med_afp.description':
     'MANGLER_TEKST',
-  'beregning.avansert.rediger.pre2025_offentlig_afp.alert': 'MANGLER_TEKST',
   'beregning.toggle.enkel': 'Simple',
   'beregning.toggle.avansert': 'Advanced',
   'beregning.loading': 'Please wait while we calculate your pension.',

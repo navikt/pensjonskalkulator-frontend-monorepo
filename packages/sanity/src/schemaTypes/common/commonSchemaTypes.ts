@@ -117,7 +117,8 @@ export const innholdField = defineField({
 							name: 'key',
 							type: 'string',
 							title: 'Dynamisk verdi',
-							description: 'Nøkkel i dynamicValues for tekst og tall.',
+							description:
+								'Velg «Tall» som type verdi for uttaksgrad (grad og grad_gradert) og minste månedsinntekt for AFP. Velg «Tekst» for alder, datoer, TP-ordning, fornavn og mellomrom. For grunnbeløp velger du «G-multiplum» og ønsket grunnbeløpsfaktor. Typen må samsvare med verdien fra koden, ellers vises bare en plassholder.',
 							hidden: ({ parent }) => isGMultipleParent(parent),
 							options: {
 								list: [

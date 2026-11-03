@@ -40,6 +40,54 @@ describe('AvansertSkjemaForAndreBrukere', () => {
   }
   const agePickerMonth = getPreviousMonth()
 
+  it.each([
+    { pre2025OffentligAfp: true, aar: 66, vises: true },
+    { pre2025OffentligAfp: true, aar: 67, vises: false },
+    { pre2025OffentligAfp: false, aar: 66, vises: false },
+  ])(
+    'viser AFP-varsel: $vises ved uttak fra $aar år og pre2025OffentligAfp: $pre2025OffentligAfp',
+    ({ pre2025OffentligAfp, aar, vises }) => {
+      render(
+        <BeregningContext.Provider value={contextMockedValues}>
+          <AvansertSkjemaForAndreBrukere />
+        </BeregningContext.Provider>,
+        {
+          preloadedState: {
+            userInput: {
+              ...userInputInitialState,
+              currentSimulation: {
+                ...userInputInitialState.currentSimulation,
+                uttaksalder: { aar, maaneder: 0 },
+              },
+            },
+          },
+          preloadedApiState: {
+            getPerson: personMock,
+            getLoependeVedtak: {
+              ...loependeVedtak0UfoeregradMock,
+              pre2025OffentligAfp: pre2025OffentligAfp
+                ? { fom: '2024-01-01' }
+                : undefined,
+            },
+          },
+        }
+      )
+
+      const alert = screen.queryByTestId(
+        'beregning.ap-kan-ikke-kombineres-med-afp'
+      )
+      if (vises) {
+        expect(alert).toBeVisible()
+        expect(alert).toHaveAttribute('aria-live', 'polite')
+        expect(alert).toHaveTextContent(
+          'AFP i offentlig sektor kan ikke kombineres med alderspensjon.'
+        )
+      } else {
+        expect(alert).not.toBeInTheDocument()
+      }
+    }
+  )
+
   it('vises informasjon om inntekt, uttaksgrad og pensjonsalder', async () => {
     render(
       <BeregningContext.Provider
