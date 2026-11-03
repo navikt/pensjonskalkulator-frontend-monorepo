@@ -12,6 +12,7 @@ type PortableTextComponentSize = 'small' | 'medium'
 interface SanityPortableTextComponentsParams {
 	intl: IntlShape
 	onLinkClick?: () => void
+	onRouteClick?: () => void
 	navigateToRoute?: (route: string) => void
 	dynamicValues?: DynamicValues
 	size?: PortableTextComponentSize
@@ -50,6 +51,7 @@ export const getSanityPortableTextComponents = (
 	const {
 		intl: resolvedIntl,
 		onLinkClick: resolvedOnLinkClick,
+		onRouteClick: resolvedOnRouteClick,
 		navigateToRoute: resolvedNavigateToRoute,
 		dynamicValues: resolvedDynamicValues,
 		size: resolvedSize,
@@ -195,6 +197,7 @@ export const getSanityPortableTextComponents = (
 					}
 
 					event.preventDefault()
+					resolvedOnRouteClick?.()
 					resolvedNavigateToRoute(value.route)
 				}
 

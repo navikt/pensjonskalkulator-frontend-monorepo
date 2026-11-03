@@ -433,8 +433,6 @@ const translations = {
     'Uføretrygd og uførepensjon skal ikke være med.',
   'beregning.avansert.rediger.inntekt_frem_til_uttak.description':
     'kr per år før skatt',
-  'beregning.avansert.rediger.pre2025_offentlig_afp.alert':
-    'Du beregner nå uttak av alderspensjon før 67 år. AFP i offentlig sektor kan ikke kombineres med alderspensjon. Beregningen forutsetter derfor at du sier fra deg AFP. Kontakt tjenestepensjonsordningen din hvis du vurderer dette.',
   'beregning.avansert.rediger.uttaksgrad.label':
     'Hvor mye alderspensjon vil du ta ut?',
   'beregning.avansert.rediger.uttaksgrad.description': 'Velg uttaksgrad',
@@ -512,28 +510,6 @@ const translations = {
   'beregning.avansert.button.oppdater': 'Oppdater pensjon',
   'beregning.avansert.button.nullstill': 'Nullstill valg',
   'beregning.avansert.button.avbryt': 'Avbryt endring',
-  'beregning.vilkaarsproeving.intro':
-    'Opptjeningen din er ikke høy nok til ønsket uttak. ',
-  'beregning.vilkaarsproeving.intro.ikke_nok_opptjening':
-    '{br}{br}Du kan tidligst ta ut alderspensjon ved {normertPensjonsalder}.',
-  'beregning.vilkaarsproeving.intro.optional':
-    'Du må øke alderen eller sette ned uttaksgraden.{br}{br}',
-  'beregning.vilkaarsproeving.alternativer.heltUttak':
-    'Et alternativ er at du ved {alternativtHeltStartAar} år og {alternativtHeltStartMaaned} måneder kan ta ut <nowrap>100 %</nowrap> alderspensjon. Prøv gjerne andre kombinasjoner.',
-  'beregning.vilkaarsproeving.alternativer.gradertUttak':
-    'Et alternativ er at du ved {alternativtGradertStartAar} år og {alternativtGradertStartMaaned} måneder kan ta ut <nowrap>{alternativtGrad} %</nowrap> alderspensjon. Prøv gjerne andre kombinasjoner.',
-  'beregning.vilkaarsproeving.alternativer.heltOgGradertUttak':
-    'Et alternativ er at du ved {alternativtGradertStartAar} år og {alternativtGradertStartMaaned} måneder kan ta ut <nowrap>{alternativtGrad} %</nowrap> alderspensjon hvis du tar ut <nowrap>100 %</nowrap> alderspensjon ved {alternativtHeltStartAar} år og {alternativtHeltStartMaaned} måneder eller senere. Prøv gjerne andre kombinasjoner.',
-  'beregning.vilkaarsproeving.medAFP.intro':
-    'Opptjeningen din er ikke høy nok til ønsket uttak. Du må endre valgene dine.',
-  'beregning.vilkaarsproeving.alternativer.medAFP.gradertUttak':
-    '{br}{br}Et alternativ er at du ved {nedreAldersgrense} kan ta ut <nowrap>{alternativtGrad} %</nowrap> alderspensjon. Prøv gjerne andre kombinasjoner.',
-  'beregning.vilkaarsproeving.alternativer.medAFP.heltOgGradertUttak':
-    '{br}{br}Et alternativ er at du ved {nedreAldersgrense} kan ta ut <nowrap>{alternativtGrad} %</nowrap> alderspensjon hvis du tar ut <nowrap>100 %</nowrap> alderspensjon ved {alternativtHeltStartAar} år og {alternativtHeltStartMaaned} måneder eller senere. Prøv gjerne andre kombinasjoner.',
-  'beregning.vilkaarsproeving.alternativer.medAFP.heltOgGradertUttak100':
-    '{br}{br}Et alternativ er at du ved {nedreAldersgrense} kan ta ut <nowrap>{alternativtGrad} %</nowrap> alderspensjon. Prøv gjerne andre kombinasjoner.',
-  'beregning.vilkaarsproeving.alternativer.medAFP.ikkeNokOpptjening':
-    'Opptjeningen din er ikke høy nok til uttak av alderspensjon ved {nedreAldersgrense}.{br}{br}Kalkulatoren kan ikke beregne uttak etter {nedreAldersgrense}. Hvis du tar ut alderspensjon og AFP senere enn dette, vil du i perioden fra du er 62 år frem til uttak ikke få uføretrygd. Kontakt Nav for veiledning hvis du vurderer å si fra deg uføretrygden.{br}{br}Har du rett til livsvarig AFP i offentlig sektor kan du ta ut AFP før alderspensjon. Kontakt tjenestepensjonsordningen din for veiledning.',
   'grunnlag.title': 'Om inntekten og pensjonen din',
   'grunnlag.endring.title': 'Om pensjonen din',
   'maanedsbeloep.title': 'Månedlig pensjon',
@@ -545,12 +521,6 @@ const translations = {
   'beregning.avansert.avbryt_modal.endring.button.avslutt':
     'Gå ut av beregning',
   'beregning.avansert.avbryt_modal.button.avbryt': 'Avbryt',
-  'beregning.avansert.alert.vilkaarsproevning.afp_inntekt_maaned_foer_uttak':
-    'Med opplysninger vi har om deg, oppfyller du ikke vilkårene for AFP. {vilkaarForUttakAvAfp}. Du kan også beregne {alderspensjonUtenAFP}.',
-  'beregning.avansert.alert.afp_inntekt_maaned_foer_uttak':
-    'Du kan bare beregne AFP hvis du har en inntekt {grunnbeloepstekst}. Beregn i stedet {alderspensjonUtenAFP}.',
-  'beregning.avansert.alert.afp_inntekt_maaned_foer_uttak.link.text':
-    'alderspensjon uten AFP',
   'beregning.endring.alert.uttaksdato':
     'Du kan tidligst endre uttaksgrad til 20, 40, 50, 60 eller 80 % fra {dato}.',
   'beregning.endring.rediger.title': 'Beregn endring av alderspensjon',
