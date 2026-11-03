@@ -117,51 +117,50 @@ export const innholdField = defineField({
 							name: 'key',
 							type: 'string',
 							title: 'Dynamisk verdi',
-							description:
-								'Velg «Tall» som type verdi for uttaksgrad (grad og grad_gradert) og minste månedsinntekt for AFP. Velg «Tekst» for alder, datoer, TP-ordning, fornavn og mellomrom. For grunnbeløp velger du «G-multiplum» og ønsket grunnbeløpsfaktor. Typen må samsvare med verdien fra koden, ellers vises bare en plassholder.',
+							description: 'Nøkkel i dynamicValues for tekst og tall.',
 							hidden: ({ parent }) => isGMultipleParent(parent),
 							options: {
 								list: [
-									{ title: 'Valgt alder for uttak', value: 'alder' },
+									{ title: 'Valgt alder for uttak (Tekst)', value: 'alder' },
 									{
-										title: 'Normert pensjonsalder',
+										title: 'Normert pensjonsalder (Tekst)',
 										value: 'normertPensjoneringsalder',
 									},
 									{
-										title: 'Nedre aldersgrense (normert minus 5 år)',
+										title: 'Nedre aldersgrense (normert minus 5 år) (Tekst)',
 										value: 'nedreAldersgrense',
 									},
-									{ title: 'Uttaksgrad fra vedtak', value: 'grad' },
+									{ title: 'Uttaksgrad fra vedtak (Tall)', value: 'grad' },
 									{
-										title: 'Uttaksgrad ved gradert uttak - NAU',
+										title: 'Uttaksgrad ved gradert uttak - NAU (Tall)',
 										value: 'grad_gradert',
 									},
 									{
-										title: 'Alder ved gradert uttak - NAU',
+										title: 'Alder ved gradert uttak - NAU (Tekst)',
 										value: 'gradert_alder',
 									},
 									{
-										title: 'Alder ved helt uttak - NAU',
+										title: 'Alder ved helt uttak - NAU (Tekst)',
 										value: 'helt_alder',
 									},
-									{ title: 'Dato for vedtak', value: 'vedtakDato' },
+									{ title: 'Dato for vedtak (Tekst)', value: 'vedtakDato' },
 									{
-										title: 'Tidligste endringsdato',
+										title: 'Tidligste endringsdato (Tekst)',
 										value: 'tidligst-endring-ved-fremtidig-vedtak',
 									},
 									{
 										title:
-											'Tidligste dato for endring av uttaksgrad - 12 måneders regel',
+											'Tidligste dato for endring av uttaksgrad - 12 måneders regel (Tekst)',
 										value: 'tidligst-endring-uttaksgrad-dato',
 									},
-									{ title: 'TP-ordning', value: 'tpOrdning' },
+									{ title: 'TP-ordning (Tekst)', value: 'tpOrdning' },
 									{
-										title: 'Minste månedsinntekt for AFP (1G/12)',
+										title: 'Minste månedsinntekt for AFP (1G/12) (Tall)',
 										value: 'afpMinsteMaanedsinntekt',
 									},
-									{ title: 'Fornavn', value: 'fornavn' },
-									{ title: 'Fødselsdato', value: 'foedselsdato' },
-									{ title: 'Mellomrom', value: 'nbsp' },
+									{ title: 'Fornavn (Tekst)', value: 'fornavn' },
+									{ title: 'Fødselsdato (Tekst)', value: 'foedselsdato' },
+									{ title: 'Mellomrom (Tekst)', value: 'nbsp' },
 								],
 								layout: 'dropdown',
 							},
