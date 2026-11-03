@@ -41,7 +41,10 @@ function formatUttaksmerknad(kode: string, uttaksgrad?: Uttaksgrad | null) {
 		kode === 'UTTAK_STOPPET'
 	if (!uttaksgrad || !erUttaksmerknad) return tekst
 
-	const maaned = getMaanedNavn(uttaksgrad.kalendermaanedFom)
+	const maaned =
+		uttaksgrad.kalendermaanedFom != null
+			? getMaanedNavn(uttaksgrad.kalendermaanedFom)
+			: undefined
 	return `Alderspensjon: ${uttaksgrad.grad} %${maaned ? ` (${maaned})` : ''}`
 }
 
