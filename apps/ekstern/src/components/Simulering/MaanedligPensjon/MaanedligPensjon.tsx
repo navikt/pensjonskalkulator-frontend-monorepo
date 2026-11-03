@@ -6,7 +6,7 @@ import { Box, Heading } from '@navikt/ds-react'
 import { PensjonVisningDesktop, PensjonVisningMobil } from './Felles'
 import { usePensjonBeregninger } from './hooks'
 
-import styles from './MaanedsbeloepAvansertBeregning.module.scss'
+import styles from './MaanedligPensjon.module.scss'
 
 interface Props {
   afpPrivatListe?: AfpPrivatPensjonsberegning[] | null
@@ -20,7 +20,7 @@ interface Props {
   erTpFoer1963?: boolean
 }
 
-export const MaanedsbeloepAvansertBeregning: React.FC<Props> = (props) => {
+export const MaanedligPensjon: React.FC<Props> = (props) => {
   const {
     pensjonsdata,
     summerYtelser,
@@ -36,7 +36,7 @@ export const MaanedsbeloepAvansertBeregning: React.FC<Props> = (props) => {
   return (
     <Box
       marginBlock="space-40 space-0"
-      data-testid="maanedsbloep-avansert-beregning"
+      data-testid="maanedlig-pensjon"
       onCopy={(event) => {
         // Behold etikett og beløp på samme linje, med linjeskift mellom rader og overskrifter ved innliming.
         // Skjult innhold (f.eks. desktop-visningen på mobil) tas ikke med.
