@@ -1,9 +1,10 @@
 import sanityAlertDataResponse from '@pensjonskalkulator-frontend-monorepo/mocks/data/sanity-alert-data.json' with { type: 'json' }
-import type { AlertQueryResult } from '@pensjonskalkulator-frontend-monorepo/sanity'
+import { type AlertQueryResult } from '@pensjonskalkulator-frontend-monorepo/sanity'
 import { createIntl } from 'react-intl'
 import { describe, expect, it } from 'vitest'
 
 import {
+  getAfpOffentligAlertsText,
   getOffentligTjenestePensjonAlertsText,
   getOmstillingsstoenadAlert,
   getPensjonsavtalerAlertsText,
@@ -16,6 +17,45 @@ const alertData = Object.fromEntries(
 ) as unknown as Record<string, AlertQueryResult[number]>
 
 describe('PDF Sanity alerts', () => {
+  it.each([
+    {
+      sanityId: 'afp.klarte-ikke-hente-beløp-livsvarig',
+      text: 'beregning.alert.success.afp-offentlig-livsvarig',
+      content: 'Prøv igjen senere.',
+    },
+    {
+      sanityId: 'afp.klarte-ikke-sjekke-livsvarig',
+      text: 'beregning.alert.feil.afp-offentlig-livsvarig',
+      content: 'Vi klarte ikke å sjekke om du har AFP',
+    },
+    {
+      sanityId: 'afp.beloep-vises-ikke',
+      text: 'beregning.alert.info.afp-offentlig-livsvarig',
+      content:
+        'Vi har hentet din livsvarige AFP. Beløpet vises ikke i graf og tabell.',
+    },
+  ])(
+    'renders AFP alert $sanityId from Sanity',
+    ({ sanityId, text, content }) => {
+      const html = getAfpOffentligAlertsText({
+        afpOffentligAlertsList: {
+          variant: 'warning',
+          text,
+          sanityId,
+        },
+        intl: createIntl({ locale: 'nb', messages: {} }),
+        alertData,
+      })
+
+      expect(html).toContain(content)
+      expect(html).toContain(
+        sanityId === 'afp.beloep-vises-ikke'
+          ? 'pdf-sanity-alert--info'
+          : 'pdf-sanity-alert--warning'
+      )
+    }
+  )
+
   it('renders the omstillingsstønad alert from Sanity', () => {
     const html = getOmstillingsstoenadAlert(
       createIntl({ locale: 'nb', messages: {} }),
@@ -44,8 +84,12 @@ describe('PDF Sanity alerts', () => {
       ],
     })
 
-    expect(html).toContain('(WIP) Kan ha rett til offentlig tjenestepensjon')
-    expect(html).toContain('Les mer under pensjon fra andre.')
+    expect(html).toContain(
+      'Beregningen viser kanskje ikke alt. Du kan ha rett til offentlig tjenestepensjon.'
+    )
+    expect(html).not.toContain('pdf-sanity-alert__title')
+    expect(html).toContain('href="#pensjonsavtaler-heading"')
+    expect(html).toContain('>pensjon fra andre</a>')
   })
 
   it('renders the public pension retrieval error from Sanity', () => {
@@ -61,7 +105,12 @@ describe('PDF Sanity alerts', () => {
     })
 
     expect(html).toContain('pdf-sanity-alert--warning')
-    expect(html).toContain('(WIP) Pensjon fra andre')
+    expect(html).toContain(
+      '<span class="pdf-sanity-alert__icon"><svg width="17" height="16"'
+    )
+    expect(html).toContain(
+      '<h3 class="pdf-sanity-alert__title">Pensjon fra andre</h3>'
+    )
     expect(html).toContain(
       'Noe gikk galt ved henting av pensjonsavtaler i offentlig sektor'
     )
@@ -141,6 +190,9 @@ describe('PDF Sanity alerts', () => {
     })
 
     expect(html).toContain('pdf-sanity-alert--warning')
+    expect(html).toContain(
+      '<span class="pdf-sanity-alert__icon"><svg width="17" height="16"'
+    )
     expect(html).toContain(content)
   })
 
@@ -189,6 +241,79 @@ describe('PDF Sanity alerts', () => {
     expect(html).toContain('Vi fant ingen pensjonsavtaler.')
     expect(html).not.toContain('pdf-sanity-alert__title')
   })
+
+  it('renders the missing public TP response alert with a warning icon', () => {
+    const html = getOffentligTjenestePensjonAlertsText({
+      alertData,
+      intl: createIntl({
+        locale: 'nb',
+        messages: {
+          'pensjonsavtaler.offentligtp.title': 'Offentlig tjenestepensjon',
+        },
+      }),
+      offentligTp: {
+        simuleringsresultatStatus: 'TOM_SIMULERING_FRA_TP_ORDNING',
+        muligeTpLeverandoerListe: [],
+      },
+      offentligTpAlertsList: [
+        {
+          status: 'TOM_SIMULERING_FRA_TP_ORDNING',
+          variant: 'warning',
+          sanityId: 'pensjonsavtaler.fikk-ikke-svar.offentlig',
+          hasLeverandoerList: false,
+          logTekst: '',
+        },
+      ],
+    })
+
+    expect(html).toContain('pdf-sanity-alert--warning')
+    expect(html).toContain(
+      '<span class="pdf-sanity-alert__icon"><svg width="17" height="16"'
+    )
+    expect(html).toContain(
+      'Vi fikk ikke svar fra din offentlige tjenestepensjonsordning.'
+    )
+  })
+
+  it.each([
+    {
+      status: 'TP_ORDNING_STOETTES_IKKE',
+      sanityId: 'pensjonsavtaler.kan-ikke-hente-alle-offentlige',
+    },
+    {
+      status: 'TEKNISK_FEIL',
+      sanityId: 'pensjonsavtaler.klarte-ikke-hente-offentlig-tjenestepensjon',
+    },
+  ] as const)(
+    'renders TP scheme dynamic value in $sanityId',
+    ({ status, sanityId }) => {
+      const html = getOffentligTjenestePensjonAlertsText({
+        alertData,
+        intl: createIntl({
+          locale: 'nb',
+          messages: {
+            'pensjonsavtaler.offentligtp.title': 'Offentlig tjenestepensjon',
+          },
+        }),
+        offentligTp: {
+          simuleringsresultatStatus: status,
+          muligeTpLeverandoerListe: ['KLP'],
+        },
+        offentligTpAlertsList: [
+          {
+            status,
+            variant: 'warning',
+            sanityId,
+            hasLeverandoerList: true,
+            logTekst: '',
+          },
+        ],
+      })
+
+      expect(html).toContain('KLP')
+      expect(html).not.toContain('<TP-ordning>')
+    }
+  )
 
   it.each([
     {

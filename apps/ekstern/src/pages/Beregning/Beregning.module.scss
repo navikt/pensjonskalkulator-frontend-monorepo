@@ -38,6 +38,20 @@
   }
 }
 
+.beregningAlert {
+  margin: var(--ax-space-16) 0 var(--ax-space-24);
+}
+
+.beregningErrorAlert {
+  :global(.aksel-base-alert__content) {
+    padding: var(--ax-space-20);
+
+    p:last-of-type {
+      margin-bottom: 0;
+    }
+  }
+}
+
 .toggle {
   padding: 0 var(--ax-space-24) var(--ax-space-16) var(--ax-space-24);
   background-color: var(--ax-bg-default);

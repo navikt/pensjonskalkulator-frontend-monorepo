@@ -679,11 +679,18 @@ describe('BeregningEnkel', () => {
 
       expect(screen.queryByTestId('uttaksalder-loader')).not.toBeInTheDocument()
       expect(initiateMock).toHaveBeenCalledTimes(5)
-      expect(await screen.findByText('beregning.error')).toBeInTheDocument()
+      const failureAlert = await screen.findByTestId(
+        'beregning.beregningen-feilet'
+      )
+      expect(failureAlert).toBeInTheDocument()
+      const retryButton = within(failureAlert).getByRole('button', {
+        name: 'Prøv på nytt',
+      })
+      expect(retryButton).toBeInTheDocument()
       await waitFor(async () => {
         expect(screen.queryByText('grunnlag.title')).not.toBeInTheDocument()
       })
-      await user.click(await screen.findByText('application.global.retry'))
+      await user.click(retryButton)
       expect(initiateMock).toHaveBeenCalledTimes(7)
       expect(screen.queryByText('beregning.tabell.vis')).not.toBeInTheDocument()
     })
@@ -770,12 +777,16 @@ describe('BeregningEnkel', () => {
 
       await user.click(await screen.findByText('63 alder.aar'))
 
+      const ikkeNokOpptjeningAlert = await screen.findByTestId(
+        'beregning.enkel.ikke-nok-opptjening'
+      )
+      expect(ikkeNokOpptjeningAlert).toBeVisible()
       expect(
-        await screen.findByText(
-          'Du har ikke høy nok opptjening til å kunne starte uttak ved 63 år. Prøv en høyere alder.',
-          { exact: false }
-        )
-      ).toBeVisible()
+        within(ikkeNokOpptjeningAlert).queryByRole('button')
+      ).not.toBeInTheDocument()
+      expect(ikkeNokOpptjeningAlert).toHaveTextContent(
+        'Beregningen viser at du ikke kan starte uttak av alderspensjon ved 63 år. Prøv en høyere alder.'
+      )
       expect(screen.queryByText('grunnlag.title')).not.toBeInTheDocument()
       expect(screen.queryByText('beregning.tabell.vis')).not.toBeInTheDocument()
     })
@@ -819,8 +830,11 @@ describe('BeregningEnkel', () => {
 
         await user.click(await screen.findByText('63 alder.aar'))
 
+        const failureAlert = await screen.findByTestId(
+          'beregning.beregningen-feilet'
+        )
         expect(
-          await screen.findByText('application.global.retry')
+          within(failureAlert).getByRole('button', { name: 'Prøv på nytt' })
         ).toBeInTheDocument()
         expect(
           screen.queryByText('Du har ikke høy nok opptjening', {

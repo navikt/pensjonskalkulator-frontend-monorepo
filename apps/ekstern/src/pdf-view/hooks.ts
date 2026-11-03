@@ -429,7 +429,7 @@ const generatePdfContent = (params: {
   )
 
   const afpOffentligAlertsMessage = afpOffentligAlertsList
-    ? getAfpOffentligAlertsText({ afpOffentligAlertsList, intl })
+    ? getAfpOffentligAlertsText({ afpOffentligAlertsList, intl, alertData })
     : ''
 
   const grunnlagIngress = getGrunnlagIngress({

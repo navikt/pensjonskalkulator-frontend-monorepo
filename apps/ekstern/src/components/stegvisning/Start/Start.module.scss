@@ -40,15 +40,15 @@
   vertical-align: middle;
 
   &__blue {
-    background-color: var(--ax-brand-blue-600);
+    background-color: var(--ax-bg-accent-strong-hover);
   }
 
   &__purple {
-    background-color: var(--ax-meta-purple-500);
+    background-color: var(--ax-bg-meta-purple-strong);
   }
 
   &__green {
-    background-color: var(--ax-success-500);
+    background-color: var(--ax-bg-success-strong);
   }
 }
 

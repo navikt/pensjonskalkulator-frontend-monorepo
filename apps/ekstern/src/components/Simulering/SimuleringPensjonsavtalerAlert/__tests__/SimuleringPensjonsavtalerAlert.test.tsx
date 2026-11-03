@@ -2,12 +2,8 @@ import offentligTpData from '@pensjonskalkulator-frontend-monorepo/mocks/data/of
 import pensjonsavtalerData from '@pensjonskalkulator-frontend-monorepo/mocks/data/pensjonsavtaler/67.json' with { type: 'json' }
 import { vi } from 'vitest'
 
-import { ShowMoreRef } from '@/components/common/ShowMore/ShowMore'
 import { loependeVedtakLoependeAlderspensjonMock } from '@/mocks'
-import {
-  AvansertBeregningModus,
-  BeregningContext,
-} from '@/pages/Beregning/context'
+import { BeregningContext } from '@/pages/Beregning/context'
 import { fireEvent, render, screen, within } from '@/test-utils'
 import * as loggerUtils from '@/utils/logging'
 
@@ -22,15 +18,6 @@ describe('SimuleringPensjonsavtalerAlert', () => {
       }) as Pensjonsavtale
   )
 
-  const contextMockedValues = {
-    avansertSkjemaModus: 'resultat' as AvansertBeregningModus,
-    setAvansertSkjemaModus: vi.fn(),
-    harAvansertSkjemaUnsavedChanges: false,
-    setHarAvansertSkjemaUnsavedChanges: () => {},
-    pensjonsavtalerShowMoreRef: {
-      current: { focus: vi.fn() },
-    } as unknown as React.RefObject<ShowMoreRef>,
-  }
   afterEach(() => {
     vi.resetAllMocks()
   })
@@ -770,45 +757,26 @@ describe('SimuleringPensjonsavtalerAlert', () => {
     })
   })
 
-  it('scroller til pensjonsavtaler-heading når lenken klikkes i alert-boksen', () => {
-    const scrollToMock = vi.fn()
-    Object.defineProperty(global.window, 'scrollTo', {
-      value: scrollToMock,
-      writable: true,
-    })
-
-    const elemDiv = document.createElement('div')
-    elemDiv.setAttribute('id', 'pensjonsavtaler-heading')
-    document.body.appendChild(elemDiv)
+  it('fokuserer på pensjonsavtaler når Sanity-lenken klikkes', () => {
+    const focusMock = vi.fn()
 
     render(
-      <SimuleringPensjonsavtalerAlert
-        pensjonsavtaler={{
-          isLoading: false,
-          isSuccess: false,
-          isError: true,
+      <BeregningContext.Provider
+        value={{
+          avansertSkjemaModus: 'redigering',
+          setAvansertSkjemaModus: vi.fn(),
+          harAvansertSkjemaUnsavedChanges: false,
+          setHarAvansertSkjemaUnsavedChanges: vi.fn(),
+          pensjonsavtalerShowMoreRef: {
+            current: {
+              isOpen: false,
+              toggleOpen: vi.fn(),
+              scrollTo: vi.fn(),
+              focus: focusMock,
+            },
+          },
         }}
-        offentligTp={{
-          isError: false,
-          data: offentligTpData as OffentligTp,
-        }}
-        isPensjonsavtaleFlagVisible={false}
-      />
-    )
-    const privateAlert = screen.getByTestId(
-      'pensjonsavtaler.noe-gikk-galt-ved-henting-privat'
-    )
-    fireEvent.click(within(privateAlert).getByText('pensjon fra andre'))
-
-    expect(scrollToMock).toHaveBeenCalledWith({
-      behavior: 'smooth',
-      top: -15,
-    })
-  })
-
-  it('ShowMore vises og scroller til Pensjonsavtaler når lenken klikkes i alert-boksen', () => {
-    render(
-      <BeregningContext.Provider value={contextMockedValues}>
+      >
         <SimuleringPensjonsavtalerAlert
           pensjonsavtaler={{
             isLoading: false,
@@ -827,11 +795,7 @@ describe('SimuleringPensjonsavtalerAlert', () => {
       'pensjonsavtaler.noe-gikk-galt-ved-henting-privat'
     )
     fireEvent.click(within(privateAlert).getByText('pensjon fra andre'))
-    if (!contextMockedValues.pensjonsavtalerShowMoreRef.current) {
-      throw Error('pensjonsavtalerShowMoreRef.current should not be null')
-    }
-    expect(
-      contextMockedValues.pensjonsavtalerShowMoreRef.current.focus
-    ).toHaveBeenCalledTimes(1)
+
+    expect(focusMock).toHaveBeenCalledWith({ scroll: false })
   })
 })

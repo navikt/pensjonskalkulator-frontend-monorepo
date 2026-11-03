@@ -16,29 +16,12 @@ export const SimuleringPensjonsavtalerAlert: React.FC<
   erOffentligTpFoer1963,
 }) => {
   const { pensjonsavtalerShowMoreRef } = React.useContext(BeregningContext)
-
   const alertsList = usePensjonsavtalerAlerts({
     pensjonsavtaler,
     offentligTp,
     isPensjonsavtaleFlagVisible,
     erOffentligTpFoer1963,
   })
-
-  const goToPensjonsavtaler = (): void => {
-    if (pensjonsavtalerShowMoreRef?.current) {
-      pensjonsavtalerShowMoreRef?.current?.focus()
-    } else {
-      const pensjonsavtalerHeader = document.getElementById(
-        'pensjonsavtaler-heading'
-      )
-      if (pensjonsavtalerHeader) {
-        window.scrollTo({
-          top: pensjonsavtalerHeader.offsetTop - 15,
-          behavior: 'smooth',
-        })
-      }
-    }
-  }
 
   if (!alertsList.length) {
     return null
@@ -55,7 +38,12 @@ export const SimuleringPensjonsavtalerAlert: React.FC<
           role="alert"
           {...(index === 1 && { style: { margin: '16px 0' } })}
         >
-          <SanityAlert id={alert.sanityId} onLinkClick={goToPensjonsavtaler} />
+          <SanityAlert
+            id={alert.sanityId}
+            onLinkClick={() =>
+              pensjonsavtalerShowMoreRef?.current?.focus({ scroll: false })
+            }
+          />
         </div>
       ))}
     </>
