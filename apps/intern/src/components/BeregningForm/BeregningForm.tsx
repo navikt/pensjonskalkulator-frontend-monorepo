@@ -585,19 +585,18 @@ export const BeregningForm = () => {
 														DATE_ENDUSER_FORMAT
 													)
 												: '',
-											'tidligst-endring-ved-fremtidig-vedtak':
-												fremtidigAlderspensjon
-													? format(
-															fremtidigAlderspensjon.grad === 0 &&
-																afp === 'ja_offentlig'
-																? parseISO(fremtidigAlderspensjon.fom)
-																: addMonths(
-																		parseISO(fremtidigAlderspensjon.fom),
-																		1
-																	),
-															DATE_ENDUSER_FORMAT
-														)
-													: '',
+											tidligstEndringDato: fremtidigAlderspensjon
+												? format(
+														fremtidigAlderspensjon.grad === 0 &&
+															afp === 'ja_offentlig'
+															? parseISO(fremtidigAlderspensjon.fom)
+															: addMonths(
+																	parseISO(fremtidigAlderspensjon.fom),
+																	1
+																),
+														DATE_ENDUSER_FORMAT
+													)
+												: '',
 										}}
 									/>
 								)}
