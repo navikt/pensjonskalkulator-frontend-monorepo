@@ -2232,9 +2232,9 @@ export interface components {
 			grad: number
 			/**
 			 * Format: int32
-			 * @description Hvilken kalendermåned (1..12) uttaket med denne graden startet (fra og med)
+			 * @description Hvilken kalendermåned (1..12) uttaket med denne graden startet (fra og med) - kun angitt for året da uttaket startet
 			 */
-			kalendermaanedFom: number
+			kalendermaanedFom?: number | null
 		}
 		SimuleringV2Uttaksparametre: {
 			/** @description Alder ved start av gradert uttak */
@@ -3769,9 +3769,9 @@ export interface components {
 			grad: number
 			/**
 			 * Format: int32
-			 * @description Hvilken kalendermåned (1..12) uttaket med denne graden startet (fra og med)
+			 * @description Hvilken kalendermåned (1..12) uttaket med denne graden startet (fra og med) - kun angitt for året da uttaket startet
 			 */
-			kalendermaanedFom: number
+			kalendermaanedFom?: number | null
 		}
 		EpsV1SivilstatusResult: {
 			/** @enum {string} */
