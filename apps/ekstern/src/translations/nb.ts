@@ -512,10 +512,6 @@ const translations = {
   'beregning.avansert.button.oppdater': 'Oppdater pensjon',
   'beregning.avansert.button.nullstill': 'Nullstill valg',
   'beregning.avansert.button.avbryt': 'Avbryt endring',
-  'beregning.vilkaarsproeving.intro':
-    'Opptjeningen din er ikke høy nok til ønsket uttak. ',
-  'beregning.vilkaarsproeving.intro.optional':
-    'Du må øke alderen eller sette ned uttaksgraden.{br}{br}',
   'grunnlag.title': 'Om inntekten og pensjonen din',
   'grunnlag.endring.title': 'Om pensjonen din',
   'maanedsbeloep.title': 'Månedlig pensjon',
@@ -527,10 +523,6 @@ const translations = {
   'beregning.avansert.avbryt_modal.endring.button.avslutt':
     'Gå ut av beregning',
   'beregning.avansert.avbryt_modal.button.avbryt': 'Avbryt',
-  'beregning.avansert.alert.vilkaarsproevning.afp_inntekt_maaned_foer_uttak':
-    'Med opplysninger vi har om deg, oppfyller du ikke vilkårene for AFP. {vilkaarForUttakAvAfp}. Du kan også beregne {alderspensjonUtenAFP}.',
-  'beregning.avansert.alert.afp_inntekt_maaned_foer_uttak.link.text':
-    'alderspensjon uten AFP',
   'beregning.endring.alert.uttaksdato':
     'Du kan tidligst endre uttaksgrad til 20, 40, 50, 60 eller 80 % fra {dato}.',
   'beregning.endring.rediger.title': 'Beregn endring av alderspensjon',

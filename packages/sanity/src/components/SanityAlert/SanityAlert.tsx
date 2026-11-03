@@ -72,6 +72,7 @@ interface Props {
 	className?: string
 	dynamicValues?: DynamicValues
 	onLinkClick?: () => void
+	onRouteClick?: () => void
 	onClose?: () => void
 	onButtonClick?: () => void
 	role?: HTMLAttributes<HTMLDivElement>['role']
@@ -83,6 +84,7 @@ export const SanityAlert = ({
 	className,
 	dynamicValues,
 	onLinkClick,
+	onRouteClick,
 	onClose,
 	onButtonClick,
 	role,
@@ -102,6 +104,7 @@ export const SanityAlert = ({
 	const portableTextComponents = getSanityPortableTextComponents({
 		intl,
 		onLinkClick,
+		onRouteClick,
 		navigateToRoute,
 		dynamicValues,
 	})

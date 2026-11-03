@@ -1,9 +1,10 @@
+import { SanityContext } from '@pensjonskalkulator-frontend-monorepo/sanity'
 import { IntlProvider } from 'react-intl'
-import { describe, it } from 'vitest'
+import { describe, it, vi } from 'vitest'
 
 import { personMock } from '@/mocks'
 import { userInputInitialState } from '@/state/userInput/userInputSlice'
-import { render, screen } from '@/test-utils'
+import { render, screen, userEvent } from '@/test-utils'
 import nb from '@/translations/nb'
 
 import { VilkaarsproevingAlert } from '..'
@@ -21,6 +22,27 @@ describe('VilkaarsproevingAlert', () => {
         ...userInputInitialState,
       },
     }
+
+    it.each([null, undefined])(
+      'viser Sanity-varsel når alternativ mangler (%s)',
+      (manglendeAlternativ) => {
+        render(
+          <VilkaarsproevingAlert
+            alternativ={manglendeAlternativ}
+            uttaksalder={uttaksalder}
+          />,
+          { preloadedApiState: { getPerson: personMock } }
+        )
+
+        const alert = screen.getByTestId(
+          'beregning.vilkaarsproeving.ikke_nok_opptjening'
+        )
+        expect(alert).toHaveTextContent(
+          'Opptjeningen din er ikke høy nok til ønsket uttak. Du må øke alderen eller sette ned uttaksgraden.'
+        )
+        expect(screen.getAllByRole('alert')).toHaveLength(1)
+      }
+    )
 
     it('Når det foreslåtte alternativet er den default normert pensjonsalder, vises det riktig tekst', () => {
       render(
@@ -406,6 +428,80 @@ describe('VilkaarsproevingAlert', () => {
           }
         )
       ).toBeInTheDocument()
+      expect(
+        screen.getByTestId('afp.vilkaarsproeving.vilkaar-ikke-oppfylt.ekstern')
+      ).toContainElement(screen.getByRole('alert'))
+      expect(screen.getAllByRole('alert')).toHaveLength(1)
+    })
+
+    it('nullstiller bare valgene ved navigering til alderspensjon uten AFP', async () => {
+      const user = userEvent.setup()
+      const navigateToRoute = vi.fn()
+      const currentSimulation = {
+        ...userInputInitialState.currentSimulation,
+        uttaksalder,
+        gradertUttaksperiode: {
+          grad: 40,
+          uttaksalder: { aar: 62, maaneder: 0 },
+        },
+      }
+      const { store } = render(
+        <SanityContext.Consumer>
+          {(sanityContext) => (
+            <SanityContext.Provider
+              value={{ ...sanityContext, navigateToRoute }}
+            >
+              <VilkaarsproevingAlert
+                alternativ={undefined}
+                uttaksalder={uttaksalder}
+              />
+            </SanityContext.Provider>
+          )}
+        </SanityContext.Consumer>,
+        {
+          preloadedState: {
+            userInput: {
+              ...userInputInitialState,
+              afpUtregningValg: 'AFP_ETTERFULGT_AV_ALDERSPENSJON',
+              afpInntektMaanedFoerUttak: true,
+              currentSimulation,
+            },
+          },
+        }
+      )
+
+      const externalLink = screen.getByRole('link', {
+        name: /Om vilkår for uttak av AFP/,
+      })
+      expect(externalLink).toHaveAttribute(
+        'href',
+        'https://www.nav.no/afp-offentlig#hvem-kan-fa'
+      )
+      expect(externalLink).toHaveAttribute('target', '_blank')
+      await user.click(externalLink)
+
+      expect(navigateToRoute).not.toHaveBeenCalled()
+      expect(store.getState().userInput).toMatchObject({
+        afpInntektMaanedFoerUttak: true,
+        currentSimulation,
+      })
+
+      const routeLink = screen.getByRole('link', {
+        name: 'beregne alderspensjon uten AFP',
+      })
+      expect(routeLink).toHaveAttribute('href', '/pensjon/kalkulator/afp')
+      await user.click(routeLink)
+
+      expect(store.getState().userInput).toMatchObject({
+        afpInntektMaanedFoerUttak: null,
+        currentSimulation: {
+          gradertUttaksperiode: null,
+          uttaksalder: null,
+        },
+      })
+      expect(navigateToRoute).toHaveBeenCalledExactlyOnceWith(
+        '/pensjon/kalkulator/afp'
+      )
     })
   })
 })

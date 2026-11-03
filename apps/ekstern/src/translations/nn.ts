@@ -398,17 +398,11 @@ export default {
   'beregning.avansert.avbryt_modal.button.avslutt': 'MANGLER_TEKST',
   'beregning.avansert.avbryt_modal.endring.button.avslutt': 'MANGLER_TEKST',
   'beregning.avansert.avbryt_modal.button.avbryt': 'MANGLER_TEKST',
-  'beregning.avansert.alert.vilkaarsproevning.afp_inntekt_maaned_foer_uttak':
-    'MANGLER_TEKST',
-  'beregning.avansert.alert.afp_inntekt_maaned_foer_uttak.link.text':
-    'MANGLER_TEKST',
   'beregning.endring.alert.uttaksdato': 'MANGLER_TEKST',
   'beregning.endring.rediger.title': 'MANGLER_TEKST',
   'beregning.endring.rediger.vedtak_status': 'MANGLER_TEKST',
   'beregning.endring.rediger.vedtak_grad_status': 'MANGLER_TEKST',
   'beregning.endring.rediger.vedtak_betaling_status': 'MANGLER_TEKST',
-  'beregning.vilkaarsproeving.intro': 'MANGLER_TEKST',
-  'beregning.vilkaarsproeving.intro.optional': 'MANGLER_TEKST',
   'grunnlag.title': 'Grunnlaget for utrekninga',
   'grunnlag.endring.title': 'MANGLER_TEKST',
   'maanedsbeloep.title': 'MANGLER_TEKST',

@@ -530,11 +530,6 @@ test.describe('AFP vs uføretrygd', () => {
           await expect(alert).toContainText(
             'Et alternativ er at du ved 62 år kan ta ut 40 % alderspensjon. Prøv gjerne andre kombinasjoner.'
           )
-          await expect(
-            page.getByTestId(
-              'beregning.vilkaarsproeving.ikke_nok_opptjening.ut_afp'
-            )
-          ).toHaveCount(0)
         })
       })
 

@@ -1,13 +1,8 @@
 /* c8 disable */
 import { SanityAlert } from '@pensjonskalkulator-frontend-monorepo/sanity/SanityAlert'
 import React from 'react'
-import { FormattedMessage, useIntl } from 'react-intl'
-import { useNavigate } from 'react-router'
+import { useIntl } from 'react-intl'
 
-import { ExternalLinkIcon } from '@navikt/aksel-icons'
-import { Alert, Link } from '@navikt/ds-react'
-
-import { paths } from '@/router/constants'
 import { useAppDispatch, useAppSelector } from '@/state/hooks'
 import {
   selectCurrentSimulation,
@@ -19,7 +14,6 @@ import { userInputActions } from '@/state/userInput/userInputSlice'
 import { formatUttaksalder } from '@/utils/alder'
 import { ALERT_VIST } from '@/utils/loggerConstants'
 import { logger } from '@/utils/logging'
-import { getFormatMessageValues } from '@/utils/translations'
 
 export interface Props {
   alternativ: Vilkaarsproeving['alternativ']
@@ -33,7 +27,6 @@ export const VilkaarsproevingAlert = ({
   withAFP = false,
 }: Props) => {
   const intl = useIntl()
-  const navigate = useNavigate()
   const dispatch = useAppDispatch()
   const { gradertUttaksperiode } = useAppSelector(selectCurrentSimulation)
   const nedreAldersgrense = useAppSelector(selectNedreAldersgrense)
@@ -106,58 +99,18 @@ export const VilkaarsproevingAlert = ({
 
   if (skalBeregneAfpKap19) {
     return (
-      <Alert variant="warning" role="alert">
-        <FormattedMessage
-          id="beregning.avansert.alert.vilkaarsproevning.afp_inntekt_maaned_foer_uttak"
-          values={{
-            ...getFormatMessageValues(),
-            vilkaarForUttakAvAfp: (
-              <Link
-                href="https://www.nav.no/afp-offentlig#hvem-kan-fa"
-                target="_blank"
-                rel="noopener noreferrer"
-                inlineText
-              >
-                <FormattedMessage id="Om vilkår for uttak av AFP" />
-                <ExternalLinkIcon
-                  title={intl.formatMessage({
-                    id: 'application.global.external_link',
-                  })}
-                  width="1.25rem"
-                  height="1.25rem"
-                />
-              </Link>
-            ),
-            alderspensjonUtenAFP: (
-              <Link
-                href="#"
-                onClick={(e) => {
-                  e.preventDefault()
-                  dispatch(userInputActions.setAfpInntektMaanedFoerUttak(null))
-                  dispatch(
-                    userInputActions.setCurrentSimulationGradertUttaksperiode(
-                      null
-                    )
-                  )
-                  dispatch(
-                    userInputActions.setCurrentSimulationUttaksalder(null)
-                  )
-                  // TODO: fjern når amplitude er ikke i bruk lenger
-                  logger('button klikk', { tekst: 'Grunnlag AFP: Gå til AFP' })
-                  logger('knapp klikket', {
-                    tekst: 'Grunnlag AFP: Gå til AFP',
-                  })
-                  navigate(paths.afp)
-                }}
-              >
-                {intl.formatMessage({
-                  id: 'beregning.avansert.alert.afp_inntekt_maaned_foer_uttak.link.text',
-                })}
-              </Link>
-            ),
-          }}
-        />
-      </Alert>
+      <SanityAlert
+        id="afp.vilkaarsproeving.vilkaar-ikke-oppfylt.ekstern"
+        role="alert"
+        onRouteClick={() => {
+          dispatch(userInputActions.setAfpInntektMaanedFoerUttak(null))
+          dispatch(
+            userInputActions.setCurrentSimulationGradertUttaksperiode(null)
+          )
+          dispatch(userInputActions.setCurrentSimulationUttaksalder(null))
+          logger('knapp klikket', { tekst: 'Grunnlag AFP: Gå til AFP' })
+        }}
+      />
     )
   }
 
@@ -189,13 +142,11 @@ export const VilkaarsproevingAlert = ({
   }
 
   return (
-    <Alert variant="warning" role="alert">
-      <FormattedMessage id="beregning.vilkaarsproeving.intro" />
-      <FormattedMessage
-        id="beregning.vilkaarsproeving.intro.optional"
-        values={getFormatMessageValues()}
-      />
-    </Alert>
+    <SanityAlert
+      id="beregning.vilkaarsproeving.ikke_nok_opptjening"
+      role="alert"
+      dynamicValues={dynamicPensjonsaldre}
+    />
   )
 }
 
