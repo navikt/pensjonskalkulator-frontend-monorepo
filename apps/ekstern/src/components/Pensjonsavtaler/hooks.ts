@@ -6,8 +6,7 @@ import { PrivatePensjonsavtalerProps } from './utils'
 
 export interface OffentligTpAlert {
   status: string
-  alertTextId?: string
-  sanityId?: string
+  sanityId: string
   variant: 'info' | 'warning'
   logTekst: string
   testId?: string

@@ -594,7 +594,9 @@ test.describe('Flere valg', () => {
             'beregning.avansert.rediger.inntekt_frem_til_endring.label'
           )
         ).toBeVisible()
-        await expect(page.getByRole('alert')).toContainText(
+        await expect(
+          page.getByTestId('beregning.vilkaarsproeving.ikke_nok_opptjening')
+        ).toContainText(
           'Opptjeningen din er ikke høy nok til ønsket uttak. Du må øke alderen eller sette ned uttaksgraden.'
         )
       })
@@ -625,8 +627,10 @@ test.describe('Flere valg', () => {
 
         await page.getByTestId('beregn-pensjon').click()
 
-        await expect(page.getByRole('alert')).toContainText(
-          'Du kan tidligst ta ut alderspensjon ved 67 år.'
+        await expect(
+          page.getByTestId('beregning.vilkaarsproeving.ikke_nok_opptjening')
+        ).toContainText(
+          'Et alternativ er at du ved 67 år kan ta ut 100 % alderspensjon.'
         )
       })
 
@@ -656,7 +660,9 @@ test.describe('Flere valg', () => {
 
         await page.getByTestId('beregn-pensjon').click()
 
-        await expect(page.getByRole('alert')).toContainText(
+        await expect(
+          page.getByTestId('beregning.vilkaarsproeving.ikke_nok_opptjening')
+        ).toContainText(
           'Et alternativ er at du ved 65 år og 3 måneder kan ta ut 100 % alderspensjon. Prøv gjerne andre kombinasjoner.'
         )
       })
@@ -689,7 +695,9 @@ test.describe('Flere valg', () => {
 
         await page.getByTestId('beregn-pensjon').click()
 
-        await expect(page.getByRole('alert')).toContainText(
+        await expect(
+          page.getByTestId('beregning.vilkaarsproeving.ikke_nok_opptjening')
+        ).toContainText(
           'Et alternativ er at du ved 65 år og 3 måneder kan ta ut 40 % alderspensjon. Prøv gjerne andre kombinasjoner.'
         )
       })
@@ -722,8 +730,12 @@ test.describe('Flere valg', () => {
 
         await page.getByTestId('beregn-pensjon').click()
 
-        await expect(page.getByRole('alert')).toContainText(
-          'Et alternativ er at du ved 65 år og 1 måneder kan ta ut 20 % alderspensjon hvis du tar ut 100 % alderspensjon ved 67 år og 0 måneder eller senere. Prøv gjerne andre kombinasjoner.'
+        await expect(
+          page.getByTestId(
+            'beregning.vilkaarsproeving.ikke_nok_opptjening_gradert'
+          )
+        ).toContainText(
+          'Et alternativ er at du ved 65 år og 1 måned kan ta ut 20 % alderspensjon hvis du tar ut 100 % alderspensjon ved 67 år eller senere. Prøv gjerne andre kombinasjoner.'
         )
       })
 

@@ -313,7 +313,6 @@ export default {
   'beregning.avansert.rediger.beregningsvalg.med_afp.title': 'MANGLER_TEKST',
   'beregning.avansert.rediger.beregningsvalg.med_afp.description':
     'MANGLER_TEKST',
-  'beregning.avansert.rediger.pre2025_offentlig_afp.alert': 'MANGLER_TEKST',
   'beregning.toggle.enkel': 'Simple',
   'beregning.toggle.avansert': 'Advanced',
   'beregning.loading': 'Please wait while we calculate your pension.',
@@ -438,27 +437,6 @@ export default {
   'beregning.avansert.button.oppdater': 'Update Pension',
   'beregning.avansert.button.nullstill': 'Reset Choices',
   'beregning.avansert.button.avbryt': 'Cancel Change',
-  'beregning.vilkaarsproeving.intro':
-    'Your accrual is not high enough for the desired withdrawal. ',
-  'beregning.vilkaarsproeving.intro.ikke_nok_opptjening':
-    '{br}{br}You can earliest withdraw retirement pension at 67 years.',
-  'beregning.vilkaarsproeving.intro.optional':
-    'You need to increase the age or lower the withdrawal degree.{br}{br}',
-  'beregning.vilkaarsproeving.alternativer.heltUttak':
-    'One alternative is that you can withdraw <nowrap>100 %</nowrap> retirement pension at {alternativtHeltStartAar} years and {alternativtHeltStartMaaned} months. Feel free to try other combinations.',
-  'beregning.vilkaarsproeving.alternativer.gradertUttak':
-    'One alternative is that you can withdraw <nowrap>{alternativtGrad} %</nowrap> retirement pension at {alternativtGradertStartAar} years and {alternativtGradertStartMaaned} months. Feel free to try other combinations.',
-  'beregning.vilkaarsproeving.alternativer.heltOgGradertUttak':
-    'One alternative is that you can withdraw <nowrap>{alternativtGrad} %</nowrap> retirement pension at {alternativtGradertStartAar} years and {alternativtGradertStartMaaned} months if you withdraw <nowrap>100 %</nowrap> retirement pension at {alternativtHeltStartAar} years and {alternativtHeltStartMaaned} months or later. Feel free to try other combinations.',
-  'beregning.vilkaarsproeving.medAFP.intro': 'MANGLER_TEKST',
-  'beregning.vilkaarsproeving.alternativer.medAFP.gradertUttak':
-    'MANGLER_TEKST',
-  'beregning.vilkaarsproeving.alternativer.medAFP.heltOgGradertUttak':
-    'MANGLER_TEKST',
-  'beregning.vilkaarsproeving.alternativer.medAFP.heltOgGradertUttak100':
-    'MANGLER_TEKST',
-  'beregning.vilkaarsproeving.alternativer.medAFP.ikkeNokOpptjening':
-    'MANGLER_TEKST',
   'grunnlag.title': 'Other Basis for Calculation',
   'grunnlag.endring.title': 'MANGLER_TEKST',
   'maanedsbeloep.title': 'MANGLER_TEKST',
@@ -469,11 +447,6 @@ export default {
   'beregning.avansert.avbryt_modal.button.avslutt': 'Exit Advanced',
   'beregning.avansert.avbryt_modal.endring.button.avslutt': 'Exit calculation',
   'beregning.avansert.avbryt_modal.button.avbryt': 'Cancel',
-  'beregning.avansert.alert.vilkaarsproevning.afp_inntekt_maaned_foer_uttak':
-    'MANGLER_TEKST',
-  'beregning.avansert.alert.afp_inntekt_maaned_foer_uttak': 'MANGLER_TEKST',
-  'beregning.avansert.alert.afp_inntekt_maaned_foer_uttak.link.text':
-    'MANGLER_TEKST',
   'beregning.endring.alert.uttaksdato':
     'You can earliest change the withdrawal degree to 20, 40, 50, 60, or 80 % from {dato}.',
   'beregning.endring.rediger.title': 'Calculate Change in retirement pension',

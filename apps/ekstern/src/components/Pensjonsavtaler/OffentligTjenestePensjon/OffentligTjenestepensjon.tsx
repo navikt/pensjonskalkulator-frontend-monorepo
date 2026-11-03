@@ -4,7 +4,6 @@ import React from 'react'
 import { FormattedMessage, useIntl } from 'react-intl'
 
 import {
-  Alert,
   BodyLong,
   Heading,
   HeadingProps,
@@ -138,34 +137,13 @@ export const OffentligTjenestepensjon = (props: {
               ? formatLeverandoerList(intl.locale, leverandoerList)
               : undefined
 
-          if (alert.sanityId) {
-            return (
-              <div
-                key={`offentligtp-alert-${index}`}
-                data-testid={alert.testId}
-              >
-                <SanityAlert
-                  id={alert.sanityId}
-                  dynamicValues={chunk ? { tpOrdning: chunk } : undefined}
-                />
-              </div>
-            )
-          }
-
-          if (!alert.alertTextId) return null
-
           return (
-            <Alert
-              key={`offentligtp-alert-${index}`}
-              inline
-              variant={alert.variant}
-              data-testid={alert.testId}
-            >
-              <FormattedMessage
-                id={alert.alertTextId}
-                values={{ chunk: chunk ? `(${chunk})` : '' }}
+            <div key={`offentligtp-alert-${index}`} data-testid={alert.testId}>
+              <SanityAlert
+                id={alert.sanityId}
+                dynamicValues={chunk ? { tpOrdning: chunk } : undefined}
               />
-            </Alert>
+            </div>
           )
         })}
 
