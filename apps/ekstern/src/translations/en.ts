@@ -140,6 +140,8 @@ export default {
   'utenlandsopphold.om_oppholdet_ditt_modal.button.legg_til': 'Add Stay',
   'utenlandsopphold.om_oppholdet_ditt_modal.button.oppdater': 'Update Stay',
   'utenlandsopphold.om_oppholdet_ditt_modal.button.avbryt': 'Cancel',
+  'utenlandsopphold.om_oppholdet_ditt_modal.button.avbryt_endring':
+    'Cancel change',
   'utenlandsopphold.om_oppholdet_ditt_modal.land.label': 'Select Country',
   'utenlandsopphold.om_oppholdet_ditt_modal.har_jobbet.label':
     'Did you work in {land}?',

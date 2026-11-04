@@ -269,7 +269,6 @@ export function UtenlandsoppholdListe({
                       <Button
                         type="button"
                         variant="tertiary"
-                        size="small"
                         data-testid="endre-utenlandsopphold"
                         icon={<PencilIcon aria-hidden />}
                         aria-label={intl.formatMessage(
@@ -289,7 +288,6 @@ export function UtenlandsoppholdListe({
                       <Button
                         type="button"
                         variant="tertiary"
-                        size="small"
                         data-testid="slett-utenlandsopphold"
                         icon={<TrashIcon aria-hidden />}
                         aria-label={intl.formatMessage(
