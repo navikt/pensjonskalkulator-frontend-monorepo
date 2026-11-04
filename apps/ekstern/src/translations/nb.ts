@@ -143,9 +143,9 @@ const translations = {
   'stegvisning.utenlandsopphold.oppholdene.description.har_jobbet.nei': 'Nei',
   'stegvisning.utenlandsopphold.oppholdene.button.legg_til_nytt':
     'Legg til nytt opphold',
-  'stegvisning.utenlandsopphold.oppholdene.button.endre': 'Rediger',
+  'stegvisning.utenlandsopphold.oppholdene.button.endre': 'Endre',
   'stegvisning.utenlandsopphold.oppholdene.button.endre.aria_label':
-    'Rediger opphold i {land}',
+    'Endre opphold i {land}',
   'stegvisning.utenlandsopphold.oppholdene.button.slette': 'Slett',
   'stegvisning.utenlandsopphold.oppholdene.button.slette.aria_label':
     'Slett opphold i {land}',
@@ -154,6 +154,8 @@ const translations = {
   'utenlandsopphold.om_oppholdet_ditt_modal.button.oppdater':
     'Oppdater opphold',
   'utenlandsopphold.om_oppholdet_ditt_modal.button.avbryt': 'Avbryt',
+  'utenlandsopphold.om_oppholdet_ditt_modal.button.avbryt_endring':
+    'Avbryt endring',
   'utenlandsopphold.om_oppholdet_ditt_modal.land.label': 'Velg land',
   'utenlandsopphold.om_oppholdet_ditt_modal.har_jobbet.label':
     'Jobbet du i {land}?',

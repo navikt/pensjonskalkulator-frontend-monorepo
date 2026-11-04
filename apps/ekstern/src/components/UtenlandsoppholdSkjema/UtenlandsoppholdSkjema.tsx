@@ -298,7 +298,9 @@ export const UtenlandsoppholdSkjema: React.FC<Props> = ({
               data-testid="legg-til-utenlandsopphold-avbryt"
             >
               {intl.formatMessage({
-                id: 'utenlandsopphold.om_oppholdet_ditt_modal.button.avbryt',
+                id: utenlandsperiode
+                  ? 'utenlandsopphold.om_oppholdet_ditt_modal.button.avbryt_endring'
+                  : 'utenlandsopphold.om_oppholdet_ditt_modal.button.avbryt',
               })}
             </Button>
           )}

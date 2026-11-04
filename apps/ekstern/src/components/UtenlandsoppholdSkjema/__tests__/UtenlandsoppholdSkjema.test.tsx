@@ -178,6 +178,26 @@ describe('UtenlandsoppholdSkjema', () => {
   })
 
   describe('Gitt at det skal endres et eksisterende opphold', () => {
+    it('viser "avbryt endring" som tekst på avbryt-knappen', async () => {
+      render(
+        <UtenlandsoppholdSkjema
+          onSubmitCallback={vi.fn()}
+          utenlandsperiode={{
+            id: '1',
+            landkode: 'FRA',
+            arbeidetUtenlands: true,
+            startdato: '20.01.2001',
+            sluttdato: '20.01.2011',
+          }}
+        />
+      )
+
+      expect(
+        await screen.findByText(
+          'utenlandsopphold.om_oppholdet_ditt_modal.button.avbryt_endring'
+        )
+      ).toBeVisible()
+    })
     it('rendrer slik den skal med riktig forhåndsfylte verdier', async () => {
       render(
         <UtenlandsoppholdSkjema
@@ -236,7 +256,7 @@ describe('UtenlandsoppholdSkjema', () => {
       ).toBeVisible()
       expect(
         await screen.findByText(
-          'utenlandsopphold.om_oppholdet_ditt_modal.button.avbryt'
+          'utenlandsopphold.om_oppholdet_ditt_modal.button.avbryt_endring'
         )
       ).toBeVisible()
     })
