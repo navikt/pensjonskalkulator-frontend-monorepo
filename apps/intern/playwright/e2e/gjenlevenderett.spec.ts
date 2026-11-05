@@ -138,6 +138,9 @@ test.describe('Gjenlevenderett', () => {
 					page.getByTestId('EPS-hent-opplysninger-button')
 				).not.toBeVisible()
 				await expect(page.getByTestId('EPS-opplysninger-info')).toBeVisible()
+				await expect(
+					page.getByRole('heading', { name: 'Opplysninger om avdøde' })
+				).toBeVisible()
 
 				const medlemskap = page.getByRole('group', {
 					name: 'Medlem av folketrygden de 5 siste årene før dødsdato',
@@ -164,6 +167,98 @@ test.describe('Gjenlevenderett', () => {
 					await expect(vedtakTekst).toBeVisible()
 					await expect(medlemskap).not.toBeVisible()
 				}
+			})
+		}
+	})
+
+	test.describe('EPS hentet fra vedtak', () => {
+		for (const erEndring of [true, false]) {
+			test(`Viser navn, dødsdato og manuelle felt med erEndring=${erEndring}`, async ({
+				page,
+			}) => {
+				await setupDefaultMocks(page, {
+					foedselsdato: GJENLEVENDERETT_FOEDSELSDATO,
+				})
+				await mockApi(page, API_URLS.VEDTAK, MOCK_FILES.VEDTAK_UTEN_VEDTAK, {
+					harVedtak: erEndring,
+					loependeAlderspensjon: erEndring
+						? {
+								grad: 100,
+								fom: '2025-05-01',
+								uttaksgradFom: '2023-08-01',
+								sivilstatus: 'ENKE_ELLER_ENKEMANN',
+							}
+						: null,
+					gjenlevenderett: {
+						avdoedPid: '12345678901',
+						avdoedNavn: {
+							fornavn: 'Test',
+							etternavn: 'Testesen',
+						},
+						doedsdato: '2025-02-20',
+					},
+					avdoed: erEndring
+						? {
+								doedsdato: '2025-02-20',
+								foersteAlderspensjonVirkningsdato: '2024-05-01',
+								aarligPensjonsgivendeInntektErMinst1G: true,
+								harTilstrekkeligMedlemskapIFolketrygden: true,
+								antallAarUtenlands: 22,
+								erFlyktning: true,
+							}
+						: null,
+				})
+				await navigateToApp(page)
+				await checkGjenlevenderett(page)
+
+				const info = page.getByTestId('EPS-opplysninger-info')
+				await expect(info).toBeVisible()
+				await expect(
+					info.getByRole('heading', { name: 'Opplysninger om avdøde' })
+				).toBeVisible()
+				await expect(
+					info.getByText('Testesen, Test', { exact: true })
+				).toBeVisible()
+				await expect(
+					info.getByText('20.02.2025', { exact: true })
+				).toBeVisible()
+				await expect(info.locator('dt')).toHaveText(['Navn:', 'Dødsdato:'])
+				await expect(
+					info.getByText(/^Hentet fra vedtak om alderspensjon/)
+				).not.toBeVisible()
+
+				const inntekt = info.getByRole('textbox', {
+					name: 'Pensjonsgivende inntekt året før dødsdato (valgfritt)',
+				})
+				if (erEndring) {
+					await expect(inntekt).toBeEmpty()
+					await inntekt.fill('400000')
+					await expect(inntekt).toHaveValue('400\u00A0000')
+				} else {
+					await expect(inntekt).not.toBeVisible()
+				}
+
+				const medlemskap = info.getByRole('group', {
+					name: 'Medlem av folketrygden de 5 siste årene før dødsdato',
+				})
+				await expect(medlemskap).toBeVisible()
+				await expect(medlemskap.getByLabel('Ja')).not.toBeChecked()
+				await expect(medlemskap.getByLabel('Nei')).not.toBeChecked()
+				await medlemskap.getByLabel('Ja').check()
+				await expect(medlemskap.getByLabel('Ja')).toBeChecked()
+				const utenlandsopphold = info.getByRole('textbox', {
+					name: 'Antall år bodd/jobbet i utlandet etter fylte 16 år (valgfritt)',
+				})
+				await expect(utenlandsopphold).toBeEmpty()
+				await utenlandsopphold.fill('3')
+				await expect(utenlandsopphold).toHaveValue('3')
+
+				const flyktning = info.getByRole('group', {
+					name: 'Registrert som flyktning',
+				})
+				await expect(flyktning.getByLabel('Nei')).toBeChecked()
+				await flyktning.getByLabel('Ja').check()
+				await expect(flyktning.getByLabel('Ja')).toBeChecked()
 			})
 		}
 	})

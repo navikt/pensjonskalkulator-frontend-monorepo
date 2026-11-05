@@ -373,6 +373,7 @@ export const Gjenlevenderett = ({ erEndring }: { erEndring: boolean }) => {
 					{visOpplysningerInfo && (
 						<OpplysningerInfo
 							EPSOpplysninger={formEpsOpplysninger}
+							erEndring={erEndring}
 							vedtakInfoAvdoed={vedtakInfoAvdoed ?? undefined}
 							vedtakAPDato={vedtak?.avdoed?.foersteAlderspensjonVirkningsdato}
 							brukerHarVedtakGjenlevendepensjon={Boolean(

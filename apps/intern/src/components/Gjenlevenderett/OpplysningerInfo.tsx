@@ -90,11 +90,13 @@ function mapEpsOpplysninger({
 
 export const OpplysningerInfo = ({
 	EPSOpplysninger,
+	erEndring,
 	vedtakInfoAvdoed,
 	vedtakAPDato,
 	brukerHarVedtakGjenlevendepensjon,
 }: {
 	EPSOpplysninger: EpsOpplysninger
+	erEndring: boolean
 	vedtakInfoAvdoed?: VedtakInformasjonOmAvdoed
 	vedtakAPDato?: string | null
 	brukerHarVedtakGjenlevendepensjon: boolean
@@ -113,7 +115,7 @@ export const OpplysningerInfo = ({
 		: undefined
 
 	const pensjonsgivendeInntektFoerDoedsdato =
-		!brukerHarVedtakGjenlevendepensjon ? (
+		erEndring || !brukerHarVedtakGjenlevendepensjon ? (
 			<RHFTextField
 				name="epsPensjonsgivendeInntektFoerDoedsDato"
 				label="Pensjonsgivende inntekt året før dødsdato (valgfritt)"
