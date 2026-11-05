@@ -32,7 +32,7 @@ import { getEpsDoedsdato, mapGjenlevenderettTilEpsOpplysninger } from './utils'
 
 import styles from './Gjenlevenderett.module.css'
 
-export const Gjenlevenderett = () => {
+export const Gjenlevenderett = ({ erEndring }: { erEndring: boolean }) => {
 	const { form, fnr, person, resetForm } = useBeregningContext()
 	const { control } = form
 	const { validatebakgrunnForBrukAvOpplysningerOmEPS } = useFormValidation()
@@ -54,7 +54,9 @@ export const Gjenlevenderett = () => {
 	const gjenlevenderettFraVedtak = vedtak?.gjenlevenderett ?? undefined
 
 	const vedtakInfoAvdoed =
-		!isVedtakLoading && vedtak ? getEpsVedtakStatus(vedtak) : null
+		!isVedtakLoading && vedtak && !vedtak.harVedtak && !erEndring
+			? getEpsVedtakStatus(vedtak)
+			: null
 
 	useEffect(() => {
 		form.setValue('vedtakInfoAvdoed', Boolean(vedtakInfoAvdoed), {

@@ -94,6 +94,80 @@ test.describe('Gjenlevenderett', () => {
 		}
 	})
 
+	test.describe('OpplysningerInfo ved vedtak og endring', () => {
+		for (const { harVedtak, erEndring } of [
+			{ harVedtak: false, erEndring: false },
+			{ harVedtak: true, erEndring: false },
+			{ harVedtak: true, erEndring: true },
+			{ harVedtak: false, erEndring: true },
+		]) {
+			test(`Visning med harVedtak=${harVedtak} og erEndring=${erEndring}`, async ({
+				page,
+			}) => {
+				await setupDefaultMocks(page, {
+					foedselsdato: GJENLEVENDERETT_FOEDSELSDATO,
+				})
+				await mockApi(page, API_URLS.VEDTAK, MOCK_FILES.VEDTAK_UTEN_VEDTAK, {
+					harVedtak,
+					loependeAlderspensjon: erEndring
+						? {
+								grad: 100,
+								fom: '2025-05-01',
+								uttaksgradFom: '2023-08-01',
+								sivilstatus: 'ENKE_ELLER_ENKEMANN',
+							}
+						: null,
+					fremtidigAlderspensjon:
+						erEndring && !harVedtak ? { grad: 100, fom: '2031-05-01' } : null,
+					avdoed: {
+						doedsdato: '2025-02-20',
+						foersteAlderspensjonVirkningsdato: '2024-05-01',
+						aarligPensjonsgivendeInntektErMinst1G: true,
+						harTilstrekkeligMedlemskapIFolketrygden: true,
+						antallAarUtenlands: 5,
+						erFlyktning: true,
+					},
+				})
+				await mockApi(page, API_URLS.EPS, MOCK_FILES.EPS_OPPLYSNING)
+				await navigateToApp(page)
+
+				await checkGjenlevenderett(page)
+				await selectBakgrunnAndFetch(page)
+
+				await expect(
+					page.getByTestId('EPS-hent-opplysninger-button')
+				).not.toBeVisible()
+				await expect(page.getByTestId('EPS-opplysninger-info')).toBeVisible()
+
+				const medlemskap = page.getByRole('group', {
+					name: 'Medlem av folketrygden de 5 siste årene før dødsdato',
+				})
+				const vedtakTekst = page.getByText(
+					'Hentet fra vedtak om alderspensjon, 01.05.2024.'
+				)
+
+				if (harVedtak || erEndring) {
+					await expect(vedtakTekst).not.toBeVisible()
+					await expect(medlemskap).toBeVisible()
+					await expect(medlemskap.getByLabel('Ja')).not.toBeChecked()
+					await expect(medlemskap.getByLabel('Nei')).not.toBeChecked()
+					await medlemskap.getByLabel('Nei').check()
+					await expect(medlemskap.getByLabel('Nei')).toBeChecked()
+
+					const utenlandsopphold = page.getByRole('textbox', {
+						name: 'Antall år bodd/jobbet i utlandet etter fylte 16 år (valgfritt)',
+					})
+					await expect(utenlandsopphold).toBeEmpty()
+					await utenlandsopphold.fill('3')
+					await expect(utenlandsopphold).toHaveValue('3')
+				} else {
+					await expect(vedtakTekst).toBeVisible()
+					await expect(medlemskap).not.toBeVisible()
+				}
+			})
+		}
+	})
+
 	test.describe('Gjenlevenderett valgt', () => {
 		test.beforeEach(async ({ page }) => {
 			await setupDefaultMocks(page, {

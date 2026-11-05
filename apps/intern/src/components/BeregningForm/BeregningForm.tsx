@@ -439,7 +439,7 @@ export const BeregningForm = () => {
 							(vedtak && vedtak.gjenlevenderett != null) ?? false,
 					}) && (
 						<>
-							<Gjenlevenderett />
+							<Gjenlevenderett erEndring={erEndring} />
 							{!beregnMedGjenlevenderett && !hasTilgangsbegrensning && (
 								<Divider noMargin />
 							)}
