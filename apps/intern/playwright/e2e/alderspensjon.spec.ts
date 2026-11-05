@@ -12,7 +12,7 @@ import {
 async function submitAndExpectSimulering(page: Page) {
 	const simuleringResponse = page.waitForResponse(
 		(response) =>
-			response.url().includes('/api/intern/v1/pensjon/simulering') &&
+			response.url().includes('/api/intern/v2/pensjon/simulering') &&
 			response.request().method() === 'POST'
 	)
 
@@ -55,7 +55,7 @@ function trackSimuleringRequests(page: Page) {
 	page.on('request', (request) => {
 		if (
 			request.method() === 'POST' &&
-			request.url().includes('/api/intern/v1/pensjon/simulering')
+			request.url().includes('/api/intern/v2/pensjon/simulering')
 		) {
 			simuleringRequests += 1
 		}
@@ -715,8 +715,9 @@ test.describe('Alderspensjon beregning', () => {
 
 			const alert = page.getByTestId('beregning.fremtidigAlderspensjon')
 			await expect(alert).toBeVisible()
-			await expect(alert).toContainText('01.05.2031')
-			await expect(alert).toContainText('01.06.2031')
+			await expect(alert).toContainText(
+				'Bruker har vedtak om 100 % alderspensjon fra 01.05.2031. Pensjon kan derfor tidligst endres fra 01.06.2031.'
+			)
 		})
 
 		test('viser alert med tidligst endring en måned etter for grad 0 uten AFP offentlig', async ({
@@ -731,8 +732,9 @@ test.describe('Alderspensjon beregning', () => {
 
 			const alert = page.getByTestId('beregning.fremtidigAlderspensjon')
 			await expect(alert).toBeVisible()
-			await expect(alert).toContainText('01.05.2031')
-			await expect(alert).toContainText('01.06.2031')
+			await expect(alert).toContainText(
+				'Bruker har vedtak om 0 % alderspensjon fra 01.05.2031. Pensjon kan derfor tidligst endres fra 01.06.2031.'
+			)
 		})
 
 		test('viser alert med begge datoer lik vedtakdato for grad 0 med AFP offentlig', async ({
@@ -750,6 +752,9 @@ test.describe('Alderspensjon beregning', () => {
 
 			const alert = page.getByTestId('beregning.fremtidigAlderspensjon')
 			await expect(alert).toBeVisible()
+			await expect(alert).toContainText(
+				'Bruker har vedtak om 0 % alderspensjon fra 01.05.2031. Pensjon kan derfor tidligst endres fra 01.05.2031.'
+			)
 			const vedtakDatoCount = await alert.getByText('01.05.2031').count()
 			expect(vedtakDatoCount).toBe(2)
 		})

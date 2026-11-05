@@ -620,7 +620,8 @@
 						{
 							"_key": "88538180a852",
 							"_type": "dynamicValue",
-							"key": "grad"
+							"key": "grad",
+							"valueType": "number"
 						},
 						{
 							"_key": "7d9e7af7b151",
@@ -631,7 +632,8 @@
 						{
 							"_key": "e9b47300a048",
 							"_type": "dynamicValue",
-							"key": "nbsp"
+							"key": "nbsp",
+							"valueType": "string"
 						},
 						{
 							"_key": "e41a9942c5c4",
@@ -642,7 +644,8 @@
 						{
 							"_key": "97279b9bfdc6",
 							"_type": "dynamicValue",
-							"key": "vedtakDato"
+							"key": "vedtakDato",
+							"valueType": "string"
 						},
 						{
 							"_key": "d0406e5d78d7",
@@ -653,7 +656,8 @@
 						{
 							"_key": "98c3ac13aadb",
 							"_type": "dynamicValue",
-							"key": "tidligst-endring-ved-fremtidig-vedtak"
+							"key": "tidligstEndringDato",
+							"valueType": "string"
 						},
 						{
 							"_key": "622fd068561a",

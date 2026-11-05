@@ -19,6 +19,15 @@ const alertData = Object.fromEntries(
 ) as unknown as Record<string, AlertQueryResult[number]>
 
 describe('PDF Sanity alerts', () => {
+  it('has no duplicate names in the shared Sanity alert fixtures', () => {
+    const names = sanityAlertDataResponse.result.map((alert) => alert.name)
+    const duplicateNames = names.filter(
+      (name, index) => names.indexOf(name) !== index
+    )
+
+    expect(duplicateNames).toEqual([])
+  })
+
   it.each([
     {
       sanityId: 'afp.klarte-ikke-hente-beløp-livsvarig',
