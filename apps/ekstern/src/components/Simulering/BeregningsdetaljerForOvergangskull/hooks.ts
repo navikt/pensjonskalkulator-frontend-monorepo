@@ -103,6 +103,10 @@ function getAlderspensjonDetaljerListe(
       ap.garantitillegg && ap.garantitillegg > 0
         ? Math.round(ap.garantitillegg / 12)
         : 0
+    const minstenivaatilleggIndividuelt =
+      ap.minstenivaatilleggIndividuelt && ap.minstenivaatilleggIndividuelt > 0
+        ? Math.round(ap.minstenivaatilleggIndividuelt / 12)
+        : 0
 
     return [
       {
@@ -153,6 +157,10 @@ function getAlderspensjonDetaljerListe(
           : 'Garantitillegg',
         verdi: `${formatInntekt(garantitillegg)} kr`,
       },
+      {
+        tekst: 'Minstenivåtillegg individuelt',
+        verdi: `${formatInntekt(minstenivaatilleggIndividuelt)} kr`,
+      },
 
       {
         tekst: 'Sum alderspensjon',
@@ -164,7 +172,8 @@ function getAlderspensjonDetaljerListe(
             inntektspensjonBeloep +
             garantipensjonBeloep +
             gjenlevendetillegg +
-            garantitillegg
+            garantitillegg +
+            minstenivaatilleggIndividuelt
         )} kr`,
       },
     ].filter((rad) => rad.verdi !== '0 kr')

@@ -19,6 +19,8 @@ export function mapLagreMaanedligAlderspensjon(
 	const common = {
 		beloep: maanedligAlderspensjon.beloep,
 		skjermingstillegg: maanedligAlderspensjon.skjermingstillegg,
+		minstenivaatilleggIndividuelt:
+			maanedligAlderspensjon.minstenivaatilleggIndividuelt,
 		grunnbeloep: grunnbeloep,
 	}
 	const gjenlevendetillegg =
