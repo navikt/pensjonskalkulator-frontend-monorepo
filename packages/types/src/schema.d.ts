@@ -3079,6 +3079,8 @@ export interface components {
 			/** Format: int32 */
 			skjermingstillegg?: number | null
 			/** Format: int32 */
+			minstenivaatilleggIndividuelt?: number | null
+			/** Format: int32 */
 			kapittel19AndelTeller?: number | null
 			/** Format: int32 */
 			kapittel19Trygdetid?: number | null
