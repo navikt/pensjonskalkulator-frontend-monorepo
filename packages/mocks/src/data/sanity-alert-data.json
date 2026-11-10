@@ -560,21 +560,33 @@
 							"marks": [],
 							"text": "Et alternativ er at du ved "
 						},
-						{ "_key": "a67fb01c3509", "_type": "dynamicValue", "key": "alder" },
+						{
+							"_key": "a67fb01c3509",
+							"_type": "dynamicValue",
+							"key": "alder"
+						},
 						{
 							"_key": "0b06160edd8a",
 							"_type": "span",
 							"marks": [],
 							"text": " kan ta ut "
 						},
-						{ "_key": "1928d78fd867", "_type": "dynamicValue", "key": "grad" },
+						{
+							"_key": "1928d78fd867",
+							"_type": "dynamicValue",
+							"key": "grad"
+						},
 						{
 							"_key": "4a9ae79c00af",
 							"_type": "span",
 							"marks": [],
 							"text": ""
 						},
-						{ "_key": "d0f60d22eb93", "_type": "dynamicValue", "key": "nbsp" },
+						{
+							"_key": "d0f60d22eb93",
+							"_type": "dynamicValue",
+							"key": "nbsp"
+						},
 						{
 							"_key": "6600f1d4ff4d",
 							"_type": "span",
