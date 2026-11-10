@@ -7,21 +7,24 @@ settings:
 catalogs:
   aksel:
     '@navikt/aksel-icons':
-      specifier: 8.9.1
-      version: 8.9.1
+      specifier: 8.10.0
+      version: 8.10.0
     '@navikt/ds-css':
-      specifier: 8.9.1
-      version: 8.9.1
+      specifier: 8.10.0
+      version: 8.10.0
     '@navikt/ds-react':
-      specifier: 8.9.1
-      version: 8.9.1
+      specifier: 8.10.0
+      version: 8.10.0
     '@navikt/ds-tokens':
-      specifier: 8.9.1
-      version: 8.9.1
+      specifier: 8.10.0
+      version: 8.10.0
   default:
+    '@navikt/aksel-icons':
+      specifier: 8.10.0
+      version: 8.10.0
     '@navikt/ds-react':
-      specifier: 8.9.1
-      version: 8.9.1
+      specifier: 8.10.0
+      version: 8.10.0
     '@playwright/test':
       specifier: 1.58.0
       version: 1.58.0
@@ -125,7 +128,7 @@ importers:
     dependencies:
       '@navikt/ds-react':
         specifier: 'catalog:'
-        version: 8.9.1(@types/react@19.2.17)(react-dom@19.2.7(react@19.2.7))(react@19.2.7)
+        version: 8.10.0(@types/react@19.2.17)(react-dom@19.2.7(react@19.2.7))(react@19.2.7)
       '@sanity/color-input':
         specifier: 'catalog:'
         version: 6.0.4(@emotion/is-prop-valid@1.4.0)(react-dom@19.2.7(react@19.2.7))(react-is@19.2.8)(react@19.2.7)(sanity@5.31.1(@emotion/is-prop-valid@1.4.0)(@noble/hashes@2.2.0)(@oclif/core@4.13.2)(@sanity/cli-core@1.3.4(@noble/hashes@2.2.0)(@types/node@24.3.0)(sass-embedded@1.97.3)(sass@1.97.3)(supports-color@8.1.1)(yaml@2.9.0))(@types/node@24.3.0)(@types/react-dom@19.2.3(@types/react@19.2.17))(@types/react@19.2.17)(immer@10.2.0)(jiti@2.7.0)(react-dom@19.2.7(react@19.2.7))(react@19.2.7)(sass-embedded@1.97.3)(sass@1.97.3)(styled-components@6.3.8(react-dom@19.2.7(react@19.2.7))(react@19.2.7))(supports-color@8.1.1)(typescript@5.9.3))(styled-components@6.3.8(react-dom@19.2.7(react@19.2.7))(react@19.2.7))
@@ -213,22 +216,22 @@ importers:
         version: 1.5.3
       '@navikt/aksel-icons':
         specifier: catalog:aksel
-        version: 8.9.1
+        version: 8.10.0
       '@navikt/ds-css':
         specifier: catalog:aksel
-        version: 8.9.1
+        version: 8.10.0
       '@navikt/ds-react':
         specifier: catalog:aksel
-        version: 8.9.1(@types/react@19.2.17)(react-dom@19.2.7(react@19.2.7))(react@19.2.7)
+        version: 8.10.0(@types/react@19.2.17)(react-dom@19.2.7(react@19.2.7))(react@19.2.7)
       '@navikt/ds-tokens':
         specifier: catalog:aksel
-        version: 8.9.1
+        version: 8.10.0
       '@navikt/oasis':
         specifier: 4.1.1
         version: 4.1.1
       '@pensjonskalkulator-frontend-monorepo/sanity':
         specifier: workspace:*
-        version: file:packages/sanity(@babel/runtime@7.29.7)(@codemirror/lint@6.9.7)(@codemirror/theme-one-dark@6.1.3)(@emotion/is-prop-valid@1.4.0)(@navikt/aksel-icons@8.9.1)(@navikt/ds-react@8.9.1(@types/react@19.2.17)(react-dom@19.2.7(react@19.2.7))(react@19.2.7))(@noble/hashes@2.2.0)(@oclif/core@4.13.2)(@sanity/cli-core@1.3.4(@noble/hashes@2.2.0)(@types/node@24.3.0)(sass-embedded@1.97.3)(sass@1.97.3)(supports-color@5.5.0)(yaml@2.9.0))(@types/node@24.3.0)(@types/react-dom@19.2.3(@types/react@19.2.17))(@types/react@19.2.17)(codemirror@6.0.2)(immer@10.2.0)(jiti@2.7.0)(react-dom@19.2.7(react@19.2.7))(react-is@19.2.8)(sass-embedded@1.97.3)(sass@1.97.3)(supports-color@5.5.0)(typescript@5.9.3)
+        version: file:packages/sanity(@babel/runtime@7.29.7)(@codemirror/lint@6.9.7)(@codemirror/theme-one-dark@6.1.3)(@emotion/is-prop-valid@1.4.0)(@navikt/aksel-icons@8.10.0)(@navikt/ds-react@8.10.0(@types/react@19.2.17)(react-dom@19.2.7(react@19.2.7))(react@19.2.7))(@noble/hashes@2.2.0)(@oclif/core@4.13.2)(@sanity/cli-core@1.3.4(@noble/hashes@2.2.0)(@types/node@24.3.0)(sass-embedded@1.97.3)(sass@1.97.3)(supports-color@5.5.0)(yaml@2.9.0))(@types/node@24.3.0)(@types/react-dom@19.2.3(@types/react@19.2.17))(@types/react@19.2.17)(codemirror@6.0.2)(immer@10.2.0)(jiti@2.7.0)(react-dom@19.2.7(react@19.2.7))(react-is@19.2.8)(sass-embedded@1.97.3)(sass@1.97.3)(supports-color@5.5.0)(typescript@5.9.3)
       '@pensjonskalkulator-frontend-monorepo/utils':
         specifier: workspace:*
         version: link:../../packages/utils
@@ -464,16 +467,16 @@ importers:
     dependencies:
       '@navikt/aksel-icons':
         specifier: catalog:aksel
-        version: 8.9.1
+        version: 8.10.0
       '@navikt/ds-css':
         specifier: catalog:aksel
-        version: 8.9.1
+        version: 8.10.0
       '@navikt/ds-react':
         specifier: catalog:aksel
-        version: 8.9.1(@types/react@19.2.17)(react-dom@19.2.7(react@19.2.7))(react@19.2.7)
+        version: 8.10.0(@types/react@19.2.17)(react-dom@19.2.7(react@19.2.7))(react@19.2.7)
       '@navikt/ds-tokens':
         specifier: catalog:aksel
-        version: 8.9.1
+        version: 8.10.0
       '@navikt/oasis':
         specifier: 4.1.4
         version: 4.1.4
@@ -482,7 +485,7 @@ importers:
         version: link:../../packages/api
       '@pensjonskalkulator-frontend-monorepo/sanity':
         specifier: workspace:*
-        version: file:packages/sanity(@emotion/is-prop-valid@1.4.0)(@navikt/aksel-icons@8.9.1)(@navikt/ds-react@8.9.1(@types/react@19.2.17)(react-dom@19.2.7(react@19.2.7))(react@19.2.7))(@noble/hashes@2.2.0)(@oclif/core@4.13.2)(@sanity/cli-core@1.3.4(@noble/hashes@2.2.0)(@types/node@24.3.0)(sass-embedded@1.97.3)(sass@1.97.3)(supports-color@8.1.1)(yaml@2.9.0))(@types/node@24.3.0)(@types/react-dom@19.2.3(@types/react@19.2.17))(@types/react@19.2.17)(immer@10.2.0)(jiti@2.7.0)(react-dom@19.2.7(react@19.2.7))(react-is@19.2.8)(sass-embedded@1.97.3)(sass@1.97.3)(supports-color@5.5.0)(typescript@5.9.3)
+        version: file:packages/sanity(@emotion/is-prop-valid@1.4.0)(@navikt/aksel-icons@8.10.0)(@navikt/ds-react@8.10.0(@types/react@19.2.17)(react-dom@19.2.7(react@19.2.7))(react@19.2.7))(@noble/hashes@2.2.0)(@oclif/core@4.13.2)(@sanity/cli-core@1.3.4(@noble/hashes@2.2.0)(@types/node@24.3.0)(sass-embedded@1.97.3)(sass@1.97.3)(supports-color@8.1.1)(yaml@2.9.0))(@types/node@24.3.0)(@types/react-dom@19.2.3(@types/react@19.2.17))(@types/react@19.2.17)(immer@10.2.0)(jiti@2.7.0)(react-dom@19.2.7(react@19.2.7))(react-is@19.2.8)(sass-embedded@1.97.3)(sass@1.97.3)(supports-color@5.5.0)(typescript@5.9.3)
       '@pensjonskalkulator-frontend-monorepo/utils':
         specifier: workspace:*
         version: link:../../packages/utils
@@ -605,12 +608,6 @@ importers:
 
   packages/sanity:
     dependencies:
-      '@navikt/aksel-icons':
-        specifier: '>=8'
-        version: 8.9.1
-      '@navikt/ds-react':
-        specifier: '>=8'
-        version: 8.9.1(@types/react@19.2.17)(react-dom@19.2.7(react@19.2.7))(react@19.2.7)
       '@portabletext/react':
         specifier: 'catalog:'
         version: 3.2.4(react@19.2.7)
@@ -651,6 +648,12 @@ importers:
         specifier: 'catalog:'
         version: 6.3.8(react-dom@19.2.7(react@19.2.7))(react@19.2.7)
     devDependencies:
+      '@navikt/aksel-icons':
+        specifier: 'catalog:'
+        version: 8.10.0
+      '@navikt/ds-react':
+        specifier: 'catalog:'
+        version: 8.10.0(@types/react@19.2.17)(react-dom@19.2.7(react@19.2.7))(react@19.2.7)
       sass-embedded:
         specifier: 'catalog:'
         version: 1.97.3
@@ -1534,9 +1537,6 @@ packages:
   '@dabh/diagnostics@2.0.8':
     resolution: {integrity: sha512-R4MSXTVnuMzGD7bzHdW2ZhhdPC/igELENcq5IjEverBvq5hn1SXCWcsi6eSsdWP0/Ur+SItRRjAktmdoX/8R/Q==}
 
-  '@date-fns/tz@1.2.0':
-    resolution: {integrity: sha512-LBrd7MiJZ9McsOgxqWX7AaxrDjcFVjWH/tIKJd7pnR7McaslGYOP1QmmiBXdJH/H/yLCT+rcQ7FaPBUxRGUtrg==}
-
   '@date-fns/tz@1.5.0':
     resolution: {integrity: sha512-lwYN/vDPeNRULcepoE/LO2Pgx+7/RV+S9ARfbc9lr2DtGkOD7pAiruHvbR1RX3Qyf6ja47EWJDMsNK5vK08DJg==}
 
@@ -2266,25 +2266,31 @@ packages:
   '@mux/playback-core@0.35.2':
     resolution: {integrity: sha512-AsMV0LMwJm9T1ig6BBYSddeMlkzz+2RGcd6dkOgYk+L5Hx477ovbTxJZJ/vTW+rZjNWHcG3BvgNbSLgiubyZhw==}
 
-  '@navikt/aksel-icons@8.9.1':
-    resolution: {integrity: sha512-yjeyQPBHvaeRs5BMRRgzwo1cMC/249f4rkxmeIX2CjZDjJvqDycJphqrddjQKUmBcf6XVfv0nx6dcqnf0Z8obQ==, tarball: https://npm.pkg.github.com/download/@navikt/aksel-icons/8.9.1/ff1f10cabbda2ee7f6baa457cadcabb13adc64cc}
+  '@navikt/aksel-icons@8.10.0':
+    resolution: {integrity: sha512-lnIGzIHHx+xCEbtvsJzi3ULaLKzupHkBCVRwLQob3HXvd0RRh8dF6OBOqQMU3XzbB2x1zFTjNas+4anG65oriA==, tarball: https://npm.pkg.github.com/download/@navikt/aksel-icons/8.10.0/094a50d3b6ac0714b5f73eddf38e8aa7b517c1ff}
+
+  '@navikt/aksel-icons@8.20.0':
+    resolution: {integrity: sha512-5FVFg9Xba++NpvdBlqE/VoGbOie34M1sSLYqSUZEy6IZUjBwh4QrbKCU1hcamuBJ2pQFINwOAqxmw8Ri1AIDyw==, tarball: https://npm.pkg.github.com/download/@navikt/aksel-icons/8.20.0/b5d97e6736ed7c9245e0b02aa9ce8a89ecf6b72e}
 
   '@navikt/analytics-types@0.0.9':
     resolution: {integrity: sha512-bopCvqEogyFcmrJiBxK/Mr25d6yPKF7GR36MGrJqiHCPJYf1rDu6lK4cpooTG4Q//D/1xTkHRom8ZH5BI6dTew==, tarball: https://npm.pkg.github.com/download/@navikt/analytics-types/0.0.9/5919241a6dbb782eb101fff3234ce5c36d16e942}
     engines: {node: '>=20.0.0', npm: '>=9.0.0'}
 
-  '@navikt/ds-css@8.9.1':
-    resolution: {integrity: sha512-Q0BExRIpH88AsivTET5bEAPSpXoob9mslcWSACQeXZ4h68KRdxkOcrE/aJPUacO8kHAM6EDL7zrgs2LfRGdTMA==, tarball: https://npm.pkg.github.com/download/@navikt/ds-css/8.9.1/f827d1a6ff83ec30606991f5208ea37eb68f2362}
+  '@navikt/ds-css@8.10.0':
+    resolution: {integrity: sha512-oGCHQtkbyQd/Mvu2mpkkjsamXUmR1en9SH9YiYwzgco1ruN5SlKTkHsnzv3atoXXBOahVpl5FBidMNMOJs7jvw==, tarball: https://npm.pkg.github.com/download/@navikt/ds-css/8.10.0/7284794a226c14cad7a246b06159cfdabdd99e17}
 
-  '@navikt/ds-react@8.9.1':
-    resolution: {integrity: sha512-TG9AWjQMtHj1ORibdXmtbIFTsg17fBTYHSOI75SUA+zLcG0SSpFAbkn7Ltc6wpc6oDAH46vNJJh8ky5F3YHjPQ==, tarball: https://npm.pkg.github.com/download/@navikt/ds-react/8.9.1/a9dfd4b309cee1dc078b6d43b5ec791d238e16fe}
+  '@navikt/ds-react@8.10.0':
+    resolution: {integrity: sha512-TaEL4z5lsLiasOtbnix4FNZ2Tf/3ZIV91RVgl9Embqo/SFtfgmrcRs3g7WsN0TfsS8IvJVSlmmkuxNd/93u3bA==, tarball: https://npm.pkg.github.com/download/@navikt/ds-react/8.10.0/e65da37dbabf88d7e9103da2e34ce4b77bc5190d}
     peerDependencies:
       '@types/react': 19.2.17
       react: 19.2.7
       react-dom: 19.2.7
 
-  '@navikt/ds-tokens@8.9.1':
-    resolution: {integrity: sha512-a1njXFPstX2w2/rlhnlyuUyIDJlSm8SOej7RrMl7FjNL3p0bktwzyt7ylsJU1y0vH8MnEnq7QGXWf6goIkgkWw==, tarball: https://npm.pkg.github.com/download/@navikt/ds-tokens/8.9.1/961db4bb606a0858e6cd01292adff493f474b5da}
+  '@navikt/ds-tokens@8.10.0':
+    resolution: {integrity: sha512-xyOyvM00fBVIMq2K5zAAlz/q2CtHVUbDwRT+lVSiQLETusYu2A9Fa/Lt0sGCcXraujwHGG2tOq0m0aZdcz+lsQ==, tarball: https://npm.pkg.github.com/download/@navikt/ds-tokens/8.10.0/e239de29ac181ca858d6ef1e232353c6006666b8}
+
+  '@navikt/ds-tokens@8.18.0':
+    resolution: {integrity: sha512-jX+5Kl2oTMX5e5vRoo9nulv/3dRNXH5+8o/VKeWQaAIsBbFzJavkJkXbfI5wCAsl5vGcTnuHoX2Mifwv3cLwFg==, tarball: https://npm.pkg.github.com/download/@navikt/ds-tokens/8.18.0/ae4c9a33ed7b61d9981a723dcba0a51a6a2a35f4}
 
   '@navikt/nav-dekoratoren-moduler@4.5.0':
     resolution: {integrity: sha512-0eTtpgk+kOGjxncAA5PT2+yLPIobPdvIMVJzWDVdlZmuKUGG1NMoom8DYtnCPkro3Mw+dZeoFJ0TVY+4F57J5Q==, tarball: https://npm.pkg.github.com/download/@navikt/nav-dekoratoren-moduler/4.5.0/e3c7d8e6e3f2efd2fb46952564e6c9c47ca200ad}
@@ -3332,6 +3338,10 @@ packages:
 
   '@standard-schema/utils@0.3.0':
     resolution: {integrity: sha512-e7Mew686owMaPJVNNLs55PUvgz371nKgwsc4vxE49zsODpJEnxgxRo2y/OKrqueavXgZNMDVj3DdHFlaSAeU8g==}
+
+  '@tabby_ai/hijri-converter@1.0.5':
+    resolution: {integrity: sha512-r5bClKrcIusDoo049dSL8CawnHR6mRdDwhlQuIgZRNty68q0x8k3Lf1BtPAMxRf/GgnHBnIO4ujd3+GQdLWzxQ==}
+    engines: {node: '>=16.0.0'}
 
   '@tanstack/query-core@5.90.20':
     resolution: {integrity: sha512-OMD2HLpNouXEfZJWcKeVKUgQ5n+n3A2JFmBaScpNDUqSrQSjiveC7dKMe53uJUg1nDG16ttFPz2xfilz6i2uVg==}
@@ -6738,8 +6748,8 @@ packages:
     peerDependencies:
       react: 19.2.7
 
-  react-day-picker@9.7.0:
-    resolution: {integrity: sha512-urlK4C9XJZVpQ81tmVgd2O7lZ0VQldZeHzNejbwLWZSkzHH498KnArT0EHNfKBOWwKc935iMLGZdxXPRISzUxQ==}
+  react-day-picker@9.14.0:
+    resolution: {integrity: sha512-tBaoDWjPwe0M5pGrum4H0SR6Lyk+BO9oHnp9JbKpGKW2mlraNPgP9BMfsg5pWpwrssARmeqk7YBl2oXutZTaHA==}
     engines: {node: '>=18'}
     peerDependencies:
       react: 19.2.7
@@ -10623,8 +10633,6 @@ snapshots:
       enabled: 2.0.0
       kuler: 2.0.0
 
-  '@date-fns/tz@1.2.0': {}
-
   '@date-fns/tz@1.5.0': {}
 
   '@date-fns/utc@2.1.1': {}
@@ -11333,25 +11341,29 @@ snapshots:
       hls.js: 1.6.16
       mux-embed: 5.18.1
 
-  '@navikt/aksel-icons@8.9.1': {}
+  '@navikt/aksel-icons@8.10.0': {}
+
+  '@navikt/aksel-icons@8.20.0': {}
 
   '@navikt/analytics-types@0.0.9': {}
 
-  '@navikt/ds-css@8.9.1': {}
+  '@navikt/ds-css@8.10.0': {}
 
-  '@navikt/ds-react@8.9.1(@types/react@19.2.17)(react-dom@19.2.7(react@19.2.7))(react@19.2.7)':
+  '@navikt/ds-react@8.10.0(@types/react@19.2.17)(react-dom@19.2.7(react@19.2.7))(react@19.2.7)':
     dependencies:
       '@floating-ui/react': 0.27.8(react-dom@19.2.7(react@19.2.7))(react@19.2.7)
       '@floating-ui/react-dom': 2.1.9(react-dom@19.2.7(react@19.2.7))(react@19.2.7)
-      '@navikt/aksel-icons': 8.9.1
-      '@navikt/ds-tokens': 8.9.1
+      '@navikt/aksel-icons': 8.20.0
+      '@navikt/ds-tokens': 8.18.0
       '@types/react': 19.2.17
       date-fns: 4.4.0
       react: 19.2.7
-      react-day-picker: 9.7.0(react@19.2.7)
+      react-day-picker: 9.14.0(react@19.2.7)
       react-dom: 19.2.7(react@19.2.7)
 
-  '@navikt/ds-tokens@8.9.1': {}
+  '@navikt/ds-tokens@8.10.0': {}
+
+  '@navikt/ds-tokens@8.18.0': {}
 
   '@navikt/nav-dekoratoren-moduler@4.5.0(html-react-parser@6.0.1(@types/react@19.2.17)(react@19.2.7))(react@19.2.7)':
     dependencies:
@@ -11682,10 +11694,10 @@ snapshots:
       '@parcel/watcher-win32-x64': 2.5.6
     optional: true
 
-  '@pensjonskalkulator-frontend-monorepo/sanity@file:packages/sanity(@babel/runtime@7.29.7)(@codemirror/lint@6.9.7)(@codemirror/theme-one-dark@6.1.3)(@emotion/is-prop-valid@1.4.0)(@navikt/aksel-icons@8.9.1)(@navikt/ds-react@8.9.1(@types/react@19.2.17)(react-dom@19.2.7(react@19.2.7))(react@19.2.7))(@noble/hashes@2.2.0)(@oclif/core@4.13.2)(@sanity/cli-core@1.3.4(@noble/hashes@2.2.0)(@types/node@24.3.0)(sass-embedded@1.97.3)(sass@1.97.3)(supports-color@5.5.0)(yaml@2.9.0))(@types/node@24.3.0)(@types/react-dom@19.2.3(@types/react@19.2.17))(@types/react@19.2.17)(codemirror@6.0.2)(immer@10.2.0)(jiti@2.7.0)(react-dom@19.2.7(react@19.2.7))(react-is@19.2.8)(sass-embedded@1.97.3)(sass@1.97.3)(supports-color@5.5.0)(typescript@5.9.3)':
+  '@pensjonskalkulator-frontend-monorepo/sanity@file:packages/sanity(@babel/runtime@7.29.7)(@codemirror/lint@6.9.7)(@codemirror/theme-one-dark@6.1.3)(@emotion/is-prop-valid@1.4.0)(@navikt/aksel-icons@8.10.0)(@navikt/ds-react@8.10.0(@types/react@19.2.17)(react-dom@19.2.7(react@19.2.7))(react@19.2.7))(@noble/hashes@2.2.0)(@oclif/core@4.13.2)(@sanity/cli-core@1.3.4(@noble/hashes@2.2.0)(@types/node@24.3.0)(sass-embedded@1.97.3)(sass@1.97.3)(supports-color@5.5.0)(yaml@2.9.0))(@types/node@24.3.0)(@types/react-dom@19.2.3(@types/react@19.2.17))(@types/react@19.2.17)(codemirror@6.0.2)(immer@10.2.0)(jiti@2.7.0)(react-dom@19.2.7(react@19.2.7))(react-is@19.2.8)(sass-embedded@1.97.3)(sass@1.97.3)(supports-color@5.5.0)(typescript@5.9.3)':
     dependencies:
-      '@navikt/aksel-icons': 8.9.1
-      '@navikt/ds-react': 8.9.1(@types/react@19.2.17)(react-dom@19.2.7(react@19.2.7))(react@19.2.7)
+      '@navikt/aksel-icons': 8.10.0
+      '@navikt/ds-react': 8.10.0(@types/react@19.2.17)(react-dom@19.2.7(react@19.2.7))(react@19.2.7)
       '@portabletext/react': 3.2.4(react@19.2.7)
       '@sanity/client': 7.14.1
       '@sanity/color-input': 6.0.4(@emotion/is-prop-valid@1.4.0)(react-dom@19.2.7(react@19.2.7))(react-is@19.2.8)(react@19.2.7)(sanity@5.31.1(@emotion/is-prop-valid@1.4.0)(@noble/hashes@2.2.0)(@oclif/core@4.13.2)(@sanity/cli-core@1.3.4(@noble/hashes@2.2.0)(@types/node@24.3.0)(sass-embedded@1.97.3)(sass@1.97.3)(supports-color@5.5.0)(yaml@2.9.0))(@types/node@24.3.0)(@types/react-dom@19.2.3(@types/react@19.2.17))(@types/react@19.2.17)(immer@10.2.0)(jiti@2.7.0)(react-dom@19.2.7(react@19.2.7))(react@19.2.7)(sass-embedded@1.97.3)(sass@1.97.3)(styled-components@6.3.8(react-dom@19.2.7(react@19.2.7))(react@19.2.7))(supports-color@5.5.0)(typescript@5.9.3))(styled-components@6.3.8(react-dom@19.2.7(react@19.2.7))(react@19.2.7))
@@ -11735,10 +11747,10 @@ snapshots:
       - typescript
       - utf-8-validate
 
-  '@pensjonskalkulator-frontend-monorepo/sanity@file:packages/sanity(@emotion/is-prop-valid@1.4.0)(@navikt/aksel-icons@8.9.1)(@navikt/ds-react@8.9.1(@types/react@19.2.17)(react-dom@19.2.7(react@19.2.7))(react@19.2.7))(@noble/hashes@2.2.0)(@oclif/core@4.13.2)(@sanity/cli-core@1.3.4(@noble/hashes@2.2.0)(@types/node@24.3.0)(sass-embedded@1.97.3)(sass@1.97.3)(supports-color@8.1.1)(yaml@2.9.0))(@types/node@24.3.0)(@types/react-dom@19.2.3(@types/react@19.2.17))(@types/react@19.2.17)(immer@10.2.0)(jiti@2.7.0)(react-dom@19.2.7(react@19.2.7))(react-is@19.2.8)(sass-embedded@1.97.3)(sass@1.97.3)(supports-color@5.5.0)(typescript@5.9.3)':
+  '@pensjonskalkulator-frontend-monorepo/sanity@file:packages/sanity(@emotion/is-prop-valid@1.4.0)(@navikt/aksel-icons@8.10.0)(@navikt/ds-react@8.10.0(@types/react@19.2.17)(react-dom@19.2.7(react@19.2.7))(react@19.2.7))(@noble/hashes@2.2.0)(@oclif/core@4.13.2)(@sanity/cli-core@1.3.4(@noble/hashes@2.2.0)(@types/node@24.3.0)(sass-embedded@1.97.3)(sass@1.97.3)(supports-color@8.1.1)(yaml@2.9.0))(@types/node@24.3.0)(@types/react-dom@19.2.3(@types/react@19.2.17))(@types/react@19.2.17)(immer@10.2.0)(jiti@2.7.0)(react-dom@19.2.7(react@19.2.7))(react-is@19.2.8)(sass-embedded@1.97.3)(sass@1.97.3)(supports-color@5.5.0)(typescript@5.9.3)':
     dependencies:
-      '@navikt/aksel-icons': 8.9.1
-      '@navikt/ds-react': 8.9.1(@types/react@19.2.17)(react-dom@19.2.7(react@19.2.7))(react@19.2.7)
+      '@navikt/aksel-icons': 8.10.0
+      '@navikt/ds-react': 8.10.0(@types/react@19.2.17)(react-dom@19.2.7(react@19.2.7))(react@19.2.7)
       '@portabletext/react': 3.2.4(react@19.2.7)
       '@sanity/client': 7.14.1
       '@sanity/color-input': 6.0.4(@emotion/is-prop-valid@1.4.0)(react-dom@19.2.7(react@19.2.7))(react-is@19.2.8)(react@19.2.7)(sanity@5.31.1(@emotion/is-prop-valid@1.4.0)(@noble/hashes@2.2.0)(@oclif/core@4.13.2)(@sanity/cli-core@1.3.4(@noble/hashes@2.2.0)(@types/node@24.3.0)(sass-embedded@1.97.3)(sass@1.97.3)(supports-color@8.1.1)(yaml@2.9.0))(@types/node@24.3.0)(@types/react-dom@19.2.3(@types/react@19.2.17))(@types/react@19.2.17)(immer@10.2.0)(jiti@2.7.0)(react-dom@19.2.7(react@19.2.7))(react@19.2.7)(sass-embedded@1.97.3)(sass@1.97.3)(styled-components@6.3.8(react-dom@19.2.7(react@19.2.7))(react@19.2.7))(supports-color@8.1.1)(typescript@5.9.3))(styled-components@6.3.8(react-dom@19.2.7(react@19.2.7))(react@19.2.7))
@@ -13788,6 +13800,8 @@ snapshots:
   '@standard-schema/spec@1.1.0': {}
 
   '@standard-schema/utils@0.3.0': {}
+
+  '@tabby_ai/hijri-converter@1.0.5': {}
 
   '@tanstack/query-core@5.90.20': {}
 
@@ -17971,10 +17985,11 @@ snapshots:
     dependencies:
       react: 19.2.7
 
-  react-day-picker@9.7.0(react@19.2.7):
+  react-day-picker@9.14.0(react@19.2.7):
     dependencies:
-      '@date-fns/tz': 1.2.0
-      date-fns: 4.1.0
+      '@date-fns/tz': 1.5.0
+      '@tabby_ai/hijri-converter': 1.0.5
+      date-fns: 4.4.0
       date-fns-jalali: 4.1.0-0
       react: 19.2.7
 

@@ -36,6 +36,8 @@
 		"@navikt/ds-react": ">=8"
 	},
 	"devDependencies": {
+		"@navikt/aksel-icons": "catalog:",
+		"@navikt/ds-react": "catalog:",
 		"sass-embedded": "catalog:",
 		"vitest": "catalog:"
 	}
