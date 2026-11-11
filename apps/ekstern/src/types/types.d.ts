@@ -122,7 +122,7 @@ declare global {
     components['schemas']['PensjonsavtaleResultV3']
   type Utbetalingsperiode = components['schemas']['UtbetalingsperiodeV3']
   type UtbetalingsperiodeOffentligTP =
-    components['schemas']['UtbetalingsperiodeV2']
+    components['schemas']['UtbetalingsperiodeV3']
   type Pensjonsavtale = components['schemas']['PensjonsavtaleV3'] & {
     key?: number
   }
@@ -137,11 +137,12 @@ declare global {
     BaseQueryFn<Record<string, unknown>, OffentligTp>
   >
   type OffentligTpRequestBody =
-    components['schemas']['SimuleringOffentligTjenestepensjonSpecV2']
+    components['schemas']['SimuleringOffentligTjenestepensjonSpecV3']
   type OffentligTp =
-    components['schemas']['OffentligTjenestepensjonSimuleringResultV2']
+    components['schemas']['OffentligTjenestepensjonSimuleringResultV3']
+  type TpOrdning = components['schemas']['TpOrdningV3']
   type SimulertTjenestepensjon =
-    | components['schemas']['SimulertTjenestepensjonV2']
+    | components['schemas']['SimulertTjenestepensjonV3']
     | components['schemas']['SimulertTjenestepensjonFoer1963V1']
   // /simuler-oftp/foer-1963
   type OffentligTpFoer1963RequestBody =

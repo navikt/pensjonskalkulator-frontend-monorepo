@@ -1,6 +1,9 @@
 import { type RouteDefinition } from '../../base'
 import { loadJSONMock } from '../mock'
-import type { OffentligTjenestepensjonSimuleringResultV2 } from './types'
+import type {
+  OffentligTjenestepensjonSimuleringResultV3,
+  TpOrdningV3,
+} from './types'
 
 type OffentligTpPreset =
   | 'spk'
@@ -21,21 +24,21 @@ type OffentligTpFoer1963Preset =
   | 'foer1963_server_error'
 
 type OffentligTpMockOptions =
-  Partial<OffentligTjenestepensjonSimuleringResultV2> & {
+  Partial<OffentligTjenestepensjonSimuleringResultV3> & {
     preset?: OffentligTpPreset
-    unsupportedProviders?: string[]
+    unsupportedProviders?: TpOrdningV3[]
   }
 
 const presetConfigs: Record<
   OffentligTpPreset,
-  () => Partial<OffentligTjenestepensjonSimuleringResultV2>
+  () => Partial<OffentligTjenestepensjonSimuleringResultV3>
 > = {
   spk: () => ({
     simuleringsresultatStatus: 'OK',
     muligeTpLeverandoerListe: [
-      'Statens pensjonskasse',
-      'Kommunal Landspensjonskasse',
-      'Oslo Pensjonsforsikring',
+      { tpNummer: '3010', tpNavn: 'Statens pensjonskasse' },
+      { tpNummer: '4082', tpNavn: 'Kommunal Landspensjonskasse' },
+      { tpNummer: '9999', tpNavn: 'Oslo Pensjonsforsikring' },
     ],
     simulertTjenestepensjon: {
       tpLeverandoer: 'Statens pensjonskasse',
@@ -64,9 +67,9 @@ const presetConfigs: Record<
   spk_uten_betinget: () => ({
     simuleringsresultatStatus: 'OK',
     muligeTpLeverandoerListe: [
-      'Statens pensjonskasse',
-      'Kommunal Landspensjonskasse',
-      'Oslo Pensjonsforsikring',
+      { tpNummer: '3010', tpNavn: 'Statens pensjonskasse' },
+      { tpNummer: '4082', tpNavn: 'Kommunal Landspensjonskasse' },
+      { tpNummer: '9999', tpNavn: 'Oslo Pensjonsforsikring' },
     ],
     simulertTjenestepensjon: {
       tpLeverandoer: 'Statens pensjonskasse',
@@ -94,7 +97,9 @@ const presetConfigs: Record<
   }),
   klp: () => ({
     simuleringsresultatStatus: 'OK',
-    muligeTpLeverandoerListe: ['Kommunal Landspensjonskasse'],
+    muligeTpLeverandoerListe: [
+      { tpNummer: '4082', tpNavn: 'Kommunal Landspensjonskasse' },
+    ],
     simulertTjenestepensjon: {
       tpNummer: '4082',
       tpLeverandoer: 'Kommunal Landspensjonskasse',
@@ -116,7 +121,9 @@ const presetConfigs: Record<
   }),
   unsupported: () => ({
     simuleringsresultatStatus: 'TP_ORDNING_STOETTES_IKKE',
-    muligeTpLeverandoerListe: ['Oslo Pensjonsforsikring'],
+    muligeTpLeverandoerListe: [
+      { tpNummer: '9999', tpNavn: 'Oslo Pensjonsforsikring' },
+    ],
   }),
   no_membership: () => ({
     simuleringsresultatStatus: 'BRUKER_ER_IKKE_MEDLEM_AV_TP_ORDNING',
@@ -143,14 +150,14 @@ export const offentligTp = async (
 
   if (preset === 'server_error') {
     return {
-      url: /\/pensjon\/kalkulator\/api\/v2\/simuler-oftp/,
+      url: /\/pensjon\/kalkulator\/api\/v3\/simuler-oftp/,
       method: 'POST',
       status: 503,
       overrideJsonResponse: {},
     }
   }
 
-  let baseResponse: Partial<OffentligTjenestepensjonSimuleringResultV2>
+  let baseResponse: Partial<OffentligTjenestepensjonSimuleringResultV3>
 
   if (preset) {
     baseResponse = presetConfigs[preset]()
@@ -160,11 +167,11 @@ export const offentligTp = async (
   } else {
     baseResponse = (await loadJSONMock(
       'offentlig-tp.json'
-    )) as OffentligTjenestepensjonSimuleringResultV2
+    )) as OffentligTjenestepensjonSimuleringResultV3
   }
 
   return {
-    url: /\/pensjon\/kalkulator\/api\/v2\/simuler-oftp/,
+    url: /\/pensjon\/kalkulator\/api\/v3\/simuler-oftp/,
     method: 'POST',
     overrideJsonResponse: {
       ...baseResponse,
@@ -313,7 +320,7 @@ export const offentligTpFoer1963 = (
 }
 
 export const offentligTpTekniskFeil = (): RouteDefinition => ({
-  url: /\/pensjon\/kalkulator\/api\/v2\/simuler-oftp/,
+  url: /\/pensjon\/kalkulator\/api\/v3\/simuler-oftp/,
   method: 'POST',
   overrideJsonResponse: {
     simuleringsresultatStatus: 'TEKNISK_FEIL',
@@ -322,7 +329,7 @@ export const offentligTpTekniskFeil = (): RouteDefinition => ({
 })
 
 export const offentligTpTomSimulering = (): RouteDefinition => ({
-  url: /\/pensjon\/kalkulator\/api\/v2\/simuler-oftp/,
+  url: /\/pensjon\/kalkulator\/api\/v3\/simuler-oftp/,
   method: 'POST',
   overrideJsonResponse: {
     simuleringsresultatStatus: 'TOM_SIMULERING_FRA_TP_ORDNING',
@@ -331,7 +338,7 @@ export const offentligTpTomSimulering = (): RouteDefinition => ({
 })
 
 export const offentligTpIkkeMedlem = (): RouteDefinition => ({
-  url: /\/pensjon\/kalkulator\/api\/v2\/simuler-oftp/,
+  url: /\/pensjon\/kalkulator\/api\/v3\/simuler-oftp/,
   method: 'POST',
   overrideJsonResponse: {
     simuleringsresultatStatus: 'BRUKER_ER_IKKE_MEDLEM_AV_TP_ORDNING',
@@ -340,10 +347,10 @@ export const offentligTpIkkeMedlem = (): RouteDefinition => ({
 })
 
 export const offentligTpAnnenOrdning = (): RouteDefinition => ({
-  url: /\/pensjon\/kalkulator\/api\/v2\/simuler-oftp/,
+  url: /\/pensjon\/kalkulator\/api\/v3\/simuler-oftp/,
   method: 'POST',
   overrideJsonResponse: {
     simuleringsresultatStatus: 'TP_ORDNING_STOETTES_IKKE',
-    muligeTpLeverandoerListe: ['KLP'],
+    muligeTpLeverandoerListe: [{ tpNummer: '4082', tpNavn: 'KLP' }],
   },
 })

@@ -959,9 +959,9 @@ describe('Typeguards', () => {
         isOffentligTp({
           simuleringsresultatStatus: 'OK',
           muligeTpLeverandoerListe: [
-            'Statens pensjonskasse',
-            'Kommunal Landspensjonskasse',
-            'Oslo Pensjonsforsikring',
+            { tpNummer: '3010', tpNavn: 'Statens pensjonskasse' },
+            { tpNummer: '4082', tpNavn: 'Kommunal Landspensjonskasse' },
+            { tpNummer: '9999', tpNavn: 'Oslo Pensjonsforsikring' },
           ],
           simulertTjenestepensjon: {
             tpLeverandoer: 'Statens pensjonskasse',
@@ -991,7 +991,7 @@ describe('Typeguards', () => {
       expect(
         isOffentligTp({
           simuleringsresultatStatus: 'TOM_SIMULERING_FRA_TP_ORDNING',
-          muligeTpLeverandoerListe: ['Leverandør 1'],
+          muligeTpLeverandoerListe: [{ tpNummer: '1', tpNavn: 'Leverandør 1' }],
         })
       ).toBeTruthy()
     })
@@ -1030,6 +1030,12 @@ describe('Typeguards', () => {
         isOffentligTp({
           simuleringsresultatStatus: 'OK',
           muligeTpLeverandoerListe: [1, 2, 3],
+        })
+      ).toBeFalsy()
+      expect(
+        isOffentligTp({
+          simuleringsresultatStatus: 'OK',
+          muligeTpLeverandoerListe: ['Statens pensjonskasse'],
         })
       ).toBeFalsy()
     })

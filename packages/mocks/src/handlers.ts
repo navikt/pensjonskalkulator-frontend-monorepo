@@ -340,7 +340,7 @@ export const getHandlers = (options: HandlerOptions = {}) => {
 			return HttpResponse.json(ansattIdResponse)
 		}),
 
-		http.post(`${baseUrl}/v2/simuler-oftp/fra-1963`, async () => {
+		http.post(`${baseUrl}/v3/simuler-oftp/fra-1963`, async () => {
 			await delay(delayMs)
 			return HttpResponse.json(offentligTpResponse)
 		}),

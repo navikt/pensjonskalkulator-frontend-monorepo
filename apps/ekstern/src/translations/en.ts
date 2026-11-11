@@ -576,6 +576,10 @@ export default {
     'You have stated that you are unsure if you are entitled to lifelong AFP. The amount may therefore include conditional occupational pension. Check <spkLink>SPK</spkLink> for details.',
   'pensjonsavtaler.offentligtp.klp.afp_ja': 'MANGLER_TEKST',
   'pensjonsavtaler.offentligtp.klp.afp_nei+vetikke': 'MANGLER_TEKST',
+  'pensjonsavtaler.offentligtp.subtitle.tp_ordning':
+    'Retirement pension from {tpOrdningNavn}',
+  'pensjonsavtaler.offentligtp.tp_ordning.afp_ja': 'MANGLER_TEKST',
+  'pensjonsavtaler.offentligtp.tp_ordning.afp_nei+vetikke': 'MANGLER_TEKST',
   'inntekt.endre_inntekt_modal.open.button': 'Change Income',
   'inntekt.endre_inntekt_modal.title': 'Pensionable income',
   'inntekt.endre_inntekt_modal.textfield.label':

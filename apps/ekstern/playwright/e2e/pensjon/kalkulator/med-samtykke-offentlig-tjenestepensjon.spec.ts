@@ -795,7 +795,9 @@ test.describe('Med samtykke - Offentlig tjenestepensjon', () => {
           await pensjonsavtaler({ avtaler: [], utilgjengeligeSelskap: [] }),
           await offentligTp({
             preset: 'unsupported',
-            unsupportedProviders: ['Oslo Pensjonsforsikring'],
+            unsupportedProviders: [
+              { tpNummer: '9999', tpNavn: 'Oslo Pensjonsforsikring' },
+            ],
           }),
         ])
         await fillOutStegvisning(page, {
@@ -1058,8 +1060,8 @@ test.describe('Med samtykke - Offentlig tjenestepensjon', () => {
           await offentligTp({
             preset: 'unsupported',
             unsupportedProviders: [
-              'Statens pensjonskasse',
-              'Kommunal Landspensjonskasse',
+              { tpNummer: '3010', tpNavn: 'Statens pensjonskasse' },
+              { tpNummer: '4082', tpNavn: 'Kommunal Landspensjonskasse' },
             ],
           }),
           await pensjonsavtaler({ avtaler: [], utilgjengeligeSelskap: [] }),

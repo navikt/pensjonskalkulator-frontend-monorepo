@@ -680,6 +680,12 @@ const translations = {
     'Nav er ikke ansvarlig for beløpene som er hentet inn fra andre. ',
   'pensjonsavtaler.offentligtp.klp.afp_nei+vetikke':
     'Du har ikke oppgitt at du har rett til livsvarig AFP. Eventuell livsvarig AFP eller betinget tjenestepensjon er ikke inkludert i dette beløpet. Sjekk <klpLink>KLP</klpLink> for detaljer om pensjonsavtalen din.',
+  'pensjonsavtaler.offentligtp.subtitle.tp_ordning':
+    'Alderspensjon fra {tpOrdningNavn}',
+  'pensjonsavtaler.offentligtp.tp_ordning.afp_ja':
+    'Livsvarig AFP eller eventuell betinget tjenestepensjon er ikke inkludert i dette beløpet. Sjekk <tpOrdningLink>{tpOrdningKortnavn}</tpOrdningLink> for detaljer om pensjonsavtalen din.',
+  'pensjonsavtaler.offentligtp.tp_ordning.afp_nei+vetikke':
+    'Du har ikke oppgitt at du har rett til livsvarig AFP. Eventuell livsvarig AFP eller betinget tjenestepensjon er ikke inkludert i dette beløpet. Sjekk <tpOrdningLink>{tpOrdningKortnavn}</tpOrdningLink> for detaljer om pensjonsavtalen din.',
   'inntekt.endre_inntekt_modal.open.button': 'Endre inntekt',
   'inntekt.endre_inntekt_modal.title': 'Pensjonsgivende inntekt',
   'inntekt.endre_inntekt_modal.textfield.label':

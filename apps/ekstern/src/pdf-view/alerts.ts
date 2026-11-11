@@ -9,7 +9,10 @@ import { createElement } from 'react'
 import { renderToStaticMarkup } from 'react-dom/server'
 import { IntlShape, RawIntlProvider } from 'react-intl'
 
-import { formatLeverandoerList } from '@/components/Pensjonsavtaler/OffentligTjenestePensjon/utils'
+import {
+  formatLeverandoerList,
+  getTpLeverandoerNavnListe,
+} from '@/components/Pensjonsavtaler/OffentligTjenestePensjon/utils'
 import {
   OffentligTpAlert,
   privatePensjonsavtalerAlert,
@@ -206,9 +209,11 @@ export function getOffentligTjenestePensjonAlertsText({
     return ''
   }
   const html = offentligTpAlertsList.map((alert) => {
-    const leverandoerList = offentligTp?.muligeTpLeverandoerListe
+    const leverandoerList = getTpLeverandoerNavnListe(
+      offentligTp?.muligeTpLeverandoerListe
+    )
     const chunk =
-      alert.hasLeverandoerList && leverandoerList?.length
+      alert.hasLeverandoerList && leverandoerList.length
         ? formatLeverandoerList(intl.locale, leverandoerList)
         : undefined
 

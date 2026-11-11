@@ -13,6 +13,7 @@ import {
 } from '@navikt/ds-react'
 
 import { Divider } from '@/components/common/Divider'
+import { ExternalLink } from '@/components/common/ExternalLink'
 import { Loader } from '@/components/common/Loader'
 import { isOffentligTpFoer1963 } from '@/state/api/typeguards'
 import { useAppSelector } from '@/state/hooks'
@@ -38,6 +39,8 @@ import {
   formatLeverandoerList,
   getInfoOmAfpOgBetingetTjenestepensjon,
   getLeverandoerHeading,
+  getTpLeverandoerNavnListe,
+  getTpOrdningLenke,
 } from './utils'
 
 import styles from './OffentligTjenestepensjon.module.scss'
@@ -58,6 +61,7 @@ export const OffentligTjenestepensjon = (props: {
   } = props
 
   const { tpLeverandoer, tpNummer } = offentligTp?.simulertTjenestepensjon || {}
+  const tpOrdningLenke = getTpOrdningLenke(tpNummer ?? '', tpLeverandoer)
   const intl = useIntl()
   const isMobile = useIsMobile()
   const afp = useAppSelector(selectAfp)
@@ -131,9 +135,11 @@ export const OffentligTjenestepensjon = (props: {
             loggedStatusesRef.current.add(alert.status)
           }
 
-          const leverandoerList = offentligTp?.muligeTpLeverandoerListe
+          const leverandoerList = getTpLeverandoerNavnListe(
+            offentligTp?.muligeTpLeverandoerListe
+          )
           const chunk =
-            alert.hasLeverandoerList && leverandoerList?.length
+            alert.hasLeverandoerList && leverandoerList.length
               ? formatLeverandoerList(intl.locale, leverandoerList)
               : undefined
 
@@ -317,7 +323,19 @@ export const OffentligTjenestepensjon = (props: {
                   offentligTp.simulertTjenestepensjon?.simuleringsresultat
                     .betingetTjenestepensjonErInkludert
                 )}
-                values={getFormatMessageValues()}
+                values={{
+                  ...getFormatMessageValues(),
+                  tpOrdningKortnavn: tpOrdningLenke.kortnavn,
+                  // eslint-disable-next-line react/no-unstable-nested-components
+                  tpOrdningLink: (chunks: React.ReactNode) =>
+                    tpOrdningLenke.url ? (
+                      <ExternalLink href={tpOrdningLenke.url}>
+                        {chunks}
+                      </ExternalLink>
+                    ) : (
+                      chunks
+                    ),
+                }}
               />
             </BodyLong>
           )}
