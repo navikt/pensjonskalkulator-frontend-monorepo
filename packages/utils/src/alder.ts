@@ -1,6 +1,6 @@
 import { isAfter, isBefore, isSameDay, parse } from 'date-fns'
 
-import { DATE_BACKEND_FORMAT } from './dates'
+import { DATE_BACKEND_FORMAT } from '../dates'
 
 export const isOvergangskull = (foedselsdato: string): boolean => {
 	const DATE_START = new Date(1954, 0, 0)

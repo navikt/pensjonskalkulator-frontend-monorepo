@@ -560,21 +560,33 @@
 							"marks": [],
 							"text": "Et alternativ er at du ved "
 						},
-						{ "_key": "a67fb01c3509", "_type": "dynamicValue", "key": "alder" },
+						{
+							"_key": "a67fb01c3509",
+							"_type": "dynamicValue",
+							"key": "alder"
+						},
 						{
 							"_key": "0b06160edd8a",
 							"_type": "span",
 							"marks": [],
 							"text": " kan ta ut "
 						},
-						{ "_key": "1928d78fd867", "_type": "dynamicValue", "key": "grad" },
+						{
+							"_key": "1928d78fd867",
+							"_type": "dynamicValue",
+							"key": "grad"
+						},
 						{
 							"_key": "4a9ae79c00af",
 							"_type": "span",
 							"marks": [],
 							"text": ""
 						},
-						{ "_key": "d0f60d22eb93", "_type": "dynamicValue", "key": "nbsp" },
+						{
+							"_key": "d0f60d22eb93",
+							"_type": "dynamicValue",
+							"key": "nbsp"
+						},
 						{
 							"_key": "6600f1d4ff4d",
 							"_type": "span",
@@ -605,14 +617,24 @@
 							"marks": [],
 							"text": "Bruker har vedtak om "
 						},
-						{ "_key": "88538180a852", "_type": "dynamicValue", "key": "grad" },
+						{
+							"_key": "88538180a852",
+							"_type": "dynamicValue",
+							"key": "grad",
+							"valueType": "number"
+						},
 						{
 							"_key": "7d9e7af7b151",
 							"_type": "span",
 							"marks": [],
 							"text": ""
 						},
-						{ "_key": "e9b47300a048", "_type": "dynamicValue", "key": "nbsp" },
+						{
+							"_key": "e9b47300a048",
+							"_type": "dynamicValue",
+							"key": "nbsp",
+							"valueType": "string"
+						},
 						{
 							"_key": "e41a9942c5c4",
 							"_type": "span",
@@ -622,7 +644,8 @@
 						{
 							"_key": "97279b9bfdc6",
 							"_type": "dynamicValue",
-							"key": "vedtakDato"
+							"key": "vedtakDato",
+							"valueType": "string"
 						},
 						{
 							"_key": "d0406e5d78d7",
@@ -633,7 +656,8 @@
 						{
 							"_key": "98c3ac13aadb",
 							"_type": "dynamicValue",
-							"key": "tidligst-endring-ved-fremtidig-vedtak"
+							"key": "tidligstEndringDato",
+							"valueType": "string"
 						},
 						{
 							"_key": "622fd068561a",
