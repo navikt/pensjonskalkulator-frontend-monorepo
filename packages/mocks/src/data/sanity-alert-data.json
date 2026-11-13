@@ -1,68 +1,6 @@
 {
 	"result": [
 		{
-			"name": "beregning.vilkaarsproeving.ikke_nok_opptjening.ut_afp_100",
-			"type": "local-alert",
-			"status": "warning",
-			"infoCardStatus": null,
-			"overskrift": null,
-			"buttonLabel": null,
-			"innhold": [
-				{
-					"_key": "afp-100-intro",
-					"_type": "block",
-					"style": "normal",
-					"markDefs": [],
-					"children": [
-						{
-							"_key": "intro",
-							"_type": "span",
-							"marks": [],
-							"text": "Opptjeningen din er ikke høy nok til ønsket uttak. Du må sette ned uttaksgraden."
-						}
-					]
-				},
-				{
-					"_key": "afp-100-alternativ",
-					"_type": "block",
-					"style": "normal",
-					"markDefs": [],
-					"children": [
-						{
-							"_key": "alternativ",
-							"_type": "span",
-							"marks": [],
-							"text": "Et alternativ er at du ved "
-						},
-						{
-							"_key": "nedre-alder",
-							"_type": "dynamicValue",
-							"key": "nedreAldersgrense",
-							"valueType": "string"
-						},
-						{
-							"_key": "uttak",
-							"_type": "span",
-							"marks": [],
-							"text": " kan ta ut "
-						},
-						{
-							"_key": "grad",
-							"_type": "dynamicValue",
-							"key": "grad_gradert",
-							"valueType": "number"
-						},
-						{
-							"_key": "avslutning",
-							"_type": "span",
-							"marks": [],
-							"text": " % alderspensjon. Prøv gjerne andre kombinasjoner."
-						}
-					]
-				}
-			]
-		},
-		{
 			"name": "beregning.vilkaarsproeving.ikke_nok_opptjening_gradert.ut_afp",
 			"type": "local-alert",
 			"status": "warning",

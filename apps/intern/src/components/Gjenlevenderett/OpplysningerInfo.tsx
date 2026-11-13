@@ -12,7 +12,10 @@ import { useGrunnbeloepQuery } from '../../api/queries'
 import { RHFRadio, RHFTextField } from '../BeregningForm/rhf-adapters'
 import { showEPSMinstePensjonsgivendeInntektFoerDoedsfall } from '../BeregningForm/utils'
 import { Divider } from '../Divider/Divider'
-import { getEpsDoedsdato } from './utils'
+import {
+	getEpsDoedsdato,
+	hideEpsPensjonsgivendeInntektFoerDoedsdato,
+} from './utils'
 
 import styles from './OpplysningerInfo.module.css'
 
@@ -34,11 +37,9 @@ const formatPersonnavn = (navn?: string | null): string =>
 function mapEpsOpplysninger({
 	eps,
 	vedtakInfoAvdoed,
-	grunnbeloepTekst,
 }: {
 	eps: EpsOpplysninger
 	vedtakInfoAvdoed?: VedtakInformasjonOmAvdoed
-	grunnbeloepTekst?: string
 }): OpplysningerInfoItem[] {
 	const { relasjonPersondata } = eps
 	const navn = relasjonPersondata?.navn
@@ -59,32 +60,6 @@ function mapEpsOpplysninger({
 				: `Ikke registrert. ${format(subDays(new Date(), 1), 'dd.MM.yyyy')} brukes.`,
 		},
 	]
-
-	if (vedtakInfoAvdoed) {
-		opplysninger.push(
-			{
-				label: 'Antall år bodd/jobbet i utlandet etter fylte 16 år',
-				value: vedtakInfoAvdoed?.antallAarUtenlands ?? 0,
-			},
-			{
-				label: `Minst 1G ${grunnbeloepTekst} i pensjonsgivende inntekt ved dødsdato`,
-				value: vedtakInfoAvdoed?.aarligPensjonsgivendeInntektErMinst1G
-					? 'Ja'
-					: 'Nei',
-			},
-			{
-				label: 'Medlem av folketrygden de 5 siste årene før dødsdato',
-				value: vedtakInfoAvdoed?.harTilstrekkeligMedlemskapIFolketrygden
-					? 'Ja'
-					: 'Nei',
-			},
-			{
-				label: 'Registrert som flyktning',
-				value: vedtakInfoAvdoed?.erFlyktning ? 'Ja' : 'Nei',
-			}
-		)
-	}
-
 	return opplysninger
 }
 
@@ -106,14 +81,17 @@ export const OpplysningerInfo = ({
 	const rows = mapEpsOpplysninger({
 		eps: EPSOpplysninger,
 		vedtakInfoAvdoed,
-		grunnbeloepTekst,
 	})
 	const formatertVedtakAPDato = vedtakAPDato
 		? format(parseISO(vedtakAPDato), 'dd.MM.yyyy')
 		: undefined
 
 	const pensjonsgivendeInntektFoerDoedsdato =
-		!brukerHarVedtakGjenlevendepensjon ? (
+		!hideEpsPensjonsgivendeInntektFoerDoedsdato({
+			epsOpplysninger: EPSOpplysninger,
+			vedtakInfoAvdoed,
+			brukerHarVedtakGjenlevendepensjon,
+		}) ? (
 			<RHFTextField
 				name="epsPensjonsgivendeInntektFoerDoedsDato"
 				label="Pensjonsgivende inntekt året før dødsdato (valgfritt)"
