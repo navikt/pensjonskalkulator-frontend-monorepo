@@ -7,7 +7,7 @@ import {
   validateOpphold,
 } from '../utils'
 
-describe('UtenlandsoppholdModal-utils', () => {
+describe('UtenlandsoppholdSkjema-utils', () => {
   const foedselsdato = calculateFoedselsdato({ years: 62, months: 11, days: 8 })
 
   describe('validateOpphold', () => {
@@ -551,7 +551,6 @@ describe('UtenlandsoppholdModal-utils', () => {
     it('Når onUtenlandsoppholdSubmit kalles, hentes det riktig data fra formen. Dersom validering feiler lagres det ikke data og validationErrors vises', () => {
       const dispatchMock = vi.fn()
       const onSubmitCallbackMock = vi.fn()
-      const modalRefMock = {} as React.RefObject<HTMLDialogElement>
       const setValidationErrorsMock = vi.fn()
       const getMock = vi.fn().mockImplementation((s: string) => {
         return s
@@ -561,7 +560,6 @@ describe('UtenlandsoppholdModal-utils', () => {
         dataMock,
         dispatchMock,
         setValidationErrorsMock,
-        modalRefMock,
         onSubmitCallbackMock,
         'nb',
         {
@@ -602,15 +600,8 @@ describe('UtenlandsoppholdModal-utils', () => {
         }
 
         const loggerMock = vi.spyOn(loggerUtils, 'logger')
-        const closeMock = vi.fn()
         const dispatchMock = vi.fn()
         const onSubmitCallbackMock = vi.fn()
-        const modalRefMock = {
-          current: {
-            open: true,
-            close: closeMock,
-          },
-        } as unknown as React.RefObject<HTMLDialogElement>
         const setValidationErrorsMock = vi.fn()
         const getMock = vi.fn().mockImplementation(formDataAllFieldsSwitch)
         const dataMock: FormData = { get: getMock } as unknown as FormData
@@ -618,7 +609,6 @@ describe('UtenlandsoppholdModal-utils', () => {
           dataMock,
           dispatchMock,
           setValidationErrorsMock,
-          modalRefMock,
           onSubmitCallbackMock,
           'nb',
           {
@@ -640,7 +630,6 @@ describe('UtenlandsoppholdModal-utils', () => {
         })
 
         expect(onSubmitCallbackMock).toHaveBeenCalled()
-        expect(closeMock).toHaveBeenCalled()
         expect(loggerMock).toHaveBeenCalledWith('knapp klikket', {
           tekst: 'legger til utenlandsopphold',
         })
@@ -664,15 +653,8 @@ describe('UtenlandsoppholdModal-utils', () => {
         }
 
         const loggerMock = vi.spyOn(loggerUtils, 'logger')
-        const closeMock = vi.fn()
         const dispatchMock = vi.fn()
         const onSubmitCallbackMock = vi.fn()
-        const modalRefMock = {
-          current: {
-            open: true,
-            close: closeMock,
-          },
-        } as unknown as React.RefObject<HTMLDialogElement>
         const setValidationErrorsMock = vi.fn()
         const getMock = vi.fn().mockImplementation(formDataAllFieldsSwitch)
         const dataMock: FormData = { get: getMock } as unknown as FormData
@@ -680,7 +662,6 @@ describe('UtenlandsoppholdModal-utils', () => {
           dataMock,
           dispatchMock,
           setValidationErrorsMock,
-          modalRefMock,
           onSubmitCallbackMock,
           'nb',
           {
@@ -709,7 +690,6 @@ describe('UtenlandsoppholdModal-utils', () => {
         })
 
         expect(onSubmitCallbackMock).toHaveBeenCalled()
-        expect(closeMock).toHaveBeenCalled()
         expect(loggerMock).toHaveBeenCalledWith('knapp klikket', {
           tekst: 'endrer utenlandsopphold',
         })

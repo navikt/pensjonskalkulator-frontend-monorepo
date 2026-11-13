@@ -39,6 +39,8 @@ export function Utenlandsopphold({
 
   const [showUtenlandsperioder, setShowUtenlandsperioder] =
     useState<boolean>(!!harUtenlandsopphold)
+  const [erOppholdSkjemaAapent, setErOppholdSkjemaAapent] =
+    useState<boolean>(false)
 
   useEffect(() => {
     if (validationErrors.bottom && utenlandsperioder.length > 0) {
@@ -123,11 +125,20 @@ export function Utenlandsopphold({
 
       {showUtenlandsperioder && (
         <>
-          <UtenlandsoppholdListe validationError={validationErrors.bottom} />
+          <UtenlandsoppholdListe
+            validationError={validationErrors.bottom}
+            onSkjemaOpenChange={setErOppholdSkjemaAapent}
+          />
 
-          <BodyLong size="medium" className={styles.ingressBottom}>
-            <FormattedMessage id="stegvisning.utenlandsopphold.ingress.bottom" />
-          </BodyLong>
+          {utenlandsperioder.length > 0 && (
+            <BodyLong
+              size="medium"
+              textColor="subtle"
+              className={styles.ingressBottom}
+            >
+              <FormattedMessage id="stegvisning.utenlandsopphold.ingress.bottom" />
+            </BodyLong>
+          )}
 
           <Divider smallMargin />
         </>
@@ -137,6 +148,8 @@ export function Utenlandsopphold({
         onPrevious={onPrevious}
         onCancel={onCancel}
         form="har-utenlandsopphold"
+        isNextDisabled={showUtenlandsperioder && erOppholdSkjemaAapent}
+        isPreviousDisabled={showUtenlandsperioder && erOppholdSkjemaAapent}
       />
     </Card>
   )

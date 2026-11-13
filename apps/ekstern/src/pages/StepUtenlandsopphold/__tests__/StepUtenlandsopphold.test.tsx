@@ -96,8 +96,8 @@ describe('StepUtenlandsopphold', () => {
     })
     await store.dispatch(apiSlice.endpoints.getPerson.initiate())
     const radioButtons = await screen.findAllByRole('radio')
-    await user.click(radioButtons[0])
-    expect(radioButtons[0]).toBeChecked()
+    await user.click(radioButtons[1])
+    expect(radioButtons[1]).toBeChecked()
     await user.click(await screen.findByText('stegvisning.tilbake'))
     expect(store.getState().userInput.harUtenlandsopphold).toBeNull()
     expect(navigateMock).toHaveBeenCalledWith(

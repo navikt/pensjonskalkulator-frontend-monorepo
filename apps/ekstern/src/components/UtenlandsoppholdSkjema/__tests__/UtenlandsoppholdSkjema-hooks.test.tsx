@@ -11,7 +11,7 @@ import { setupStore } from '../../../state/store'
 import { useUtenlandsoppholdLocalState } from '../hooks'
 import { UTENLANDSOPPHOLD_FORM_NAMES } from '../utils'
 
-describe('UtenlandsoppholdModal-hooks', () => {
+describe('UtenlandsoppholdSkjema-hooks', () => {
   const foedselsdato = calculateFoedselsdato({ years: 62, months: 11, days: 8 })
   const expectedFoedselsdato = parse(
     foedselsdato,
@@ -43,13 +43,9 @@ describe('UtenlandsoppholdModal-hooks', () => {
   )
 
   describe('useUtenlandsoppholdLocalState', () => {
-    const closeMock = vi.fn()
     const onSubmitCallbackMock = vi.fn()
 
     const initialProps = {
-      modalRef: {
-        current: { open: true, close: closeMock },
-      } as unknown as React.RefObject<HTMLDialogElement>,
       foedselsdato: foedselsdato,
       utenlandsperiode: {
         id: '1',
@@ -454,7 +450,6 @@ describe('UtenlandsoppholdModal-hooks', () => {
       })
 
       expect(onSubmitCallbackMock).toHaveBeenCalled()
-      expect(closeMock).toHaveBeenCalled()
     })
   })
 })
