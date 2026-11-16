@@ -18,7 +18,7 @@ test.describe('Utenlandsopphold - Editor og land', () => {
 			await navigateToApp(page)
 
 			await expect(
-				page.getByRole('group', {
+				page.getByRole('radiogroup', {
 					name: 'Har bruker opphold utenfor Norge?',
 				})
 			).toBeVisible()

@@ -55,7 +55,7 @@ async function fillMainFormFields(page: Page) {
 		.selectOption('67')
 	await page.getByRole('combobox', { name: 'Uttaksgrad' }).selectOption('100')
 	await page
-		.getByRole('group', {
+		.getByRole('radiogroup', {
 			name: 'Har bruker inntekt ved siden av 100 % uttak?',
 		})
 		.getByLabel('Nei')
@@ -435,12 +435,12 @@ test.describe('Gjenlevenderett', () => {
 					name: 'Pensjonsgivende inntekt året før dødsdato',
 				})
 				.fill('400000')
-			const minstInntektGroup = page.getByRole('group', {
+			const minstInntektGroup = page.getByRole('radiogroup', {
 				name: /Minst 1G.*i pensjonsgivende inntekt ved dødsdato/,
 			})
 			await expect(minstInntektGroup).toBeVisible()
 			await page
-				.getByRole('group', {
+				.getByRole('radiogroup', {
 					name: 'Medlem av folketrygden de 5 siste årene før dødsdato',
 				})
 				.getByLabel('Ja')
@@ -550,7 +550,7 @@ test.describe('Gjenlevenderett', () => {
 
 			await expect(page.getByTestId('EPS-opplysninger-info')).toBeVisible()
 
-			const flyktningGroup = page.getByRole('group', {
+			const flyktningGroup = page.getByRole('radiogroup', {
 				name: 'Registrert som flyktning',
 			})
 			await expect(flyktningGroup.getByLabel('Nei')).toBeChecked()
@@ -746,12 +746,12 @@ test.describe('Gjenlevenderett', () => {
 				})
 				.fill('400000')
 
-			const minstInntektGroup = page.getByRole('group', {
+			const minstInntektGroup = page.getByRole('radiogroup', {
 				name: /Minst 1G.*i pensjonsgivende inntekt ved dødsdato/,
 			})
 			await expect(minstInntektGroup).toBeVisible()
 
-			const medlemGroup = page.getByRole('group', {
+			const medlemGroup = page.getByRole('radiogroup', {
 				name: 'Medlem av folketrygden de 5 siste årene før dødsdato',
 			})
 			await expect(medlemGroup).toBeVisible()

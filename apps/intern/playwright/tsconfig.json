@@ -3,7 +3,6 @@
 	"compilerOptions": {
 		"sourceMap": false,
 		"types": ["node", "@playwright/test"],
-		"baseUrl": "./",
 		"paths": {
 			"@/*": ["../src/*"]
 		}
