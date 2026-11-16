@@ -1,4 +1,7 @@
-import type { Opptjening } from '@pensjonskalkulator-frontend-monorepo/types'
+import type {
+	Opptjening,
+	OpptjeningAvdoed,
+} from '@pensjonskalkulator-frontend-monorepo/types'
 
 export const mockOpptjeningKap20: Opptjening = [
 	{
@@ -20,14 +23,14 @@ export const mockOpptjeningKap20: Opptjening = [
 		pensjonsgivendeInntektBeloep: 193192,
 		pensjonspoeng: 3.47,
 		pensjonsbeholdningBeloep: 0,
-		merknadListe: ['DAGPENGER'],
+		merknadListe: [{ kode: 'DAGPENGER' }],
 	},
 	{
 		aarstall: 2021,
 		pensjonsgivendeInntektBeloep: 278034,
 		pensjonspoeng: 3.47,
 		pensjonsbeholdningBeloep: 501831,
-		merknadListe: ['OMSORGSOPPTJENING'],
+		merknadListe: [{ kode: 'OMSORGSOPPTJENING' }],
 	},
 	{
 		aarstall: 2020,
@@ -41,7 +44,7 @@ export const mockOpptjeningKap20: Opptjening = [
 		pensjonsgivendeInntektBeloep: 278034,
 		pensjonspoeng: 3.47,
 		pensjonsbeholdningBeloep: 501831,
-		merknadListe: ['REFORM', 'DAGPENGER'],
+		merknadListe: [{ kode: 'REFORM' }, { kode: 'DAGPENGER' }],
 	},
 ]
 
@@ -58,7 +61,7 @@ export const mockOpptjeningKap19: Opptjening = [
 		pensjonsgivendeInntektBeloep: 420000,
 		pensjonspoeng: 3.89,
 		pensjonsbeholdningBeloep: 0,
-		merknadListe: ['FOERSTEGANGSTJENESTE'],
+		merknadListe: [{ kode: 'FOERSTEGANGSTJENESTE' }],
 	},
 	{
 		aarstall: 2020,
@@ -69,7 +72,7 @@ export const mockOpptjeningKap19: Opptjening = [
 	},
 ]
 
-export const mockOpptjeningAvdoed: Opptjening = [
+export const mockOpptjeningAvdoed: OpptjeningAvdoed = [
 	{
 		aarstall: 2024,
 		pensjonsgivendeInntektBeloep: 350000,
@@ -99,7 +102,7 @@ export const mockOpptjeningMedUfoeregrad: Opptjening = [
 		pensjonsgivendeInntektBeloep: 300000,
 		pensjonspoeng: 2.7,
 		pensjonsbeholdningBeloep: 350000,
-		merknadListe: ['UFOEREGRAD'],
+		merknadListe: [{ kode: 'UFOEREGRAD' }],
 	},
 	{
 		aarstall: 2021,
@@ -130,7 +133,7 @@ export const mockOpptjeningSimulering: Opptjening = [
 		pensjonsgivendeInntektBeloep: 500000,
 		pensjonspoeng: 4.5,
 		pensjonsbeholdningBeloep: 410000,
-		merknadListe: ['HELT_UTTAK'],
+		merknadListe: [{ kode: 'HELT_UTTAK' }],
 	},
 	{
 		aarstall: 2013,

@@ -60,8 +60,49 @@ export const languageField = defineField({
 export const nameField = defineField({
 	name: 'name',
 	type: 'string',
-	description: 'Denne brukes som ID i koden',
-	validation: (rule) => rule.required().error('Påkrevd'),
+	description:
+		'Denne brukes som ID i koden og må være unik for dokumenttypen og språket. Alert-navn må være unike uavhengig av språk.',
+	validation: (rule) => [
+		rule.required().error('Påkrevd'),
+		rule.custom(async (value, context) => {
+			if (!value) {
+				return true
+			}
+			if (!value.trim()) {
+				return 'Påkrevd'
+			}
+
+			const document = context.document
+			if (!document) {
+				return 'Kunne ikke kontrollere om navnet er unikt. Prøv igjen.'
+			}
+
+			const id = document._id.replace(/^drafts\./, '')
+			const client = context
+				.getClient({ apiVersion: '2025-07-02' })
+				.withConfig({ useCdn: false, perspective: 'raw' })
+
+			try {
+				const duplicateCount = await client.fetch<number>(
+					'count(*[_type == $type && name == $name && !(_id in [$id, $draftId]) && ($type == "alert" || coalesce(language, "") == $language)])',
+					{
+						type: document._type,
+						name: value,
+						id,
+						draftId: `drafts.${id}`,
+						language:
+							typeof document.language === 'string' ? document.language : '',
+					}
+				)
+				return duplicateCount === 0
+					? true
+					: 'Et dokument med samme navn finnes allerede. Velg et annet navn.'
+			} catch (error) {
+				console.error('Kunne ikke kontrollere om Sanity-navnet er unikt', error)
+				return 'Kunne ikke kontrollere om navnet er unikt. Prøv igjen.'
+			}
+		}),
+	],
 })
 
 export const overskriftField = defineField({
@@ -121,38 +162,46 @@ export const innholdField = defineField({
 							hidden: ({ parent }) => isGMultipleParent(parent),
 							options: {
 								list: [
-									{ title: 'Valgt alder for uttak', value: 'alder' },
-									{ title: 'Uttaksgrad fra vedtak', value: 'grad' },
+									{ title: 'Valgt alder for uttak (Tekst)', value: 'alder' },
 									{
-										title: 'Uttaksgrad ved gradert uttak - NAU',
+										title: 'Normert pensjonsalder (Tekst)',
+										value: 'normertPensjoneringsalder',
+									},
+									{
+										title: 'Nedre aldersgrense (normert minus 5 år) (Tekst)',
+										value: 'nedreAldersgrense',
+									},
+									{ title: 'Uttaksgrad fra vedtak (Tall)', value: 'grad' },
+									{
+										title: 'Uttaksgrad ved gradert uttak - NAU (Tall)',
 										value: 'grad_gradert',
 									},
 									{
-										title: 'Alder ved gradert uttak - NAU',
+										title: 'Alder ved gradert uttak - NAU (Tekst)',
 										value: 'gradert_alder',
 									},
 									{
-										title: 'Alder ved helt uttak - NAU',
+										title: 'Alder ved helt uttak - NAU (Tekst)',
 										value: 'helt_alder',
 									},
-									{ title: 'Dato for vedtak', value: 'vedtakDato' },
+									{ title: 'Dato for vedtak (Tekst)', value: 'vedtakDato' },
 									{
-										title: 'Tidligste endringsdato',
+										title: 'Tidligste endringsdato (Tekst)',
 										value: 'tidligstEndringDato',
 									},
 									{
 										title:
-											'Tidligste dato for endring av uttaksgrad - 12 måneders regel',
+											'Tidligste dato for endring av uttaksgrad - 12 måneders regel (Tekst)',
 										value: 'tidligst-endring-uttaksgrad-dato',
 									},
-									{ title: 'TP-ordning', value: 'tpOrdning' },
+									{ title: 'TP-ordning (Tekst)', value: 'tpOrdning' },
 									{
-										title: 'Minste månedsinntekt for AFP (1G/12)',
+										title: 'Minste månedsinntekt for AFP (1G/12) (Tall)',
 										value: 'afpMinsteMaanedsinntekt',
 									},
-									{ title: 'Fornavn', value: 'fornavn' },
-									{ title: 'Fødselsdato', value: 'foedselsdato' },
-									{ title: 'Mellomrom', value: 'nbsp' },
+									{ title: 'Fornavn (Tekst)', value: 'fornavn' },
+									{ title: 'Fødselsdato (Tekst)', value: 'foedselsdato' },
+									{ title: 'Mellomrom (Tekst)', value: 'nbsp' },
 								],
 								layout: 'dropdown',
 							},

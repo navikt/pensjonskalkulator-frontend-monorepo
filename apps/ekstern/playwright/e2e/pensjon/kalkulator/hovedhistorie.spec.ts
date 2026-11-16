@@ -502,7 +502,7 @@ test.describe('Hovedhistorie', () => {
           page.getByTestId('stegvisning.utenlandsopphold.radio_label')
         ).toBeVisible()
 
-        await page.getByRole('radio').first().check()
+        await page.getByRole('radio').last().check()
         await expect(
           page.getByTestId('stegvisning.utenlandsopphold.radio_label')
         ).toBeVisible()
@@ -1014,7 +1014,7 @@ test.describe('Hovedhistorie', () => {
               .check()
 
             await expect(
-              page.getByTestId('afp-etterfulgt-ap-informasjon')
+              page.getByTestId('afp.inntekt-siste-maaned')
             ).toBeVisible()
           })
 

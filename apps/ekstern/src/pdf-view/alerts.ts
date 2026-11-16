@@ -15,6 +15,7 @@ import {
   privatePensjonsavtalerAlert,
 } from '@/components/Pensjonsavtaler/hooks'
 import { AlertVariant } from '@/components/Simulering/hooks'
+import { formatUttaksalder } from '@/utils/alder'
 import { DATE_ENDUSER_FORMAT } from '@/utils/dates'
 
 import { ALERT_TRIANGLE_ICON, INFO_SQUARE_ICON } from './constants'
@@ -49,6 +50,7 @@ function renderSanityAlertHtml({
           ? 'success'
           : 'info'
   const icon =
+    alert.type === 'local-alert' ||
     alert.type === 'inline-message' ||
     alertStatus === 'message' ||
     alertStatus === 'attention' ||
@@ -71,8 +73,12 @@ function renderSanityAlertHtml({
       })
     )
   )
+  const messageClass =
+    alert.type === 'info-card' && alertStatus === 'message'
+      ? ' pdf-sanity-alert--message'
+      : ''
 
-  return `<section class="pdf-sanity-alert pdf-sanity-alert--${tone}${alert.type === 'info-card' && alertStatus === 'message' ? ' pdf-sanity-alert--message' : ''}">
+  return `<section class="pdf-sanity-alert pdf-sanity-alert--${tone}${messageClass}">
   ${icon}
   <div class="pdf-sanity-alert__body">${title}${content}</div>
 </section>`
@@ -208,28 +214,13 @@ export function getOffentligTjenestePensjonAlertsText({
 
     const heading = `<h4>${intl.formatMessage({ id: 'pensjonsavtaler.offentligtp.title' })}</h4>`
 
-    if (alert.sanityId) {
-      const alertHtml = renderSanityAlertHtml({
-        alertData,
-        id: alert.sanityId,
-        intl,
-      })
-      return `${heading}${alertHtml ?? ''}`
-    }
-
-    if (!alert.alertTextId) return heading
-
-    const alertIcon =
-      alert.variant === 'info' ? INFO_SQUARE_ICON : ALERT_TRIANGLE_ICON
-    const alertMessage = intl.formatMessage(
-      { id: alert.alertTextId },
-      {
-        ...pdfFormatMessageValues,
-        chunk: chunk ? `(${chunk})` : '',
-      }
-    )
-    return `${heading}
-      ${renderAlertTable({ alertIcon, alertMessage })}`
+    const alertHtml = renderSanityAlertHtml({
+      alertData,
+      id: alert.sanityId,
+      intl,
+      dynamicValues: chunk ? { tpOrdning: chunk } : undefined,
+    })
+    return `${heading}${alertHtml ?? ''}`
   })
 
   return html.join('')
@@ -238,19 +229,26 @@ export function getOffentligTjenestePensjonAlertsText({
 export function getAfpOffentligAlertsText({
   afpOffentligAlertsList,
   intl,
+  alertData,
 }: {
   afpOffentligAlertsList: {
     variant: AlertVariant
     text: string
+    sanityId?: string
   }
   intl: IntlShape
+  alertData: SanityAlertData
 }): string {
-  if (
-    afpOffentligAlertsList.text ===
-    'beregning.alert.info.afp-offentlig-livsvarig'
-  ) {
-    return ''
+  if (afpOffentligAlertsList.sanityId) {
+    return (
+      renderSanityAlertHtml({
+        alertData,
+        id: afpOffentligAlertsList.sanityId,
+        intl,
+      }) ?? ''
+    )
   }
+
   const alertIcon =
     afpOffentligAlertsList.variant === 'info'
       ? INFO_SQUARE_ICON
@@ -279,13 +277,20 @@ export function getApotekerAlert(
 
 export function getOmstillingsstoenadAlert(
   intl: IntlShape,
-  alertData: SanityAlertData
+  alertData: SanityAlertData,
+  normertPensjonsalder: Alder
 ): string {
   return (
     renderSanityAlertHtml({
       alertData,
       id: 'beregning.gjenlevende-eller-omstilling',
       intl,
+      dynamicValues: {
+        normertPensjoneringsalder: formatUttaksalder(
+          intl,
+          normertPensjonsalder
+        ),
+      },
     }) ?? ''
   )
 }

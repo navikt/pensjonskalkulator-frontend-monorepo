@@ -104,6 +104,35 @@ describe('RedigerAvansertBeregning', () => {
     ).toBeVisible()
   })
 
+  it('rendrer riktig skjema for brukere med uføretrygd mellom 80 og 100 %', async () => {
+    render(
+      <BeregningContext.Provider
+        value={{
+          ...contextMockedValues,
+        }}
+      >
+        <RedigerAvansertBeregning />
+      </BeregningContext.Provider>,
+      {
+        preloadedState: {
+          userInput: {
+            ...userInputInitialState,
+          },
+        },
+        preloadedApiState: {
+          getPerson: personMock,
+          getLoependeVedtak: {
+            ...loependeVedtak75UfoeregradMock,
+            ufoeretrygd: { grad: 80 },
+          },
+        },
+      }
+    )
+    expect(
+      screen.getByTestId(`AVANSERT_SKJEMA_FOR_BRUKERE_MED_GRADERT_UFOERETRYGD`)
+    ).toBeVisible()
+  })
+
   it('rendrer riktig skjema for brukere med 100 % uføretrygd', async () => {
     render(
       <BeregningContext.Provider

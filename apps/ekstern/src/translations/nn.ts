@@ -106,18 +106,23 @@ export default {
     'MANGLER_TEKST',
   'stegvisning.utenlandsopphold.oppholdene.description.periode.varig_opphold':
     'MANGLER_TEKST',
+  'stegvisning.utenlandsopphold.oppholdene.periode.jobbet': 'MANGLER_TEKST',
+  'stegvisning.utenlandsopphold.oppholdene.periode.varig_jobbet':
+    'MANGLER_TEKST',
   'stegvisning.utenlandsopphold.oppholdene.description.har_jobbet':
     'MANGLER_TEKST',
   'stegvisning.utenlandsopphold.oppholdene.description.har_jobbet.ja':
     'MANGLER_TEKST',
   'stegvisning.utenlandsopphold.oppholdene.description.har_jobbet.nei':
     'MANGLER_TEKST',
-  'stegvisning.utenlandsopphold.oppholdene.button.legg_til': 'MANGLER_TEKST',
   'stegvisning.utenlandsopphold.oppholdene.button.legg_til_nytt':
     'MANGLER_TEKST',
   'stegvisning.utenlandsopphold.oppholdene.button.endre': 'MANGLER_TEKST',
+  'stegvisning.utenlandsopphold.oppholdene.button.endre.aria_label':
+    'MANGLER_TEKST',
   'stegvisning.utenlandsopphold.oppholdene.button.slette': 'MANGLER_TEKST',
-  'utenlandsopphold.om_oppholdet_ditt_modal.title': 'MANGLER_TEKST',
+  'stegvisning.utenlandsopphold.oppholdene.button.slette.aria_label':
+    'MANGLER_TEKST',
   'utenlandsopphold.om_oppholdet_ditt_modal.button.legg_til': 'MANGLER_TEKST',
   'utenlandsopphold.om_oppholdet_ditt_modal.button.oppdater': 'MANGLER_TEKST',
   'utenlandsopphold.om_oppholdet_ditt_modal.button.avbryt': 'MANGLER_TEKST',
@@ -280,15 +285,10 @@ export default {
   'beregning.avansert.rediger.beregningsvalg.med_afp.title': 'MANGLER_TEKST',
   'beregning.avansert.rediger.beregningsvalg.med_afp.description':
     'MANGLER_TEKST',
-  'beregning.avansert.rediger.pre2025_offentlig_afp.alert': 'MANGLER_TEKST',
   'beregning.toggle.enkel': 'MANGLER_TEKST',
   'beregning.toggle.avansert': 'MANGLER_TEKST',
   'beregning.loading': 'Vent litt medan vi reknar ut pensjonen din',
-  'beregning.error':
-    'Vi klarte dessverre ikkje å rekne ut pensjonen din akkurat nå.',
   'beregning.livsvarig': 'MANGLER_TEKST',
-  'beregning.lav_opptjening.aar':
-    'Du har ikkje høg nok opptening til å kunne starte uttak ved {startAar} år{startMaaned}. Prøv ein høgare alder.',
   'beregning.button.faerre_aar': 'Færre år',
   'beregning.button.flere_aar': 'Fleire år',
   'beregning.title': 'MANGLER_TEKST',
@@ -296,7 +296,6 @@ export default {
   'beregning.alert.success.afp-offentlig-livsvarig': 'MANGLER_TEKST',
   'beregning.highcharts.informasjon_klikk': 'MANGLER_TEKST',
   'beregning.highcharts.title': 'MANGLER_TEKST',
-  'beregning.highcharts.ingress': 'MANGLER_TEKST',
   'beregning.highcharts.alt_tekst': 'MANGLER_TEKST',
   'beregning.highcharts.xaxis': 'Årleg inntekt og pensjon etter uttak',
   'beregning.highcharts.yaxis': 'Kroner',
@@ -402,31 +401,11 @@ export default {
   'beregning.avansert.avbryt_modal.button.avslutt': 'MANGLER_TEKST',
   'beregning.avansert.avbryt_modal.endring.button.avslutt': 'MANGLER_TEKST',
   'beregning.avansert.avbryt_modal.button.avbryt': 'MANGLER_TEKST',
-  'beregning.avansert.alert.vilkaarsproevning.afp_inntekt_maaned_foer_uttak':
-    'MANGLER_TEKST',
-  'beregning.avansert.alert.afp_inntekt_maaned_foer_uttak': 'MANGLER_TEKST',
-  'beregning.avansert.alert.afp_inntekt_maaned_foer_uttak.link.text':
-    'MANGLER_TEKST',
   'beregning.endring.alert.uttaksdato': 'MANGLER_TEKST',
   'beregning.endring.rediger.title': 'MANGLER_TEKST',
   'beregning.endring.rediger.vedtak_status': 'MANGLER_TEKST',
   'beregning.endring.rediger.vedtak_grad_status': 'MANGLER_TEKST',
   'beregning.endring.rediger.vedtak_betaling_status': 'MANGLER_TEKST',
-  'beregning.vilkaarsproeving.intro': 'MANGLER_TEKST',
-  'beregning.vilkaarsproeving.intro.ikke_nok_opptjening': 'MANGLER_TEKST',
-  'beregning.vilkaarsproeving.intro.optional': 'MANGLER_TEKST',
-  'beregning.vilkaarsproeving.alternativer.heltUttak': 'MANGLER_TEKST',
-  'beregning.vilkaarsproeving.alternativer.gradertUttak': 'MANGLER_TEKST',
-  'beregning.vilkaarsproeving.alternativer.heltOgGradertUttak': 'MANGLER_TEKST',
-  'beregning.vilkaarsproeving.medAFP.intro': 'MANGLER_TEKST',
-  'beregning.vilkaarsproeving.alternativer.medAFP.gradertUttak':
-    'MANGLER_TEKST',
-  'beregning.vilkaarsproeving.alternativer.medAFP.heltOgGradertUttak':
-    'MANGLER_TEKST',
-  'beregning.vilkaarsproeving.alternativer.medAFP.heltOgGradertUttak100':
-    'MANGLER_TEKST',
-  'beregning.vilkaarsproeving.alternativer.medAFP.ikkeNokOpptjening':
-    'MANGLER_TEKST',
   'grunnlag.title': 'Grunnlaget for utrekninga',
   'grunnlag.endring.title': 'MANGLER_TEKST',
   'maanedsbeloep.title': 'MANGLER_TEKST',
@@ -510,10 +489,6 @@ export default {
   'pensjonsavtaler.private.title.ingen': 'MANGLER_TEKST',
   'pensjonsavtaler.private.ingress.norsk_pensjon':
     'Alle avtalar frå privat sektor vert henta frå <norskPensjonLink>Norsk Pensjon</norskPensjonLink>. Nav er ikkje ansvarleg for beløpa som er oppgitt. Du kan ha andre avtalar enn det som fins i Norsk Pensjon. Kontakt aktuell pensjonsordning.{br}{br}Vi kan ikkje hente pensjonsavtaler frå offentleg sektor. Sjekk aktuell tenestepensjonsordning.',
-  'pensjonsavtaler.private.ingress.error.pensjonsavtaler':
-    'Vi klarte ikkje å hente pensjonsavtalane dine frå Norsk Pensjon. Prøv igjen seinare.',
-  'pensjonsavtaler.private.ingress.error.pensjonsavtaler.partial':
-    'Vi klarte ikkje å hente alle pensjonsavtalane dine frå Norsk Pensjon. Prøv igjen seinare.',
   'pensjonsavtaler.ingress.error.samtykke_ingress':
     'Du har ikkje samtykka til å hente inn pensjonsavtalar. ',
   'pensjonsavtaler.ingress.error.samtykke_link_1': 'Start ei ny utrekning',
@@ -524,10 +499,6 @@ export default {
   'pensjonsavtaler.tabell.title.right': 'Årleg beløp',
   'pensjonsavtaler.title': 'Pensjonsavtalar',
   'pensjonsavtaler.offentligtp.title': 'MANGLER_TEKST',
-  'pensjonsavtaler.offentligtp.er_medlem_annen_ordning': 'MANGLER_TEKST',
-  'pensjonsavtaler.offentligtp.error': 'MANGLER_TEKST',
-  'pensjonsavtaler.offentligtp.teknisk_feil': 'MANGLER_TEKST',
-  'pensjonsavtaler.offentligtp.empty': 'MANGLER_TEKST',
   'pensjonsavtaler.offentligtp.subtitle.spk':
     'Alderspensjon frå Statens pensjonskasse (SPK)',
   'pensjonsavtaler.offentligtp.subtitle.klp':

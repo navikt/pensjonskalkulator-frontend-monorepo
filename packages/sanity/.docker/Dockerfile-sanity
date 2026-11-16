@@ -1,4 +1,4 @@
-ARG NGINX_DEPLOY_IMG=nginxinc/nginx-unprivileged:1.30-alpine3.23-slim
+ARG NGINX_DEPLOY_IMG=nginxinc/nginx-unprivileged:1.30-alpine3.24-slim
 
 FROM ${NGINX_DEPLOY_IMG}
 

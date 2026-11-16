@@ -25,20 +25,24 @@ describe('getVilkaarsproevingDynamicValues', () => {
 			})
 		}
 	)
-	it('preserves fallbacks without a graded alternative', () => {
-		expect(
-			getVilkaarsproevingDynamicValues({
-				heltUttakAlder: { aar: 67, maaneder: 0 },
-				visGradert: true,
+	it.each([undefined, null])(
+		'uses the full age when the graded alternative is %s',
+		(gradertUttakAlder) => {
+			expect(
+				getVilkaarsproevingDynamicValues({
+					heltUttakAlder: { aar: 67, maaneder: 0 },
+					gradertUttakAlder,
+					visGradert: true,
+				})
+			).toEqual({
+				helt_alder: '67 år',
+				alder: '67 år',
+				gradert_alder: '67 år',
+				grad: 100,
+				grad_gradert: 100,
 			})
-		).toEqual({
-			helt_alder: '67 år',
-			alder: '67 år',
-			gradert_alder: '',
-			grad: 100,
-			grad_gradert: 100,
-		})
-	})
+		}
+	)
 })
 
 describe('showEPSMinstePensjonsgivendeInntektFoerDoedsfall', () => {

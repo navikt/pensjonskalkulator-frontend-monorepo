@@ -3,6 +3,7 @@ import translations_nb from '../../../translations/nb'
 import translations_nn from '../../../translations/nn'
 import {
   getCookie,
+  getSanityDataset,
   getSelectedLanguage,
   getTranslations,
   setCookie,
@@ -14,6 +15,18 @@ const nbMessages: Record<string, string> = translations_nb
 const nnMessages: Record<string, string> = translations_nn
 
 describe('LanguageProvider-utils', () => {
+  it.each([
+    { hostname: 'staging.ekstern.dev.nav.no', dataset: 'production' },
+    { hostname: 'www.nav.no', dataset: 'production' },
+    {
+      hostname: 'pensjonskalkulator.ekstern.dev.nav.no',
+      dataset: 'development',
+    },
+    { hostname: 'localhost', dataset: 'development' },
+  ])('velger $dataset for $hostname', ({ hostname, dataset }) => {
+    expect(getSanityDataset(hostname)).toBe(dataset)
+  })
+
   afterEach(() => {
     document.cookie.split(';').forEach(function (c) {
       document.cookie = c

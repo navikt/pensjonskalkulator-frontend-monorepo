@@ -8,11 +8,11 @@ import {
 	setupDefaultMocks,
 } from '../utils/test-helpers'
 
-function createSanityAlertResponse(alertName: string) {
+function createSanityAlertResponse() {
 	return {
 		result: [
 			{
-				name: alertName,
+				name: 'beregning.vilkaarsproeving.ikke_nok_opptjening',
 				type: 'info-card',
 				status: 'warning',
 				overskrift: 'Ikke nok opptjening',
@@ -22,12 +22,9 @@ function createSanityAlertResponse(alertName: string) {
 						style: 'normal',
 						children: [
 							{
-								_type: 'span',
-								text: 'Du har ikke nok opptjening til å ta ut ',
-							},
-							{
 								_type: 'dynamicValue',
 								key: 'grad',
+								valueType: 'number',
 							},
 							{
 								_type: 'span',
@@ -36,6 +33,7 @@ function createSanityAlertResponse(alertName: string) {
 							{
 								_type: 'dynamicValue',
 								key: 'alder',
+								valueType: 'string',
 							},
 						],
 					},
@@ -58,6 +56,7 @@ function createSanityAlertResponse(alertName: string) {
 							{
 								_type: 'dynamicValue',
 								key: 'grad_gradert',
+								valueType: 'number',
 							},
 							{
 								_type: 'span',
@@ -66,6 +65,7 @@ function createSanityAlertResponse(alertName: string) {
 							{
 								_type: 'dynamicValue',
 								key: 'gradert_alder',
+								valueType: 'string',
 							},
 							{
 								_type: 'span',
@@ -73,7 +73,8 @@ function createSanityAlertResponse(alertName: string) {
 							},
 							{
 								_type: 'dynamicValue',
-								key: 'alder',
+								key: 'helt_alder',
+								valueType: 'string',
 							},
 						],
 					},
@@ -88,11 +89,7 @@ async function setupSanityMock(page: Page) {
 		route.fulfill({
 			status: 200,
 			contentType: 'application/json',
-			body: JSON.stringify(
-				createSanityAlertResponse(
-					'beregning.vilkaarsproeving.ikke_nok_opptjening'
-				)
-			),
+			body: JSON.stringify(createSanityAlertResponse()),
 		})
 	)
 }
@@ -187,6 +184,9 @@ test.describe('Ikke nok opptjening (NAU)', () => {
 			await page.getByTestId('beregn-button').click()
 
 			await expect(page.getByTestId('vilkaarsproeving-alert')).toBeVisible()
+			await expect(
+				page.getByTestId('beregning.vilkaarsproeving.ikke_nok_opptjening')
+			).toContainText('100 % alderspensjon fra 67 år')
 		})
 
 		test('viser alternativ alder i alert', async ({ page }) => {
@@ -202,7 +202,9 @@ test.describe('Ikke nok opptjening (NAU)', () => {
 
 			const alert = page.getByTestId('vilkaarsproeving-alert')
 			await expect(alert).toBeVisible()
-			await expect(alert).toContainText('67')
+			await expect(
+				alert.getByTestId('beregning.vilkaarsproeving.ikke_nok_opptjening')
+			).toContainText('100 % alderspensjon fra 67 år og 3 måneder')
 		})
 
 		test('viser ikke alert når vilkårsprøving er innvilget', async ({
@@ -221,15 +223,15 @@ test.describe('Ikke nok opptjening (NAU)', () => {
 	})
 
 	test.describe('Gradert uttak', () => {
-		test('viser vilkårsprøving-alert med gradert alternativ', async ({
+		test('viser felles Sanity-varsel når helt uttaksalder er uendret', async ({
 			page,
 		}) => {
 			await setupDefaultMocks(page)
 			await setupSanityMock(page)
 			await setupSimuleringMockWithNau(page, {
-				heltUttakAlder: { aar: 70, maaneder: 0 },
-				gradertUttakAlder: { aar: 67, maaneder: 0 },
-				uttaksgrad: 60,
+				heltUttakAlder: { aar: 67, maaneder: 0 },
+				gradertUttakAlder: { aar: 65, maaneder: 3 },
+				uttaksgrad: 40,
 			})
 			await navigateToApp(page)
 
@@ -243,18 +245,25 @@ test.describe('Ikke nok opptjening (NAU)', () => {
 			await page.getByTestId('inntekt-vsa-gradert-uttak').fill('300000')
 			await page.getByTestId('beregn-button').click()
 
-			await expect(page.getByTestId('vilkaarsproeving-alert')).toBeVisible()
+			await expect(
+				page.getByTestId('beregning.vilkaarsproeving.ikke_nok_opptjening')
+			).toContainText('40 % alderspensjon fra 65 år og 3 måneder')
+			await expect(
+				page.getByTestId(
+					'beregning.vilkaarsproeving.ikke_nok_opptjening_gradert'
+				)
+			).not.toBeVisible()
 		})
 
-		test('viser gradert-spesifikk alert når alternativ heltUttakAlder avviker fra valgt', async ({
+		test('viser kombinert Sanity-varsel når også helt uttaksalder endres', async ({
 			page,
 		}) => {
 			await setupDefaultMocks(page)
 			await setupSanityMock(page)
 			await setupSimuleringMockWithNau(page, {
-				heltUttakAlder: { aar: 70, maaneder: 0 },
-				gradertUttakAlder: { aar: 67, maaneder: 0 },
-				uttaksgrad: 60,
+				heltUttakAlder: { aar: 70, maaneder: 3 },
+				gradertUttakAlder: { aar: 67, maaneder: 2 },
+				uttaksgrad: 40,
 			})
 			await navigateToApp(page)
 
@@ -268,10 +277,16 @@ test.describe('Ikke nok opptjening (NAU)', () => {
 			await page.getByTestId('inntekt-vsa-gradert-uttak').fill('300000')
 			await page.getByTestId('beregn-button').click()
 
-			const alert = page.getByTestId('vilkaarsproeving-alert')
-			await expect(alert).toBeVisible()
-			await expect(alert).toContainText('67')
-			await expect(alert).toContainText('70')
+			await expect(
+				page.getByTestId(
+					'beregning.vilkaarsproeving.ikke_nok_opptjening_gradert'
+				)
+			).toContainText(
+				'Tidligste mulige uttak er 40 % fra 67 år og 2 måneder og 100 % fra 70 år og 3 måneder'
+			)
+			await expect(
+				page.getByTestId('beregning.vilkaarsproeving.ikke_nok_opptjening')
+			).not.toBeVisible()
 		})
 	})
 
