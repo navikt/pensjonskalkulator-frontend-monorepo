@@ -1242,6 +1242,14 @@ export interface components {
       avtaler: components['schemas']['PensjonsavtaleV3'][]
       utilgjengeligeSelskap: components['schemas']['SelskapV3'][]
     }
+    PensjonsavtaleUtbetalingsperiodeV3: {
+      startAlder: components['schemas']['Alder']
+      sluttAlder?: components['schemas']['Alder'] | null
+      /** Format: int32 */
+      aarligUtbetaling: number
+      /** Format: int32 */
+      grad: number
+    }
     PensjonsavtaleV3: {
       produktbetegnelse: string
       /** @enum {string} */
@@ -1250,7 +1258,7 @@ export interface components {
       startAar: number
       /** Format: int32 */
       sluttAar?: number | null
-      utbetalingsperioder: components['schemas']['UtbetalingsperiodeV3'][]
+      utbetalingsperioder: components['schemas']['PensjonsavtaleUtbetalingsperiodeV3'][]
     }
     SelskapV3: {
       navn: string
@@ -2010,7 +2018,7 @@ export interface components {
       skjermingstillegg?: number | null
       /**
        * Format: int32
-       * @description Individuelt minstenivåtillegg; feltet er ikke inkludert i eksternvariant når funksjonsbryter 'utvidet-simuleringsresultat' er 'av'
+       * @description Individuelt minstenivåtillegg (beløp i norske kroner)
        */
       minstenivaatilleggIndividuelt?: number | null
       /**
@@ -2219,6 +2227,8 @@ export interface components {
       opptjeningListe: components['schemas']['SimuleringV2Opptjening'][]
       /** @description Eventuelt problem som oppstod under simuleringen */
       problem?: components['schemas']['SimuleringV2Problem'] | null
+      /** @description Lenke (URL) til pensjon-reglers 'log viewer' */
+      logViewerUrl?: string | null
     }
     SimuleringV2ServiceberegnetAfp: {
       /** @description Beregnet avtalefestet pensjon */
@@ -2292,6 +2302,11 @@ export interface components {
       afpGrad: number
       /** @description Hvorvidt AFP-ytelsen er avkortet i.h.t. 70-prosentregelen */
       erAvkortet: boolean
+      /**
+       * Format: double
+       * @description Fremtidige pensjonspoeng (registrert eller simulert verdi)
+       */
+      fremtidigePensjonspoeng: number
     }
     SimuleringV2Trygdetid: {
       /**

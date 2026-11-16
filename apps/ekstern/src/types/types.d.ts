@@ -120,7 +120,8 @@ declare global {
     components['schemas']['PensjonsavtaleSpecV3']
   type PensjonsavtalerResponseBody =
     components['schemas']['PensjonsavtaleResultV3']
-  type Utbetalingsperiode = components['schemas']['UtbetalingsperiodeV3']
+  type Utbetalingsperiode =
+    components['schemas']['PensjonsavtaleUtbetalingsperiodeV3']
   type UtbetalingsperiodeOffentligTP =
     components['schemas']['UtbetalingsperiodeV3']
   type Pensjonsavtale = components['schemas']['PensjonsavtaleV3'] & {
