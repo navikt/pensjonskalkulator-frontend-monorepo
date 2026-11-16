@@ -75,6 +75,10 @@ export const Beregning = () => {
 	const { data: lagreBrevButtonToggle } =
 		useInternsimulatorLagreBrevButtonQuery()
 	const visLagreBrevButton = lagreBrevButtonToggle?.enabled === true
+	const { data: hentPersonButtonToggle } = useFeatureToggleQuery(
+		'internsimulator.hent-person-button'
+	)
+	const visLogViewerButton = hentPersonButtonToggle?.enabled === true
 	const visForbehold = forbeholdInternSynlig?.enabled === true
 	const lagreSimulering = useLagreSimuleringMutation()
 	const erOvergangskull = person && isOvergangskull(person.foedselsdato)
@@ -578,6 +582,20 @@ export const Beregning = () => {
 					)}
 				</Tabs>
 			</div>
+			{visLogViewerButton && beregning.logViewerUrl && (
+				<Button
+					as="a"
+					href={beregning.logViewerUrl}
+					target="_blank"
+					rel="noopener noreferrer"
+					className={styles.logViewerButton}
+					size="small"
+					iconPosition="right"
+					data-testid="log-viewer-link"
+				>
+					Åpne i logviewer
+				</Button>
+			)}
 		</Box>
 	)
 }
