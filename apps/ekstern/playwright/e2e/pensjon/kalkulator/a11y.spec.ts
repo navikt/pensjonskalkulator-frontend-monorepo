@@ -39,7 +39,6 @@ test.describe('Pensjonskalkulator a11y', () => {
     ).toBeVisible()
     await checkA11y(page)
     await page.locator('[type="radio"]').first().check()
-    await page.getByTestId('legg-til-utenlandsopphold').click({ force: true })
     await page.getByTestId('utenlandsopphold-land').fill('Spania')
     await page.getByRole('option', { name: 'Spania', exact: true }).click()
     await page

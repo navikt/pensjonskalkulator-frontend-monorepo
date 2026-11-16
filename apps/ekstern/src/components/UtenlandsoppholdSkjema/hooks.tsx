@@ -13,13 +13,11 @@ import {
 } from './utils'
 
 export const useUtenlandsoppholdLocalState = (initialValues: {
-  modalRef: React.RefObject<HTMLDialogElement | null>
   foedselsdato?: string
   utenlandsperiode?: Utenlandsperiode
   onSubmitCallback: () => void
 }) => {
-  const { modalRef, foedselsdato, utenlandsperiode, onSubmitCallback } =
-    initialValues
+  const { foedselsdato, utenlandsperiode, onSubmitCallback } = initialValues
 
   const [localUtenlandsperiode, setLocalUtenlandsperiode] = React.useState<
     RecursivePartial<Utenlandsperiode>
@@ -142,9 +140,6 @@ export const useUtenlandsoppholdLocalState = (initialValues: {
     datepickerSluttdato.setSelected(undefined)
     setValidationErrors(UTENLANDSOPPHOLD_INITIAL_FORM_VALIDATION_ERRORS)
     onSubmitCallback()
-    if (modalRef.current?.open) {
-      modalRef.current?.close()
-    }
   }
 
   React.useEffect(() => {

@@ -730,13 +730,14 @@ test.describe('Flere valg', () => {
 
         await page.getByTestId('beregn-pensjon').click()
 
-        await expect(
-          page.getByTestId(
-            'beregning.vilkaarsproeving.ikke_nok_opptjening_gradert'
-          )
-        ).toContainText(
-          'Et alternativ er at du ved 65 år og 1 måned kan ta ut 20 % alderspensjon hvis du tar ut 100 % alderspensjon ved 67 år eller senere. Prøv gjerne andre kombinasjoner.'
+        const alert = page.getByTestId(
+          'beregning.vilkaarsproeving.ikke_nok_opptjening_gradert'
         )
+        await expect(alert).toBeVisible()
+        await expect(alert).toContainText('65 år og 1 måned')
+        await expect(alert).toContainText('20 %')
+        await expect(alert).toContainText('67 år')
+        await expect(alert).toContainText('100 %')
       })
 
       // 20

@@ -24,13 +24,22 @@ async function selectHarUtenlandsoppholdRadio(page: Page, value: 'ja' | 'nei') {
   })
 }
 
-async function openAddUtenlandsoppholdModal(page: Page) {
-  await test.step('Open add utenlandsopphold modal', async () => {
-    await page.getByTestId('legg-til-utenlandsopphold').click()
-    await expect(
-      page.getByRole('dialog', { name: 'Om oppholdet ditt' })
-    ).toBeVisible()
+async function openAddUtenlandsoppholdSkjema(page: Page) {
+  await test.step('Open add utenlandsopphold form', async () => {
+    const landCombobox = page.getByTestId('utenlandsopphold-land')
+    // Skjemaet vises direkte for første opphold, ellers åpnes det via «Legg til nytt opphold»
+    if (!(await landCombobox.isVisible())) {
+      await page.getByTestId('legg-til-utenlandsopphold').click()
+    }
+    await expect(landCombobox).toBeVisible()
   })
+}
+
+function utenlandsperiodeItem(page: Page, hasText: string) {
+  return page
+    .getByTestId('utenlandsperiode-liste')
+    .getByRole('listitem')
+    .filter({ hasText })
 }
 
 const LANDNAVN: Record<string, string> = {
@@ -100,7 +109,7 @@ async function addUtenlandsopphold(
   }
 ) {
   await test.step(`Add utenlandsopphold: ${options.landkode}`, async () => {
-    await openAddUtenlandsoppholdModal(page)
+    await openAddUtenlandsoppholdSkjema(page)
     await selectLand(page, options.landkode)
     if (options.arbeidetUtenlands) {
       await selectArbeidetUtenlands(page, options.arbeidetUtenlands)
@@ -110,9 +119,7 @@ async function addUtenlandsopphold(
       await fillSluttdato(page, options.sluttdato)
     }
     await submitUtenlandsopphold(page)
-    await expect(
-      page.getByRole('dialog', { name: 'Om oppholdet ditt' })
-    ).toBeHidden()
+    await expect(page.getByTestId('utenlandsopphold-land')).toBeHidden()
   })
 }
 
@@ -208,13 +215,17 @@ test.describe('Utland', () => {
 
     test.describe('Når jeg har svart "ja" på spørsmål om jeg har bodd eller jobbet mer enn 5 år utenfor Norge,', () => {
       // 3
-      test('forventer jeg å få en knapp for å legge til opphold.', async ({
+      test('forventer jeg å få skjema for å legge til første opphold på samme side.', async ({
         page,
       }) => {
         await selectHarUtenlandsoppholdRadio(page, 'ja')
+        await expect(page.getByTestId('utenlandsopphold-land')).toBeVisible()
         await expect(
-          page.getByTestId('legg-til-utenlandsopphold')
+          page.getByTestId('legg-til-utenlandsopphold-submit')
         ).toBeVisible()
+        await expect(
+          page.getByTestId('legg-til-utenlandsopphold-avbryt')
+        ).not.toBeVisible()
       })
     })
 
@@ -223,19 +234,24 @@ test.describe('Utland', () => {
         await selectHarUtenlandsoppholdRadio(page, 'ja')
       })
 
-      test.describe('Når jeg trykker «neste» uten å legge til opphold,', () => {
+      test.describe('Når jeg ikke har lagt til opphold,', () => {
         // 4
-        test('forventer jeg beskjed om at jeg må legge til minst ett opphold, eller svare nei.', async ({
+        test('forventer jeg at «neste» er deaktivert til jeg har lagt til minst ett opphold, eller svart nei.', async ({
           page,
         }) => {
-          await clickNeste(page)
-          await expect(page.getByRole('alert')).toBeVisible()
+          await expect(
+            page.getByTestId('stegvisning-neste-button')
+          ).toBeDisabled()
+          await selectHarUtenlandsoppholdRadio(page, 'nei')
+          await expect(
+            page.getByTestId('stegvisning-neste-button')
+          ).toBeEnabled()
         })
       })
 
-      test.describe('Når jeg trykker på "legg til opphold",', () => {
+      test.describe('Når jeg skal legge til opphold,', () => {
         test.beforeEach(async ({ page }) => {
-          await openAddUtenlandsoppholdModal(page)
+          await openAddUtenlandsoppholdSkjema(page)
         })
 
         // 5
@@ -285,9 +301,10 @@ test.describe('Utland', () => {
             // Clear sluttdato to test without it
             await page.getByTestId('utenlandsopphold-sluttdato').clear()
             await submitUtenlandsopphold(page)
+            await expect(page.getByTestId('utenlandsopphold-land')).toBeHidden()
             await expect(
-              page.getByRole('dialog', { name: 'Om oppholdet ditt' })
-            ).toBeHidden()
+              page.getByTestId('utenlandsperiode-liste')
+            ).toBeVisible()
           })
         })
 
@@ -326,9 +343,10 @@ test.describe('Utland', () => {
             await fillSluttdato(page, '31.12.1992')
             await page.getByTestId('utenlandsopphold-sluttdato').clear()
             await submitUtenlandsopphold(page)
+            await expect(page.getByTestId('utenlandsopphold-land')).toBeHidden()
             await expect(
-              page.getByRole('dialog', { name: 'Om oppholdet ditt' })
-            ).toBeHidden()
+              page.getByTestId('utenlandsperiode-liste')
+            ).toBeVisible()
           })
         })
       })
@@ -348,13 +366,9 @@ test.describe('Utland', () => {
           page,
         }) => {
           await expect(page.getByTestId('utenlandsperiode-liste')).toBeVisible()
+          await expect(utenlandsperiodeItem(page, 'Frankrike')).toBeVisible()
           await expect(
-            page.getByRole('definition').filter({ hasText: 'Frankrike' })
-          ).toBeVisible()
-          await expect(
-            page
-              .getByRole('definition')
-              .filter({ hasText: '01.06.1980–31.12.1982' })
+            utenlandsperiodeItem(page, '01.06.1980–31.12.1982')
           ).toBeVisible()
         })
 
@@ -399,7 +413,7 @@ test.describe('Utland', () => {
           test('forventer jeg feilmelding om at jeg ikke kan ha overlappende opphold med to ulike land.', async ({
             page,
           }) => {
-            await openAddUtenlandsoppholdModal(page)
+            await openAddUtenlandsoppholdSkjema(page)
             await selectLand(page, 'ATA')
             await fillStartdato(page, '20.04.1981')
             await submitUtenlandsopphold(page)
@@ -419,7 +433,7 @@ test.describe('Utland', () => {
           }) => {
             await page.getByTestId('endre-utenlandsopphold').click()
             await expect(
-              page.getByRole('dialog', { name: 'Om oppholdet ditt' })
+              page.getByTestId('utenlandsopphold-land')
             ).toBeVisible()
 
             await selectLand(page, 'ESP')
@@ -434,15 +448,11 @@ test.describe('Utland', () => {
               page.getByTestId('utenlandsperiode-liste')
             ).toBeVisible()
             await expect(
-              page.getByRole('definition').filter({ hasText: 'Frankrike' })
+              utenlandsperiodeItem(page, 'Frankrike')
             ).not.toBeVisible()
+            await expect(utenlandsperiodeItem(page, 'Spania')).toBeVisible()
             await expect(
-              page.getByRole('definition').filter({ hasText: 'Spania' })
-            ).toBeVisible()
-            await expect(
-              page
-                .getByRole('definition')
-                .filter({ hasText: '20.04.1981–16.12.2020' })
+              utenlandsperiodeItem(page, '20.04.1981–16.12.2020')
             ).toBeVisible()
           })
 
@@ -450,21 +460,15 @@ test.describe('Utland', () => {
           test('forventer jeg å kunne avbryte endringen.', async ({ page }) => {
             await page.getByTestId('endre-utenlandsopphold').click()
             await expect(
-              page.getByRole('dialog', { name: 'Om oppholdet ditt' })
+              page.getByTestId('utenlandsopphold-land')
             ).toBeVisible()
 
-            await page.getByRole('button', { name: /Avbryt endring/i }).click()
+            await cancelUtenlandsopphold(page)
 
+            await expect(page.getByTestId('utenlandsopphold-land')).toBeHidden()
+            await expect(utenlandsperiodeItem(page, 'Frankrike')).toBeVisible()
             await expect(
-              page.getByTestId('utenlandsperiode-liste')
-            ).toBeVisible()
-            await expect(
-              page.getByRole('definition').filter({ hasText: 'Frankrike' })
-            ).toBeVisible()
-            await expect(
-              page
-                .getByRole('definition')
-                .filter({ hasText: '10.06.1980–16.12.1982' })
+              utenlandsperiodeItem(page, '10.06.1980–16.12.1982')
             ).toBeVisible()
           })
         })
@@ -480,12 +484,7 @@ test.describe('Utland', () => {
             })
             await expect(deleteDialog).toBeVisible()
             await deleteDialog.getByRole('button', { name: 'Avbryt' }).click()
-            await expect(
-              page.getByTestId('utenlandsperiode-liste')
-            ).toBeVisible()
-            await expect(
-              page.getByRole('definition').filter({ hasText: 'Frankrike' })
-            ).toBeVisible()
+            await expect(utenlandsperiodeItem(page, 'Frankrike')).toBeVisible()
           })
 
           // 20
@@ -501,8 +500,11 @@ test.describe('Utland', () => {
               .getByRole('button', { name: 'Slett opphold' })
               .click()
             await expect(
-              page.getByRole('definition').filter({ hasText: 'Frankrike' })
+              page.getByTestId('utenlandsperiode-liste')
             ).not.toBeVisible()
+            await expect(
+              page.getByTestId('utenlandsopphold-land')
+            ).toBeVisible()
           })
         })
 
