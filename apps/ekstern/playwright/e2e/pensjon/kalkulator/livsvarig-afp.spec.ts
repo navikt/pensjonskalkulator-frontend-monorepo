@@ -59,7 +59,7 @@ test.describe('Livsvarig AFP i offentlig sektor', () => {
           await navigateToBeregningWithOffentligAfp(page)
           await page.getByRole('button', { name: '67' }).click()
 
-          const alert = page.getByTestId('alert-afp-offentlig-livsvarig-info')
+          const alert = page.getByTestId('afp.beloep-vises-ikke')
           await expect(alert).toBeVisible()
           await expect(alert).toContainText('Vi har hentet din livsvarige AFP')
           await expect(alert).toContainText(
@@ -122,7 +122,7 @@ test.describe('Livsvarig AFP i offentlig sektor', () => {
           await page.getByRole('button', { name: '67' }).click()
 
           const alert = page.getByTestId(
-            'alert-afp-offentlig-livsvarig-success'
+            'afp.klarte-ikke-hente-beløp-livsvarig'
           )
           await expect(alert).toBeVisible()
           await expect(alert).toContainText(
@@ -176,10 +176,10 @@ test.describe('Livsvarig AFP i offentlig sektor', () => {
           await navigateToBeregningWithOffentligAfp(page)
           await page.getByRole('button', { name: '67' }).click()
 
-          const alert = page.getByTestId('alert-afp-offentlig-livsvarig-failed')
+          const alert = page.getByTestId('afp.klarte-ikke-sjekke-livsvarig')
           await expect(alert).toBeVisible({ timeout: 10000 })
           await expect(alert).toContainText(
-            'Vi klarte ikke å sjekke om du har vedtak om livsvarig AFP'
+            'Vi klarte ikke å sjekke om du har AFP'
           )
         })
 
@@ -229,10 +229,10 @@ test.describe('Livsvarig AFP i offentlig sektor', () => {
           await navigateToBeregningWithOffentligAfp(page)
           await page.getByRole('button', { name: '67' }).click()
 
-          const alert = page.getByTestId('alert-afp-offentlig-livsvarig-failed')
+          const alert = page.getByTestId('afp.klarte-ikke-sjekke-livsvarig')
           await expect(alert).toBeVisible({ timeout: 10000 })
           await expect(alert).toContainText(
-            'Vi klarte ikke å sjekke om du har vedtak om livsvarig AFP'
+            'Vi klarte ikke å sjekke om du har AFP'
           )
         })
 
@@ -285,10 +285,10 @@ test.describe('Livsvarig AFP i offentlig sektor', () => {
           await navigateToBeregningWithOffentligAfp(page)
           await page.getByRole('button', { name: '67' }).click()
 
-          const alert = page.getByTestId('alert-afp-offentlig-livsvarig-failed')
+          const alert = page.getByTestId('afp.klarte-ikke-sjekke-livsvarig')
           await expect(alert).toBeVisible()
           await expect(alert).toContainText(
-            'Vi klarte ikke å sjekke om du har vedtak om livsvarig AFP'
+            'Vi klarte ikke å sjekke om du har AFP'
           )
         })
 

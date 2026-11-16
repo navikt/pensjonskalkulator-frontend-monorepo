@@ -351,11 +351,10 @@ export function mapBeregningResultToLagreSpec(
 					...result.trygdetid,
 				}
 			: null,
-		pensjonsgivendeInntektListe: result.pensjonsgivendeInntektListe?.map(
-			(inntekt) => ({
-				...inntekt,
-			})
-		),
+		pensjonsgivendeInntektListe: result.opptjeningListe.map((opptjening) => ({
+			aarstall: opptjening.aarstall,
+			beloep: opptjening.pensjonsgivendeInntektBeloep,
+		})),
 		aarligInntektOgPensjonListe,
 		pensjonsopptjeningListe,
 		simuleringsinformasjon: {

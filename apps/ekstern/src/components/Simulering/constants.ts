@@ -3,14 +3,14 @@ export const COLUMN_WIDTH = 25
 export const TOOLTIP_YPOS = 35
 
 export const SERIES_COLORS = {
-  SERIE_COLOR_INNTEKT: 'var(--ax-neutral-600)',
-  SERIE_COLOR_AFP: 'var(--ax-meta-purple-500)',
-  SERIE_COLOR_TP: 'var(--ax-success-500)',
-  SERIE_COLOR_ALDERSPENSJON: 'var(--ax-brand-blue-600)',
-  SERIE_COLOR_FADED_INNTEKT: 'var(--ax-neutral-400)',
-  SERIE_COLOR_FADED_AFP: 'var(--ax-meta-purple-300)',
-  SERIE_COLOR_FADED_TP: 'var(--ax-success-300)',
-  SERIE_COLOR_FADED_ALDERSPENSJON: 'var(--ax-brand-blue-300)',
+  SERIE_COLOR_INNTEKT: 'var(--ax-bg-neutral-strong)',
+  SERIE_COLOR_AFP: 'var(--ax-bg-meta-purple-strong)',
+  SERIE_COLOR_TP: 'var(--ax-bg-success-strong)',
+  SERIE_COLOR_ALDERSPENSJON: 'var(--ax-bg-accent-strong-hover)',
+  SERIE_COLOR_FADED_INNTEKT: 'var(--ax-bg-neutral-moderate-pressed)',
+  SERIE_COLOR_FADED_AFP: 'var(--ax-bg-meta-purple-moderate-pressed)',
+  SERIE_COLOR_FADED_TP: 'var(--ax-bg-success-moderate-pressed)',
+  SERIE_COLOR_FADED_ALDERSPENSJON: 'var(--ax-bg-accent-moderate-pressed)',
 }
 
 export const SERIES_DEFAULT = {

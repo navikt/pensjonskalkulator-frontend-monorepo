@@ -6,6 +6,7 @@ import { afterEach, describe, expect, test, vi } from 'vitest'
 
 import { Button } from '@navikt/ds-react'
 
+import { getVilkaarsproevingDynamicValues } from '../BeregningForm/utils'
 import { SanityAlert } from './SanityAlert'
 
 type SanityContextValue = ContextType<typeof SanityContext>
@@ -47,6 +48,118 @@ function renderInfoCard(
 }
 
 describe('SanityAlert InfoCard status', () => {
+	test.each([
+		{
+			gradertUttakAlder: undefined,
+			visGradert: false,
+			uttaksgrad: undefined,
+			expectedAge: '67 år og 3 måneder',
+			expectedGrad: 100,
+		},
+		{
+			gradertUttakAlder: { aar: 65, maaneder: 2 },
+			visGradert: true,
+			uttaksgrad: 40,
+			expectedAge: '65 år og 2 måneder',
+			expectedGrad: 40,
+		},
+	])(
+		'renders the alternative age $expectedAge with the published Sanity keys',
+		({
+			gradertUttakAlder,
+			visGradert,
+			uttaksgrad,
+			expectedAge,
+			expectedGrad,
+		}) => {
+			const id = 'beregning.vilkaarsproeving.ikke_nok_opptjening'
+			const alert = {
+				name: id,
+				type: 'info-card',
+				status: 'warning',
+				infoCardStatus: null,
+				overskrift: null,
+				buttonLabel: null,
+				innhold: [
+					{
+						_type: 'block',
+						_key: 'alternative',
+						style: 'normal',
+						markDefs: [],
+						children: [
+							{
+								_type: 'span',
+								_key: 'intro',
+								marks: [],
+								text: 'Et alternativ er at du ved ',
+							},
+							{
+								_type: 'dynamicValue',
+								_key: 'age',
+								key: 'gradert_alder',
+								valueType: 'string',
+							},
+							{
+								_type: 'span',
+								_key: 'withdrawal',
+								marks: [],
+								text: ' kan ta ut ',
+							},
+							{
+								_type: 'dynamicValue',
+								_key: 'degree',
+								key: 'grad_gradert',
+								valueType: 'number',
+							},
+							{
+								_type: 'dynamicValue',
+								_key: 'space',
+								key: 'nbsp',
+								valueType: 'string',
+							},
+							{
+								_type: 'span',
+								_key: 'pension',
+								marks: [],
+								text: '% alderspensjon.',
+							},
+						],
+					},
+				],
+			} as unknown as SanityContextValue['alertData'][string]
+			const contextValue = {
+				alertData: { [id]: alert },
+				guidePanelData: {},
+				readMoreData: {},
+				forbeholdAvsnittData: [],
+				isSanityLoading: false,
+			} satisfies SanityContextValue
+
+			render(
+				<IntlProvider locale="nb" messages={{}}>
+					<SanityContext.Provider value={contextValue}>
+						<SanityAlert
+							id={id}
+							dynamicValues={getVilkaarsproevingDynamicValues({
+								heltUttakAlder: { aar: 67, maaneder: 3 },
+								gradertUttakAlder,
+								uttaksgrad,
+								visGradert,
+							})}
+						/>
+					</SanityContext.Provider>
+				</IntlProvider>
+			)
+
+			expect(screen.getByTestId(id)).toHaveTextContent(
+				`Et alternativ er at du ved ${expectedAge} kan ta ut ${expectedGrad} % alderspensjon.`
+			)
+			expect(screen.getByTestId(id)).not.toHaveTextContent(
+				/\{(?:alder|gradert_alder|grad_gradert|nbsp)\}/
+			)
+		}
+	)
+
 	test.each([
 		{ status: 'message', color: 'info', title: undefined },
 		{ status: 'attention', color: 'warning', title: 'Pass på' },

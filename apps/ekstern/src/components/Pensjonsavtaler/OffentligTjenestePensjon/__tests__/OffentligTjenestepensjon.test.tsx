@@ -36,7 +36,9 @@ describe('OffentligTjenestepensjon', () => {
     expect(screen.getByRole('heading', { level: 3 })).toHaveTextContent(
       'pensjonsavtaler.offentligtp.title'
     )
-    expect(screen.getByText('pensjonsavtaler.offentligtp.error')).toBeVisible()
+    expect(
+      screen.getByTestId('pensjonsavtaler.klarte-ikke-sjekke-offentlige')
+    ).toBeVisible()
   })
 
   it('Når brukeren ikke er medlem av noe offentlig tp-ordning, viser riktig heading på riktig level og riktig infomelding.', () => {
@@ -83,11 +85,9 @@ describe('OffentligTjenestepensjon', () => {
       'pensjonsavtaler.offentligtp.title'
     )
     expect(
-      screen.getByText(
-        'Du er eller har vært ansatt i offentlig sektor, men vi kan dessverre ikke hente inn offentlige pensjonsavtaler. Sjekk tjenestepensjonsavtalene dine hos aktuell tjenestepensjonsordning',
-        { exact: false }
-      )
+      screen.getByTestId('pensjonsavtaler.kan-ikke-hente-alle-offentlige')
     ).toBeVisible()
+    expect(screen.getByText('KLP')).toBeVisible()
   })
 
   describe('Gitt at brukeren er medlem av SPK, ', async () => {
@@ -110,11 +110,11 @@ describe('OffentligTjenestepensjon', () => {
         'pensjonsavtaler.offentligtp.title'
       )
       expect(
-        screen.getByText(
-          'Vi klarte ikke å hente din offentlige tjenestepensjon. Prøv igjen senere eller kontakt',
-          { exact: false }
+        screen.getByTestId(
+          'pensjonsavtaler.klarte-ikke-hente-offentlig-tjenestepensjon'
         )
       ).toBeVisible()
+      expect(screen.getByText('SPK')).toBeVisible()
     })
 
     it('Når simuleringen er tom, viser riktig heading på riktig level og riktig infomelding.', async () => {
@@ -136,7 +136,12 @@ describe('OffentligTjenestepensjon', () => {
         'pensjonsavtaler.offentligtp.title'
       )
       expect(
-        screen.getByText('pensjonsavtaler.offentligtp.empty')
+        screen.getByTestId('pensjonsavtaler.fikk-ikke-svar.offentlig')
+      ).toBeVisible()
+      expect(
+        screen.getByText(
+          'Vi fikk ikke svar fra din offentlige tjenestepensjonsordning.'
+        )
       ).toBeVisible()
     })
 

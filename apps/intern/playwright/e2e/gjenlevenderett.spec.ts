@@ -102,6 +102,33 @@ test.describe('Gjenlevenderett', () => {
 			await navigateToApp(page)
 		})
 
+		for (const { foedselsdato, visInntekt } of [
+			{ foedselsdato: '1950-01-01', visInntekt: true },
+			{ foedselsdato: '1949-12-31', visInntekt: false },
+			{ foedselsdato: '1949-01-01', visInntekt: false },
+			{ foedselsdato: '1948-01-01', visInntekt: false },
+		]) {
+			test(`PGI-felt har visning ${visInntekt} ved avdoedes foedselsdato ${foedselsdato}`, async ({
+				page,
+			}) => {
+				await mockApi(page, API_URLS.EPS, MOCK_FILES.EPS_OPPLYSNING, {
+					relasjonPersondata: {
+						foedselsdato,
+						doedsdato: '2025-01-01',
+					},
+				})
+				await checkGjenlevenderett(page)
+				await selectBakgrunnAndFetch(page)
+
+				await expect(page.getByTestId('EPS-opplysninger-info')).toBeVisible()
+				await expect(
+					page.getByRole('textbox', {
+						name: 'Pensjonsgivende inntekt året før dødsdato (valgfritt)',
+					})
+				).toHaveCount(visInntekt ? 1 : 0)
+			})
+		}
+
 		test('Viser EPS-seksjon når checkbox er avkrysset', async ({ page }) => {
 			await checkGjenlevenderett(page)
 

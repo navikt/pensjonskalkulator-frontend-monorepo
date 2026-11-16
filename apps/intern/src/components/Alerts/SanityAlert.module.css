@@ -1,3 +1,10 @@
+.wrapper p,
+.wrapper li,
+.infoCard p,
+.infoCard li {
+	font-size: var(--ax-font-size-medium);
+}
+
 .infoCard p:first-child {
 	margin-top: 0;
 }

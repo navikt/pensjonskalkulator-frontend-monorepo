@@ -45,7 +45,7 @@ export function getVilkaarsproevingDynamicValues({
 	)
 	const gradertAlder = gradertUttakAlder
 		? formaterAlderString(gradertUttakAlder.aar, gradertUttakAlder.maaneder)
-		: ''
+		: heltAlder
 	return {
 		// Retained for legacy Sanity content using the conditional grad value.
 		grad: visGradert ? (uttaksgrad ?? 100) : 100,

@@ -440,7 +440,7 @@ export const getHandlers = (options: HandlerOptions = {}) => {
 		}),
 
 		http.post(
-			`${baseUrl}/intern/v1/pensjon/simulering`,
+			`${baseUrl}/intern/v2/pensjon/simulering`,
 			async ({ request }) => {
 				await delay(delayMs)
 				const body = (await request.json()) as Record<string, unknown>

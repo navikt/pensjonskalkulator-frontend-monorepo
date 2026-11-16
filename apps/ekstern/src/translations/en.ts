@@ -291,7 +291,7 @@ export default {
   'omufoeretrygd.hel.ingress':
     'You have <nowrap>100 %</nowrap> disability benefits. Here you can calculate <nowrap>100 %</nowrap> retirement pension from 67 years.{br}{br}Upcoming legal changes will gradually increase the retirement age for those born in 1964 or later.',
   'omufoeretrygd.gradert.ingress':
-    'You have <nowrap>{grad} %</nowrap> disability benefits. Here you can calculate <nowrap>100 %</nowrap> retirement pension from 67 years. If you want to calculate withdrawal before 67, you must go to {link}.{br}{br}Upcoming legal changes will gradually increase the retirement age for those born in 1964 or later.',
+    'You have <nowrap>{grad} %</nowrap> disability benefits. Here you can calculate <nowrap>100 %</nowrap> retirement pension from 67 years.{skjulAvansertLenke, select, true {} other { If you want to calculate withdrawal before 67, you must go to {link}.}}{br}{br}Upcoming legal changes will gradually increase the retirement age for those born in 1964 or later.',
   'omufoeretrygd.gradert.ingress.afp': 'MANGLER_TEKST',
   'omufoeretrygd.avansert_link': 'Advanced',
   'velguttaksalder.title': 'When do you want to withdraw retirement pension?',
@@ -318,15 +318,10 @@ export default {
   'beregning.avansert.rediger.beregningsvalg.med_afp.title': 'MANGLER_TEKST',
   'beregning.avansert.rediger.beregningsvalg.med_afp.description':
     'MANGLER_TEKST',
-  'beregning.avansert.rediger.pre2025_offentlig_afp.alert': 'MANGLER_TEKST',
   'beregning.toggle.enkel': 'Simple',
   'beregning.toggle.avansert': 'Advanced',
   'beregning.loading': 'Please wait while we calculate your pension.',
-  'beregning.error':
-    'Unfortunately, we could not calculate your pension right now.',
   'beregning.livsvarig': 'lifelong',
-  'beregning.lav_opptjening.aar':
-    'You do not have enough accrual to start withdrawing at {startAar} years{startMaaned}. Try a higher age.',
   'beregning.button.faerre_aar': 'Fewer Years',
   'beregning.button.flere_aar': 'More Years',
   'beregning.title': 'MANGLER_TEKST',
@@ -334,7 +329,6 @@ export default {
   'beregning.alert.success.afp-offentlig-livsvarig': 'MANGLER_TEKST',
   'beregning.highcharts.informasjon_klikk': 'MANGLER_TEKST',
   'beregning.highcharts.title': 'Calculation',
-  'beregning.highcharts.ingress': 'MANGLER_TEKST',
   'beregning.highcharts.alt_tekst':
     'Annual income and pension after withdrawal in kroner.',
   'beregning.highcharts.xaxis': 'Annual Income and Pension after Withdrawal',
@@ -447,27 +441,6 @@ export default {
   'beregning.avansert.button.oppdater': 'Update Pension',
   'beregning.avansert.button.nullstill': 'Reset Choices',
   'beregning.avansert.button.avbryt': 'Cancel Change',
-  'beregning.vilkaarsproeving.intro':
-    'Your accrual is not high enough for the desired withdrawal. ',
-  'beregning.vilkaarsproeving.intro.ikke_nok_opptjening':
-    '{br}{br}You can earliest withdraw retirement pension at 67 years.',
-  'beregning.vilkaarsproeving.intro.optional':
-    'You need to increase the age or lower the withdrawal degree.{br}{br}',
-  'beregning.vilkaarsproeving.alternativer.heltUttak':
-    'One alternative is that you can withdraw <nowrap>100 %</nowrap> retirement pension at {alternativtHeltStartAar} years and {alternativtHeltStartMaaned} months. Feel free to try other combinations.',
-  'beregning.vilkaarsproeving.alternativer.gradertUttak':
-    'One alternative is that you can withdraw <nowrap>{alternativtGrad} %</nowrap> retirement pension at {alternativtGradertStartAar} years and {alternativtGradertStartMaaned} months. Feel free to try other combinations.',
-  'beregning.vilkaarsproeving.alternativer.heltOgGradertUttak':
-    'One alternative is that you can withdraw <nowrap>{alternativtGrad} %</nowrap> retirement pension at {alternativtGradertStartAar} years and {alternativtGradertStartMaaned} months if you withdraw <nowrap>100 %</nowrap> retirement pension at {alternativtHeltStartAar} years and {alternativtHeltStartMaaned} months or later. Feel free to try other combinations.',
-  'beregning.vilkaarsproeving.medAFP.intro': 'MANGLER_TEKST',
-  'beregning.vilkaarsproeving.alternativer.medAFP.gradertUttak':
-    'MANGLER_TEKST',
-  'beregning.vilkaarsproeving.alternativer.medAFP.heltOgGradertUttak':
-    'MANGLER_TEKST',
-  'beregning.vilkaarsproeving.alternativer.medAFP.heltOgGradertUttak100':
-    'MANGLER_TEKST',
-  'beregning.vilkaarsproeving.alternativer.medAFP.ikkeNokOpptjening':
-    'MANGLER_TEKST',
   'grunnlag.title': 'Other Basis for Calculation',
   'grunnlag.endring.title': 'MANGLER_TEKST',
   'maanedsbeloep.title': 'MANGLER_TEKST',
@@ -478,11 +451,6 @@ export default {
   'beregning.avansert.avbryt_modal.button.avslutt': 'Exit Advanced',
   'beregning.avansert.avbryt_modal.endring.button.avslutt': 'Exit calculation',
   'beregning.avansert.avbryt_modal.button.avbryt': 'Cancel',
-  'beregning.avansert.alert.vilkaarsproevning.afp_inntekt_maaned_foer_uttak':
-    'MANGLER_TEKST',
-  'beregning.avansert.alert.afp_inntekt_maaned_foer_uttak': 'MANGLER_TEKST',
-  'beregning.avansert.alert.afp_inntekt_maaned_foer_uttak.link.text':
-    'MANGLER_TEKST',
   'beregning.endring.alert.uttaksdato':
     'You can earliest change the withdrawal degree to 20, 40, 50, 60, or 80 % from {dato}.',
   'beregning.endring.rediger.title': 'Calculate Change in retirement pension',
@@ -585,10 +553,6 @@ export default {
   'pensjonsavtaler.private.title.ingen': 'Private pension agreements',
   'pensjonsavtaler.private.ingress.norsk_pensjon':
     'Agreements in the private sector are retrieved from <norskPensjonLink>Norsk Pensjon</norskPensjonLink>. Nav is not responsible for the amounts provided. You may have other agreements than those found in Norsk Pensjon. Contact the relevant pension scheme.',
-  'pensjonsavtaler.private.ingress.error.pensjonsavtaler':
-    'We could not retrieve your private pension agreements. Please try again later.',
-  'pensjonsavtaler.private.ingress.error.pensjonsavtaler.partial':
-    'We could not retrieve all your private pension agreements. Please try again later.',
   'pensjonsavtaler.ingress.error.samtykke_ingress':
     'You have not consented to retrieve pension agreements.',
   'pensjonsavtaler.ingress.error.samtykke_link_1': 'Start a new calculation',
@@ -603,13 +567,6 @@ export default {
   'pensjonsavtaler.til': 'to',
   'pensjonsavtaler.title': 'Pension Agreements',
   'pensjonsavtaler.offentligtp.title': 'Public Occupational Pension',
-  'pensjonsavtaler.offentligtp.er_medlem_annen_ordning':
-    'You are or have been employed in the public sector, but we unfortunately cannot retrieve public pension agreements. Check your pension agreements with the relevant occupational pension scheme ({chunk}).',
-  'pensjonsavtaler.offentligtp.error':
-    'We could not check whether you have public pension agreements. If you have been or are employed in the public sector, you can check your pension agreements with the relevant occupational pension scheme (e.g. Statens Pensjonskasse, Kommunal Landspensjonskasse, Oslo Pensjonsforsikring).',
-  'pensjonsavtaler.offentligtp.teknisk_feil': 'MANGLER_TEKST',
-  'pensjonsavtaler.offentligtp.empty':
-    'We did not receive a response regarding your public service pension.',
   'pensjonsavtaler.offentligtp.subtitle.spk':
     'Retirement pension from the Norwegian Public Service Pension Fund (SPK)',
   'pensjonsavtaler.offentligtp.subtitle.klp': 'MANGLER_TEKST',

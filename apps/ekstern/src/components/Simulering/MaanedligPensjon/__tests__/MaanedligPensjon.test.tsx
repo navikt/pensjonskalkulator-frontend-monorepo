@@ -4,9 +4,9 @@ import { personMock } from '@/mocks'
 import { userInputInitialState } from '@/state/userInput/userInputSlice'
 import { fireEvent, render, screen } from '@/test-utils'
 
-import { MaanedsbeloepAvansertBeregning } from '../MaanedsbeloepAvansertBeregning'
+import { MaanedligPensjon } from '../MaanedligPensjon'
 
-describe('MaanedsbeloepAvansertBeregning', () => {
+describe('MaanedligPensjon', () => {
   const pensjonsavtale: Pensjonsavtale = {
     key: 0,
     produktbetegnelse: 'DNB',
@@ -52,7 +52,7 @@ describe('MaanedsbeloepAvansertBeregning', () => {
 
   const renderMaanedsbeloep = (uttaksalder: Alder | null) =>
     render(
-      <MaanedsbeloepAvansertBeregning
+      <MaanedligPensjon
         alderspensjonMaanedligVedEndring={{
           heltUttakMaanedligBeloep: 20000,
           gradertUttakMaanedligBeloep: 15000,
@@ -95,10 +95,15 @@ describe('MaanedsbeloepAvansertBeregning', () => {
     window.getSelection()?.removeAllRanges()
   })
 
+  it('rendrer riktig', () => {
+    renderMaanedsbeloep({ aar: 67, maaneder: 0 })
+    expect(screen.getByTestId('maanedlig-pensjon')).toBeInTheDocument()
+  })
+
   it('kopierer én rad per linje med etikett og beløp på samme linje', () => {
     renderMaanedsbeloep({ aar: 67, maaneder: 0 })
     const table = screen
-      .getByTestId('maanedsbloep-avansert-beregning')
+      .getByTestId('maanedlig-pensjon')
       .querySelector('table')!
 
     expect(kopier(table, table)).toBe(rader(table))
@@ -106,7 +111,7 @@ describe('MaanedsbeloepAvansertBeregning', () => {
 
   it('kopierer ikke skjult innhold', () => {
     renderMaanedsbeloep({ aar: 67, maaneder: 0 })
-    const box = screen.getByTestId('maanedsbloep-avansert-beregning')
+    const box = screen.getByTestId('maanedlig-pensjon')
     const [heading, desktop, mobile] = Array.from(box.children) as HTMLElement[]
     const mobileTable = mobile.querySelector('table')!
     desktop.style.display = 'none'

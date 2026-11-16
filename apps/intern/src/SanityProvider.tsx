@@ -9,9 +9,12 @@ import { useQuery } from '@tanstack/react-query'
 import { type ReactNode, useMemo } from 'react'
 import { IntlProvider } from 'react-intl'
 
+const hostname = window.location.hostname
+const isStaging =
+	hostname === 'staging-intern-pensjonskalkulator.ansatt.dev.nav.no' ||
+	hostname === 'staging-pensjonskalkulator-frontend-intern.ansatt.dev.nav.no'
 const dataset =
-	window.location.href.includes('.dev') ||
-	window.location.href.includes('localhost')
+	!isStaging && (hostname.includes('.dev') || hostname.includes('localhost'))
 		? 'development'
 		: 'production'
 

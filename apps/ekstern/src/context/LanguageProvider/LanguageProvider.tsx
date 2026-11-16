@@ -27,6 +27,7 @@ import '@formatjs/intl-numberformat/locale-data/nn'
 
 import {
   getCookie,
+  getSanityDataset,
   getTranslations,
   isOnSanityTimeoutRoute,
   redirectToSanityTimeout,
@@ -37,15 +38,9 @@ import {
 const akselLocales: Record<Locales, typeof nb> = { nb, nn, en }
 const SANITY_FETCH_TIMEOUT_MS = 10_000
 
-const dataset =
-  window.location.href.includes('ekstern.dev') ||
-  window.location.href.includes('localhost')
-    ? 'development'
-    : 'production'
-
 export const sanityClient = createSanityAppClient({
   projectId: 'g2by7q6m',
-  dataset,
+  dataset: getSanityDataset(window.location.hostname),
 })
 
 // Kjør `npm run sanity-typegen` for å generere typer for Sanity-data

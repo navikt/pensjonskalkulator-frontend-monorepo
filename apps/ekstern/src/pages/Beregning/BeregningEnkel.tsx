@@ -5,7 +5,7 @@ import { useEffect, useMemo, useState } from 'react'
 import { FormattedMessage, useIntl } from 'react-intl'
 import { useNavigate } from 'react-router'
 
-import { Heading } from '@navikt/ds-react'
+import { BodyLong, Heading } from '@navikt/ds-react'
 
 import { Grunnlag } from '@/components/Grunnlag'
 import { GrunnlagForbehold } from '@/components/GrunnlagForbehold'
@@ -14,7 +14,6 @@ import { Signals } from '@/components/Signals'
 import { Simulering } from '@/components/Simulering'
 import { TidligstMuligUttaksalder } from '@/components/TidligstMuligUttaksalder'
 import { VelgUttaksalder } from '@/components/VelgUttaksalder'
-import { Alert as AlertDashBorder } from '@/components/common/Alert'
 import { Loader } from '@/components/common/Loader'
 import { paths } from '@/router/constants'
 import {
@@ -56,6 +55,7 @@ import {
 import { ALERT_VIST } from '@/utils/loggerConstants'
 import { logger } from '@/utils/logging'
 
+import beregningStyles from './Beregning.module.scss'
 import styles from './BeregningEnkel.module.scss'
 
 export const BeregningEnkel = () => {
@@ -339,31 +339,56 @@ export const BeregningEnkel = () => {
                 <FormattedMessage id="beregning.title" />
               </Heading>
 
-              <AlertDashBorder onRetry={harFeil ? onRetry : undefined}>
-                {harFeil ? (
-                  <FormattedMessage id="beregning.error" />
-                ) : (
-                  <FormattedMessage
-                    id="beregning.lav_opptjening.aar"
-                    values={{
-                      startAar: uttaksalder.aar,
-                      startMaaned:
-                        uttaksalder.maaneder > 0
-                          ? ` og ${uttaksalder.maaneder} måneder`
-                          : '',
-                    }}
-                  />
-                )}
-              </AlertDashBorder>
+              {harFeil ? (
+                <SanityAlert
+                  id="beregning.beregningen-feilet"
+                  className={clsx(
+                    beregningStyles.beregningAlert,
+                    beregningStyles.beregningErrorAlert
+                  )}
+                  onButtonClick={onRetry}
+                />
+              ) : (
+                <SanityAlert
+                  id="beregning.enkel.ikke-nok-opptjening"
+                  className={beregningStyles.beregningAlert}
+                  dynamicValues={{
+                    alder: `${uttaksalder.aar} år${
+                      uttaksalder.maaneder > 0
+                        ? ` og ${uttaksalder.maaneder} måneder`
+                        : ''
+                    }`,
+                  }}
+                />
+              )}
             </>
           ) : (
             <>
+              {!isEndring && (
+                <div className={styles.intro}>
+                  <Heading
+                    level="2"
+                    size="medium"
+                    className={styles.introTitle}
+                    data-testid="beregning-heading"
+                  >
+                    <FormattedMessage id="beregning.intro.title" />
+                  </Heading>
+                  <BodyLong>
+                    <FormattedMessage id="beregning.intro.description_1" />
+                  </BodyLong>
+                </div>
+              )}
+
               <Simulering
                 visning="enkel"
                 isLoading={isFetching}
-                headingLevel="2"
+                headingLevel="3"
                 aarligInntektFoerUttakBeloep={
                   aarligInntektFoerUttakBeloep ?? '0'
+                }
+                alderspensjonMaanedligVedEndring={
+                  alderspensjon?.alderspensjonMaanedligVedEndring
                 }
                 alderspensjonListe={alderspensjon?.alderspensjon}
                 pre2025OffentligAfp={alderspensjon?.pre2025OffentligAfp}

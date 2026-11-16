@@ -5,7 +5,7 @@ import type {
 	LagreSimuleringResponseDtoV1,
 	LagreSimuleringSpecDtoV1,
 	OmstillingsstoenadOgGjenlevende,
-	Opptjening,
+	OpptjeningAvdoed,
 	PersonInternV1,
 	SimuleringRequestBody,
 	Sivilstand,
@@ -244,7 +244,7 @@ async function fetchBeregning(
 	fnr: string,
 	params: SimuleringRequestBody
 ): Promise<BeregningResult> {
-	const response = await fetch(`${API_BASE}/intern/v1/pensjon/simulering`, {
+	const response = await fetch(`${API_BASE}/intern/v2/pensjon/simulering`, {
 		method: 'POST',
 		headers: {
 			'Content-Type': 'application/json',
@@ -378,7 +378,7 @@ export function useErApotekerQuery(fnr?: string) {
 	})
 }
 
-async function fetchOpptjening(fnr: string): Promise<Opptjening> {
+async function fetchOpptjening(fnr: string): Promise<OpptjeningAvdoed> {
 	const response = await fetch(`${API_BASE}/intern/v1/opptjening`, {
 		headers: {
 			fnr,
@@ -389,14 +389,14 @@ async function fetchOpptjening(fnr: string): Promise<Opptjening> {
 		throw await toKalkulatorError(response, 'Failed to fetch opptjening')
 	}
 
-	return response.json() as Promise<Opptjening>
+	return response.json() as Promise<OpptjeningAvdoed>
 }
 
 export function useOpptjeningQueryForAvdoed(
 	fnr?: string,
 	beregnMedGjenlevenderett?: boolean
 ) {
-	return useQuery<Opptjening, KalkulatorError>({
+	return useQuery<OpptjeningAvdoed, KalkulatorError>({
 		queryKey: ['opptjening', fnr, beregnMedGjenlevenderett],
 		queryFn:
 			fnr && beregnMedGjenlevenderett ? () => fetchOpptjening(fnr) : skipToken,

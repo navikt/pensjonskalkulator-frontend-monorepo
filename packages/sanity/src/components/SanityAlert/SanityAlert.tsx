@@ -72,7 +72,9 @@ interface Props {
 	className?: string
 	dynamicValues?: DynamicValues
 	onLinkClick?: () => void
+	onRouteClick?: () => void
 	onClose?: () => void
+	onButtonClick?: () => void
 	role?: HTMLAttributes<HTMLDivElement>['role']
 	'aria-live'?: AriaAttributes['aria-live']
 }
@@ -82,7 +84,9 @@ export const SanityAlert = ({
 	className,
 	dynamicValues,
 	onLinkClick,
+	onRouteClick,
 	onClose,
+	onButtonClick,
 	role,
 	'aria-live': ariaLive,
 }: Props) => {
@@ -100,15 +104,34 @@ export const SanityAlert = ({
 	const portableTextComponents = getSanityPortableTextComponents({
 		intl,
 		onLinkClick,
+		onRouteClick,
 		navigateToRoute,
 		dynamicValues,
 	})
 
+	const buttonLabel =
+		typeof sanityContent.buttonLabel === 'string'
+			? sanityContent.buttonLabel.trim()
+			: ''
+	const actionButton =
+		buttonLabel && onButtonClick ? (
+			<Button
+				className={styles.actionButton}
+				size="small"
+				variant="secondary"
+				onClick={onButtonClick}
+			>
+				{buttonLabel}
+			</Button>
+		) : null
 	const content = (
-		<PortableText
-			value={sanityContent.innhold}
-			components={portableTextComponents}
-		/>
+		<>
+			<PortableText
+				value={sanityContent.innhold}
+				components={portableTextComponents}
+			/>
+			{actionButton}
+		</>
 	)
 
 	const closeButton = onClose && (
