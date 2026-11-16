@@ -190,9 +190,10 @@ describe('VilkaarsproevingAlert', () => {
         heltUttaksalder: { aar: 68, maaneder: 1 },
         gradertUttaksperiode: null,
         grad: 40,
-        alertId: 'beregning.vilkaarsproeving.ikke_nok_opptjening.ut_afp_100',
+        alertId:
+          'beregning.vilkaarsproeving.ikke_nok_opptjening_gradert.ut_afp',
         intro:
-          'Opptjeningen din er ikke høy nok til ønsket uttak. Du må sette ned uttaksgraden.',
+          'Opptjeningen din er ikke høy nok til ønsket uttak. Du må endre valgene dine.',
         forslag:
           'Et alternativ er at du ved 64 år og 2 måneder kan ta ut 40 % alderspensjon. Prøv gjerne andre kombinasjoner.',
       },
@@ -296,7 +297,7 @@ describe('VilkaarsproevingAlert', () => {
       }
     )
 
-    it('oppdaterer varselet når valgt alder for helt uttak endres', () => {
+    it('beholder samme varsel for 100 % uttak når valgt alder for helt uttak endres', () => {
       const alternativ = {
         heltUttaksalder: normertPensjoneringsalder,
         gradertUttaksalder: nedreAldersgrense,
@@ -326,7 +327,7 @@ describe('VilkaarsproevingAlert', () => {
 
       expect(
         screen.getByTestId(
-          'beregning.vilkaarsproeving.ikke_nok_opptjening.ut_afp_100'
+          'beregning.vilkaarsproeving.ikke_nok_opptjening_gradert.ut_afp'
         )
       ).toBeInTheDocument()
 
@@ -345,11 +346,7 @@ describe('VilkaarsproevingAlert', () => {
           'beregning.vilkaarsproeving.ikke_nok_opptjening_gradert.ut_afp'
         )
       ).toBeInTheDocument()
-      expect(
-        screen.queryByTestId(
-          'beregning.vilkaarsproeving.ikke_nok_opptjening.ut_afp_100'
-        )
-      ).not.toBeInTheDocument()
+      expect(screen.getAllByRole('alert')).toHaveLength(1)
     })
 
     it.each([null, undefined])(

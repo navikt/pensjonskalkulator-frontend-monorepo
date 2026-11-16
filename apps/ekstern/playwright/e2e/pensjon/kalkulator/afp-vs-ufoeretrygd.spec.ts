@@ -495,7 +495,7 @@ test.describe('AFP vs uføretrygd', () => {
       })
 
       test.describe('Når jeg har for lav opptjening til 100 % alderspensjon og AFP ved nedre alder,', () => {
-        test('viser eget Sanity-varsel for 100 % uttak med forslag om lavere grad.', async ({
+        test('viser felles Sanity-varsel for 100 % uttak med forslag om lavere grad.', async ({
           page,
         }) => {
           await selectUttaksgrad(page, '100 %')
@@ -525,7 +525,10 @@ test.describe('AFP vs uføretrygd', () => {
           await clickBeregnPensjon(page)
 
           const alert = page.getByTestId(
-            'beregning.vilkaarsproeving.ikke_nok_opptjening.ut_afp_100'
+            'beregning.vilkaarsproeving.ikke_nok_opptjening_gradert.ut_afp'
+          )
+          await expect(alert).toContainText(
+            'Opptjeningen din er ikke høy nok til ønsket uttak. Du må endre valgene dine.'
           )
           await expect(alert).toContainText(
             'Et alternativ er at du ved 62 år kan ta ut 40 % alderspensjon. Prøv gjerne andre kombinasjoner.'

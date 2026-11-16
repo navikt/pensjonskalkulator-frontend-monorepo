@@ -8,6 +8,14 @@
   }
 }
 
+.intro {
+  margin-bottom: var(--ax-space-16);
+
+  &Title {
+    margin-bottom: var(--ax-space-4);
+  }
+}
+
 .alert {
   margin: 0 var(--ax-space-24) var(--ax-space-24) var(--ax-space-24);
 

@@ -286,7 +286,7 @@ export default {
   'omufoeretrygd.hel.ingress':
     'You have <nowrap>100 %</nowrap> disability benefits. Here you can calculate <nowrap>100 %</nowrap> retirement pension from 67 years.{br}{br}Upcoming legal changes will gradually increase the retirement age for those born in 1964 or later.',
   'omufoeretrygd.gradert.ingress':
-    'You have <nowrap>{grad} %</nowrap> disability benefits. Here you can calculate <nowrap>100 %</nowrap> retirement pension from 67 years. If you want to calculate withdrawal before 67, you must go to {link}.{br}{br}Upcoming legal changes will gradually increase the retirement age for those born in 1964 or later.',
+    'You have <nowrap>{grad} %</nowrap> disability benefits. Here you can calculate <nowrap>100 %</nowrap> retirement pension from 67 years.{skjulAvansertLenke, select, true {} other { If you want to calculate withdrawal before 67, you must go to {link}.}}{br}{br}Upcoming legal changes will gradually increase the retirement age for those born in 1964 or later.',
   'omufoeretrygd.gradert.ingress.afp': 'MANGLER_TEKST',
   'omufoeretrygd.avansert_link': 'Advanced',
   'velguttaksalder.title': 'When do you want to withdraw retirement pension?',
@@ -324,7 +324,6 @@ export default {
   'beregning.alert.success.afp-offentlig-livsvarig': 'MANGLER_TEKST',
   'beregning.highcharts.informasjon_klikk': 'MANGLER_TEKST',
   'beregning.highcharts.title': 'Calculation',
-  'beregning.highcharts.ingress': 'MANGLER_TEKST',
   'beregning.highcharts.alt_tekst':
     'Annual income and pension after withdrawal in kroner.',
   'beregning.highcharts.xaxis': 'Annual Income and Pension after Withdrawal',

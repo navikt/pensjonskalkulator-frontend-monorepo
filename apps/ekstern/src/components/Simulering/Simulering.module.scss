@@ -4,16 +4,6 @@
   margin-bottom: var(--ax-space-40);
 }
 
-.intro {
-  @media (min-width: variables.$ax-breakpoint-lg) {
-    margin-bottom: var(--ax-space-16);
-  }
-
-  &Title {
-    margin-bottom: var(--ax-space-4);
-  }
-}
-
 .loader {
   display: inline-block;
   position: relative;
