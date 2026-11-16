@@ -20,6 +20,7 @@ import {
 	Button,
 	Heading,
 	Loader,
+	LocalAlert,
 	Tabs,
 	VStack,
 } from '@navikt/ds-react'
@@ -149,6 +150,24 @@ export const Beregning = () => {
 						message={beregningError.message}
 						onRetry={submitBeregning}
 					/>
+				) : beregning?.problem?.kode === 'UTILSTREKKELIG_TRYGDETID' ? (
+					!isBeregningLoading && (
+						<LocalAlert
+							status="warning"
+							size="small"
+							data-testid="utilstrekkelig-trygdetid-feil"
+						>
+							<LocalAlert.Header>
+								<LocalAlert.Title>Ikke rett til alderspensjon</LocalAlert.Title>
+							</LocalAlert.Header>
+							<LocalAlert.Content>
+								<BodyLong>
+									Brukeren har for kort trygdetid til å ha rett til
+									alderspensjon ved valgt uttak.
+								</BodyLong>
+							</LocalAlert.Content>
+						</LocalAlert>
+					)
 				) : (
 					!isBeregningLoading && tomBeregningSide
 				)}
