@@ -32,7 +32,7 @@ const tpOrdninger: Record<string, TpOrdning> = {
   '3670': {
     gruppe: 'storebrand',
     navn: 'Elverum Kommunale Pensjonskasse',
-    kortnavn: 'Elverum Kommunale Pensjonskasse',
+    kortnavn: 'EKP',
     url: externalUrls.elverumPensjon,
   },
 }
