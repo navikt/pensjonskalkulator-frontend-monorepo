@@ -21,7 +21,6 @@ import { fireEvent, render, screen, userEvent } from '@/test-utils'
 import * as alderUtils from '@/utils/alder'
 
 import { AvansertSkjemaForBrukereMedGradertUfoeretrygd } from '..'
-import { getPreviousMonth } from '../../test-utils'
 import * as AvansertSkjemaForBrukereMedGradertUfoeretrygdUtils from '../../utils'
 import { AVANSERT_FORM_NAMES } from '../../utils'
 
@@ -37,7 +36,6 @@ describe('AvansertSkjemaForBrukereMedGradertUfoeretrygd', () => {
     setHarAvansertSkjemaUnsavedChanges: () => {},
   }
 
-  const agePickerMonth = getPreviousMonth()
   it('vises informasjon om inntekt, uttaksgrad, pensjonsalder og uføretrygd, og kun aldersvelgeren for 100 % uttak begrenses fra normert pensjonsalder', async () => {
     vi.spyOn(alderUtils, 'getBrukerensAlderISluttenAvMaaneden').mockReturnValue(
       { aar: 64, maaneder: 5 }
@@ -2335,7 +2333,7 @@ describe('AvansertSkjemaForBrukereMedGradertUfoeretrygd', () => {
           `age-picker-${AVANSERT_FORM_NAMES.uttaksalderHeltUttak}-maaneder`
         ),
         {
-          target: { value: agePickerMonth },
+          target: { value: '0' },
         }
       )
 

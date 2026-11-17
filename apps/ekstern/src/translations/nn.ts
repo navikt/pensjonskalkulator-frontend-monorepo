@@ -106,18 +106,23 @@ export default {
     'MANGLER_TEKST',
   'stegvisning.utenlandsopphold.oppholdene.description.periode.varig_opphold':
     'MANGLER_TEKST',
+  'stegvisning.utenlandsopphold.oppholdene.periode.jobbet': 'MANGLER_TEKST',
+  'stegvisning.utenlandsopphold.oppholdene.periode.varig_jobbet':
+    'MANGLER_TEKST',
   'stegvisning.utenlandsopphold.oppholdene.description.har_jobbet':
     'MANGLER_TEKST',
   'stegvisning.utenlandsopphold.oppholdene.description.har_jobbet.ja':
     'MANGLER_TEKST',
   'stegvisning.utenlandsopphold.oppholdene.description.har_jobbet.nei':
     'MANGLER_TEKST',
-  'stegvisning.utenlandsopphold.oppholdene.button.legg_til': 'MANGLER_TEKST',
   'stegvisning.utenlandsopphold.oppholdene.button.legg_til_nytt':
     'MANGLER_TEKST',
   'stegvisning.utenlandsopphold.oppholdene.button.endre': 'MANGLER_TEKST',
+  'stegvisning.utenlandsopphold.oppholdene.button.endre.aria_label':
+    'MANGLER_TEKST',
   'stegvisning.utenlandsopphold.oppholdene.button.slette': 'MANGLER_TEKST',
-  'utenlandsopphold.om_oppholdet_ditt_modal.title': 'MANGLER_TEKST',
+  'stegvisning.utenlandsopphold.oppholdene.button.slette.aria_label':
+    'MANGLER_TEKST',
   'utenlandsopphold.om_oppholdet_ditt_modal.button.legg_til': 'MANGLER_TEKST',
   'utenlandsopphold.om_oppholdet_ditt_modal.button.oppdater': 'MANGLER_TEKST',
   'utenlandsopphold.om_oppholdet_ditt_modal.button.avbryt': 'MANGLER_TEKST',
@@ -291,7 +296,6 @@ export default {
   'beregning.alert.success.afp-offentlig-livsvarig': 'MANGLER_TEKST',
   'beregning.highcharts.informasjon_klikk': 'MANGLER_TEKST',
   'beregning.highcharts.title': 'MANGLER_TEKST',
-  'beregning.highcharts.ingress': 'MANGLER_TEKST',
   'beregning.highcharts.alt_tekst': 'MANGLER_TEKST',
   'beregning.highcharts.xaxis': 'Årleg inntekt og pensjon etter uttak',
   'beregning.highcharts.yaxis': 'Kroner',

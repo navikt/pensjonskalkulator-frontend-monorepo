@@ -7,6 +7,13 @@
 	box-sizing: border-box;
 }
 
+.logViewerButton {
+	position: absolute;
+	right: var(--ax-space-16);
+	bottom: var(--ax-space-16);
+	z-index: 1;
+}
+
 .scrollContent {
 	overflow-y: auto;
 	height: 100%;

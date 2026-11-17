@@ -49,7 +49,7 @@ import { formatInntektToNumber } from '@/utils/inntekt'
 import { ALERT_VIST } from '@/utils/loggerConstants'
 import { logger } from '@/utils/logging'
 
-import { finnAllePensjonsavtalerVedUttak } from './MaanedsbeloepAvansertBeregning/utils'
+import { finnAllePensjonsavtalerVedUttak } from './MaanedligPensjon/utils'
 import { SERIES_DEFAULT } from './constants'
 import {
   generateXAxis,

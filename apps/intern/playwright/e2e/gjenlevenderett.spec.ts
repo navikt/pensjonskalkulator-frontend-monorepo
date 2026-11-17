@@ -55,7 +55,7 @@ async function fillMainFormFields(page: Page) {
 		.selectOption('67')
 	await page.getByRole('combobox', { name: 'Uttaksgrad' }).selectOption('100')
 	await page
-		.getByRole('group', {
+		.getByRole('radiogroup', {
 			name: 'Har bruker inntekt ved siden av 100 % uttak?',
 		})
 		.getByLabel('Nei')
@@ -101,6 +101,33 @@ test.describe('Gjenlevenderett', () => {
 			})
 			await navigateToApp(page)
 		})
+
+		for (const { foedselsdato, visInntekt } of [
+			{ foedselsdato: '1950-01-01', visInntekt: true },
+			{ foedselsdato: '1949-12-31', visInntekt: false },
+			{ foedselsdato: '1949-01-01', visInntekt: false },
+			{ foedselsdato: '1948-01-01', visInntekt: false },
+		]) {
+			test(`PGI-felt har visning ${visInntekt} ved avdoedes foedselsdato ${foedselsdato}`, async ({
+				page,
+			}) => {
+				await mockApi(page, API_URLS.EPS, MOCK_FILES.EPS_OPPLYSNING, {
+					relasjonPersondata: {
+						foedselsdato,
+						doedsdato: '2025-01-01',
+					},
+				})
+				await checkGjenlevenderett(page)
+				await selectBakgrunnAndFetch(page)
+
+				await expect(page.getByTestId('EPS-opplysninger-info')).toBeVisible()
+				await expect(
+					page.getByRole('textbox', {
+						name: 'Pensjonsgivende inntekt året før dødsdato (valgfritt)',
+					})
+				).toHaveCount(visInntekt ? 1 : 0)
+			})
+		}
 
 		test('Viser EPS-seksjon når checkbox er avkrysset', async ({ page }) => {
 			await checkGjenlevenderett(page)
@@ -408,12 +435,12 @@ test.describe('Gjenlevenderett', () => {
 					name: 'Pensjonsgivende inntekt året før dødsdato',
 				})
 				.fill('400000')
-			const minstInntektGroup = page.getByRole('group', {
+			const minstInntektGroup = page.getByRole('radiogroup', {
 				name: /Minst 1G.*i pensjonsgivende inntekt ved dødsdato/,
 			})
 			await expect(minstInntektGroup).toBeVisible()
 			await page
-				.getByRole('group', {
+				.getByRole('radiogroup', {
 					name: 'Medlem av folketrygden de 5 siste årene før dødsdato',
 				})
 				.getByLabel('Ja')
@@ -523,7 +550,7 @@ test.describe('Gjenlevenderett', () => {
 
 			await expect(page.getByTestId('EPS-opplysninger-info')).toBeVisible()
 
-			const flyktningGroup = page.getByRole('group', {
+			const flyktningGroup = page.getByRole('radiogroup', {
 				name: 'Registrert som flyktning',
 			})
 			await expect(flyktningGroup.getByLabel('Nei')).toBeChecked()
@@ -719,12 +746,12 @@ test.describe('Gjenlevenderett', () => {
 				})
 				.fill('400000')
 
-			const minstInntektGroup = page.getByRole('group', {
+			const minstInntektGroup = page.getByRole('radiogroup', {
 				name: /Minst 1G.*i pensjonsgivende inntekt ved dødsdato/,
 			})
 			await expect(minstInntektGroup).toBeVisible()
 
-			const medlemGroup = page.getByRole('group', {
+			const medlemGroup = page.getByRole('radiogroup', {
 				name: 'Medlem av folketrygden de 5 siste årene før dødsdato',
 			})
 			await expect(medlemGroup).toBeVisible()

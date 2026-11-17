@@ -495,7 +495,7 @@ test.describe('AFP vs uføretrygd', () => {
       })
 
       test.describe('Når jeg har for lav opptjening til 100 % alderspensjon og AFP ved nedre alder,', () => {
-        test('viser eget Sanity-varsel for 100 % uttak med forslag om lavere grad.', async ({
+        test('viser felles Sanity-varsel for 100 % uttak med forslag om lavere grad.', async ({
           page,
         }) => {
           await selectUttaksgrad(page, '100 %')
@@ -525,7 +525,10 @@ test.describe('AFP vs uføretrygd', () => {
           await clickBeregnPensjon(page)
 
           const alert = page.getByTestId(
-            'beregning.vilkaarsproeving.ikke_nok_opptjening.ut_afp_100'
+            'beregning.vilkaarsproeving.ikke_nok_opptjening_gradert.ut_afp'
+          )
+          await expect(alert).toContainText(
+            'Opptjeningen din er ikke høy nok til ønsket uttak. Du må endre valgene dine.'
           )
           await expect(alert).toContainText(
             'Et alternativ er at du ved 62 år kan ta ut 40 % alderspensjon. Prøv gjerne andre kombinasjoner.'
@@ -535,7 +538,7 @@ test.describe('AFP vs uføretrygd', () => {
 
       test.describe('Når jeg har for lav opptjening til valgt uttak, med bruker som har valgt gradert uttak fra 62 år (nedre pensjonsalder) og 100 % tidligere enn 67 år (normert pensjonsalder),', () => {
         // 24
-        test('forventer jeg informasjon om at jeg må sette ned uttaksgraden, med forslag om grad ved nedre alder og alder for 100 % uttak.', async ({
+        test('forventer jeg informasjon om at jeg må endre valgene mine, med forslag om grad ved nedre alder og alder for 100 % uttak.', async ({
           page,
         }) => {
           await selectUttaksgrad(page, '80 %')
@@ -567,19 +570,14 @@ test.describe('AFP vs uføretrygd', () => {
 
           await clickBeregnPensjon(page)
 
-          await expect(
-            page.getByText('Pensjonsgivende årsinntekt frem til pensjon')
-          ).toBeVisible()
-
           const alert = page.getByTestId(
             'beregning.vilkaarsproeving.ikke_nok_opptjening.ut_afp'
           )
-          await expect(alert).toContainText(
-            'Opptjeningen din er ikke høy nok til ønsket uttak. Du må sette ned uttaksgraden.'
-          )
-          await expect(alert).toContainText(
-            'Et alternativ er at du ved 62 år kan ta ut 60 % alderspensjon, hvis du tar ut 100 % alderspensjon ved 66 år og 2 måneder eller senere. Prøv gjerne andre kombinasjoner.'
-          )
+          await expect(alert).toBeVisible()
+          await expect(alert).toContainText('62 år')
+          await expect(alert).toContainText('60 %')
+          await expect(alert).toContainText('66 år og 2 måneder')
+          await expect(alert).toContainText('100 %')
         })
       })
 

@@ -1,0 +1,1 @@
+export { MaanedligPensjon } from './MaanedligPensjon'

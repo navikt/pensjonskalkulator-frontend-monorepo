@@ -10,23 +10,33 @@ export default function Navigation({
   onCancel,
   form,
   className,
+  isNextDisabled,
+  isPreviousDisabled,
 }: {
   onPrevious: () => void
   onCancel: (() => void) | undefined
   form?: string
   className?: string
+  isNextDisabled?: boolean
+  isPreviousDisabled?: boolean
 }) {
   const { pathname } = useLocation()
 
   return (
     <HStack gap="space-16" marginBlock="space-16 space-0" className={className}>
-      <Button type="submit" form={form} data-testid="stegvisning-neste-button">
+      <Button
+        type="submit"
+        form={form}
+        disabled={isNextDisabled}
+        data-testid="stegvisning-neste-button"
+      >
         <FormattedMessage id="stegvisning.neste" />
       </Button>
 
       <Button
         type="button"
         variant="secondary"
+        disabled={isPreviousDisabled}
         data-testid="stegvisning-tilbake-button"
         onClick={wrapLogger('knapp klikket', {
           tekst: `Tilbake fra ${pathname}`,

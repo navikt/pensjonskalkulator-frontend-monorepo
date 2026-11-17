@@ -64,15 +64,11 @@ export const VilkaarsproevingAlert = ({
         return 'beregning.vilkaarsproeving.ikke_nok_opptjening_nedre_alder.ut_afp'
       }
 
-      if (!erKombinertUttak) {
-        return 'beregning.vilkaarsproeving.ikke_nok_opptjening_gradert.ut_afp'
-      }
-
-      if (gradertUttaksperiode) {
+      if (erKombinertUttak && gradertUttaksperiode) {
         return 'beregning.vilkaarsproeving.ikke_nok_opptjening.ut_afp'
       }
 
-      return 'beregning.vilkaarsproeving.ikke_nok_opptjening.ut_afp_100'
+      return 'beregning.vilkaarsproeving.ikke_nok_opptjening_gradert.ut_afp'
     }
 
     const alertId = getAlertId()
