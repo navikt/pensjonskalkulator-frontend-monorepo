@@ -4,11 +4,74 @@ import { mockApi, mockApiError } from '../utils/mock'
 import {
 	API_URLS,
 	MOCK_FILES,
+	fillMainFormFields,
 	navigateToApp,
 	setupDefaultMocks,
 } from '../utils/test-helpers'
 
 test.describe('Simulering error', () => {
+	test('viser avslag ved utilstrekkelig trygdetid over uttaksalder og fjerner varselet ved innvilgelse', async ({
+		page,
+	}) => {
+		await setupDefaultMocks(page, { sivilstatus: 'UGIFT' })
+		await mockApi(page, API_URLS.SIMULERING, undefined, {
+			alderspensjonListe: [],
+			maanedligAlderspensjonVedUttaksendring: {
+				heltUttakMaanedligBeloep: 0,
+			},
+			livsvarigOffentligAfpListe: [],
+			privatAfpListe: [],
+			vilkaarsproevingsresultat: { erInnvilget: false },
+			trygdetid: { antallAar: 0, erUtilstrekkelig: false },
+			opptjeningListe: [],
+			problem: {
+				kode: 'UTILSTREKKELIG_TRYGDETID',
+				beskrivelse: 'UtilstrekkeligTrygdetidException',
+			},
+		})
+		await navigateToApp(page)
+		await fillMainFormFields({
+			page,
+			fields: { 'alder-uttak-aar': '74', 'alder-uttak-md': '0' },
+		})
+
+		const alert = page.getByTestId('utilstrekkelig-trygdetid-alert')
+		await expect(alert).not.toBeVisible()
+		await page.getByTestId('beregn-button').click()
+
+		await expect(alert).toContainText(
+			'Vilkårene for uttak av alderspensjon er ikke oppfylt fordi trygdetiden er for kort.'
+		)
+		await expect(alert).toBeVisible()
+		expect(
+			await alert.evaluate(
+				(element, uttaksalder) =>
+					Boolean(
+						element.compareDocumentPosition(uttaksalder) &
+						Node.DOCUMENT_POSITION_FOLLOWING
+					),
+				await page.getByTestId('alder-uttak-aar').elementHandle()
+			)
+		).toBe(true)
+
+		await page.getByTestId('nullstill-button').click()
+		await expect(alert).not.toBeVisible()
+		await fillMainFormFields({
+			page,
+			fields: { 'alder-uttak-aar': '74', 'alder-uttak-md': '0' },
+		})
+		await expect(alert).not.toBeVisible()
+		await page.getByTestId('beregn-button').click()
+		await expect(alert).toBeVisible()
+
+		await mockApi(page, API_URLS.SIMULERING, MOCK_FILES.SIMULERING_V1)
+		await page.getByTestId('beregn-button').click()
+		await expect(
+			page.getByRole('tab', { name: 'Beregning', exact: true })
+		).toBeVisible()
+		await expect(alert).not.toBeVisible()
+	})
+
 	test('shows error alert when simulering fails', async ({ page }) => {
 		await setupDefaultMocks(page)
 		await mockApiError(page, API_URLS.SIMULERING, 500)
