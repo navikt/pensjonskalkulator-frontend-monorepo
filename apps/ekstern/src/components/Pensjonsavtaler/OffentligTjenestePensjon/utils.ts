@@ -1,12 +1,67 @@
 import type { IntlShape } from 'react-intl'
 
+import { externalUrls } from '@/router/constants'
 import type { Translations } from '@/translations/nb'
 
-const tpNummerTilNavn: Record<string, 'spk' | 'klp'> = {
-  '3010': 'spk',
-  '3060': 'spk',
-  '4082': 'klp',
-  '3200': 'klp',
+type TpOrdningGruppe = 'spk' | 'klp' | 'storebrand'
+
+interface TpOrdning {
+  gruppe: TpOrdningGruppe
+  navn?: string
+  kortnavn?: string
+  url?: string
+}
+
+const tpOrdninger: Record<string, TpOrdning> = {
+  '3010': { gruppe: 'spk' },
+  '3060': { gruppe: 'spk' },
+  '4082': { gruppe: 'klp' },
+  '3200': { gruppe: 'klp' },
+  '4083': {
+    gruppe: 'storebrand',
+    navn: 'Bærum Kommunale Pensjonskasse',
+    kortnavn: 'BKP',
+    url: externalUrls.bkp,
+  },
+  '4098': {
+    gruppe: 'storebrand',
+    navn: 'Pensjonskassen for Helseforetakene i Hovedstadsområdet',
+    kortnavn: 'PKH',
+    url: externalUrls.pkh,
+  },
+  '3670': {
+    gruppe: 'storebrand',
+    navn: 'Elverum Kommunale Pensjonskasse',
+    kortnavn: 'EKP',
+    url: externalUrls.elverumPensjon,
+  },
+}
+
+export const getTpOrdningNavn = (
+  tpNummer: string | undefined,
+  fallbackNavn?: string
+) => (tpNummer && tpOrdninger[tpNummer]?.navn) || fallbackNavn
+
+export const getTpLeverandoerNavnListe = (
+  muligeTpLeverandoerListe: Array<
+    string | { tpNummer: string; tpNavn: string }
+  > = []
+): string[] =>
+  muligeTpLeverandoerListe.map((tpLeverandoer) =>
+    typeof tpLeverandoer === 'string'
+      ? tpLeverandoer
+      : (getTpOrdningNavn(tpLeverandoer.tpNummer) ?? tpLeverandoer.tpNavn)
+  )
+
+export const getTpOrdningLenke = (
+  tpNummer: string,
+  fallbackNavn?: string
+): { kortnavn: string; url?: string } => {
+  const tpOrdning = tpOrdninger[tpNummer]
+  return {
+    kortnavn: tpOrdning?.kortnavn ?? fallbackNavn ?? '',
+    url: tpOrdning?.url,
+  }
 }
 
 export const getLeverandoerHeading = (
@@ -14,10 +69,19 @@ export const getLeverandoerHeading = (
   tpNummer: string,
   tpLeverandoer?: string
 ) => {
-  if (tpNummer in tpNummerTilNavn) {
+  const gruppe = tpOrdninger[tpNummer]?.gruppe
+  if (gruppe === 'spk' || gruppe === 'klp') {
     return intl.formatMessage({
-      id: `pensjonsavtaler.offentligtp.subtitle.${tpNummerTilNavn[tpNummer]}`,
+      id: `pensjonsavtaler.offentligtp.subtitle.${gruppe}`,
     })
+  }
+
+  const navn = getTpOrdningNavn(tpNummer)
+  if (navn) {
+    return intl.formatMessage(
+      { id: 'pensjonsavtaler.offentligtp.subtitle.tp_ordning' },
+      { tpOrdningNavn: navn }
+    )
   }
   return tpLeverandoer
 }
@@ -27,25 +91,29 @@ export const getInfoOmAfpOgBetingetTjenestepensjon = (
   afp: AfpRadio | null,
   betingetTjenestepensjonErInkludert?: boolean
 ): keyof Translations => {
-  if (tpNummerTilNavn[tpNummer] === 'klp') {
-    if (afp === 'ja_offentlig' || afp === 'ja_privat') {
-      return 'pensjonsavtaler.offentligtp.klp.afp_ja'
-    }
-    return 'pensjonsavtaler.offentligtp.klp.afp_nei+vetikke'
+  const gruppe = tpOrdninger[tpNummer]?.gruppe
+  const harValgtAfp = afp === 'ja_offentlig' || afp === 'ja_privat'
+
+  if (gruppe === 'klp') {
+    return harValgtAfp
+      ? 'pensjonsavtaler.offentligtp.klp.afp_ja'
+      : 'pensjonsavtaler.offentligtp.klp.afp_nei+vetikke'
   }
 
-  // SPK
-  if (afp === 'ja_offentlig' || afp === 'ja_privat') {
+  if (gruppe !== 'spk') {
+    return harValgtAfp
+      ? 'pensjonsavtaler.offentligtp.tp_ordning.afp_ja'
+      : 'pensjonsavtaler.offentligtp.tp_ordning.afp_nei+vetikke'
+  }
+
+  if (harValgtAfp) {
     return 'pensjonsavtaler.offentligtp.spk.afp_ja'
   } else if (afp === 'vet_ikke') {
     return 'pensjonsavtaler.offentligtp.spk.afp_vet_ikke'
-  } else {
-    if (betingetTjenestepensjonErInkludert) {
-      return 'pensjonsavtaler.offentligtp.spk.afp_nei.med_betinget'
-    } else {
-      return 'pensjonsavtaler.offentligtp.spk.afp_nei.uten_betinget'
-    }
+  } else if (betingetTjenestepensjonErInkludert) {
+    return 'pensjonsavtaler.offentligtp.spk.afp_nei.med_betinget'
   }
+  return 'pensjonsavtaler.offentligtp.spk.afp_nei.uten_betinget'
 }
 
 export const formatLeverandoerList = (

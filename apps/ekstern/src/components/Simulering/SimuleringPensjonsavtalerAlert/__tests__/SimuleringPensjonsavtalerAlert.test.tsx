@@ -262,7 +262,7 @@ describe('SimuleringPensjonsavtalerAlert', () => {
             isError: false,
             data: {
               simuleringsresultatStatus: 'BRUKER_ER_IKKE_MEDLEM_AV_TP_ORDNING',
-              muligeTpLeverandoerListe: ['KLP'],
+              muligeTpLeverandoerListe: [{ tpNummer: '4082', tpNavn: 'KLP' }],
             },
           }}
           isPensjonsavtaleFlagVisible={false}
@@ -283,7 +283,7 @@ describe('SimuleringPensjonsavtalerAlert', () => {
             isError: false,
             data: {
               simuleringsresultatStatus: 'BRUKER_ER_IKKE_MEDLEM_AV_TP_ORDNING',
-              muligeTpLeverandoerListe: ['KLP'],
+              muligeTpLeverandoerListe: [{ tpNummer: '4082', tpNavn: 'KLP' }],
             },
           }}
           isPensjonsavtaleFlagVisible={false}
@@ -320,7 +320,7 @@ describe('SimuleringPensjonsavtalerAlert', () => {
             isError: false,
             data: {
               simuleringsresultatStatus: 'BRUKER_ER_IKKE_MEDLEM_AV_TP_ORDNING',
-              muligeTpLeverandoerListe: ['KLP'],
+              muligeTpLeverandoerListe: [{ tpNummer: '4082', tpNavn: 'KLP' }],
             },
           }}
           isPensjonsavtaleFlagVisible={false}
@@ -356,7 +356,7 @@ describe('SimuleringPensjonsavtalerAlert', () => {
             isError: false,
             data: {
               simuleringsresultatStatus: 'TP_ORDNING_STOETTES_IKKE',
-              muligeTpLeverandoerListe: ['KLP'],
+              muligeTpLeverandoerListe: [{ tpNummer: '4082', tpNavn: 'KLP' }],
             },
           }}
           isPensjonsavtaleFlagVisible={false}
@@ -388,7 +388,7 @@ describe('SimuleringPensjonsavtalerAlert', () => {
             isError: false,
             data: {
               simuleringsresultatStatus: 'TP_ORDNING_STOETTES_IKKE',
-              muligeTpLeverandoerListe: ['KLP'],
+              muligeTpLeverandoerListe: [{ tpNummer: '4082', tpNavn: 'KLP' }],
             },
           }}
           isPensjonsavtaleFlagVisible={false}
@@ -427,7 +427,7 @@ describe('SimuleringPensjonsavtalerAlert', () => {
             isError: false,
             data: {
               simuleringsresultatStatus: 'TP_ORDNING_STOETTES_IKKE',
-              muligeTpLeverandoerListe: ['KLP'],
+              muligeTpLeverandoerListe: [{ tpNummer: '4082', tpNavn: 'KLP' }],
             },
           }}
           isPensjonsavtaleFlagVisible={false}
@@ -490,7 +490,9 @@ describe('SimuleringPensjonsavtalerAlert', () => {
             isError: false,
             data: {
               simuleringsresultatStatus: 'TEKNISK_FEIL',
-              muligeTpLeverandoerListe: ['Statens pensjonskasse'],
+              muligeTpLeverandoerListe: [
+                { tpNummer: '3010', tpNavn: 'Statens pensjonskasse' },
+              ],
             },
           }}
           isPensjonsavtaleFlagVisible={false}
@@ -520,7 +522,9 @@ describe('SimuleringPensjonsavtalerAlert', () => {
             isError: false,
             data: {
               simuleringsresultatStatus: 'TOM_SIMULERING_FRA_TP_ORDNING',
-              muligeTpLeverandoerListe: ['Statens pensjonskasse'],
+              muligeTpLeverandoerListe: [
+                { tpNummer: '3010', tpNavn: 'Statens pensjonskasse' },
+              ],
             },
           }}
           isPensjonsavtaleFlagVisible={false}
@@ -584,7 +588,9 @@ describe('SimuleringPensjonsavtalerAlert', () => {
             isError: false,
             data: {
               simuleringsresultatStatus: 'TEKNISK_FEIL',
-              muligeTpLeverandoerListe: ['Statens pensjonskasse'],
+              muligeTpLeverandoerListe: [
+                { tpNummer: '3010', tpNavn: 'Statens pensjonskasse' },
+              ],
             },
           }}
           isPensjonsavtaleFlagVisible={false}
@@ -618,7 +624,9 @@ describe('SimuleringPensjonsavtalerAlert', () => {
             isError: false,
             data: {
               simuleringsresultatStatus: 'TOM_SIMULERING_FRA_TP_ORDNING',
-              muligeTpLeverandoerListe: ['Statens pensjonskasse'],
+              muligeTpLeverandoerListe: [
+                { tpNummer: '3010', tpNavn: 'Statens pensjonskasse' },
+              ],
             },
           }}
           isPensjonsavtaleFlagVisible={false}
@@ -678,7 +686,9 @@ describe('SimuleringPensjonsavtalerAlert', () => {
             isError: false,
             data: {
               simuleringsresultatStatus: 'TEKNISK_FEIL',
-              muligeTpLeverandoerListe: ['Statens pensjonskasse'],
+              muligeTpLeverandoerListe: [
+                { tpNummer: '3010', tpNavn: 'Statens pensjonskasse' },
+              ],
             },
           }}
           isPensjonsavtaleFlagVisible={false}
@@ -708,7 +718,9 @@ describe('SimuleringPensjonsavtalerAlert', () => {
             isError: false,
             data: {
               simuleringsresultatStatus: 'TOM_SIMULERING_FRA_TP_ORDNING',
-              muligeTpLeverandoerListe: ['Statens pensjonskasse'],
+              muligeTpLeverandoerListe: [
+                { tpNummer: '3010', tpNavn: 'Statens pensjonskasse' },
+              ],
             },
           }}
           isPensjonsavtaleFlagVisible={false}

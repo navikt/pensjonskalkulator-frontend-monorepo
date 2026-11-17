@@ -6,6 +6,7 @@ import { authenticate } from '../../../utils/auth'
 import {
   alderspensjon,
   offentligTp,
+  offentligTpFoer1963,
   pensjonsavtaler,
   person,
 } from '../../../utils/mocks'
@@ -795,7 +796,9 @@ test.describe('Med samtykke - Offentlig tjenestepensjon', () => {
           await pensjonsavtaler({ avtaler: [], utilgjengeligeSelskap: [] }),
           await offentligTp({
             preset: 'unsupported',
-            unsupportedProviders: ['Oslo Pensjonsforsikring'],
+            unsupportedProviders: [
+              { tpNummer: '9999', tpNavn: 'Oslo Pensjonsforsikring' },
+            ],
           }),
         ])
         await fillOutStegvisning(page, {
@@ -1055,13 +1058,7 @@ test.describe('Med samtykke - Offentlig tjenestepensjon', () => {
       test.beforeEach(async ({ page }) => {
         await authenticate(page, [
           await person({ alder: { aar: 65 } }),
-          await offentligTp({
-            preset: 'unsupported',
-            unsupportedProviders: [
-              'Statens pensjonskasse',
-              'Kommunal Landspensjonskasse',
-            ],
-          }),
+          offentligTpFoer1963('foer1963_unsupported'),
           await pensjonsavtaler({ avtaler: [], utilgjengeligeSelskap: [] }),
         ])
         await fillOutStegvisning(page, {
@@ -1086,7 +1083,7 @@ test.describe('Med samtykke - Offentlig tjenestepensjon', () => {
       test.beforeEach(async ({ page }) => {
         await authenticate(page, [
           await person({ alder: { aar: 65 } }),
-          await offentligTp({ preset: 'no_membership' }),
+          offentligTpFoer1963('foer1963_no_membership'),
           await pensjonsavtaler({ avtaler: [], utilgjengeligeSelskap: [] }),
         ])
         await fillOutStegvisning(page, {

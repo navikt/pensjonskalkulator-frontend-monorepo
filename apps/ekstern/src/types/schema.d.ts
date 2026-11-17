@@ -44,6 +44,26 @@ export interface paths {
     patch?: never
     trace?: never
   }
+  '/api/v3/simuler-oftp/fra-1963': {
+    parameters: {
+      query?: never
+      header?: never
+      path?: never
+      cookie?: never
+    }
+    get?: never
+    put?: never
+    /**
+     * Simuler offentlig tjenestepensjon hos TP-leverandør bruker er medlem av
+     * @description Simulerer offentlig tjenestepensjon hos TP-leverandør som har ansvar for brukers tjenestepensjon
+     */
+    post: operations['simulerOffentligTjenestepensjonFra1963V3']
+    delete?: never
+    options?: never
+    head?: never
+    patch?: never
+    trace?: never
+  }
   '/api/v3/pensjonsavtaler': {
     parameters: {
       query?: never
@@ -1092,6 +1112,90 @@ export interface components {
       /** Format: int32 */
       maaneder: number
     }
+    SimuleringOffentligTjenestepensjonAlderV3: {
+      /** Format: int32 */
+      aar: number
+      /** Format: int32 */
+      maaneder: number
+    }
+    SimuleringOffentligTjenestepensjonGradertUttakV3: {
+      uttaksalder: components['schemas']['SimuleringOffentligTjenestepensjonAlderV3']
+      /** Format: int32 */
+      aarligInntektVsaPensjonBeloep?: number | null
+    }
+    SimuleringOffentligTjenestepensjonHeltUttakV3: {
+      uttaksalder: components['schemas']['SimuleringOffentligTjenestepensjonAlderV3']
+      aarligInntektVsaPensjon?:
+        | components['schemas']['SimuleringOffentligTjenestepensjonInntektV3']
+        | null
+    }
+    SimuleringOffentligTjenestepensjonInntektV3: {
+      /** Format: int32 */
+      beloep: number
+      sluttAlder: components['schemas']['SimuleringOffentligTjenestepensjonAlderV3']
+    }
+    SimuleringOffentligTjenestepensjonSpecV3: {
+      /** Format: date */
+      foedselsdato: string
+      /** Format: int32 */
+      aarligInntektFoerUttakBeloep: number
+      gradertUttak?:
+        | components['schemas']['SimuleringOffentligTjenestepensjonGradertUttakV3']
+        | null
+      heltUttak: components['schemas']['SimuleringOffentligTjenestepensjonHeltUttakV3']
+      utenlandsperiodeListe: components['schemas']['UtenlandsoppholdV3'][]
+      epsHarPensjon: boolean
+      epsHarInntektOver2G: boolean
+      brukerBaOmAfp: boolean
+      erApoteker?: boolean | null
+    }
+    UtenlandsoppholdV3: {
+      /** Format: date */
+      fom: string
+      /** Format: date */
+      tom?: string | null
+    }
+    Alder: {
+      /** Format: int32 */
+      aar: number
+      /** Format: int32 */
+      maaneder: number
+    }
+    OffentligTjenestepensjonSimuleringResultV3: {
+      /** @enum {string} */
+      simuleringsresultatStatus:
+        | 'OK'
+        | 'BRUKER_ER_IKKE_MEDLEM_AV_TP_ORDNING'
+        | 'TP_ORDNING_STOETTES_IKKE'
+        | 'TOM_SIMULERING_FRA_TP_ORDNING'
+        | 'TEKNISK_FEIL'
+      muligeTpLeverandoerListe: components['schemas']['TpOrdningV3'][]
+      simulertTjenestepensjon?:
+        | components['schemas']['SimulertTjenestepensjonV3']
+        | null
+      serviceData?: string[] | null
+    }
+    SimuleringsresultatV3: {
+      utbetalingsperioder: components['schemas']['UtbetalingsperiodeV3'][]
+      betingetTjenestepensjonErInkludert: boolean
+    }
+    SimulertTjenestepensjonV3: {
+      tpLeverandoer: string
+      tpNummer: string
+      simuleringsresultat: components['schemas']['SimuleringsresultatV3']
+    }
+    TpOrdningV3: {
+      tpNummer: string
+      tpNavn: string
+    }
+    UtbetalingsperiodeV3: {
+      startAlder: components['schemas']['Alder']
+      sluttAlder?: components['schemas']['Alder'] | null
+      /** Format: int32 */
+      aarligUtbetaling: number
+      /** Format: int32 */
+      maanedligUtbetaling?: number | null
+    }
     PensjonsavtaleAlderSpecV3: {
       /** Format: int32 */
       aar: number
@@ -1134,15 +1238,17 @@ export interface components {
         | components['schemas']['PensjonsavtaleInntektSpecV3']
         | null
     }
-    Alder: {
-      /** Format: int32 */
-      aar: number
-      /** Format: int32 */
-      maaneder: number
-    }
     PensjonsavtaleResultV3: {
       avtaler: components['schemas']['PensjonsavtaleV3'][]
       utilgjengeligeSelskap: components['schemas']['SelskapV3'][]
+    }
+    PensjonsavtaleUtbetalingsperiodeV3: {
+      startAlder: components['schemas']['Alder']
+      sluttAlder?: components['schemas']['Alder'] | null
+      /** Format: int32 */
+      aarligUtbetaling: number
+      /** Format: int32 */
+      grad: number
     }
     PensjonsavtaleV3: {
       produktbetegnelse: string
@@ -1152,19 +1258,11 @@ export interface components {
       startAar: number
       /** Format: int32 */
       sluttAar?: number | null
-      utbetalingsperioder: components['schemas']['UtbetalingsperiodeV3'][]
+      utbetalingsperioder: components['schemas']['PensjonsavtaleUtbetalingsperiodeV3'][]
     }
     SelskapV3: {
       navn: string
       heltUtilgjengelig: boolean
-    }
-    UtbetalingsperiodeV3: {
-      startAlder: components['schemas']['Alder']
-      sluttAlder?: components['schemas']['Alder'] | null
-      /** Format: int32 */
-      aarligUtbetaling: number
-      /** Format: int32 */
-      grad: number
     }
     SimuleringOffentligTjenestepensjonAlderV2: {
       /** Format: int32 */
@@ -2129,6 +2227,8 @@ export interface components {
       opptjeningListe: components['schemas']['SimuleringV2Opptjening'][]
       /** @description Eventuelt problem som oppstod under simuleringen */
       problem?: components['schemas']['SimuleringV2Problem'] | null
+      /** @description Lenke (URL) til pensjon-reglers 'log viewer' */
+      logViewerUrl?: string | null
     }
     SimuleringV2ServiceberegnetAfp: {
       /** @description Beregnet avtalefestet pensjon */
@@ -2202,6 +2302,11 @@ export interface components {
       afpGrad: number
       /** @description Hvorvidt AFP-ytelsen er avkortet i.h.t. 70-prosentregelen */
       erAvkortet: boolean
+      /**
+       * Format: double
+       * @description Fremtidige pensjonspoeng (registrert eller simulert verdi)
+       */
+      fremtidigePensjonspoeng: number
     }
     SimuleringV2Trygdetid: {
       /**
@@ -3078,6 +3183,8 @@ export interface components {
       pensjonstillegg?: number | null
       /** Format: int32 */
       skjermingstillegg?: number | null
+      /** Format: int32 */
+      minstenivaatilleggIndividuelt?: number | null
       /** Format: int32 */
       kapittel19AndelTeller?: number | null
       /** Format: int32 */
@@ -3998,6 +4105,30 @@ export interface operations {
            *       "path": "/api/ressurs"
            *     } */
           '*/*': unknown
+        }
+      }
+    }
+  }
+  simulerOffentligTjenestepensjonFra1963V3: {
+    parameters: {
+      query?: never
+      header?: never
+      path?: never
+      cookie?: never
+    }
+    requestBody: {
+      content: {
+        'application/json': components['schemas']['SimuleringOffentligTjenestepensjonSpecV3']
+      }
+    }
+    responses: {
+      /** @description OK */
+      200: {
+        headers: {
+          [name: string]: unknown
+        }
+        content: {
+          '*/*': components['schemas']['OffentligTjenestepensjonSimuleringResultV3']
         }
       }
     }

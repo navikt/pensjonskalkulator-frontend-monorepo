@@ -8,6 +8,8 @@ import {
   formatLeverandoerList,
   getInfoOmAfpOgBetingetTjenestepensjon,
   getLeverandoerHeading,
+  getTpLeverandoerNavnListe,
+  getTpOrdningLenke,
 } from '../utils'
 
 const wrappedGetLeverandoerHeading = (
@@ -36,6 +38,13 @@ describe('getLeverandoerHeading', () => {
   it('Returnerer riktig overskrift for KLP.', () => {
     const heading = wrappedGetLeverandoerHeading('4082', 'Fallback')
     expect(heading).toBe('Alderspensjon fra Kommunal Landspensjonskasse (KLP)')
+  })
+
+  it('Returnerer navnet på pensjonskassen for ordninger forvaltet av Storebrand.', () => {
+    const heading = wrappedGetLeverandoerHeading('4098', 'Storebrand')
+    expect(heading).toBe(
+      'Alderspensjon fra Pensjonskassen for Helseforetakene i Hovedstadsområdet'
+    )
   })
 
   it('Returnerer tpLeverandoer-parameteret hvis tpNummer er ugyldig.', () => {
@@ -121,6 +130,61 @@ describe('getInfoOmAfpOgBetingetTjenestepensjon', () => {
         'pensjonsavtaler.offentligtp.spk.afp_nei.med_betinget'
       )
     })
+  })
+
+  describe('Gitt at ordningen ikke er SPK eller KLP,', () => {
+    it.each(['4083', '4098', '3670', '0000'])(
+      'returnerer tekst for tp-ordning når AFP==ja_offentlig (tpNummer %s).',
+      (tpNummer) => {
+        expect(
+          getInfoOmAfpOgBetingetTjenestepensjon(tpNummer, 'ja_offentlig', false)
+        ).toBe('pensjonsavtaler.offentligtp.tp_ordning.afp_ja')
+      }
+    )
+    it.each(['nei', 'vet_ikke'] as const)(
+      'returnerer tekst for tp-ordning når AFP==%s.',
+      (afp) => {
+        expect(getInfoOmAfpOgBetingetTjenestepensjon('4083', afp, true)).toBe(
+          'pensjonsavtaler.offentligtp.tp_ordning.afp_nei+vetikke'
+        )
+      }
+    )
+  })
+})
+
+describe('getTpOrdningLenke', () => {
+  it('returnerer kortnavn og url for pensjonskassen basert på tpNummer.', () => {
+    expect(getTpOrdningLenke('4083', 'Storebrand')).toEqual({
+      kortnavn: 'BKP',
+      url: 'https://www.bkp.no/',
+    })
+    expect(getTpOrdningLenke('4098')).toEqual({
+      kortnavn: 'PKH',
+      url: 'https://pkh.no/',
+    })
+  })
+
+  it('returnerer fallback-navn uten url når tpNummer er ukjent.', () => {
+    expect(getTpOrdningLenke('0000', 'Ukjent')).toEqual({
+      kortnavn: 'Ukjent',
+      url: undefined,
+    })
+  })
+})
+
+describe('getTpLeverandoerNavnListe', () => {
+  it('slår opp navn fra tpNummer og faller tilbake til tpNavn.', () => {
+    expect(
+      getTpLeverandoerNavnListe([
+        { tpNummer: '3670', tpNavn: 'Storebrand' },
+        { tpNummer: '0000', tpNavn: 'Oslo Pensjonsforsikring' },
+        'Kommunal Landspensjonskasse',
+      ])
+    ).toEqual([
+      'Elverum Kommunale Pensjonskasse',
+      'Oslo Pensjonsforsikring',
+      'Kommunal Landspensjonskasse',
+    ])
   })
 })
 

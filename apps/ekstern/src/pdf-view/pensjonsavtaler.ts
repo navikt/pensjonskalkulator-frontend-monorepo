@@ -3,6 +3,7 @@ import { IntlShape } from 'react-intl'
 import {
   getInfoOmAfpOgBetingetTjenestepensjon,
   getLeverandoerHeading,
+  getTpOrdningLenke,
 } from '@/components/Pensjonsavtaler/OffentligTjenestePensjon/utils'
 import { isOffentligTpFoer1963 } from '@/state/api/typeguards'
 import {
@@ -270,6 +271,8 @@ function getOffentligTpInfoIngress({
   }
 
   if (!isOffentligTpFoer1963(offentligTp)) {
+    const { tpLeverandoer } = offentligTp.simulertTjenestepensjon ?? {}
+    const tpOrdningLenke = getTpOrdningLenke(tpNummer, tpLeverandoer)
     return `<p>${intl.formatMessage(
       {
         id: getInfoOmAfpOgBetingetTjenestepensjon(
@@ -279,7 +282,15 @@ function getOffentligTpInfoIngress({
             .betingetTjenestepensjonErInkludert
         ),
       },
-      { ...pdfFormatMessageValues }
+      {
+        ...pdfFormatMessageValues,
+        tpOrdningKortnavn: escapeHtml(tpOrdningLenke.kortnavn),
+        tpOrdningLink: (chunks: string[]) =>
+          getPdfLink({
+            url: tpOrdningLenke.url,
+            displayText: chunks.join(''),
+          }),
+      }
     )}</p>`
   }
 

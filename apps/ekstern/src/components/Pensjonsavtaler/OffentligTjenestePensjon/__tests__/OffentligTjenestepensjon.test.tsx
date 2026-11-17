@@ -73,7 +73,7 @@ describe('OffentligTjenestepensjon', () => {
         isError={false}
         offentligTp={{
           simuleringsresultatStatus: 'TP_ORDNING_STOETTES_IKKE',
-          muligeTpLeverandoerListe: ['KLP'],
+          muligeTpLeverandoerListe: [{ tpNummer: '4082', tpNavn: 'KLP' }],
         }}
         headingLevel="3"
         erOffentligTpFoer1963={false}
@@ -98,7 +98,7 @@ describe('OffentligTjenestepensjon', () => {
           isError={false}
           offentligTp={{
             simuleringsresultatStatus: 'TEKNISK_FEIL',
-            muligeTpLeverandoerListe: ['SPK'],
+            muligeTpLeverandoerListe: [{ tpNummer: '3010', tpNavn: 'SPK' }],
           }}
           headingLevel="3"
           erOffentligTpFoer1963={false}
@@ -124,7 +124,7 @@ describe('OffentligTjenestepensjon', () => {
           isError={false}
           offentligTp={{
             simuleringsresultatStatus: 'TOM_SIMULERING_FRA_TP_ORDNING',
-            muligeTpLeverandoerListe: ['SPK'],
+            muligeTpLeverandoerListe: [{ tpNummer: '3010', tpNavn: 'SPK' }],
           }}
           headingLevel="3"
           erOffentligTpFoer1963={false}
@@ -155,9 +155,9 @@ describe('OffentligTjenestepensjon', () => {
           offentligTp={{
             simuleringsresultatStatus: 'OK',
             muligeTpLeverandoerListe: [
-              'Statens pensjonskasse',
-              'Kommunal Landspensjonskasse',
-              'Oslo Pensjonsforsikring',
+              { tpNummer: '3010', tpNavn: 'Statens pensjonskasse' },
+              { tpNummer: '4082', tpNavn: 'Kommunal Landspensjonskasse' },
+              { tpNummer: '9999', tpNavn: 'Oslo Pensjonsforsikring' },
             ],
             simulertTjenestepensjon: offentligTpData.simulertTjenestepensjon,
           }}
@@ -216,9 +216,9 @@ describe('OffentligTjenestepensjon', () => {
           offentligTp={{
             simuleringsresultatStatus: 'OK',
             muligeTpLeverandoerListe: [
-              'Statens pensjonskasse',
-              'Kommunal Landspensjonskasse',
-              'Oslo Pensjonsforsikring',
+              { tpNummer: '3010', tpNavn: 'Statens pensjonskasse' },
+              { tpNummer: '4082', tpNavn: 'Kommunal Landspensjonskasse' },
+              { tpNummer: '9999', tpNavn: 'Oslo Pensjonsforsikring' },
             ],
             simulertTjenestepensjon: offentligTpData.simulertTjenestepensjon,
           }}
@@ -275,7 +275,9 @@ describe('OffentligTjenestepensjon', () => {
             isError={false}
             offentligTp={{
               simuleringsresultatStatus: 'OK',
-              muligeTpLeverandoerListe: ['Statens pensjonskasse'],
+              muligeTpLeverandoerListe: [
+                { tpNummer: '3010', tpNavn: 'Statens pensjonskasse' },
+              ],
               simulertTjenestepensjon: {
                 tpLeverandoer: 'Statens pensjonskasse',
                 tpNummer: '3010',
@@ -316,7 +318,9 @@ describe('OffentligTjenestepensjon', () => {
             isError={false}
             offentligTp={{
               simuleringsresultatStatus: 'OK',
-              muligeTpLeverandoerListe: ['Statens pensjonskasse'],
+              muligeTpLeverandoerListe: [
+                { tpNummer: '3010', tpNavn: 'Statens pensjonskasse' },
+              ],
               simulertTjenestepensjon: {
                 tpLeverandoer: 'Statens pensjonskasse',
                 tpNummer: '3010',
@@ -357,7 +361,9 @@ describe('OffentligTjenestepensjon', () => {
             isError={false}
             offentligTp={{
               simuleringsresultatStatus: 'OK',
-              muligeTpLeverandoerListe: ['Statens pensjonskasse'],
+              muligeTpLeverandoerListe: [
+                { tpNummer: '3010', tpNavn: 'Statens pensjonskasse' },
+              ],
               simulertTjenestepensjon: {
                 tpLeverandoer: 'Statens pensjonskasse',
                 tpNummer: '3010',
@@ -401,7 +407,9 @@ describe('OffentligTjenestepensjon', () => {
             isError={false}
             offentligTp={{
               simuleringsresultatStatus: 'OK',
-              muligeTpLeverandoerListe: ['Statens pensjonskasse'],
+              muligeTpLeverandoerListe: [
+                { tpNummer: '3010', tpNavn: 'Statens pensjonskasse' },
+              ],
               simulertTjenestepensjon: {
                 tpLeverandoer: 'Statens pensjonskasse',
                 tpNummer: '3010',
@@ -453,7 +461,9 @@ describe('OffentligTjenestepensjon', () => {
             isError={false}
             offentligTp={{
               simuleringsresultatStatus: 'OK',
-              muligeTpLeverandoerListe: ['Statens pensjonskasse'],
+              muligeTpLeverandoerListe: [
+                { tpNummer: '3010', tpNavn: 'Statens pensjonskasse' },
+              ],
               simulertTjenestepensjon: {
                 tpLeverandoer: 'Statens pensjonskasse',
                 tpNummer: '3010',
@@ -505,8 +515,8 @@ describe('OffentligTjenestepensjon', () => {
           offentligTp={{
             simuleringsresultatStatus: 'OK',
             muligeTpLeverandoerListe: [
-              'Kommunal Landspensjonskasse',
-              'Oslo Pensjonsforsikring',
+              { tpNummer: '4082', tpNavn: 'Kommunal Landspensjonskasse' },
+              { tpNummer: '9999', tpNavn: 'Oslo Pensjonsforsikring' },
             ],
             simulertTjenestepensjon: {
               ...offentligTpData.simulertTjenestepensjon,
@@ -535,8 +545,8 @@ describe('OffentligTjenestepensjon', () => {
           offentligTp={{
             simuleringsresultatStatus: 'OK',
             muligeTpLeverandoerListe: [
-              'Kommunal Landspensjonskasse',
-              'Oslo Pensjonsforsikring',
+              { tpNummer: '4082', tpNavn: 'Kommunal Landspensjonskasse' },
+              { tpNummer: '9999', tpNavn: 'Oslo Pensjonsforsikring' },
             ],
             simulertTjenestepensjon: {
               ...offentligTpData.simulertTjenestepensjon,
@@ -562,7 +572,9 @@ describe('OffentligTjenestepensjon', () => {
             isError={false}
             offentligTp={{
               simuleringsresultatStatus: 'OK',
-              muligeTpLeverandoerListe: ['Kommunal Landspensjonskasse'],
+              muligeTpLeverandoerListe: [
+                { tpNummer: '4082', tpNavn: 'Kommunal Landspensjonskasse' },
+              ],
               simulertTjenestepensjon: {
                 ...offentligTpData.simulertTjenestepensjon,
                 tpLeverandoer: 'Kommunal Landspensjonskasse',
@@ -603,7 +615,9 @@ describe('OffentligTjenestepensjon', () => {
             isError={false}
             offentligTp={{
               simuleringsresultatStatus: 'OK',
-              muligeTpLeverandoerListe: ['Kommunal Landspensjonskasse'],
+              muligeTpLeverandoerListe: [
+                { tpNummer: '4082', tpNavn: 'Kommunal Landspensjonskasse' },
+              ],
               simulertTjenestepensjon: {
                 ...offentligTpData.simulertTjenestepensjon,
                 tpLeverandoer: 'Kommunal Landspensjonskasse',
@@ -644,7 +658,9 @@ describe('OffentligTjenestepensjon', () => {
             isError={false}
             offentligTp={{
               simuleringsresultatStatus: 'OK',
-              muligeTpLeverandoerListe: ['Kommunal Landspensjonskasse'],
+              muligeTpLeverandoerListe: [
+                { tpNummer: '4082', tpNavn: 'Kommunal Landspensjonskasse' },
+              ],
               simulertTjenestepensjon: {
                 ...offentligTpData.simulertTjenestepensjon,
                 tpLeverandoer: 'Kommunal Landspensjonskasse',
@@ -685,7 +701,9 @@ describe('OffentligTjenestepensjon', () => {
             isError={false}
             offentligTp={{
               simuleringsresultatStatus: 'OK',
-              muligeTpLeverandoerListe: ['Kommunal Landspensjonskasse'],
+              muligeTpLeverandoerListe: [
+                { tpNummer: '4082', tpNavn: 'Kommunal Landspensjonskasse' },
+              ],
               simulertTjenestepensjon: {
                 ...offentligTpData.simulertTjenestepensjon,
                 tpLeverandoer: 'Kommunal Landspensjonskasse',
@@ -718,6 +736,84 @@ describe('OffentligTjenestepensjon', () => {
           })
         ).toBeVisible()
       })
+    })
+  })
+
+  describe('Gitt at brukeren er medlem av en pensjonskasse som Storebrand forvalter, ', () => {
+    const storebrandOffentligTp = {
+      simuleringsresultatStatus: 'OK' as const,
+      muligeTpLeverandoerListe: [{ tpNummer: '4098', tpNavn: 'Storebrand' }],
+      simulertTjenestepensjon: {
+        ...offentligTpData.simulertTjenestepensjon,
+        tpLeverandoer: 'Storebrand',
+        tpNummer: '4098',
+      },
+    }
+
+    it('Når simuleringen er vellykket, viser navnet på pensjonskassen i tittelen og lenke til pensjonskassen.', async () => {
+      vi.spyOn(useIsMobileUtils, 'useIsMobile').mockReturnValue(false)
+
+      render(
+        <OffentligTjenestepensjon
+          isLoading={false}
+          isError={false}
+          offentligTp={storebrandOffentligTp}
+          headingLevel="3"
+          erOffentligTpFoer1963={false}
+        />,
+        {
+          preloadedState: {
+            userInput: {
+              ...userInputInitialState,
+              samtykke: true,
+              afp: 'nei',
+            },
+          },
+        }
+      )
+
+      expect(
+        screen.getByText(
+          'Alderspensjon fra Pensjonskassen for Helseforetakene i Hovedstadsområdet'
+        )
+      ).toBeVisible()
+      expect(
+        await screen.findByText(
+          'Du har ikke oppgitt at du har rett til livsvarig AFP. Eventuell livsvarig AFP eller betinget tjenestepensjon er ikke inkludert i dette beløpet. Sjekk',
+          { exact: false }
+        )
+      ).toBeVisible()
+      const link = screen.getByRole('link', {
+        name: 'PKH application.global.external_link',
+      })
+      expect(link).toHaveAttribute('href', 'https://pkh.no/')
+      expect(
+        screen.queryByText('SPK', { exact: false })
+      ).not.toBeInTheDocument()
+    })
+
+    it('Når simuleringen feiler, viser navnet på pensjonskassen i feilmeldingen.', () => {
+      render(
+        <OffentligTjenestepensjon
+          isLoading={false}
+          isError={false}
+          offentligTp={{
+            simuleringsresultatStatus: 'TEKNISK_FEIL',
+            muligeTpLeverandoerListe: [
+              { tpNummer: '4083', tpNavn: 'Storebrand' },
+            ],
+          }}
+          headingLevel="3"
+          erOffentligTpFoer1963={false}
+        />
+      )
+
+      expect(
+        screen.getByTestId(
+          'pensjonsavtaler.klarte-ikke-hente-offentlig-tjenestepensjon'
+        )
+      ).toBeVisible()
+      expect(screen.getByText('Bærum Kommunale Pensjonskasse')).toBeVisible()
     })
   })
 })
