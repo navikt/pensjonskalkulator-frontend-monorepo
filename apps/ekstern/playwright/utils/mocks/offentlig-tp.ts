@@ -21,6 +21,8 @@ type OffentligTpFoer1963Preset =
   | 'spk_foer1963_null_utbetaling'
   | 'spk_foer1963_oppfyller_ikke_inngangsvilkaar'
   | 'spk_foer1963_teknisk_feil'
+  | 'foer1963_unsupported'
+  | 'foer1963_no_membership'
   | 'foer1963_server_error'
 
 type OffentligTpMockOptions =
@@ -291,6 +293,17 @@ const foer1963PresetConfigs: Record<
     simuleringsresultatStatus: 'OK',
     muligeTpLeverandoerListe: ['Statens pensjonskasse'],
     feilkode: 'TEKNISK_FEIL',
+  }),
+  foer1963_unsupported: () => ({
+    simuleringsresultatStatus: 'TP_ORDNING_STOETTES_IKKE',
+    muligeTpLeverandoerListe: [
+      'Statens pensjonskasse',
+      'Kommunal Landspensjonskasse',
+    ],
+  }),
+  foer1963_no_membership: () => ({
+    simuleringsresultatStatus: 'BRUKER_ER_IKKE_MEDLEM_AV_TP_ORDNING',
+    muligeTpLeverandoerListe: [],
   }),
   foer1963_server_error: () => ({
     simuleringsresultatStatus: 'TEKNISK_FEIL',
