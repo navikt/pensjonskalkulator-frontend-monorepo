@@ -216,6 +216,71 @@ test.describe('AFP Offentlig', () => {
 			})
 		}
 
+		for (const { maanedligBeloep, forventetBeloep } of [
+			{ maanedligBeloep: 8347, forventetBeloep: '8 347' },
+			{ maanedligBeloep: 0, forventetBeloep: '0' },
+		]) {
+			test(`inkluderer eksisterende AFP med beløp ${maanedligBeloep} automatisk uten AP-vedtak, også etter nullstilling`, async ({
+				page,
+			}) => {
+				await setupDefaultMocks(page)
+				await page.route('**/api/v2/tpo-livsvarig-offentlig-afp', (route) =>
+					route.fulfill({
+						status: 200,
+						json: { afpStatus: true, maanedligBeloep },
+					})
+				)
+				await setupSimuleringMockWithCapture(page, {
+					livsvarigOffentligAfpListe: [
+						{
+							alderAar: 62,
+							maanedligBeloep,
+							aarligBeloep: maanedligBeloep * 12,
+						},
+					],
+					maanedligAlderspensjonForKnekkpunkter: {
+						vedHeltUttak: { beloep: 23333, inntektspensjonBeloep: 23333 },
+					},
+				})
+				await navigateToApp(page)
+				await expect(
+					page.getByRole('heading', { name: 'AFP', exact: true })
+				).toBeVisible()
+
+				for (const nullstill of [false, true]) {
+					if (nullstill) {
+						await page.getByTestId('nullstill-button').click()
+					}
+					await fillMainFormFields({
+						page,
+						withDefaults: false,
+						fields: {
+							'eps-har-pensjon': 'Nei',
+							'eps-har-inntekt-over-2g': 'Ja',
+							'har-opphold-utenfor-norge': 'Nei',
+							'inntekt-foer-uttak': '500000',
+							'alder-uttak-aar': '65',
+							'alder-uttak-md': '0',
+							uttaksgrad: '100',
+							'har-inntekt-vsa-helt-uttak': 'Nei',
+						},
+					})
+					await expect(page.getByTestId('afp')).toHaveCount(0)
+					const request = page.waitForRequest(API_URLS.SIMULERING)
+					await page.getByTestId('beregn-button').click()
+					expect((await request).postDataJSON()).toMatchObject({
+						simuleringstype: 'ALDERSPENSJON_MED_LIVSVARIG_OFFENTLIG_AFP',
+					})
+					await expect(
+						page
+							.getByTestId('beregning-section-helt')
+							.getByRole('row', { name: /Livsvarig AFP/ })
+							.getByRole('cell', { name: forventetBeloep, exact: true })
+					).toBeVisible()
+				}
+			})
+		}
+
 		test('krever et valg og lar ja/nei styre om AFP-beløpet skal hentes', async ({
 			page,
 		}) => {

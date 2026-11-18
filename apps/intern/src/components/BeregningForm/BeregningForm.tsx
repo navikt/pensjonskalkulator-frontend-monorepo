@@ -165,6 +165,16 @@ export const BeregningForm = () => {
 		] as const,
 	})
 
+	useEffect(() => {
+		if (
+			harVedtakLivsvarigAFP &&
+			!manglerLivsvarigAfpBeloep &&
+			afp !== 'ja_offentlig'
+		) {
+			form.setValue('afp', 'ja_offentlig')
+		}
+	}, [harVedtakLivsvarigAFP, manglerLivsvarigAfpBeloep, afp, form])
+
 	const epsRestrictionCode =
 		epsTilgangNektAarsak ?? epsOpplysninger?.problem?.tilgangsnekt?.aarsak
 	const hasTilgangsbegrensning = BLOCKING_TILGANG_CODES.includes(
