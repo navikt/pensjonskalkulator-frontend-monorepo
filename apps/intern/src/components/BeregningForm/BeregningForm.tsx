@@ -17,7 +17,7 @@ import { addMonths, format, parseISO } from 'date-fns'
 import { type SubmitEvent, useCallback, useEffect, useState } from 'react'
 import { useWatch } from 'react-hook-form'
 
-import { BodyShort, Box, HStack, LocalAlert } from '@navikt/ds-react'
+import { BodyShort, Box, HStack } from '@navikt/ds-react'
 
 import { BLOCKING_TILGANG_CODES } from '../../api/beregningTypes'
 import {
@@ -550,16 +550,14 @@ export const BeregningForm = () => {
 							)}
 						{beregning?.problem?.kode === 'UTILSTREKKELIG_TRYGDETID' &&
 							!alertDismissed && (
-								<LocalAlert
-									status="warning"
-									size="small"
-									data-testid="utilstrekkelig-trygdetid-alert"
-								>
-									<LocalAlert.Content>
-										Vilkårene for uttak av alderspensjon er ikke oppfylt fordi
-										trygdetiden er for kort.
-									</LocalAlert.Content>
-								</LocalAlert>
+								<SanityAlert
+									id="beregning.vilkaarsproeving.kan-ikke-beregne"
+									className={styles.sanityAlert}
+									dynamicValues={{
+										...dynamicGrunnbeloep,
+										...dynamicPensjonsaldre,
+									}}
+								/>
 							)}
 						{(showAlderspensjonFields(afp) || hideAfpSporsmaal) && (
 							<>

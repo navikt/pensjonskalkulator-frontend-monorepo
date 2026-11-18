@@ -14,6 +14,31 @@ test.describe('Simulering error', () => {
 		page,
 	}) => {
 		await setupDefaultMocks(page, { sivilstatus: 'UGIFT' })
+		await mockApi(page, API_URLS.SANITY, MOCK_FILES.SANITY_ALERT, {
+			result: [
+				{
+					name: 'beregning.vilkaarsproeving.kan-ikke-beregne',
+					type: 'local-alert',
+					status: 'warning',
+					innhold: [
+						{
+							_type: 'block',
+							_key: 'tekst',
+							style: 'normal',
+							markDefs: [],
+							children: [
+								{
+									_type: 'span',
+									_key: 'span',
+									text: 'Kan ikke beregne alderspensjon.',
+									marks: [],
+								},
+							],
+						},
+					],
+				},
+			],
+		})
 		await mockApi(page, API_URLS.SIMULERING, undefined, {
 			alderspensjonListe: [],
 			maanedligAlderspensjonVedUttaksendring: {
@@ -35,14 +60,13 @@ test.describe('Simulering error', () => {
 			fields: { 'alder-uttak-aar': '74', 'alder-uttak-md': '0' },
 		})
 
-		const alert = page.getByTestId('utilstrekkelig-trygdetid-alert')
+		const alert = page.getByTestId(
+			'beregning.vilkaarsproeving.kan-ikke-beregne'
+		)
 		await expect(alert).not.toBeVisible()
 		await page.getByTestId('beregn-button').click()
 
-		await expect(alert).toContainText(
-			'Vilkårene for uttak av alderspensjon er ikke oppfylt fordi trygdetiden er for kort.'
-		)
-		await expect(alert).toBeVisible()
+		await expect(alert).toContainText('Kan ikke beregne alderspensjon.')
 		expect(
 			await alert.evaluate(
 				(element, uttaksalder) =>
