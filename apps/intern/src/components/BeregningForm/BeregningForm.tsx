@@ -17,7 +17,7 @@ import { addMonths, format, parseISO } from 'date-fns'
 import { type SubmitEvent, useCallback, useEffect, useState } from 'react'
 import { useWatch } from 'react-hook-form'
 
-import { BodyShort, Box, HStack } from '@navikt/ds-react'
+import { BodyShort, Box, HStack, Heading } from '@navikt/ds-react'
 
 import { BLOCKING_TILGANG_CODES } from '../../api/beregningTypes'
 import {
@@ -403,10 +403,15 @@ export const BeregningForm = () => {
 		})
 
 	const afpSporsmaal = harVedtakLivsvarigAFP ? (
-		<BodyShort size="small">
-			Brukeren har livsvarig AFP i offentlig sektor. Beløpet vil inkluderes i
-			vilkårsprøvingen av alderspensjon.
-		</BodyShort>
+		<div className={styles.fieldGroup}>
+			<Heading level="3" size="xsmall">
+				AFP
+			</Heading>
+			<BodyShort size="small">
+				Brukeren har livsvarig AFP i offentlig sektor. Beløpet vil inkluderes i
+				vilkårsprøvingen av alderspensjon.
+			</BodyShort>
+		</div>
 	) : (
 		!hideAfpSporsmaal && (
 			<>
@@ -421,7 +426,7 @@ export const BeregningForm = () => {
 						resetAlderVelger(value)
 					}}
 				/>
-				{livsvarigAFP?.afpStatus === false && (
+				{livsvarigAFP?.afpStatus === false && afp === 'ja_offentlig' && (
 					<SanityAlert
 						id="beregning.livsvarig-AFP-forvaltes-ikke"
 						className={styles.sanityAlert}

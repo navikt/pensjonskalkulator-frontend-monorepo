@@ -183,12 +183,23 @@ test.describe('AFP Offentlig', () => {
 						{ exact: true }
 					)
 				).toHaveCount(afpStatus === true ? 1 : 0)
+				await expect(
+					page.getByRole('heading', { name: 'AFP', exact: true })
+				).toHaveCount(afpStatus === true ? 1 : 0)
 				await expect(page.getByTestId('afp')).toHaveCount(
 					afpStatus === true ? 0 : 1
 				)
-				await expect(
-					page.getByTestId('beregning.livsvarig-AFP-forvaltes-ikke')
-				).toHaveCount(afpStatus === false ? 1 : 0)
+				const alert = page.getByTestId('beregning.livsvarig-AFP-forvaltes-ikke')
+				await expect(alert).toHaveCount(0)
+
+				if (afpStatus !== true) {
+					for (const valg of ['Ja, offentlig', 'Ja, privat', 'Nei']) {
+						await page.getByTestId('afp').getByLabel(valg).check()
+						await expect(alert).toHaveCount(
+							afpStatus === false && valg === 'Ja, offentlig' ? 1 : 0
+						)
+					}
+				}
 			})
 		}
 
@@ -196,7 +207,7 @@ test.describe('AFP Offentlig', () => {
 			page,
 		}) => {
 			await setupDefaultMocks(page)
-			await setupSimuleringMockWithCapture(page, {
+			const capture = await setupSimuleringMockWithCapture(page, {
 				livsvarigOffentligAfpListe: [
 					{ alderAar: 62, maanedligBeloep: 8347, aarligBeloep: 100164 },
 					{ alderAar: 67, maanedligBeloep: 8500, aarligBeloep: 102000 },
@@ -223,6 +234,9 @@ test.describe('AFP Offentlig', () => {
 			await page.getByTestId('alder-helt-uttak-md').selectOption('0')
 			await page.getByTestId('beregn-button').click()
 
+			await expect
+				.poll(() => capture.getCapturedBody()?.simuleringstype)
+				.toBe('ALDERSPENSJON_MED_LIVSVARIG_OFFENTLIG_AFP')
 			const gradert = page.getByTestId('beregning-section-gradert')
 			const helt = page.getByTestId('beregning-section-helt')
 			await expect(gradert.getByText('50 % alderspensjon')).toBeVisible()

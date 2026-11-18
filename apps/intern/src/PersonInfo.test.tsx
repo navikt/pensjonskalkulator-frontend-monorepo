@@ -33,29 +33,29 @@ describe('PersonInfo – henting av livsvarig AFP', () => {
 	})
 
 	test.each([
-		{ foedselsdato: undefined, erApoteker: false, forventetFnr: undefined },
-		{ foedselsdato: '1962-12-31', erApoteker: false, forventetFnr: undefined },
-		{ foedselsdato: '1963-01-01', erApoteker: false, forventetFnr: 'test-fnr' },
-		{ foedselsdato: '1964-04-30', erApoteker: true, forventetFnr: undefined },
+		{ foedselsdato: undefined, erApoteker: false, enabled: false },
+		{ foedselsdato: '1962-12-31', erApoteker: false, enabled: false },
+		{ foedselsdato: '1963-01-01', erApoteker: false, enabled: true },
+		{ foedselsdato: '1964-04-30', erApoteker: true, enabled: false },
 		{
 			foedselsdato: '1964-04-30',
 			erApoteker: undefined,
-			forventetFnr: undefined,
+			enabled: true,
 		},
-		{ foedselsdato: '1964-04-30', erApoteker: null, forventetFnr: undefined },
-		{ foedselsdato: '1964-04-30', erApoteker: false, forventetFnr: 'test-fnr' },
+		{ foedselsdato: '1964-04-30', erApoteker: null, enabled: true },
+		{ foedselsdato: '1964-04-30', erApoteker: false, enabled: true },
 	])(
-		'bruker fnr $forventetFnr ved fødselsdato $foedselsdato og apotekerstatus $erApoteker',
-		({ foedselsdato, erApoteker, forventetFnr }) => {
+		'setter enabled til $enabled ved fødselsdato $foedselsdato og apotekerstatus $erApoteker',
+		({ foedselsdato, erApoteker, enabled }) => {
 			queryState.foedselsdato = foedselsdato
 			queryState.erApoteker = erApoteker
 
 			render(<PersonInfo />)
 
-			expect(useLivsvarigAFPQuery).toHaveBeenCalledWith(
-				'test-fnr',
-				forventetFnr !== undefined
-			)
+			expect(useLivsvarigAFPQuery).toHaveBeenCalledWith({
+				fnr: 'test-fnr',
+				enabled,
+			})
 		}
 	)
 })
