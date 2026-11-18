@@ -13,7 +13,8 @@ import { AvansertSkjemaForBrukereMedKap19Afp } from '../AvansertSkjema/AvansertS
 // TODO PEK-1026 - se om vilkaarsproeving kan hentes direkte fra skjema-komponentene og FormButton for å unngå prop-drilling
 export const RedigerAvansertBeregning: React.FC<{
   vilkaarsproeving?: Vilkaarsproeving
-}> = ({ vilkaarsproeving }) => {
+  utilstrekkeligTrygdetid?: boolean
+}> = ({ vilkaarsproeving, utilstrekkeligTrygdetid }) => {
   React.useEffect(() => {
     window.scrollTo(0, 0)
   }, [])
@@ -24,13 +25,20 @@ export const RedigerAvansertBeregning: React.FC<{
   // TODO Ny komponent <AvansertSkjemaForBrukereMedKap19AFP />
 
   return skalBeregneKap19Afp ? (
-    <AvansertSkjemaForBrukereMedKap19Afp vilkaarsproeving={vilkaarsproeving} />
+    <AvansertSkjemaForBrukereMedKap19Afp
+      vilkaarsproeving={vilkaarsproeving}
+      utilstrekkeligTrygdetid={utilstrekkeligTrygdetid}
+    />
   ) : loependeVedtak.ufoeretrygd.grad &&
     loependeVedtak.ufoeretrygd.grad !== 100 ? (
     <AvansertSkjemaForBrukereMedGradertUfoeretrygd
       vilkaarsproeving={vilkaarsproeving}
+      utilstrekkeligTrygdetid={utilstrekkeligTrygdetid}
     />
   ) : (
-    <AvansertSkjemaForAndreBrukere vilkaarsproeving={vilkaarsproeving} />
+    <AvansertSkjemaForAndreBrukere
+      vilkaarsproeving={vilkaarsproeving}
+      utilstrekkeligTrygdetid={utilstrekkeligTrygdetid}
+    />
   )
 }

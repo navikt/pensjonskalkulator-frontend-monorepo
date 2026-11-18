@@ -483,4 +483,54 @@ describe('VilkaarsproevingAlert', () => {
       )
     })
   })
+  describe('Utilstrekkelig trygdetid', () => {
+    it('viser Sanity-varsel for at beregning ikke kan gjøres', () => {
+      render(
+        <SanityContext.Consumer>
+          {(sanityContext) => (
+            <SanityContext.Provider
+              value={{
+                ...sanityContext,
+                alertData: {
+                  'beregning.vilkaarsproeving.kan-ikke-beregne': {
+                    name: 'beregning.vilkaarsproeving.kan-ikke-beregne',
+                    type: 'local-alert',
+                    status: 'warning',
+                    innhold: [
+                      {
+                        _type: 'block',
+                        _key: 'tekst',
+                        style: 'normal',
+                        markDefs: [],
+                        children: [
+                          {
+                            _type: 'span',
+                            _key: 'span',
+                            text: 'Kan ikke beregne alderspensjon.',
+                            marks: [],
+                          },
+                        ],
+                      },
+                    ],
+                  } as never,
+                },
+              }}
+            >
+              <VilkaarsproevingAlert
+                alternativ={undefined}
+                uttaksalder={{ aar: 74, maaneder: 0 }}
+                utilstrekkeligTrygdetid
+              />
+            </SanityContext.Provider>
+          )}
+        </SanityContext.Consumer>,
+        { preloadedApiState: { getPerson: personMock } }
+      )
+
+      expect(
+        screen.getByTestId('beregning.vilkaarsproeving.kan-ikke-beregne')
+      ).toHaveTextContent('Kan ikke beregne alderspensjon.')
+      expect(screen.getAllByRole('alert')).toHaveLength(1)
+    })
+  })
 })

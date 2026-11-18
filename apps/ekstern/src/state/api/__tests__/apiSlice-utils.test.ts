@@ -17,6 +17,7 @@ import {
   generateTidligstMuligHeltUttakRequestBody,
   getSimuleringstypeFromRadioEllerVedtak,
   harTekniskSimuleringsfeil,
+  harUtilstrekkeligTrygdetid,
   transformUtenlandsperioderArray,
 } from '../utils'
 
@@ -42,6 +43,26 @@ describe('harTekniskSimuleringsfeil', () => {
     expect(harTekniskSimuleringsfeil(undefined)).toBe(false)
     expect(harTekniskSimuleringsfeil({})).toBe(false)
     expect(harTekniskSimuleringsfeil({ problem: null })).toBe(false)
+  })
+})
+
+describe('harUtilstrekkeligTrygdetid', () => {
+  it('returnerer true for UTILSTREKKELIG_TRYGDETID', () => {
+    expect(
+      harUtilstrekkeligTrygdetid({
+        problem: { kode: 'UTILSTREKKELIG_TRYGDETID', beskrivelse: '' },
+      })
+    ).toBe(true)
+  })
+
+  it('returnerer false for andre problemkoder og når problem mangler', () => {
+    expect(
+      harUtilstrekkeligTrygdetid({
+        problem: { kode: 'UTILSTREKKELIG_OPPTJENING', beskrivelse: '' },
+      })
+    ).toBe(false)
+    expect(harUtilstrekkeligTrygdetid(undefined)).toBe(false)
+    expect(harUtilstrekkeligTrygdetid({ problem: null })).toBe(false)
   })
 })
 
