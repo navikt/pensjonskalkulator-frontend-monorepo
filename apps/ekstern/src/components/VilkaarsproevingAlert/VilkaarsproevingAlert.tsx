@@ -62,13 +62,13 @@ export const VilkaarsproevingAlert = ({
 
   if (utilstrekkeligTrygdetid) {
     logger(ALERT_VIST, {
-      tekst: 'beregning.vilkaarsproeving.kan-ikke-beregne',
+      tekst: 'beregning.vilkaarsproeving.kan-ikke-beregne-ekstern',
       variant: 'warning',
     })
 
     return (
       <SanityAlert
-        id="beregning.vilkaarsproeving.kan-ikke-beregne"
+        id="beregning.vilkaarsproeving.kan-ikke-beregne-ekstern"
         role="alert"
         dynamicValues={dynamicPensjonsaldre}
       />
