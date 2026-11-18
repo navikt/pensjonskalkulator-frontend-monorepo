@@ -359,7 +359,7 @@ export const BeregningEnkel = () => {
                 />
               ) : utilstrekkeligTrygdetid ? (
                 <SanityAlert
-                  id="beregning.vilkaarsproeving.kan-ikke-beregne"
+                  id="beregning.vilkaarsproeving.kan-ikke-beregne-ekstern"
                   className={beregningStyles.beregningAlert}
                 />
               ) : (
