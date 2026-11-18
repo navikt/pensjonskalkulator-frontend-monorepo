@@ -206,6 +206,7 @@ export const AarligPensjonTable = ({
 						size="small"
 						className={styles.table}
 					>
+						<caption className="srOnly">Årlig inntekt og pensjon</caption>
 						<Table.Header>
 							<Table.Row className={styles.headerRow}>
 								<Table.HeaderCell scope="col">
@@ -250,9 +251,9 @@ export const AarligPensjonTable = ({
 								const sum = row.alderspensjon + row.afp + row.inntekt
 								return (
 									<Table.Row key={row.alderLabel}>
-										<Table.DataCell>
+										<Table.HeaderCell scope="row">
 											<BodyShort size="small">{row.alderLabel}</BodyShort>
-										</Table.DataCell>
+										</Table.HeaderCell>
 										{visAlderspensjonKolonne && (
 											<Table.DataCell align="right">
 												<BodyShort size="small">
