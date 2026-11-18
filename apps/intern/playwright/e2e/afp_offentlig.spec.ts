@@ -144,15 +144,23 @@ async function fillFormWithServiceberegning(page: Page) {
 
 test.describe('AFP Offentlig', () => {
 	test.describe('Livsvarig AFP', () => {
-		for (const afpStatus of [true, false, null, undefined]) {
-			test(`viser AFP-tekst eller varsel basert på afpStatus: ${afpStatus}`, async ({
+		for (const { afpStatus, maanedligBeloep } of [
+			{ afpStatus: true, maanedligBeloep: 8347 },
+			{ afpStatus: true, maanedligBeloep: 0 },
+			{ afpStatus: true, maanedligBeloep: null },
+			{ afpStatus: true, maanedligBeloep: undefined },
+			{ afpStatus: false, maanedligBeloep: undefined },
+			{ afpStatus: null, maanedligBeloep: undefined },
+			{ afpStatus: undefined, maanedligBeloep: undefined },
+		]) {
+			test(`viser AFP-felt ved afpStatus ${afpStatus} og månedsbeløp ${maanedligBeloep}`, async ({
 				page,
 			}) => {
 				await setupDefaultMocks(page)
 				await page.route('**/api/v2/tpo-livsvarig-offentlig-afp', (route) =>
 					route.fulfill({
 						status: 200,
-						json: { afpStatus },
+						json: { afpStatus, maanedligBeloep },
 					})
 				)
 				await page.route(API_URLS.SANITY, (route) =>
@@ -164,7 +172,8 @@ test.describe('AFP Offentlig', () => {
 									name: 'beregning.livsvarig-AFP-forvaltes-ikke',
 									type: 'local-alert',
 									status: 'info',
-									overskrift: 'Livsvarig AFP forvaltes ikke av Nav.',
+									overskrift:
+										'Merk at livsvarig AFP ikke forvaltes av Nav og bare skal velges hvis det er relevant for veiledningen.',
 									innhold: [],
 								},
 							],
@@ -177,6 +186,7 @@ test.describe('AFP Offentlig', () => {
 
 				await navigateToApp(page)
 				await response
+				const manglerBeloep = afpStatus === true && maanedligBeloep == null
 				await expect(
 					page.getByText(
 						'Brukeren har livsvarig AFP i offentlig sektor. Beløpet vil inkluderes i vilkårsprøvingen av alderspensjon.',
@@ -187,21 +197,80 @@ test.describe('AFP Offentlig', () => {
 					page.getByRole('heading', { name: 'AFP', exact: true })
 				).toHaveCount(afpStatus === true ? 1 : 0)
 				await expect(page.getByTestId('afp')).toHaveCount(
-					afpStatus === true ? 0 : 1
+					afpStatus === true && !manglerBeloep ? 0 : 1
 				)
+				await expect(
+					page.getByRole('radiogroup', {
+						name: 'Skal AFP-beløp hentes i beregningen?',
+					})
+				).toHaveCount(manglerBeloep ? 1 : 0)
 				const alert = page.getByTestId('beregning.livsvarig-AFP-forvaltes-ikke')
-				await expect(alert).toHaveCount(0)
+				await expect(alert).toHaveCount(manglerBeloep ? 1 : 0)
 
 				if (afpStatus !== true) {
 					for (const valg of ['Ja, offentlig', 'Ja, privat', 'Nei']) {
 						await page.getByTestId('afp').getByLabel(valg).check()
-						await expect(alert).toHaveCount(
-							afpStatus === false && valg === 'Ja, offentlig' ? 1 : 0
-						)
+						await expect(alert).toHaveCount(0)
 					}
 				}
 			})
 		}
+
+		test('krever et valg og lar ja/nei styre om AFP-beløpet skal hentes', async ({
+			page,
+		}) => {
+			await setupDefaultMocks(page)
+			await page.route('**/api/v2/tpo-livsvarig-offentlig-afp', (route) =>
+				route.fulfill({
+					status: 200,
+					json: { afpStatus: true, maanedligBeloep: null },
+				})
+			)
+			const capture = await setupSimuleringMockWithCapture(page, {
+				livsvarigOffentligAfpListe: [
+					{ alderAar: 62, maanedligBeloep: 8347, aarligBeloep: 100164 },
+				],
+			})
+			await navigateToApp(page)
+			const sporsmaal = page.getByRole('radiogroup', {
+				name: 'Skal AFP-beløp hentes i beregningen?',
+			})
+			await expect(sporsmaal).toBeVisible()
+			await page.getByTestId('beregn-button').click()
+			await expect(
+				sporsmaal.getByText('Velg om AFP skal inkluderes.')
+			).toBeVisible()
+			expect(capture.getCapturedBody()).toBeUndefined()
+
+			await page.getByTestId('eps-har-pensjon').getByLabel('Nei').check()
+			await page.getByTestId('eps-har-inntekt-over-2g').getByLabel('Ja').check()
+			await fillMainFormFields({
+				page,
+				fields: {
+					'alder-uttak-aar': '65',
+					'alder-uttak-md': '0',
+				},
+			})
+			await sporsmaal.getByRole('radio', { name: 'Ja', exact: true }).check()
+			await page.getByTestId('beregn-button').click()
+			await expect
+				.poll(() => capture.getCapturedBody()?.simuleringstype)
+				.toBe('ALDERSPENSJON_MED_LIVSVARIG_OFFENTLIG_AFP')
+			await expect(
+				page
+					.getByTestId('beregning-section-helt')
+					.getByRole('row', { name: /Livsvarig AFP/ })
+			).toContainText('8 347')
+
+			await sporsmaal.getByRole('radio', { name: 'Nei', exact: true }).check()
+			await page.getByTestId('beregn-button').click()
+			await expect
+				.poll(() => capture.getCapturedBody()?.simuleringstype)
+				.toBe('ALDERSPENSJON')
+			await expect(
+				page.getByRole('row', { name: /Livsvarig AFP/ })
+			).toHaveCount(0)
+		})
 
 		test('bruker første AFP-beløp ved både gradert og helt uttak uavhengig av alder', async ({
 			page,

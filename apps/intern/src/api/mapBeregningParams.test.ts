@@ -18,7 +18,7 @@ const person: PersonInternV1 = {
 
 describe('simuleringstype for offentlig AFP', () => {
 	test.each([false, true])(
-		'velger livsvarig AFP med endringAP %s',
+		'velger simuleringstype for ja/nei til AFP med endringAP %s',
 		(endringAP) => {
 			const request = mapBeregningParamsToRequest(
 				{
@@ -36,6 +36,20 @@ describe('simuleringstype for offentlig AFP', () => {
 					: 'ALDERSPENSJON_MED_LIVSVARIG_OFFENTLIG_AFP'
 			)
 			expect(request.offentligAfp).toBeUndefined()
+
+			const requestUtenAfp = mapBeregningParamsToRequest(
+				{
+					...defaultBeregningFormData,
+					afp: 'nei',
+					endringAP,
+				},
+				false,
+				person
+			)
+
+			expect(requestUtenAfp.simuleringstype).toBe(
+				endringAP ? 'ENDRING_ALDERSPENSJON' : 'ALDERSPENSJON'
+			)
 		}
 	)
 

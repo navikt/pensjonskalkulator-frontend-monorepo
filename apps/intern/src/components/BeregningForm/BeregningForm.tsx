@@ -121,6 +121,8 @@ export const BeregningForm = () => {
 	const harVedtakTidsbegrensetOffentligAFP =
 		!erEndring && Boolean(vedtak?.tidsbegrensetOffentligAfpFom)
 	const harVedtakLivsvarigAFP = livsvarigAFP?.afpStatus === true
+	const manglerLivsvarigAfpBeloep =
+		harVedtakLivsvarigAFP && livsvarigAFP?.maanedligBeloep == null
 	const nullGradAP = erEndring && vedtak?.loependeAlderspensjon?.grad === 0
 
 	useEffect(() => {
@@ -228,7 +230,7 @@ export const BeregningForm = () => {
 		const errors = validate(normalizedFormData, {
 			foedselsdato: person?.foedselsdato,
 			erEndring,
-			hideAfpSporsmaal,
+			hideAfpSporsmaal: hideAfpSporsmaal && !manglerLivsvarigAfpBeloep,
 			initialInntektAar,
 			erApoteker,
 		})
@@ -411,6 +413,24 @@ export const BeregningForm = () => {
 				Brukeren har livsvarig AFP i offentlig sektor. Beløpet vil inkluderes i
 				vilkårsprøvingen av alderspensjon.
 			</BodyShort>
+			{manglerLivsvarigAfpBeloep && (
+				<>
+					<RHFRadio
+						name="afp"
+						legend="Skal AFP-beløp hentes i beregningen?"
+						options={[
+							{ value: 'ja_offentlig', label: 'Ja' },
+							{ value: 'nei', label: 'Nei' },
+						]}
+						testid="afp"
+						onChange={() => setAlertDismissed(true)}
+					/>
+					<SanityAlert
+						id="beregning.livsvarig-AFP-forvaltes-ikke"
+						className={styles.sanityAlert}
+					/>
+				</>
+			)}
 		</div>
 	) : (
 		!hideAfpSporsmaal && (
@@ -426,12 +446,6 @@ export const BeregningForm = () => {
 						resetAlderVelger(value)
 					}}
 				/>
-				{livsvarigAFP?.afpStatus === false && afp === 'ja_offentlig' && (
-					<SanityAlert
-						id="beregning.livsvarig-AFP-forvaltes-ikke"
-						className={styles.sanityAlert}
-					/>
-				)}
 				{showUTOgAFPAlert && (
 					<SanityAlert
 						id="beregning.ufoeretrygd-med-sim-ap-og-afp-privat"
