@@ -1,4 +1,4 @@
-import { type ReactNode } from 'react'
+import { type ReactNode, type Ref } from 'react'
 import { type FieldPath, useController, useFormContext } from 'react-hook-form'
 
 import { Select } from '@navikt/ds-react'
@@ -13,6 +13,7 @@ interface RHFSelectProps {
 	className?: string
 	numeric?: boolean
 	testId?: string
+	selectRef?: Ref<HTMLSelectElement>
 }
 
 export function RHFSelect({
@@ -22,6 +23,7 @@ export function RHFSelect({
 	className,
 	numeric,
 	testId,
+	selectRef,
 }: RHFSelectProps) {
 	const {
 		control,
@@ -40,6 +42,7 @@ export function RHFSelect({
 			size="small"
 			className={className}
 			data-testid={testId}
+			ref={selectRef}
 			value={
 				typeof field.value === 'string' || typeof field.value === 'number'
 					? String(field.value)
