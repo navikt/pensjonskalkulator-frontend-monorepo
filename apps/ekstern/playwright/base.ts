@@ -166,7 +166,7 @@ export async function setupInterceptions(
       mockFileName: 'inntekt.json',
     },
     {
-      url: /\/pensjon\/kalkulator\/api\/v2\/simuler-oftp/,
+      url: /\/pensjon\/kalkulator\/api\/v[23]\/simuler-oftp/,
       method: 'POST',
       mockFileName: 'offentlig-tp.json',
     },

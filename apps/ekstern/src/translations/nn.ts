@@ -509,6 +509,10 @@ export default {
   'pensjonsavtaler.offentligtp.spk.afp_vet_ikke': 'MANGLER_TEKST',
   'pensjonsavtaler.offentligtp.klp.afp_ja': 'MANGLER_TEKST',
   'pensjonsavtaler.offentligtp.klp.afp_nei+vetikke': 'MANGLER_TEKST',
+  'pensjonsavtaler.offentligtp.subtitle.tp_ordning':
+    'Alderspensjon frå {tpOrdningNavn}',
+  'pensjonsavtaler.offentligtp.tp_ordning.afp_ja': 'MANGLER_TEKST',
+  'pensjonsavtaler.offentligtp.tp_ordning.afp_nei+vetikke': 'MANGLER_TEKST',
   'inntekt.endre_inntekt_modal.textfield.description': 'MANGLER_TEKST',
   'inntekt.endre_inntekt_modal.textfield.description.ufoere': 'MANGLER_TEKST',
   'inntekt.endre_inntekt_modal.paragraph': 'MANGLER_TEKST',

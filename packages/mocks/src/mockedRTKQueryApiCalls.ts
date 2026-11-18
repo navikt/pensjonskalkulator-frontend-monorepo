@@ -342,9 +342,9 @@ export const loependeVedtakFremtidigMedAlderspensjonMock: LoependeVedtak = {
 export const simulerOffentligTpMock = {
 	simuleringsresultatStatus: 'OK' as const,
 	muligeTpLeverandoerListe: [
-		'Statens pensjonskasse',
-		'Kommunal Landspensjonskasse',
-		'Oslo Pensjonsforsikring',
+		{ tpNummer: '3010', tpNavn: 'Statens pensjonskasse' },
+		{ tpNummer: '4082', tpNavn: 'Kommunal Landspensjonskasse' },
+		{ tpNummer: '9999', tpNavn: 'Oslo Pensjonsforsikring' },
 	],
 }
 

@@ -66,14 +66,14 @@ export async function selectHarOppholdUtenforNorge(
 	page: Page,
 	value: 'Ja' | 'Nei'
 ) {
-	const radioGroup = page.getByRole('group', {
+	const radioGroup = page.getByRole('radiogroup', {
 		name: HAR_OPPHOLD_UTENFOR_NORGE,
 	})
 	await radioGroup.getByLabel(value).check()
 }
 
 export function jobbetGroup(page: Page) {
-	return page.getByRole('group', { name: JOBBET_I_LANDET })
+	return page.getByRole('radiogroup', { name: JOBBET_I_LANDET })
 }
 
 export async function selectLand(page: Page, landkode: string) {
@@ -128,7 +128,7 @@ export async function addOpphold(
 
 export async function fillMainFormFields(page: Page) {
 	await page
-		.getByRole('group', { name: 'Skal AFP inkluderes?' })
+		.getByRole('radiogroup', { name: 'Skal AFP inkluderes?' })
 		.getByLabel('Nei')
 		.check()
 	await page
@@ -141,7 +141,7 @@ export async function fillMainFormFields(page: Page) {
 		.selectOption('67')
 	await page.getByRole('combobox', { name: 'Uttaksgrad' }).selectOption('100')
 	await page
-		.getByRole('group', {
+		.getByRole('radiogroup', {
 			name: 'Har bruker inntekt ved siden av 100 % uttak?',
 		})
 		.getByLabel('Nei')
@@ -195,13 +195,13 @@ export async function expectNoValidationMessage(
 export async function completeRemainingSimulationFields(page: Page) {
 	await fillMainFormFields(page)
 	await page
-		.getByRole('group', {
+		.getByRole('radiogroup', {
 			name: /Mottar .+ pensjon, uføretrygd eller AFP ved uttak/,
 		})
 		.getByLabel('Ja')
 		.check()
 	await page
-		.getByRole('group', { name: 'Skal AFP inkluderes?' })
+		.getByRole('radiogroup', { name: 'Skal AFP inkluderes?' })
 		.getByLabel('Nei')
 		.check()
 }
