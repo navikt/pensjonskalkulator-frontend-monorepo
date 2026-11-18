@@ -172,13 +172,7 @@ export function mapBeregningResultToLagreSpec(
 		gradertUttakAar,
 	})
 
-	const {
-		vedHeltUttak: livsvarigOffentligAfpVedHeltUttak,
-		vedGradertUttak: livsvarigOffentligAfpVedGradertUttak,
-	} = selectByUttakAlder(result.livsvarigOffentligAfpListe, {
-		heltUttakAar,
-		gradertUttakAar,
-	})
+	const livsvarigOffentligAfp = result.livsvarigOffentligAfpListe?.[0]
 
 	const { vedHeltUttak: privatAfpVedNormertPensjonsalder } = selectByUttakAlder(
 		result.privatAfpListe,
@@ -238,16 +232,16 @@ export function mapBeregningResultToLagreSpec(
 		aktivBeregning?.afp !== 'serviceberegning'
 			? (aktivBeregning?.aarligInntektFoerUttakBeloep ?? 0)
 			: 0
-	const aarligInntektOgPensjonListe = buildTableRows(
-		result.alderspensjonListe,
-		result.privatAfpListe,
-		result.tidsbegrensetOffentligAfp,
-		result.serviceberegnetAfp,
+	const aarligInntektOgPensjonListe = buildTableRows({
+		alderspensjonListe: result.alderspensjonListe,
+		privatAfpListe: result.privatAfpListe,
+		tidsbegrensetOffentligAfp: result.tidsbegrensetOffentligAfp,
+		serviceberegnetAfp: result.serviceberegnetAfp,
 		aarligInntektFoerUttakBeloep,
 		heltUttakAlder,
 		aktivBeregning,
-		person
-	).map((row) => ({
+		person,
+	}).map((row) => ({
 		alderLabel: row.alderLabel,
 		alderspensjon: row.alderspensjon,
 		avtalefestetPensjon: row.afp,
@@ -317,19 +311,17 @@ export function mapBeregningResultToLagreSpec(
 				}
 			: null,
 		// Livsvarig offentlig AFP mappes separat fra tidsbegrenset AFP i save-spec.
-		afpOffentligLivsvarig: livsvarigOffentligAfpVedHeltUttak
+		afpOffentligLivsvarig: livsvarigOffentligAfp
 			? {
-					vedGradertUttak: livsvarigOffentligAfpVedGradertUttak
+					vedGradertUttak: gradertUttakAlder
 						? {
-								...livsvarigOffentligAfpVedGradertUttak,
-								maanedligBeloep:
-									livsvarigOffentligAfpVedGradertUttak.maanedligBeloep ?? 0,
+								...livsvarigOffentligAfp,
+								maanedligBeloep: livsvarigOffentligAfp.maanedligBeloep ?? 0,
 							}
 						: null,
 					vedHeltUttak: {
-						...livsvarigOffentligAfpVedHeltUttak,
-						maanedligBeloep:
-							livsvarigOffentligAfpVedHeltUttak.maanedligBeloep ?? 0,
+						...livsvarigOffentligAfp,
+						maanedligBeloep: livsvarigOffentligAfp.maanedligBeloep ?? 0,
 					},
 				}
 			: null,

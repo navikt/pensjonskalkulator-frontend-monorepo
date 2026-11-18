@@ -1,4 +1,5 @@
 import type {
+	LivsvarigOffentligAFP,
 	SimuleringAfpPrivat,
 	SimuleringMaanedligAlderspensjon,
 	TidsbegrensetOffentligAFP,
@@ -272,6 +273,19 @@ export function formatAfpTitle(aar: number, md: number): string {
 export type ServiceberegnetAfpResult = NonNullable<
 	NonNullable<BeregningResult['serviceberegnetAfp']>['beregnetAfp']
 >
+
+export function mapLivsvarigOffentligAfpToRows(
+	entry: LivsvarigOffentligAFP
+): BeregningTableRow[] {
+	return [
+		{
+			label: 'Livsvarig AFP',
+			value: entry.maanedligBeloep ?? 0,
+			yearlyValue: entry.aarligBeloep,
+			showWhenZero: true,
+		},
+	]
+}
 
 export function mapAfpToRows(entry: {
 	grunnpensjon: number

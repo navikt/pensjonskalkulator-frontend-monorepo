@@ -24,7 +24,10 @@ import {
 	VStack,
 } from '@navikt/ds-react'
 
-import { erKap19EllerApoteker } from '../../api/formConditions'
+import {
+	erKap19EllerApoteker,
+	showLivsvarigAFP,
+} from '../../api/formConditions'
 import { mapBeregningParamsToRequest } from '../../api/mapBeregningParams'
 import { mapBeregningResultToLagreSpec } from '../../api/mapLagreSimulering'
 import {
@@ -43,11 +46,11 @@ import { BeregningSection } from '../BeregningSection/BeregningSection'
 import { Divider } from '../Divider/Divider'
 import { buildForbeholdContext } from '../Forbehold/forbeholdContext'
 import { AarligPensjonTable } from './AarligPensjonTable'
-import { AfpBeregningSection } from './AfpBeregningSection'
+import { AfpBeregningSection, type OffentligAfp } from './AfpBeregningSection'
 import { OpptjeningTable } from './OpptjeningTable'
 import { ServiceAfpBeregningSection } from './ServiceAfpBeregningSection'
 import { SimuleringFeil } from './SimuleringFeil'
-import { formatAlderTitle } from './beregningMappers'
+import { formatAfpTitle, formatAlderTitle } from './beregningMappers'
 
 import styles from './Beregning.module.css'
 
@@ -202,6 +205,34 @@ export const Beregning = () => {
 		beregning?.privatAfpListe,
 		{ heltUttakAar: 67 }
 	)
+	const helMaanedligAlderspensjon =
+		beregning.maanedligAlderspensjonForKnekkpunkter?.vedHeltUttak
+	const gradertMaanedligAlderspensjon =
+		beregning.maanedligAlderspensjonForKnekkpunkter?.vedGradertUttak
+
+	const visLivsvarigOffentligAfp =
+		aktivBeregning?.afp === 'ja_offentlig' &&
+		showLivsvarigAFP({ foedselsdato: person?.foedselsdato, erApoteker })
+	// Bruk alltid første AFP-beløp, uavhengig av AP-uttaksalder.
+	const livsvarigOffentligAfp = beregning.livsvarigOffentligAfpListe?.[0]
+
+	// Livsvarig offentlig AFP kan finnes uten vedtak om AP, i motsetning til privat AFP.
+	let offentligAfpIEgenSeksjon: OffentligAfp | null = null
+	if (skalBeregneAfpKap19 && beregning.tidsbegrensetOffentligAfp) {
+		offentligAfpIEgenSeksjon = {
+			type: 'tidsbegrenset',
+			entry: beregning.tidsbegrensetOffentligAfp,
+		}
+	} else if (
+		visLivsvarigOffentligAfp &&
+		!(helMaanedligAlderspensjon || gradertMaanedligAlderspensjon) &&
+		livsvarigOffentligAfp
+	) {
+		offentligAfpIEgenSeksjon = {
+			type: 'livsvarig',
+			entry: livsvarigOffentligAfp,
+		}
+	}
 
 	const aktivRequest = aktivBeregning
 		? mapBeregningParamsToRequest(
@@ -211,12 +242,6 @@ export const Beregning = () => {
 				grunnbeloep
 			)
 		: null
-
-	const helMaanedligAlderspensjon =
-		beregning.maanedligAlderspensjonForKnekkpunkter?.vedHeltUttak
-
-	const gradertMaanedligAlderspensjon =
-		beregning.maanedligAlderspensjonForKnekkpunkter?.vedGradertUttak
 
 	const normertMaanedligAlderspensjon =
 		beregning.maanedligAlderspensjonForKnekkpunkter?.vedNormertPensjonsalder
@@ -271,8 +296,8 @@ export const Beregning = () => {
 		aktivBeregning?.afp === 'ja_privat' ||
 		aktivBeregning?.endringAfpPrivat === true
 
-	const harGradertUttakEllerAfpPrivatUtenUttak =
-		gradertMaanedligAlderspensjon || (harAfpPrivat && erUttaksgradNull)
+	const visGradertUttaksseksjon =
+		Boolean(gradertMaanedligAlderspensjon) || (harAfpPrivat && erUttaksgradNull)
 
 	const shouldRenderAFPPrivatForGradertSection =
 		gradertMaanedligAlderspensjon || erUttaksgradNull
@@ -307,38 +332,34 @@ export const Beregning = () => {
 		simulererMedGjenlevenderett,
 		reducedGrunnpensjon,
 	}
-	const showGradertFirst =
-		!!gradertMaanedligAlderspensjon || (harAfpPrivat && erUttaksgradNull)
-
 	const showCheckboxOnAfpKap19 =
-		!showGradertFirst &&
+		!visGradertUttaksseksjon &&
 		skalBeregneAfpKap19 &&
 		!!beregning.tidsbegrensetOffentligAfp
 
 	const showCheckboxOnHelt =
-		!showGradertFirst && !showCheckboxOnAfpKap19 && !erServiceberegning
+		!visGradertUttaksseksjon && !showCheckboxOnAfpKap19 && !erServiceberegning
 
 	const harGjenlevenderett =
 		vedtak?.loependeAlderspensjon?.harGjenlevenderett ?? false
 
-	const gradertAfpSection = (
+	const gradertUttaksseksjon = (
 		<BeregningSection
 			title={titleGradertUttak || ''}
 			{...sectionCommonProps}
 			entry={gradertMaanedligAlderspensjon ?? undefined}
-			showAfp={harAfpPrivat}
-			afpEntry={afpPrivatVedGradertUttak ?? undefined}
-			visKronetillegg={(gradertUttakAlder?.aar ?? 0) < 67}
-			totalAddToSum={
-				(gradertMaanedligAlderspensjon?.beloep ?? 0) +
-				(afpPrivatVedGradertUttak?.maanedligBeloep ?? 0)
+			visPrivatAfp={harAfpPrivat}
+			privatAfp={afpPrivatVedGradertUttak ?? undefined}
+			livsvarigOffentligAfp={
+				visLivsvarigOffentligAfp ? livsvarigOffentligAfp : undefined
 			}
+			visKronetillegg={(gradertUttakAlder?.aar ?? 0) < 67}
 			alderspensjonGrad={aktivBeregning?.uttaksgrad ?? 0}
 			isGradert
 			erUttaksgradNull={erUttaksgradNull}
 			visAarsbelop={visAarsbelop}
 			testId="beregning-section-gradert"
-			showVisAarsbelopCheckbox={showGradertFirst}
+			showVisAarsbelopCheckbox={visGradertUttaksseksjon}
 			harGjenlevenderett={harGjenlevenderett}
 			onVisAarsbelopChange={setVisAarsbelop}
 		/>
@@ -355,12 +376,8 @@ export const Beregning = () => {
 				title={formatAlderTitle(67, 0, normertUttakDato)}
 				{...sectionCommonProps}
 				entry={normertMaanedligAlderspensjon ?? undefined}
-				showAfp
-				afpEntry={afpPrivatVed67Aar ?? undefined}
-				totalAddToSum={
-					(normertMaanedligAlderspensjon?.beloep ?? 0) +
-					(afpPrivatVed67Aar?.maanedligBeloep ?? 0)
-				}
+				visPrivatAfp
+				privatAfp={afpPrivatVed67Aar ?? undefined}
 				alderspensjonGrad={normertAfpAlderspensjonGrad}
 				isGradert
 				testId={testId}
@@ -429,6 +446,7 @@ export const Beregning = () => {
 							</BodyLong>
 						)}
 						<VStack gap="space-32">
+							{/* Serviceberegning: egen AFP-seksjon i stedet for de vanlige AP/AFP-seksjonene. */}
 							{erServiceberegning &&
 								beregning.serviceberegnetAfp?.beregnetAfp && (
 									<ServiceAfpBeregningSection
@@ -440,61 +458,99 @@ export const Beregning = () => {
 										testId="beregning-section-helt-afp-serviceberegning"
 									/>
 								)}
-							{!erServiceberegning &&
-								harGradertUttakEllerAfpPrivatUtenUttak &&
-								gradertAfpSection}
 
+							{/*
+								Gradert AP med eventuell privat eller livsvarig offentlig AFP.
+								Privat AFP vises også her ved 0 % AP-uttak.
+							*/}
+							{!erServiceberegning &&
+								visGradertUttaksseksjon &&
+								gradertUttaksseksjon}
+
+							{/*
+								Kun privat AFP: ekstra seksjon ved 67 år mellom gradert/0 % AP
+								og helt uttak, når helt uttak starter etter 67 år.
+							*/}
 							{!erServiceberegning &&
 								shouldRenderNormertAfpBeforeHeltSection &&
 								renderNormertAfpSection({
 									testId: 'beregning-section-gradert-67',
 								})}
-							{!erServiceberegning &&
-								skalBeregneAfpKap19 &&
-								beregning.tidsbegrensetOffentligAfp && (
-									<AfpBeregningSection
-										title={titleHeltUttak}
-										tableCount={tableCount}
-										entry={beregning.tidsbegrensetOffentligAfp}
-										visAarsbelop={visAarsbelop}
-										showVisAarsbelopCheckbox={showCheckboxOnAfpKap19}
-										onVisAarsbelopChange={setVisAarsbelop}
-									/>
-								)}
-							{!erServiceberegning && (
-								<BeregningSection
+
+							{/*
+								Tidsbegrenset AFP vises alltid i egen seksjon.
+								Livsvarig offentlig AFP vises her når AP-utbetalinger mangler.
+							*/}
+							{!erServiceberegning && offentligAfpIEgenSeksjon && (
+								<AfpBeregningSection
 									title={
-										skalBeregneAfpKap19
-											? formatAlderTitle(67, 0, normertUttakDato)
+										offentligAfpIEgenSeksjon.type === 'livsvarig'
+											? formatAfpTitle(
+													offentligAfpIEgenSeksjon.entry.alderAar,
+													0
+												)
 											: titleHeltUttak
 									}
-									{...sectionCommonProps}
-									entry={
-										skalBeregneAfpKap19
-											? (normertMaanedligAlderspensjon ?? undefined)
-											: (helMaanedligAlderspensjon ?? undefined)
-									}
-									showAfp={harAfpPrivat}
-									afpEntry={afpPrivatVedHeltUttak ?? undefined}
-									visKronetillegg={(heltUttakAlder.aar ?? 0) < 67}
-									alderspensjonGrad={100}
+									tableCount={tableCount}
+									afp={offentligAfpIEgenSeksjon}
+									testId="beregning-section-offentlig-afp"
 									visAarsbelop={visAarsbelop}
-									totalAddToSum={
-										(helMaanedligAlderspensjon?.beloep ?? 0) +
-										(afpPrivatVedHeltUttak?.maanedligBeloep ?? 0)
-									}
-									testId="beregning-section-helt"
-									showVisAarsbelopCheckbox={showCheckboxOnHelt}
-									harGjenlevenderett={harGjenlevenderett}
+									showVisAarsbelopCheckbox={showCheckboxOnAfpKap19}
 									onVisAarsbelopChange={setVisAarsbelop}
 								/>
 							)}
+
+							{/*
+								Helt AP-uttak med eventuell privat eller livsvarig offentlig AFP.
+								Ved tidsbegrenset AFP vises AP fra 67 år.
+								Uten AP er livsvarig AFP allerede vist i egen seksjon og skal ikke gjentas her.
+							*/}
+							{!erServiceberegning &&
+								offentligAfpIEgenSeksjon?.type !== 'livsvarig' && (
+									<BeregningSection
+										title={
+											skalBeregneAfpKap19
+												? formatAlderTitle(67, 0, normertUttakDato)
+												: titleHeltUttak
+										}
+										{...sectionCommonProps}
+										entry={
+											skalBeregneAfpKap19
+												? (normertMaanedligAlderspensjon ?? undefined)
+												: (helMaanedligAlderspensjon ?? undefined)
+										}
+										visPrivatAfp={harAfpPrivat}
+										privatAfp={afpPrivatVedHeltUttak ?? undefined}
+										livsvarigOffentligAfp={
+											visLivsvarigOffentligAfp
+												? livsvarigOffentligAfp
+												: undefined
+										}
+										visKronetillegg={(heltUttakAlder.aar ?? 0) < 67}
+										alderspensjonGrad={100}
+										visAarsbelop={visAarsbelop}
+										testId="beregning-section-helt"
+										showVisAarsbelopCheckbox={showCheckboxOnHelt}
+										harGjenlevenderett={harGjenlevenderett}
+										onVisAarsbelopChange={setVisAarsbelop}
+									/>
+								)}
+
+							{/*
+								Kun privat AFP: ekstra seksjon ved 67 år etter helt uttak
+								når helt uttak starter før 67 år.
+							*/}
 							{!erServiceberegning &&
 								shouldRenderNormertAfpAfterHeltSection &&
 								renderNormertAfpSection({
 									testId: 'beregning-section-helt-67',
 								})}
 						</VStack>
+
+						{/*
+							Årsoversikt utenom serviceberegning.
+							Livsvarig offentlig AFP inngår ikke i denne tabellen.
+						*/}
 						{!erServiceberegning && (
 							<AarligPensjonTable
 								alderspensjonListe={beregning.alderspensjonListe}

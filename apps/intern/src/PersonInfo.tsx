@@ -12,10 +12,13 @@ import {
 	TextField,
 } from '@navikt/ds-react'
 
+import { showLivsvarigAFP } from './api/formConditions'
 import {
 	useDecryptPidQuery,
 	useEncryptPidMutation,
+	useErApotekerQuery,
 	useFeatureToggleQuery,
+	useLivsvarigAFPQuery,
 	useOmstillingsstoenadQuery,
 	usePersonQuery,
 	useVedtakQuery,
@@ -51,8 +54,18 @@ export const PersonInfo = ({ onPidChange }: PersonInfoProps) => {
 
 	const { data: person, isError, error } = usePersonQuery(fnr)
 	const { data: vedtak } = useVedtakQuery(fnr)
+	const { data: erApoteker } = useErApotekerQuery(fnr)
+
+	const hentLivsvarigAFP = showLivsvarigAFP({
+		foedselsdato: person?.foedselsdato,
+		erApoteker: Boolean(erApoteker),
+	})
+	const { data: livsvarigAFP } = useLivsvarigAFPQuery({
+		fnr,
+		enabled: hentLivsvarigAFP,
+	})
 	const { data: omstillingsstoenad } = useOmstillingsstoenadQuery(fnr)
-	const vedtakStatus = getVedtakStatus(vedtak, omstillingsstoenad)
+	const vedtakStatus = getVedtakStatus(vedtak, omstillingsstoenad, livsvarigAFP)
 	const { mutate: encryptPid, isPending: isEncrypting } =
 		useEncryptPidMutation()
 	const [pidInput, setPidInput] = useState('')

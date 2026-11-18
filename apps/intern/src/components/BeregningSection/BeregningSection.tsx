@@ -1,4 +1,5 @@
 import type {
+	LivsvarigOffentligAFP,
 	SimuleringAfpPrivat,
 	SimuleringMaanedligAlderspensjon,
 } from '@pensjonskalkulator-frontend-monorepo/types'
@@ -7,6 +8,7 @@ import { Checkbox, HStack, Heading, VStack } from '@navikt/ds-react'
 
 import { AlderspensjonTables } from '../Beregning/AlderspensjonTables'
 import { BeregningTableWithSum } from '../Beregning/BeregningTableWithSum'
+import { LivsvarigOffentligAfpTables } from '../Beregning/LivsvarigOffentligAfpTables'
 import { mapPrivatAfp } from '../Beregning/beregningMappers'
 
 import styles from './BeregningSection.module.css'
@@ -19,8 +21,9 @@ interface BeregningSectionProps {
 	erOvergangskull?: boolean | null
 	erFoedtEtter1963?: boolean | null
 	grunnbeloep?: number
-	showAfp?: boolean
-	afpEntry?: SimuleringAfpPrivat
+	visPrivatAfp?: boolean
+	privatAfp?: SimuleringAfpPrivat
+	livsvarigOffentligAfp?: LivsvarigOffentligAFP
 	visKronetillegg?: boolean
 	alderspensjonGrad: number
 	simulererMedGjenlevenderett?: boolean
@@ -28,7 +31,6 @@ interface BeregningSectionProps {
 	isGradert?: boolean
 	visAarsbelop: boolean
 	erUttaksgradNull?: boolean
-	totalAddToSum?: number
 	testId?: string
 	showVisAarsbelopCheckbox?: boolean
 	onVisAarsbelopChange?: (checked: boolean) => void
@@ -43,14 +45,14 @@ export const BeregningSection = ({
 	erOvergangskull,
 	erFoedtEtter1963,
 	grunnbeloep,
-	showAfp = false,
-	afpEntry,
+	visPrivatAfp = false,
+	privatAfp,
+	livsvarigOffentligAfp,
 	visKronetillegg = false,
 	alderspensjonGrad,
 	simulererMedGjenlevenderett = false,
 	isGradert = false,
 	visAarsbelop = false,
-	totalAddToSum,
 	testId,
 	erUttaksgradNull = false,
 	showVisAarsbelopCheckbox,
@@ -59,14 +61,16 @@ export const BeregningSection = ({
 	reducedGrunnpensjon = false,
 }: BeregningSectionProps) => {
 	const valueHeader = visAarsbelop ? 'Kr per år' : 'Kr per måned'
-	const sumAlderspensjonOgAfp = visAarsbelop
-		? (totalAddToSum ?? 0) * 12
-		: totalAddToSum
+	const maanedligSumAlderspensjonOgPrivatAfp =
+		(entry?.beloep ?? 0) + (privatAfp?.maanedligBeloep ?? 0)
+	const sumAlderspensjonOgPrivatAfp = visAarsbelop
+		? maanedligSumAlderspensjonOgPrivatAfp * 12
+		: maanedligSumAlderspensjonOgPrivatAfp
 
-	const shouldShowAP = !erUttaksgradNull || alderspensjonGrad === 100
+	const visAlderspensjon = !erUttaksgradNull || alderspensjonGrad === 100
 	return (
 		<VStack gap="space-12" data-testid={testId}>
-			{(showAfp || !erUttaksgradNull) && (
+			{(visPrivatAfp || livsvarigOffentligAfp || !erUttaksgradNull) && (
 				<HStack justify="space-between" align="center">
 					<Heading level="3" size="small">
 						{title}
@@ -85,7 +89,7 @@ export const BeregningSection = ({
 				className={styles.tableGrid}
 				style={{ '--table-columns': tableCount } as React.CSSProperties}
 			>
-				{entry && shouldShowAP && (
+				{entry && visAlderspensjon && (
 					<AlderspensjonTables
 						entry={entry}
 						erFoedtFoer1963={erFoedtFoer1963}
@@ -100,7 +104,7 @@ export const BeregningSection = ({
 						reducedGrunnpensjon={reducedGrunnpensjon}
 					/>
 				)}
-				{showAfp && (
+				{visPrivatAfp && (
 					<VStack
 						gap="space-32"
 						data-testid={testId ? `${testId}-afp` : undefined}
@@ -108,21 +112,29 @@ export const BeregningSection = ({
 						<BeregningTableWithSum
 							title="AFP i privat sektor"
 							valueHeader={valueHeader}
-							rows={mapPrivatAfp(afpEntry, visKronetillegg)}
+							rows={mapPrivatAfp(privatAfp, visKronetillegg)}
 							sumLabel="Sum AFP"
 							visAarsbelop={visAarsbelop}
 						/>
 
-						{shouldShowAP && (
+						{visAlderspensjon && (
 							<BeregningTableWithSum
 								title="Alderspensjon og AFP"
 								valueHeader={valueHeader}
 								sumLabel="Sum pensjon"
-								addToSum={sumAlderspensjonOgAfp}
+								addToSum={sumAlderspensjonOgPrivatAfp}
 								visAarsbelop={visAarsbelop}
 							/>
 						)}
 					</VStack>
+				)}
+				{livsvarigOffentligAfp && (
+					<LivsvarigOffentligAfpTables
+						entry={livsvarigOffentligAfp}
+						alderspensjonBeloep={visAlderspensjon ? entry?.beloep : undefined}
+						visAarsbelop={visAarsbelop}
+						testId={testId ? `${testId}-afp` : undefined}
+					/>
 				)}
 			</div>
 		</VStack>

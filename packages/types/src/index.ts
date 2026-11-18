@@ -97,6 +97,8 @@ export type SimuleringUttaksparametre =
 	components['schemas']['SimuleringV2Uttaksparametre']
 export type TidsbegrensetOffentligAFP =
 	components['schemas']['SimuleringV2TidsbegrensetOffentligAfp']
+export type LivsvarigOffentligAFP =
+	components['schemas']['SimuleringV2AldersbestemtUtbetaling']
 export type SimuleringAlderspensjon =
 	components['schemas']['SimuleringV2Alderspensjon']
 export type SimuleringMaanedligAlderspensjon =

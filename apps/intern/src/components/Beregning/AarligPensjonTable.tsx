@@ -69,16 +69,25 @@ const groupConsecutive = <T,>(
 	return groups
 }
 
-export function buildTableRows(
-	alderspensjonListe: SimuleringAlderspensjon[],
-	privatAfpListe: SimuleringAfpPrivat[] | null | undefined,
-	tidsbegrensetOffentligAfp: TidsbegrensetOffentligAFP | null | undefined,
-	serviceberegnetAfp: ServiceberegnetAfp | null | undefined,
-	aarligInntektFoerUttakBeloep: number,
-	heltUttakAlder: Alder,
-	aktivBeregning?: BeregningParams | null,
+export function buildTableRows({
+	alderspensjonListe,
+	privatAfpListe,
+	tidsbegrensetOffentligAfp,
+	serviceberegnetAfp,
+	aarligInntektFoerUttakBeloep,
+	heltUttakAlder,
+	aktivBeregning,
+	person,
+}: {
+	alderspensjonListe: SimuleringAlderspensjon[]
+	privatAfpListe: SimuleringAfpPrivat[] | null | undefined
+	tidsbegrensetOffentligAfp: TidsbegrensetOffentligAFP | null | undefined
+	serviceberegnetAfp: ServiceberegnetAfp | null | undefined
+	aarligInntektFoerUttakBeloep: number
+	heltUttakAlder: Alder
+	aktivBeregning?: BeregningParams | null
 	person?: PersonInternV1 | null
-): TableRow[] {
+}): TableRow[] {
 	const sisteAar = getSisteAar(aktivBeregning)
 
 	const alderspensjonSerie = buildAlderspensjonSerie(
@@ -170,7 +179,7 @@ export const AarligPensjonTable = ({
 			? (aktivBeregning?.aarligInntektFoerUttakBeloep ?? 0)
 			: 0
 
-	const rows = buildTableRows(
+	const rows = buildTableRows({
 		alderspensjonListe,
 		privatAfpListe,
 		tidsbegrensetOffentligAfp,
@@ -178,8 +187,8 @@ export const AarligPensjonTable = ({
 		aarligInntektFoerUttakBeloep,
 		heltUttakAlder,
 		aktivBeregning,
-		person
-	)
+		person,
+	})
 
 	if (rows.length === 0) return null
 
@@ -197,7 +206,8 @@ export const AarligPensjonTable = ({
 					</Heading>
 					<BodyLong size="small" textColor="subtle">
 						Når Nav får pensjonsgivende inntekt fra Skatteetaten, legges den til
-						pensjonsopptjeningen i januar året etter. Det kan gi økt alderspensjon.
+						pensjonsopptjeningen i januar året etter. Det kan gi økt
+						alderspensjon.
 					</BodyLong>
 				</VStack>
 				<Box overflowX={{ xs: 'auto', xl: 'visible' }}>

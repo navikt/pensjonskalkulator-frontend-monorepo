@@ -4,6 +4,7 @@ import {
 	isFoedtFoer1963,
 } from '@pensjonskalkulator-frontend-monorepo/utils/alder'
 
+import { isFoedtEtter1963 } from '../../../../packages/utils/src/alder'
 import type { BeregningFormData, InternAfpRadio } from './beregningTypes'
 
 export function erKap19EllerApoteker(
@@ -11,6 +12,16 @@ export function erKap19EllerApoteker(
 	erApoteker: boolean
 ): boolean {
 	return !!foedselsdato && (isFoedtFoer1963(foedselsdato) || erApoteker)
+}
+
+export function showLivsvarigAFP({
+	foedselsdato,
+	erApoteker,
+}: {
+	foedselsdato: string | undefined
+	erApoteker: boolean
+}): boolean {
+	return Boolean(foedselsdato && isFoedtEtter1963(foedselsdato) && !erApoteker)
 }
 
 export function harPartner(sivilstatus: Sivilstatus | null): boolean {

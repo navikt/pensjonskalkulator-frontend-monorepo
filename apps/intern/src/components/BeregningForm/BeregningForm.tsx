@@ -32,8 +32,9 @@ import {
 	showHarInntektVedSidenAvUttak,
 	showHeltUttakAlder,
 	showInntektHeltFields,
+	showLivsvarigAFP,
 } from '../../api/formConditions'
-import { useGrunnbeloepQuery } from '../../api/queries'
+import { useGrunnbeloepQuery, useLivsvarigAFPQuery } from '../../api/queries'
 import { getUttakInfo } from '../../utils/getUttakInfo'
 import { SanityAlert } from '../Alerts/SanityAlert'
 import { useBeregningContext } from '../BeregningContext'
@@ -85,8 +86,16 @@ export const BeregningForm = () => {
 		vedtak,
 		initialInntektAar,
 		erApoteker,
+		fnr,
 	} = useBeregningContext()
 	const { data: grunnbeloep } = useGrunnbeloepQuery()
+	const { data: livsvarigAFP } = useLivsvarigAFPQuery({
+		fnr,
+		enabled: showLivsvarigAFP({
+			foedselsdato: person?.foedselsdato,
+			erApoteker,
+		}),
+	})
 	const dynamicGrunnbeloep: Record<string, string | number> = grunnbeloep
 		? { G: grunnbeloep.grunnbeløp }
 		: {}
@@ -111,6 +120,7 @@ export const BeregningForm = () => {
 	const harVedtakPrivatAFP = erEndring && Boolean(vedtak?.privatAfpFom)
 	const harVedtakTidsbegrensetOffentligAFP =
 		!erEndring && Boolean(vedtak?.tidsbegrensetOffentligAfpFom)
+	const harVedtakLivsvarigAFP = livsvarigAFP?.afpStatus === true
 	const nullGradAP = erEndring && vedtak?.loependeAlderspensjon?.grad === 0
 
 	useEffect(() => {
@@ -284,6 +294,7 @@ export const BeregningForm = () => {
 		beregnMedGjenlevenderett ||
 		harVedtakPrivatAFP ||
 		harVedtakTidsbegrensetOffentligAFP ||
+		harVedtakLivsvarigAFP ||
 		(nullGradAP && Boolean(vedtak?.tidsbegrensetOffentligAfpFom))
 
 	const serviceBeregning = afp === 'serviceberegning'
@@ -347,7 +358,8 @@ export const BeregningForm = () => {
 		: false
 
 	const kanVelgeOffentligAfp = person?.foedselsdato
-		? erKap19EllerApoteker(person.foedselsdato, erApoteker) &&
+		? (erKap19EllerApoteker(person.foedselsdato, erApoteker) ||
+				showLivsvarigAFP({ foedselsdato: person?.foedselsdato, erApoteker })) &&
 			!isAlder67MaanedenFylt(person.foedselsdato)
 		: false
 
@@ -390,33 +402,46 @@ export const BeregningForm = () => {
 			maaneder: alderMdHeltUttak ?? alderMdUttak,
 		})
 
-	const afpSporsmaal = !hideAfpSporsmaal && (
-		<>
-			<RHFRadio
-				name="afp"
-				legend="Skal AFP inkluderes?"
-				options={afpOptions}
-				gap="space-24"
-				testid="afp"
-				onChange={(value) => {
-					setAlertDismissed(true)
-					resetAlderVelger(value)
-				}}
-			/>
-			{showUTOgAFPAlert && (
-				<SanityAlert
-					id="beregning.ufoeretrygd-med-sim-ap-og-afp-privat"
-					className={styles.sanityAlert}
+	const afpSporsmaal = harVedtakLivsvarigAFP ? (
+		<BodyShort size="small">
+			Brukeren har livsvarig AFP i offentlig sektor. Beløpet vil inkluderes i
+			vilkårsprøvingen av alderspensjon.
+		</BodyShort>
+	) : (
+		!hideAfpSporsmaal && (
+			<>
+				<RHFRadio
+					name="afp"
+					legend="Skal AFP inkluderes?"
+					options={afpOptions}
+					gap="space-24"
+					testid="afp"
+					onChange={(value) => {
+						setAlertDismissed(true)
+						resetAlderVelger(value)
+					}}
 				/>
-			)}
-			{showUTOgFolketrygdBeregnetAFPAlert && (
-				<SanityAlert
-					id="beregning.ufoeretrygd-med-sim-ap-og-afp-offentlig-eller-service-beregning"
-					className={styles.sanityAlert}
-				/>
-			)}
-			<Divider noMargin />
-		</>
+				{livsvarigAFP?.afpStatus === false && (
+					<SanityAlert
+						id="beregning.livsvarig-AFP-forvaltes-ikke"
+						className={styles.sanityAlert}
+					/>
+				)}
+				{showUTOgAFPAlert && (
+					<SanityAlert
+						id="beregning.ufoeretrygd-med-sim-ap-og-afp-privat"
+						className={styles.sanityAlert}
+					/>
+				)}
+				{showUTOgFolketrygdBeregnetAFPAlert && (
+					<SanityAlert
+						id="beregning.ufoeretrygd-med-sim-ap-og-afp-offentlig-eller-service-beregning"
+						className={styles.sanityAlert}
+					/>
+				)}
+				<Divider noMargin />
+			</>
+		)
 	)
 
 	return (

@@ -4,8 +4,82 @@ import {
 	mockOpptjeningKap19,
 	mockOpptjeningKap20,
 } from '../components/Beregning/__mocks__/opptjening'
+import {
+	type BeregningResult,
+	defaultBeregningFormData,
+} from './beregningTypes'
 import { mapUtenlandsperiodeListe } from './mapBeregningParams'
-import { mapPensjonsopptjeningToLagreDto } from './mapLagreSimulering'
+import {
+	mapBeregningResultToLagreSpec,
+	mapPensjonsopptjeningToLagreDto,
+} from './mapLagreSimulering'
+
+describe('lagring av livsvarig offentlig AFP', () => {
+	const foersteUtbetaling = {
+		alderAar: 62,
+		maanedligBeloep: 8347,
+		aarligBeloep: 50082,
+	}
+	const result: BeregningResult = {
+		alderspensjonListe: [],
+		opptjeningListe: [],
+		vilkaarsproevingsresultat: { erInnvilget: true },
+	}
+
+	test.each([
+		{ uttaksgrad: 0, utbetaling: foersteUtbetaling },
+		{ uttaksgrad: 50, utbetaling: foersteUtbetaling },
+		{ uttaksgrad: 100, utbetaling: foersteUtbetaling },
+		{
+			uttaksgrad: 50,
+			utbetaling: {
+				...foersteUtbetaling,
+				maanedligBeloep: 0,
+				aarligBeloep: 0,
+			},
+		},
+	])(
+		'lagrer første AFP-utbetaling ved $uttaksgrad % uttak og månedsbeløp $utbetaling.maanedligBeloep',
+		({ uttaksgrad, utbetaling }) => {
+			const spec = mapBeregningResultToLagreSpec(
+				{
+					...result,
+					livsvarigOffentligAfpListe: [
+						utbetaling,
+						{ alderAar: 67, maanedligBeloep: 8500, aarligBeloep: 102000 },
+					],
+				},
+				'1964-04-30',
+				{
+					...defaultBeregningFormData,
+					afp: 'ja_offentlig',
+					uttaksgrad,
+					alderAarUttak: 65,
+					alderMdUttak: 0,
+					alderAarHeltUttak: 67,
+					alderMdHeltUttak: 0,
+				}
+			)
+
+			expect(spec.afpOffentligLivsvarig).toEqual({
+				vedGradertUttak: uttaksgrad === 100 ? null : utbetaling,
+				vedHeltUttak: utbetaling,
+			})
+		}
+	)
+
+	test.each([null, undefined, []])(
+		'utelater livsvarig AFP når listen er %s',
+		(livsvarigOffentligAfpListe) => {
+			const spec = mapBeregningResultToLagreSpec(
+				{ ...result, livsvarigOffentligAfpListe },
+				'1964-04-30'
+			)
+
+			expect(spec.afpOffentligLivsvarig).toBeNull()
+		}
+	)
+})
 
 describe('mapPensjonsopptjeningToLagreDto', () => {
 	test('maps the same sorted rows shown in the accrual table', () => {

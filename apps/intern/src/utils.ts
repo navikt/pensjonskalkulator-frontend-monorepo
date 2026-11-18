@@ -1,4 +1,5 @@
 import type {
+	AfpOffentligLivsvarig,
 	OmstillingsstoenadOgGjenlevende,
 	Vedtak,
 	VedtakInformasjonOmAvdoed,
@@ -23,7 +24,8 @@ export function getPesysBrukeroversiktUrl(): string {
 
 export function getVedtakStatus(
 	vedtak?: Vedtak,
-	omstillingsstoenad?: OmstillingsstoenadOgGjenlevende
+	omstillingsstoenad?: OmstillingsstoenadOgGjenlevende,
+	livsvarigAfpStatus?: AfpOffentligLivsvarig
 ): string {
 	const loependeAlderspensjon = vedtak?.loependeAlderspensjon
 	const fremtidigAlderspensjon = vedtak?.fremtidigAlderspensjon
@@ -32,13 +34,22 @@ export function getVedtakStatus(
 	const alderspensjonString = loependeAlderspensjon
 		? `${loependeAlderspensjon.grad} % alderspensjon fra ${format(parseISO(APFomDato), 'dd.MM.yyyy')}`
 		: ''
-	if (omstillingsstoenad?.harLoependeSak) {
-		return 'Gjenlevendepensjon eller omstillingsstønad'
-	}
-
 	const fremtidigAlderspensjonString = fremtidigAlderspensjon
 		? `${alderspensjonString.length > 0 ? ' / ' : ''}${fremtidigAlderspensjon.grad} % alderspensjon fra ${format(parseISO(fremtidigAlderspensjon.fom), 'dd.MM.yyyy')}`
 		: ''
+
+	if (livsvarigAfpStatus?.afpStatus === true) {
+		return [
+			`${alderspensjonString}${fremtidigAlderspensjonString}`,
+			'Livsvarig AFP i offentlig sektor',
+		]
+			.filter(Boolean)
+			.join(' / ')
+	}
+
+	if (omstillingsstoenad?.harLoependeSak) {
+		return 'Gjenlevendepensjon eller omstillingsstønad'
+	}
 
 	if (vedtak?.tidsbegrensetOffentligAfpFom) {
 		const AFPOffentligString = 'AFP i offentlig sektor'

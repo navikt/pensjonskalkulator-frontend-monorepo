@@ -4,6 +4,7 @@ import { type Page, expect, test } from '@playwright/test'
 import { loadJSONMock } from '../utils/mock'
 import {
 	API_URLS,
+	fillMainFormFields,
 	navigateToApp,
 	setupDefaultMocks,
 } from '../utils/test-helpers'
@@ -142,17 +143,178 @@ async function fillFormWithServiceberegning(page: Page) {
 }
 
 test.describe('AFP Offentlig', () => {
+	test.describe('Livsvarig AFP', () => {
+		for (const afpStatus of [true, false, null, undefined]) {
+			test(`viser AFP-tekst eller varsel basert på afpStatus: ${afpStatus}`, async ({
+				page,
+			}) => {
+				await setupDefaultMocks(page)
+				await page.route('**/api/v2/tpo-livsvarig-offentlig-afp', (route) =>
+					route.fulfill({
+						status: 200,
+						json: { afpStatus },
+					})
+				)
+				await page.route(API_URLS.SANITY, (route) =>
+					route.fulfill({
+						status: 200,
+						json: {
+							result: [
+								{
+									name: 'beregning.livsvarig-AFP-forvaltes-ikke',
+									type: 'local-alert',
+									status: 'info',
+									overskrift: 'Livsvarig AFP forvaltes ikke av Nav.',
+									innhold: [],
+								},
+							],
+						},
+					})
+				)
+				const response = page.waitForResponse((apiResponse) =>
+					apiResponse.url().includes('/v2/tpo-livsvarig-offentlig-afp')
+				)
+
+				await navigateToApp(page)
+				await response
+				await expect(
+					page.getByText(
+						'Brukeren har livsvarig AFP i offentlig sektor. Beløpet vil inkluderes i vilkårsprøvingen av alderspensjon.',
+						{ exact: true }
+					)
+				).toHaveCount(afpStatus === true ? 1 : 0)
+				await expect(page.getByTestId('afp')).toHaveCount(
+					afpStatus === true ? 0 : 1
+				)
+				await expect(
+					page.getByTestId('beregning.livsvarig-AFP-forvaltes-ikke')
+				).toHaveCount(afpStatus === false ? 1 : 0)
+			})
+		}
+
+		test('bruker første AFP-beløp ved både gradert og helt uttak uavhengig av alder', async ({
+			page,
+		}) => {
+			await setupDefaultMocks(page)
+			await setupSimuleringMockWithCapture(page, {
+				livsvarigOffentligAfpListe: [
+					{ alderAar: 62, maanedligBeloep: 8347, aarligBeloep: 100164 },
+					{ alderAar: 67, maanedligBeloep: 8500, aarligBeloep: 102000 },
+				],
+				maanedligAlderspensjonForKnekkpunkter: {
+					vedGradertUttak: { beloep: 10000, inntektspensjonBeloep: 10000 },
+					vedHeltUttak: { beloep: 23333, inntektspensjonBeloep: 23333 },
+				},
+			})
+			await navigateToApp(page)
+			await page.getByTestId('eps-har-pensjon').getByLabel('Nei').check()
+			await page.getByTestId('eps-har-inntekt-over-2g').getByLabel('Ja').check()
+			await fillMainFormFields({
+				page,
+				fields: {
+					afp: 'Ja, offentlig',
+					'alder-uttak-aar': '65',
+					'alder-uttak-md': '0',
+					uttaksgrad: '50',
+				},
+			})
+			await page.getByTestId('inntekt-vsa-gradert-uttak').fill('0')
+			await page.getByTestId('alder-helt-uttak-aar').selectOption('67')
+			await page.getByTestId('alder-helt-uttak-md').selectOption('0')
+			await page.getByTestId('beregn-button').click()
+
+			const gradert = page.getByTestId('beregning-section-gradert')
+			const helt = page.getByTestId('beregning-section-helt')
+			await expect(gradert.getByText('50 % alderspensjon')).toBeVisible()
+			await expect(helt.getByText('100 % alderspensjon')).toBeVisible()
+			await expect(
+				page.getByText('AFP i offentlig sektor', { exact: true })
+			).toHaveCount(2)
+			await expect(
+				gradert.getByRole('row', { name: /Livsvarig AFP/ })
+			).toContainText('8 347')
+			await expect(
+				helt.getByRole('row', { name: /Livsvarig AFP/ })
+			).toContainText('8 347')
+			await expect(
+				gradert.getByRole('row', { name: /Sum pensjon/ })
+			).toContainText('18 347')
+			await expect(
+				helt.getByRole('row', { name: /Sum pensjon/ })
+			).toContainText('31 680')
+			await expect(
+				page.getByTestId('beregning-section-offentlig-afp')
+			).toHaveCount(0)
+			await expect(
+				helt.getByText('AFP-beløpet er hentet fra TP ordning.')
+			).toBeVisible()
+			await expect(
+				page.getByText('Opptjening AFP i offentlig sektor')
+			).toHaveCount(0)
+
+			await page.getByRole('checkbox', { name: 'Vis årsbeløp' }).check()
+			await expect(
+				helt.getByRole('row', { name: /Livsvarig AFP/ })
+			).toContainText('100 164')
+			await expect(
+				gradert.getByRole('row', { name: /Sum pensjon/ })
+			).toContainText('220 164')
+			await expect(
+				helt.getByRole('row', { name: /Sum pensjon/ })
+			).toContainText('380 160')
+
+			await page.getByTestId('afp').getByLabel('Nei').check()
+			await page.getByTestId('beregn-button').click()
+			await expect(
+				page.getByText('AFP i offentlig sektor', { exact: true })
+			).toHaveCount(0)
+			await expect(
+				page.getByTestId('beregning-section-offentlig-afp')
+			).toHaveCount(0)
+		})
+
+		test('viser livsvarig AFP én gang når AP-utbetalinger mangler', async ({
+			page,
+		}) => {
+			await setupDefaultMocks(page)
+			await setupSimuleringMockWithCapture(page, {
+				alderspensjonListe: [],
+				maanedligAlderspensjonForKnekkpunkter: {},
+				livsvarigOffentligAfpListe: [
+					{ alderAar: 64, maanedligBeloep: 8347, aarligBeloep: 100164 },
+					{ alderAar: 65, maanedligBeloep: 8500, aarligBeloep: 102000 },
+				],
+			})
+			await navigateToApp(page)
+			await page.getByTestId('eps-har-pensjon').getByLabel('Nei').check()
+			await page.getByTestId('eps-har-inntekt-over-2g').getByLabel('Ja').check()
+			await fillMainFormFields({
+				page,
+				fields: {
+					afp: 'Ja, offentlig',
+					'alder-uttak-aar': '65',
+					'alder-uttak-md': '0',
+				},
+			})
+			await page.getByTestId('beregn-button').click()
+
+			const section = page.getByTestId('beregning-section-offentlig-afp')
+			await expect(
+				section.getByRole('heading', { name: 'AFP ved 64 år' })
+			).toBeVisible()
+			await expect(section.getByRole('row', { name: /Sum AFP/ })).toContainText(
+				'8 347'
+			)
+			await expect(section.getByText('Alderspensjon og AFP')).toHaveCount(0)
+			await expect(section.getByText('100 % alderspensjon')).toHaveCount(0)
+			await expect(
+				page.getByRole('row', { name: /Livsvarig AFP/ })
+			).toHaveCount(1)
+		})
+	})
+
 	test.describe('Ja, offentlig', () => {
 		test.describe('Skjema', () => {
-			test('viser AFP-valg med Ja, offentlig alternativ', async ({ page }) => {
-				await setupDefaultMocks(page, PERSON_FOEDT_FOER_1963)
-				await navigateToApp(page)
-
-				await expect(
-					page.getByTestId('afp').getByLabel('Ja, offentlig')
-				).toBeVisible()
-			})
-
 			test('viser offentlig AFP-felter når Ja, offentlig er valgt', async ({
 				page,
 			}) => {
@@ -203,19 +365,6 @@ test.describe('AFP Offentlig', () => {
 
 	test.describe('Serviceberegning AFP', () => {
 		test.describe('Skjema', () => {
-			test('viser Serviceberegning AFP for saksbehandler alternativ', async ({
-				page,
-			}) => {
-				await setupDefaultMocks(page, PERSON_FOEDT_FOER_1963)
-				await navigateToApp(page)
-
-				await expect(
-					page
-						.getByTestId('afp')
-						.getByLabel('Serviceberegning AFP for saksbehandler')
-				).toBeVisible()
-			})
-
 			test('viser serviceberegning-felter når serviceberegning er valgt', async ({
 				page,
 			}) => {

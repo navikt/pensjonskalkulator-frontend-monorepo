@@ -1,4 +1,5 @@
 import type {
+	AfpOffentligLivsvarig,
 	AnsattEnhetResult,
 	ApotekerStatus,
 	EpsOpplysninger,
@@ -164,6 +165,20 @@ async function fetchVedtak(fnr: string): Promise<Vedtak> {
 	return response.json() as Promise<Vedtak>
 }
 
+async function fetchLivsvarigAFP(fnr: string): Promise<AfpOffentligLivsvarig> {
+	const response = await fetch(`${API_BASE}/v2/tpo-livsvarig-offentlig-afp`, {
+		headers: {
+			fnr,
+		},
+	})
+
+	if (!response.ok) {
+		throw await toKalkulatorError(response, 'Failed to fetch livsvarig AFP')
+	}
+
+	return response.json() as Promise<AfpOffentligLivsvarig>
+}
+
 export class EpsError extends KalkulatorError {
 	aarsak?: TilgangsnektAarsak
 
@@ -272,6 +287,20 @@ export function useVedtakQuery(fnr?: string) {
 	return useQuery<Vedtak, KalkulatorError>({
 		queryKey: ['vedtak', fnr],
 		queryFn: fnr ? () => fetchVedtak(fnr) : skipToken,
+		retry: false,
+	})
+}
+
+export function useLivsvarigAFPQuery({
+	fnr,
+	enabled,
+}: {
+	fnr: string | undefined
+	enabled: boolean
+}) {
+	return useQuery<AfpOffentligLivsvarig, KalkulatorError>({
+		queryKey: ['livsvarig-afp', fnr],
+		queryFn: fnr && enabled ? () => fetchLivsvarigAFP(fnr) : skipToken,
 		retry: false,
 	})
 }
