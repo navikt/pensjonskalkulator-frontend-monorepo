@@ -16,10 +16,10 @@ export const GrunnlagItem: React.FC<GrunnlagItemProps> = ({
 }) => {
   return (
     <Box
-      paddingInline="4 0"
+      paddingInline="space-16 space-0"
       className={clsx(styles.border, styles[color], styles.grunnlagItem)}
     >
-      <Box paddingBlock="4">{children}</Box>
+      <Box paddingBlock="space-16">{children}</Box>
     </Box>
   )
 }

@@ -1,6 +1,8 @@
 declare const classNames: {
   readonly container: "container";
   readonly container__hasMobilePadding: "container__hasMobilePadding";
+  readonly intro: "intro";
+  readonly introTitle: "introTitle";
   readonly alert: "alert";
   readonly background: "background";
   readonly background__lightgray: "background__lightgray";

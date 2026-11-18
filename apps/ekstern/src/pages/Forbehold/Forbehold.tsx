@@ -9,7 +9,8 @@ import { Card } from '@/components/common/Card'
 
 export function Forbehold() {
   const intl = useIntl()
-  const { forbeholdAvsnittData } = React.useContext(SanityContext)
+  const { forbeholdAvsnittData, navigateToRoute } =
+    React.useContext(SanityContext)
 
   React.useEffect(() => {
     document.title = intl.formatMessage({
@@ -23,6 +24,7 @@ export function Forbehold() {
         avsnitt={forbeholdAvsnittData}
         title={<FormattedMessage id="forbehold.title" />}
         avsnittTestId="forbehold-avsnitt"
+        navigateToRoute={navigateToRoute}
       />
     </Card>
   )

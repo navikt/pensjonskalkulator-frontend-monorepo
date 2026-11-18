@@ -26,7 +26,7 @@ const AGEPICKER_VALIDATION_ERROR =
 const UTTAKSGRAD_VALIDATION_ERROR =
   'beregning.avansert.rediger.uttaksgrad.validation_error'
 const AVANSERT_UTTAKSALDER_GRADERT_DATA =
-  'Avansert - Uttaksalder for gradert uttak'
+  'Flere valg - Uttaksalder for gradert uttak'
 
 export type AvansertFormNames =
   (typeof AVANSERT_FORM_NAMES)[keyof typeof AVANSERT_FORM_NAMES]
@@ -187,12 +187,12 @@ const validateEndringGradertUttak = (
       })
       logger(SKJEMA_VALIDERING_FEILET, {
         skjemanavn: AVANSERT_FORM_NAMES.form,
-        data: 'Avansert - For tidlig endring av gradert uttak',
+        data: 'Flere valg - For tidlig endring av gradert uttak',
         tekst: `Uttaksdato ${uttaksdato} er før ${formatertDato}`, // eslint-disable-line @typescript-eslint/restrict-template-expressions
       })
       logger(SKJEMA_VALIDERING_FEILET_OLD, {
         skjemanavn: AVANSERT_FORM_NAMES.form,
-        data: 'Avansert - For tidlig endring av gradert uttak',
+        data: 'Flere valg - For tidlig endring av gradert uttak',
         tekst: `Uttaksdato ${uttaksdato} er før ${formatertDato}`, // eslint-disable-line @typescript-eslint/restrict-template-expressions
       })
       window.scrollTo(0, 0)
@@ -266,12 +266,12 @@ export const validateAvansertBeregningSkjema = (
         if (tekst) {
           logger(SKJEMA_VALIDERING_FEILET, {
             skjemanavn: AVANSERT_FORM_NAMES.form,
-            data: 'Avansert - Uttaksalder for helt uttak',
+            data: 'Flere valg - Uttaksalder for helt uttak',
             tekst,
           })
           logger(SKJEMA_VALIDERING_FEILET_OLD, {
             skjemanavn: AVANSERT_FORM_NAMES.form,
-            data: 'Avansert - Uttaksalder for helt uttak',
+            data: 'Flere valg - Uttaksalder for helt uttak',
             tekst,
           })
         }
@@ -321,12 +321,12 @@ export const validateAvansertBeregningSkjema = (
           if (tekst) {
             logger(SKJEMA_VALIDERING_FEILET, {
               skjemanavn: AVANSERT_FORM_NAMES.form,
-              data: 'Avansert -  Inntekt vsa. AFP',
+              data: 'Flere valg -  Inntekt vsa. AFP',
               tekst,
             })
             logger(SKJEMA_VALIDERING_FEILET_OLD, {
               skjemanavn: AVANSERT_FORM_NAMES.form,
-              data: 'Avansert -  Inntekt vsa. AFP',
+              data: 'Flere valg -  Inntekt vsa. AFP',
               tekst,
             })
           }
@@ -374,12 +374,12 @@ export const validateAvansertBeregningSkjema = (
     isValid = false
     logger(SKJEMA_VALIDERING_FEILET, {
       skjemanavn: AVANSERT_FORM_NAMES.form,
-      data: 'Avansert - Uttaksgrad',
+      data: 'Flere valg - Uttaksgrad',
       tekst: UTTAKSGRAD_VALIDATION_ERROR,
     })
     logger(SKJEMA_VALIDERING_FEILET_OLD, {
       skjemanavn: AVANSERT_FORM_NAMES.form,
-      data: 'Avansert - Uttaksgrad',
+      data: 'Flere valg - Uttaksgrad',
       tekst: UTTAKSGRAD_VALIDATION_ERROR,
     })
     updateValidationErrorMessage((prevState) => {
@@ -463,13 +463,13 @@ export const validateAvansertBeregningSkjema = (
         if (!isUttaksgradValid) {
           logger(SKJEMA_VALIDERING_FEILET, {
             skjemanavn: AVANSERT_FORM_NAMES.form,
-            data: 'Avansert - Uttaksgrad',
+            data: 'Flere valg - Uttaksgrad',
             tekst:
               'beregning.avansert.rediger.uttaksgrad.ufoeretrygd.validation_error',
           })
           logger(SKJEMA_VALIDERING_FEILET_OLD, {
             skjemanavn: AVANSERT_FORM_NAMES.form,
-            data: 'Avansert - Uttaksgrad',
+            data: 'Flere valg - Uttaksgrad',
             tekst:
               'beregning.avansert.rediger.uttaksgrad.ufoeretrygd.validation_error',
           })
@@ -495,13 +495,13 @@ export const validateAvansertBeregningSkjema = (
     isValid = false
     logger(SKJEMA_VALIDERING_FEILET, {
       skjemanavn: AVANSERT_FORM_NAMES.form,
-      data: 'Avansert - Radio inntekt vsa. helt uttak',
+      data: 'Flere valg - Radio inntekt vsa. helt uttak',
       tekst:
         'beregning.avansert.rediger.radio.inntekt_vsa_helt_uttak.description.validation_error',
     })
     logger(SKJEMA_VALIDERING_FEILET_OLD, {
       skjemanavn: AVANSERT_FORM_NAMES.form,
-      data: 'Avansert - Radio inntekt vsa. helt uttak',
+      data: 'Flere valg - Radio inntekt vsa. helt uttak',
       tekst:
         'beregning.avansert.rediger.radio.inntekt_vsa_helt_uttak.description.validation_error',
     })
@@ -522,12 +522,12 @@ export const validateAvansertBeregningSkjema = (
         if (tekst) {
           logger(SKJEMA_VALIDERING_FEILET, {
             skjemanavn: AVANSERT_FORM_NAMES.form,
-            data: 'Avansert -  Inntekt vsa. helt uttak',
+            data: 'Flere valg -  Inntekt vsa. helt uttak',
             tekst,
           })
           logger(SKJEMA_VALIDERING_FEILET_OLD, {
             skjemanavn: AVANSERT_FORM_NAMES.form,
-            data: 'Avansert -  Inntekt vsa. helt uttak',
+            data: 'Flere valg -  Inntekt vsa. helt uttak',
             tekst,
           })
         }
@@ -554,12 +554,12 @@ export const validateAvansertBeregningSkjema = (
         if (tekst) {
           logger(SKJEMA_VALIDERING_FEILET, {
             skjemanavn: AVANSERT_FORM_NAMES.form,
-            data: 'Avansert -  Sluttalder inntekt vsa. helt uttak',
+            data: 'Flere valg -  Sluttalder inntekt vsa. helt uttak',
             tekst,
           })
           logger(SKJEMA_VALIDERING_FEILET_OLD, {
             skjemanavn: AVANSERT_FORM_NAMES.form,
-            data: 'Avansert -  Sluttalder inntekt vsa. helt uttak',
+            data: 'Flere valg -  Sluttalder inntekt vsa. helt uttak',
             tekst,
           })
         }
@@ -594,13 +594,13 @@ export const validateAvansertBeregningSkjema = (
     isValid = false
     logger(SKJEMA_VALIDERING_FEILET, {
       skjemanavn: AVANSERT_FORM_NAMES.form,
-      data: 'Avansert -  Radio inntekt vsa. gradert uttak',
+      data: 'Flere valg -  Radio inntekt vsa. gradert uttak',
       tekst:
         'beregning.avansert.rediger.radio.inntekt_vsa_gradert_uttak.description.validation_error',
     })
     logger(SKJEMA_VALIDERING_FEILET_OLD, {
       skjemanavn: AVANSERT_FORM_NAMES.form,
-      data: 'Avansert -  Radio inntekt vsa. gradert uttak',
+      data: 'Flere valg -  Radio inntekt vsa. gradert uttak',
       tekst:
         'beregning.avansert.rediger.radio.inntekt_vsa_gradert_uttak.description.validation_error',
     })
@@ -623,12 +623,12 @@ export const validateAvansertBeregningSkjema = (
         if (tekst) {
           logger(SKJEMA_VALIDERING_FEILET, {
             skjemanavn: AVANSERT_FORM_NAMES.form,
-            data: 'Avansert -  Inntekt vsa. gradert uttak',
+            data: 'Flere valg -  Inntekt vsa. gradert uttak',
             tekst,
           })
           logger(SKJEMA_VALIDERING_FEILET_OLD, {
             skjemanavn: AVANSERT_FORM_NAMES.form,
-            data: 'Avansert -  Inntekt vsa. gradert uttak',
+            data: 'Flere valg -  Inntekt vsa. gradert uttak',
             tekst,
           })
         }

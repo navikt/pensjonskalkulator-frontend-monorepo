@@ -1,0 +1,68 @@
+@use '../../../../scss/variables';
+
+.container {
+  border-collapse: separate;
+  border-spacing: 0;
+  width: 100%;
+
+  @media screen and (min-width: variables.$ax-breakpoint-sm) {
+    border-spacing: 0 var(--ax-space-8);
+  }
+}
+
+.row {
+  th,
+  td {
+    padding: 0 0 0 var(--ax-space-12);
+    text-align: left;
+    font-size: var(--ax-font-size-large);
+  }
+
+  @media screen and (max-width: variables.$ax-breakpoint-sm) {
+    th > p,
+    td {
+      font-size: var(--ax-font-size-medium);
+    }
+
+    th.noGradering {
+      padding: 0;
+    }
+  }
+
+  td {
+    text-align: right;
+    white-space: nowrap;
+  }
+}
+
+@media screen and (min-width: variables.$ax-breakpoint-sm) {
+  .monthlyPayoutElement {
+    box-sizing: border-box;
+    border-left: var(--ax-space-6) solid transparent;
+
+    &__blue {
+      border-color: var(--ax-bg-accent-strong-hover);
+    }
+
+    &__purple {
+      border-color: var(--ax-bg-meta-purple-strong);
+    }
+
+    &__green {
+      border-color: var(--ax-bg-success-strong);
+    }
+  }
+}
+
+.sum {
+  font-weight: var(--ax-font-weight-bold);
+
+  * {
+    font-weight: var(--ax-font-weight-bold);
+  }
+
+  th,
+  td {
+    padding: 0;
+  }
+}

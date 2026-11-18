@@ -3,7 +3,7 @@
 .beregningForm {
 	width: 496px;
 	flex-shrink: 0;
-	background-color: white;
+	background-color: var(--ax-bg-default);
 	box-sizing: border-box;
 	z-index: 1;
 	display: flex;
@@ -25,12 +25,12 @@
 }
 
 .selectWrapper :global(.aksel-select__container select) {
-	height: var(--a-spacing-8);
+	height: var(--ax-space-32);
 }
 
 .section :global(.aksel-text-field__input) {
 	width: 12rem;
-	height: var(--a-spacing-8);
+	height: var(--ax-space-32);
 }
 
 .alderRow {
@@ -46,7 +46,7 @@
 
 .alderRow :global(.aksel-select__container select) {
 	width: 12rem;
-	height: var(--a-spacing-8);
+	height: var(--ax-space-32);
 }
 
 .fieldGroup {
@@ -72,12 +72,6 @@
 	width: 144px;
 }
 
-.horizontalRadioGroup :global(.navds-radio-buttons) {
-	display: flex;
-	flex-direction: row;
-	gap: 1.5rem;
-}
-
 .sanityAlert {
 	margin: 0;
 }
@@ -85,7 +79,7 @@
 .buttonBar {
 	gap: 24px;
 	padding: 0 48px 24px 48px;
-	background-color: white;
+	background-color: var(--ax-bg-default);
 	flex-shrink: 0;
 	border-top: 1px solid var(--ax-border-neutral-subtle);
 }

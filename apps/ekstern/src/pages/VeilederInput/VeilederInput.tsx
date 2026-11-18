@@ -134,7 +134,7 @@ export const VeilederInput = () => {
             <Heading level="2" size="medium" spacing>
               Veiledertilgang
             </Heading>
-            <VStack gap="6">
+            <VStack gap="space-24">
               {hasTimedOut && (
                 <Alert
                   variant="warning"
@@ -156,14 +156,14 @@ export const VeilederInput = () => {
                 Logg inn i pensjonskalkulator på vegne av bruker.
               </BodyLong>
               <form onSubmit={onSubmit} className={styles.form}>
-                <VStack gap="6">
+                <VStack gap="space-24">
                   <TextField
                     data-testid="borger-fnr-input"
                     label="Fødselsnummer"
                     name="veilederBorgerFnr"
                     description="11 siffer"
                   />
-                  <HStack gap="2">
+                  <HStack gap="space-8">
                     <Button
                       type="submit"
                       data-testid="veileder-submit"

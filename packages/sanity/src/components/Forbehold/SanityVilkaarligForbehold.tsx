@@ -28,7 +28,8 @@ export const SanityVilkaarligForbehold = ({
 	avsnittTestId,
 	size,
 }: Props) => {
-	const { forbeholdAvsnittData } = React.useContext(SanityContext)
+	const { forbeholdAvsnittData, navigateToRoute } =
+		React.useContext(SanityContext)
 
 	const synligeAvsnitt = React.useMemo(
 		() =>
@@ -45,6 +46,7 @@ export const SanityVilkaarligForbehold = ({
 			titleLevel={titleLevel}
 			avsnittTestId={avsnittTestId}
 			size={size}
+			navigateToRoute={navigateToRoute}
 		/>
 	)
 }

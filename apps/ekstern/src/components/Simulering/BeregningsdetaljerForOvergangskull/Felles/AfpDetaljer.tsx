@@ -24,7 +24,7 @@ export const AfpDetaljer: React.FC<AfpDetaljerProps> = ({
           beregningsdetaljerStyles.beregningsdetaljerForOvergangskullDesktopOnly
         }
       >
-        <HGrid gap="12" columns={alderspensjonColumnsCount}>
+        <HGrid gap="space-48" columns={alderspensjonColumnsCount}>
           {renderAfpDetaljer(afpDetaljForValgtUttak)}
         </HGrid>
       </div>
@@ -33,7 +33,11 @@ export const AfpDetaljer: React.FC<AfpDetaljerProps> = ({
           beregningsdetaljerStyles.beregningsdetaljerForOvergangskullMobileOnly
         }
       >
-        <VStack gap="4 8" width="100%" marginBlock="2 0">
+        <VStack
+          gap="space-16 space-32"
+          width="100%"
+          marginBlock="space-8 space-0"
+        >
           {renderAfpDetaljer(afpDetaljForValgtUttak)}
         </VStack>
       </div>

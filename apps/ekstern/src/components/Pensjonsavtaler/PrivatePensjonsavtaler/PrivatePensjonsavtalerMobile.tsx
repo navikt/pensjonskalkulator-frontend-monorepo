@@ -32,7 +32,7 @@ const AvtaleGruppe: React.FC<AvtaleGruppeProps> = ({
   const subHeadingLevel = useNextHeadingLevel(headingLevel)
 
   return (
-    <VStack gap="3">
+    <VStack gap="space-12">
       <Heading level={headingLevel} size="small">
         {capitalize(avtale)}
       </Heading>

@@ -1,6 +1,4 @@
-import { FormattedMessage } from 'react-intl'
-
-import { Alert } from '@navikt/ds-react'
+import { SanityAlert } from '@pensjonskalkulator-frontend-monorepo/sanity/SanityAlert'
 
 import { ALERT_VIST } from '@/utils/loggerConstants'
 import { logger } from '@/utils/logging'
@@ -17,13 +15,10 @@ export const ApotekereWarning = ({ showWarning }: { showWarning: boolean }) => {
   })
 
   return (
-    <Alert
+    <SanityAlert
+      id="apoteker.beregning-med-afp-feil"
       className={styles.alertWrapper}
-      variant="warning"
-      data-testid="apotekere-warning"
       role="alert"
-    >
-      <FormattedMessage id="error.apoteker_warning" />
-    </Alert>
+    />
   )
 }

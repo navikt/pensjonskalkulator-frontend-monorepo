@@ -3,17 +3,17 @@
 .section {
   composes: innerframe from '../../scss/modules/frame.module.scss';
 
-  @media (min-width: variables.$a-breakpoint-lg) {
+  @media (min-width: variables.$ax-breakpoint-lg) {
     padding-left: 0 !important;
     padding-right: 0 !important;
   }
 }
 
 .innerwrapper {
-  padding: var(--a-spacing-2) 0;
+  padding: var(--ax-space-8) 0;
 
-  @media (min-width: variables.$a-breakpoint-md) {
-    padding: var(--a-spacing-6) 0;
+  @media (min-width: variables.$ax-breakpoint-md) {
+    padding: var(--ax-space-24) 0;
   }
 }
 
@@ -21,7 +21,7 @@
   display: block;
   margin: 0 auto;
 
-  @media (min-width: variables.$a-breakpoint-lg) {
+  @media (min-width: variables.$ax-breakpoint-lg) {
     margin: 0;
   }
 }

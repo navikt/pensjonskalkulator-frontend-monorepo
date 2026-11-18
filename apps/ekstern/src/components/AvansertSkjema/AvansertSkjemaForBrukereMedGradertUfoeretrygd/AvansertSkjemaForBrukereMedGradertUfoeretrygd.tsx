@@ -1,9 +1,10 @@
 import { SanityReadmore } from '@pensjonskalkulator-frontend-monorepo/sanity'
+import { SanityAlert } from '@pensjonskalkulator-frontend-monorepo/sanity/SanityAlert'
 import clsx from 'clsx'
 import React, { useEffect } from 'react'
 import { FormattedMessage, useIntl } from 'react-intl'
 
-import { Alert, Radio, RadioGroup, Select, TextField } from '@navikt/ds-react'
+import { Radio, RadioGroup, Select, TextField } from '@navikt/ds-react'
 
 import { VilkaarsproevingAlert } from '@/components/VilkaarsproevingAlert'
 import { AgePicker } from '@/components/common/AgePicker'
@@ -92,10 +93,11 @@ export const AvansertSkjemaForBrukereMedGradertUfoeretrygd: React.FC<{
     window.scrollTo(0, 0)
   }
 
-  const brukerensAlderPlus1Maaned = getBrukerensAlderISluttenAvMaaneden(
-    foedselsdato,
-    nedreAldersgrense
-  )
+  const harUfoeregradFra80 = loependeVedtak.ufoeretrygd.grad >= 80
+
+  const agePickerMinAlder = harUfoeregradFra80
+    ? normertPensjonsalder
+    : getBrukerensAlderISluttenAvMaaneden(foedselsdato, nedreAldersgrense)
 
   const {
     localInntektFremTilUttak,
@@ -191,6 +193,7 @@ export const AvansertSkjemaForBrukereMedGradertUfoeretrygd: React.FC<{
 
     // * Dersom brukeren endrer alderen til en alder som tillater flere graderinger, skal alle påfølgende felter nullstilles
     const shouldResetGradertUttak =
+      !harUfoeregradFra80 &&
       alder?.aar &&
       alder?.maaneder !== undefined &&
       alder?.aar >= normertPensjonsalder.aar
@@ -390,7 +393,7 @@ export const AvansertSkjemaForBrukereMedGradertUfoeretrygd: React.FC<{
     ) {
       logger(ALERT_VIST, {
         tekst: '12 måneders regel, du kan tidligst endre uttaksgrad',
-        variant: 'warning',
+        variant: 'info',
       })
     }
   }, [validationErrors[AVANSERT_FORM_NAMES.endringAlertFremtidigDato]])
@@ -454,17 +457,16 @@ export const AvansertSkjemaForBrukereMedGradertUfoeretrygd: React.FC<{
                 {validationErrors[
                   AVANSERT_FORM_NAMES.endringAlertFremtidigDato
                 ] && (
-                  <Alert variant="warning" role="alert">
-                    <FormattedMessage
-                      id="beregning.endring.alert.uttaksdato"
-                      values={{
-                        ...getFormatMessageValues(),
-                        dato: validationErrors[
+                  <SanityAlert
+                    id="beregning.ugyldig-uttaksgrad.12-maaneder"
+                    role="alert"
+                    dynamicValues={{
+                      'tidligst-endring-uttaksgrad-dato':
+                        validationErrors[
                           AVANSERT_FORM_NAMES.endringAlertFremtidigDato
                         ],
-                      }}
-                    />
-                  </Alert>
+                    }}
+                  />
                 )}
               </div>
 
@@ -534,7 +536,7 @@ export const AvansertSkjemaForBrukereMedGradertUfoeretrygd: React.FC<{
                       value={localGradertUttak.uttaksalder}
                       onChange={handleGradertUttaksalderChange}
                       error={gradertUttakAgePickerError}
-                      minAlder={brukerensAlderPlus1Maaned}
+                      minAlder={agePickerMinAlder}
                     />
                   ) : (
                     <AgePicker
@@ -553,7 +555,7 @@ export const AvansertSkjemaForBrukereMedGradertUfoeretrygd: React.FC<{
                       value={localHeltUttak?.uttaksalder}
                       onChange={handleHeltUttaksalderChange}
                       error={heltUttakAgePickerError}
-                      minAlder={brukerensAlderPlus1Maaned}
+                      minAlder={agePickerMinAlder}
                     />
                   )}
 

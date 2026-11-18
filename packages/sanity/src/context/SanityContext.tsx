@@ -10,6 +10,7 @@ import type {
 
 interface SanityContext {
 	alertData: Record<string, AlertQueryResult[number]>
+	navigateToRoute?: (route: string) => void
 	guidePanelData: Record<string, GuidePanelQueryResult[number]>
 	readMoreData: Record<string, ReadMoreQueryResult[number]>
 	forbeholdAvsnittData: ForbeholdAvsnittQueryResult

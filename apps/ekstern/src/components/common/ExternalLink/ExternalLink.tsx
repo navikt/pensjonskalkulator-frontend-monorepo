@@ -8,7 +8,7 @@ import { logOpenLink } from '@/utils/logging'
 export const ExternalLink = ({
   children,
   ...rest
-}: React.AnchorHTMLAttributes<HTMLAnchorElement> & {
+}: Omit<React.AnchorHTMLAttributes<HTMLAnchorElement>, 'data-color'> & {
   children: React.ReactNode
 }) => {
   const intl = useIntl()

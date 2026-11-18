@@ -19,14 +19,18 @@ export const SanityKortforbehold = ({
 	className,
 }: Props) => {
 	const intl = useIntl()
-	const { kortforbeholdData } = React.useContext(SanityContext)
+	const { kortforbeholdData, navigateToRoute } = React.useContext(SanityContext)
 	const sanityContent = kortforbeholdData?.[id]
 
 	if (!sanityContent) {
 		return null
 	}
 
-	const portableTextComponents = getSanityPortableTextComponents({ intl, size })
+	const portableTextComponents = getSanityPortableTextComponents({
+		intl,
+		size,
+		navigateToRoute,
+	})
 	const innhold = sanityContent.innhold.map((block) => {
 		const firstTextChildIndex =
 			block.children?.findIndex((child) => child.text !== undefined) ?? -1

@@ -1,9 +1,9 @@
 @use '../../../../scss/variables';
 
 .hstackRow {
-  border-bottom: 1px solid var(--a-border-divider);
-  margin-bottom: var(--a-spacing-3);
-  padding-bottom: var(--a-spacing-3);
+  border-bottom: 1px solid var(--ax-border-neutral-subtle);
+  margin-bottom: var(--ax-space-12);
+  padding-bottom: var(--ax-space-12);
 
   &:last-child {
     border-bottom: none;
@@ -12,15 +12,15 @@
   }
 
   &:only-child {
-    border-bottom: 1px solid var(--a-border-divider);
+    border-bottom: 1px solid var(--ax-border-neutral-subtle);
   }
 
   dl {
     display: flex;
     flex-flow: column wrap;
     flex: 1 1 0px;
-    min-width: calc(var(--a-spacing-24) * 3 + var(--a-spacing-4));
-    margin: var(--a-spacing-4) 0;
+    min-width: calc(var(--ax-space-96) * 3 + var(--ax-space-16));
+    margin: var(--ax-space-16) 0;
   }
 
   dd {

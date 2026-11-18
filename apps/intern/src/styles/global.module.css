@@ -21,12 +21,6 @@
 	width: 144px;
 }
 
-.horizontalRadioGroup > :global(.aksel-radio-buttons) {
-	display: flex;
-	flex-direction: row;
-	gap: var(--ax-space-24);
-}
-
 .appContainer {
 	display: flex;
 	flex-direction: column;

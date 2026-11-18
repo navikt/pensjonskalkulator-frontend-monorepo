@@ -2,13 +2,13 @@
 
 .maanedsbeloep {
   &MobileOnly {
-    @media (min-width: variables.$a-breakpoint-sm) {
+    @media (min-width: variables.$ax-breakpoint-sm) {
       display: none !important;
     }
   }
 
   &DesktopOnly {
-    @media (max-width: variables.$a-breakpoint-sm-down) {
+    @media (max-width: variables.$ax-breakpoint-sm-down) {
       display: none !important;
     }
   }

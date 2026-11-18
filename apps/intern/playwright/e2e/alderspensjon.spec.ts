@@ -12,7 +12,7 @@ import {
 async function submitAndExpectSimulering(page: Page) {
 	const simuleringResponse = page.waitForResponse(
 		(response) =>
-			response.url().includes('/api/intern/v1/pensjon/simulering') &&
+			response.url().includes('/api/intern/v2/pensjon/simulering') &&
 			response.request().method() === 'POST'
 	)
 
@@ -55,7 +55,7 @@ function trackSimuleringRequests(page: Page) {
 	page.on('request', (request) => {
 		if (
 			request.method() === 'POST' &&
-			request.url().includes('/api/intern/v1/pensjon/simulering')
+			request.url().includes('/api/intern/v2/pensjon/simulering')
 		) {
 			simuleringRequests += 1
 		}
@@ -64,6 +64,62 @@ function trackSimuleringRequests(page: Page) {
 }
 
 test.describe('Alderspensjon beregning', () => {
+	test('sender normert og nedre aldersgrense fra backend som props til Sanity-varsel', async ({
+		page,
+	}) => {
+		await setupLoependeAlderspensjonFoerEndringsfrist(page)
+		await mockApi(page, API_URLS.PERSON, MOCK_FILES.PERSON, {
+			pensjoneringAldre: {
+				normertPensjoneringsalder: { aar: 68, maaneder: 2 },
+				nedreAldersgrense: { aar: 64, maaneder: 0 },
+			},
+		})
+		await mockApi(page, API_URLS.SANITY, MOCK_FILES.SANITY_ALERT, {
+			result: [
+				{
+					name: 'beregning.ugyldig-uttaksgrad.12-maaneder',
+					type: 'local-alert',
+					status: 'info',
+					innhold: [
+						{
+							_type: 'block',
+							_key: 'age-block',
+							style: 'normal',
+							markDefs: [],
+							children: [
+								{
+									_type: 'dynamicValue',
+									_key: 'normert',
+									key: 'normertPensjoneringsalder',
+									valueType: 'string',
+								},
+								{
+									_type: 'span',
+									_key: 'separator',
+									text: ' / ',
+									marks: [],
+								},
+								{
+									_type: 'dynamicValue',
+									_key: 'nedre',
+									key: 'nedreAldersgrense',
+									valueType: 'string',
+								},
+							],
+						},
+					],
+				},
+			],
+		})
+		await navigateToApp(page)
+		await fillEndringAvUttaksgradFoerEndringsfrist(page)
+		await page.getByTestId('beregn-button').click()
+
+		await expect(
+			page.getByTestId('beregning.ugyldig-uttaksgrad.12-maaneder')
+		).toContainText('68 år og 2 måneder / 64 år')
+	})
+
 	test.describe('Skjema visning', () => {
 		test('viser beregningsskjema med alle hovedfelter', async ({ page }) => {
 			await setupDefaultMocks(page)
@@ -338,12 +394,15 @@ test.describe('Alderspensjon beregning', () => {
 
 			await page.getByTestId('beregn-button').click()
 
-			await expect(page.getByText('Ugyldig uttaksgrad')).toBeVisible()
-			await expect(
-				page.getByText(
-					'Uttaksgrad kan tidligst endres til 20, 40, 50, 60 eller 80 % fra 01.01.2032.'
-				)
-			).toBeVisible()
+			const alert = page.getByTestId('beregning.ugyldig-uttaksgrad.12-maaneder')
+			await expect(alert).toBeVisible()
+			await expect(alert).toContainText('12-månedersregel')
+			await expect(alert).toContainText(
+				'Du kan derfor tidligst endre uttaksgrad fra 01.01.2032.'
+			)
+			await expect(alert).toContainText(
+				'Du kan endre til 0 eller 100 % så ofte du vil.'
+			)
 			expect(getSimuleringRequestCount()).toBe(0)
 		})
 
@@ -656,8 +715,9 @@ test.describe('Alderspensjon beregning', () => {
 
 			const alert = page.getByTestId('beregning.fremtidigAlderspensjon')
 			await expect(alert).toBeVisible()
-			await expect(alert).toContainText('01.05.2031')
-			await expect(alert).toContainText('01.06.2031')
+			await expect(alert).toContainText(
+				'Bruker har vedtak om 100 % alderspensjon fra 01.05.2031. Pensjon kan derfor tidligst endres fra 01.06.2031.'
+			)
 		})
 
 		test('viser alert med tidligst endring en måned etter for grad 0 uten AFP offentlig', async ({
@@ -672,8 +732,9 @@ test.describe('Alderspensjon beregning', () => {
 
 			const alert = page.getByTestId('beregning.fremtidigAlderspensjon')
 			await expect(alert).toBeVisible()
-			await expect(alert).toContainText('01.05.2031')
-			await expect(alert).toContainText('01.06.2031')
+			await expect(alert).toContainText(
+				'Bruker har vedtak om 0 % alderspensjon fra 01.05.2031. Pensjon kan derfor tidligst endres fra 01.06.2031.'
+			)
 		})
 
 		test('viser alert med begge datoer lik vedtakdato for grad 0 med AFP offentlig', async ({
@@ -691,6 +752,9 @@ test.describe('Alderspensjon beregning', () => {
 
 			const alert = page.getByTestId('beregning.fremtidigAlderspensjon')
 			await expect(alert).toBeVisible()
+			await expect(alert).toContainText(
+				'Bruker har vedtak om 0 % alderspensjon fra 01.05.2031. Pensjon kan derfor tidligst endres fra 01.05.2031.'
+			)
 			const vedtakDatoCount = await alert.getByText('01.05.2031').count()
 			expect(vedtakDatoCount).toBe(2)
 		})

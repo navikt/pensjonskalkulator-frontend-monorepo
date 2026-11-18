@@ -73,8 +73,8 @@ describe('PrivatePensjonsavtaler', () => {
     )
 
     expect(
-      await screen.findByText(
-        'pensjonsavtaler.private.ingress.error.pensjonsavtaler.partial'
+      await screen.findByTestId(
+        'pensjonsavtaler.klarte-ikke-hente-alle-private'
       )
     ).toBeVisible()
     expect(screen.queryByTestId('private-pensjonsavtaler')).toBeInTheDocument()
@@ -100,9 +100,7 @@ describe('PrivatePensjonsavtaler', () => {
       await screen.findByText('pensjonsavtaler.private.title.ingen')
     ).toBeVisible()
     expect(
-      await screen.findByText(
-        'pensjonsavtaler.private.ingress.error.pensjonsavtaler'
-      )
+      await screen.findByTestId('pensjonsavtaler.klarte-ikke-hente-private')
     ).toBeVisible()
 
     expect(
@@ -130,9 +128,7 @@ describe('PrivatePensjonsavtaler', () => {
       await screen.findByText('pensjonsavtaler.private.title.ingen')
     ).toBeVisible()
     expect(
-      await screen.findByText(
-        'pensjonsavtaler.private.ingress.error.pensjonsavtaler'
-      )
+      await screen.findByTestId('pensjonsavtaler.klarte-ikke-hente-private')
     ).toBeVisible()
     expect(
       screen.queryByTestId('private-pensjonsavtaler')
@@ -160,8 +156,9 @@ describe('PrivatePensjonsavtaler', () => {
       await screen.findByText('pensjonsavtaler.private.title.ingen')
     ).toBeVisible()
     expect(
-      await screen.findByText('pensjonsavtaler.ingress.ingen')
+      await screen.findByTestId('pensjonsavtaler.fant-ingen-private')
     ).toBeVisible()
+    expect(screen.getByText('Vi fant ingen pensjonsavtaler.')).toBeVisible()
     expect(
       screen.queryByTestId('private-pensjonsavtaler-desktop')
     ).not.toBeInTheDocument()

@@ -1,9 +1,9 @@
 @use '../../scss/variables';
 
 .section {
-  padding: 0 var(--a-spacing-6) var(--a-spacing-12) var(--a-spacing-6);
+  padding: 0 var(--ax-space-24) var(--ax-space-48) var(--ax-space-24);
 
-  @media (min-width: variables.$a-breakpoint-lg) {
+  @media (min-width: variables.$ax-breakpoint-lg) {
     max-width: variables.$container-max-width;
     padding-left: 0;
     padding-right: 0;

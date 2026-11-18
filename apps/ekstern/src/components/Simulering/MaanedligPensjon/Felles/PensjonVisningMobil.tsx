@@ -48,8 +48,8 @@ export const PensjonVisningMobil: React.FC<Props> = ({
   }
 
   return (
-    <Box marginBlock="2 0" borderRadius="medium">
-      <VStack gap="2">
+    <Box marginBlock="space-8 space-0" borderRadius="4">
+      <VStack gap="space-8">
         {pensjonsdata.map((data, index) => {
           const formattedUttaksalder =
             data.alderspensjon && data.pre2025OffentligAfp

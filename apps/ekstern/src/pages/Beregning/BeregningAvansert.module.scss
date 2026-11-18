@@ -8,28 +8,28 @@
   }
 
   &__hasTopMargin {
-    margin-top: var(--a-spacing-4) !important;
+    margin-top: var(--ax-space-16) !important;
   }
 }
 
 .intro {
-  margin-bottom: var(--a-spacing-10);
+  margin-bottom: var(--ax-space-40);
   max-width: variables.$container-max-width;
 
   &__endring {
-    margin-bottom: var(--a-spacing-3);
+    margin-bottom: var(--ax-space-12);
   }
 
   &Title {
-    margin-bottom: var(--a-spacing-1);
+    margin-bottom: var(--ax-space-4);
   }
 }
 
 .link {
-  margin-top: var(--a-spacing-2);
-  margin-bottom: var(--a-spacing-4);
+  margin-top: var(--ax-space-8);
+  margin-bottom: var(--ax-space-16);
 }
 
 .guidePanel {
-  margin-bottom: var(--a-spacing-8);
+  margin-bottom: var(--ax-space-32);
 }

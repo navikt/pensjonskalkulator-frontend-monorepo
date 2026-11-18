@@ -5,31 +5,49 @@ import {
 	DynamicValueInput,
 	DynamicValuePortableTextInput,
 	DynamicValueTypeInput,
+	LinkAnnotationEditor,
+	LinkAnnotationInput,
+	LinkAnnotationTypeInput,
 } from '../../components/DynamicValueInput'
-
-const isLinkValueParent = (parent: unknown) =>
-	typeof parent === 'object' &&
-	parent !== null &&
-	'valueType' in parent &&
-	(parent.valueType === 'internalLink' || parent.valueType === 'externalLink')
-
-const isInternalLinkParent = (parent: unknown) =>
-	typeof parent === 'object' &&
-	parent !== null &&
-	'valueType' in parent &&
-	parent.valueType === 'internalLink'
-
-const isExternalLinkParent = (parent: unknown) =>
-	typeof parent === 'object' &&
-	parent !== null &&
-	'valueType' in parent &&
-	parent.valueType === 'externalLink'
 
 const isGMultipleParent = (parent: unknown) =>
 	typeof parent === 'object' &&
 	parent !== null &&
 	'valueType' in parent &&
 	parent.valueType === 'gMultiple'
+
+const getPortableTextLinkType = (parent: unknown) => {
+	if (
+		typeof parent === 'object' &&
+		parent !== null &&
+		'linkType' in parent &&
+		(parent.linkType === 'anchor' || parent.linkType === 'route')
+	) {
+		return parent.linkType
+	}
+	return 'external'
+}
+
+const externalStepRoutes = [
+	{ title: 'Start', value: '/pensjon/kalkulator/start' },
+	{ title: 'Sivilstand', value: '/pensjon/kalkulator/sivilstand' },
+	{ title: 'Utenlandsopphold', value: '/pensjon/kalkulator/utenlandsopphold' },
+	{ title: 'AFP', value: '/pensjon/kalkulator/afp' },
+	{ title: 'Uføretrygd og AFP', value: '/pensjon/kalkulator/ufoeretrygd-afp' },
+	{
+		title: 'Samtykke til offentlig AFP',
+		value: '/pensjon/kalkulator/samtykke-offentlig-afp',
+	},
+	{
+		title: 'Samtykke til pensjonsavtaler',
+		value: '/pensjon/kalkulator/samtykke',
+	},
+	{ title: 'Beregning', value: '/pensjon/kalkulator/beregning' },
+	{
+		title: 'Detaljert beregning',
+		value: '/pensjon/kalkulator/beregning-detaljert',
+	},
+]
 
 export const languageField = defineField({
 	title: 'Language',
@@ -42,8 +60,49 @@ export const languageField = defineField({
 export const nameField = defineField({
 	name: 'name',
 	type: 'string',
-	description: 'Denne brukes som ID i koden',
-	validation: (rule) => rule.required().error('Påkrevd'),
+	description:
+		'Denne brukes som ID i koden og må være unik for dokumenttypen og språket. Alert-navn må være unike uavhengig av språk.',
+	validation: (rule) => [
+		rule.required().error('Påkrevd'),
+		rule.custom(async (value, context) => {
+			if (!value) {
+				return true
+			}
+			if (!value.trim()) {
+				return 'Påkrevd'
+			}
+
+			const document = context.document
+			if (!document) {
+				return 'Kunne ikke kontrollere om navnet er unikt. Prøv igjen.'
+			}
+
+			const id = document._id.replace(/^drafts\./, '')
+			const client = context
+				.getClient({ apiVersion: '2025-07-02' })
+				.withConfig({ useCdn: false, perspective: 'raw' })
+
+			try {
+				const duplicateCount = await client.fetch<number>(
+					'count(*[_type == $type && name == $name && !(_id in [$id, $draftId]) && ($type == "alert" || coalesce(language, "") == $language)])',
+					{
+						type: document._type,
+						name: value,
+						id,
+						draftId: `drafts.${id}`,
+						language:
+							typeof document.language === 'string' ? document.language : '',
+					}
+				)
+				return duplicateCount === 0
+					? true
+					: 'Et dokument med samme navn finnes allerede. Velg et annet navn.'
+			} catch (error) {
+				console.error('Kunne ikke kontrollere om Sanity-navnet er unikt', error)
+				return 'Kunne ikke kontrollere om navnet er unikt. Prøv igjen.'
+			}
+		}),
+	],
 })
 
 export const overskriftField = defineField({
@@ -87,8 +146,6 @@ export const innholdField = defineField({
 							components: { input: DynamicValueTypeInput },
 							options: {
 								list: [
-									{ title: 'Intern lenke', value: 'internalLink' },
-									{ title: 'Ekstern lenke', value: 'externalLink' },
 									{ title: 'Tekst', value: 'string' },
 									{ title: 'Tall', value: 'number' },
 									{ title: 'G-multiplum', value: 'gMultiple' },
@@ -102,42 +159,55 @@ export const innholdField = defineField({
 							type: 'string',
 							title: 'Dynamisk verdi',
 							description: 'Nøkkel i dynamicValues for tekst og tall.',
-							hidden: ({ parent }) =>
-								isLinkValueParent(parent) || isGMultipleParent(parent),
+							hidden: ({ parent }) => isGMultipleParent(parent),
 							options: {
 								list: [
-									{ title: 'Alder', value: 'alder' },
-									{ title: 'Uttaksgrad', value: 'grad' },
+									{ title: 'Valgt alder for uttak (Tekst)', value: 'alder' },
 									{
-										title: 'Uttaksgrad ved gradert uttak',
+										title: 'Normert pensjonsalder (Tekst)',
+										value: 'normertPensjoneringsalder',
+									},
+									{
+										title: 'Nedre aldersgrense (normert minus 5 år) (Tekst)',
+										value: 'nedreAldersgrense',
+									},
+									{ title: 'Uttaksgrad fra vedtak (Tall)', value: 'grad' },
+									{
+										title: 'Uttaksgrad ved gradert uttak - NAU (Tall)',
 										value: 'grad_gradert',
 									},
-									{ title: 'Alder ved gradert uttak', value: 'gradert_alder' },
-									{ title: 'Dato for vedtak', value: 'vedtakDato' },
 									{
-										title: 'Tidligste endringsdato',
+										title: 'Alder ved gradert uttak - NAU (Tekst)',
+										value: 'gradert_alder',
+									},
+									{
+										title: 'Alder ved helt uttak - NAU (Tekst)',
+										value: 'helt_alder',
+									},
+									{ title: 'Dato for vedtak (Tekst)', value: 'vedtakDato' },
+									{
+										title: 'Tidligste endringsdato (Tekst)',
 										value: 'tidligstEndringDato',
 									},
 									{
-										title: 'Tidligste dato for endring av uttaksgrad',
+										title:
+											'Tidligste dato for endring av uttaksgrad - 12 måneders regel (Tekst)',
 										value: 'tidligst-endring-uttaksgrad-dato',
 									},
-									{ title: 'TP-ordning', value: 'tpOrdning' },
+									{ title: 'TP-ordning (Tekst)', value: 'tpOrdning' },
 									{
-										title: 'Minste månedsinntekt for AFP',
+										title: 'Minste månedsinntekt for AFP (1G/12) (Tall)',
 										value: 'afpMinsteMaanedsinntekt',
 									},
-									{ title: 'Fornavn', value: 'fornavn' },
-									{ title: 'Fødselsdato', value: 'foedselsdato' },
-									{ title: 'Mellomrom', value: 'nbsp' },
+									{ title: 'Fornavn (Tekst)', value: 'fornavn' },
+									{ title: 'Fødselsdato (Tekst)', value: 'foedselsdato' },
+									{ title: 'Mellomrom (Tekst)', value: 'nbsp' },
 								],
 								layout: 'dropdown',
 							},
 							validation: (rule) =>
 								rule.custom((value, context) =>
-									isLinkValueParent(context.parent) ||
-									isGMultipleParent(context.parent) ||
-									Boolean(value?.trim())
+									isGMultipleParent(context.parent) || Boolean(value?.trim())
 										? true
 										: 'Dynamisk verdi er påkrevd'
 								),
@@ -163,54 +233,6 @@ export const innholdField = defineField({
 										: 'Grunnbeløpsfaktor er påkrevd'
 								),
 						}),
-						defineField({
-							name: 'label',
-							type: 'string',
-							title: 'Lenketekst',
-							hidden: ({ parent }) => !isLinkValueParent(parent),
-							validation: (rule) =>
-								rule.custom((value, context) =>
-									!isLinkValueParent(context.parent) || Boolean(value?.trim())
-										? true
-										: 'Lenketekst er påkrevd'
-								),
-						}),
-						defineField({
-							name: 'anchorId',
-							type: 'string',
-							title: 'ID på mål',
-							description: 'ID på avsnittet eller elementet i appen, uten #.',
-							hidden: ({ parent }) => !isInternalLinkParent(parent),
-							validation: (rule) =>
-								rule.custom((value, context) =>
-									!isInternalLinkParent(context.parent) ||
-									Boolean(value?.trim())
-										? true
-										: 'ID på anchor er påkrevd'
-								),
-						}),
-						defineField({
-							name: 'url',
-							type: 'url',
-							title: 'URL',
-							hidden: ({ parent }) => !isExternalLinkParent(parent),
-							validation: (rule) =>
-								rule.custom((value, context) =>
-									!isExternalLinkParent(context.parent) ||
-									Boolean(value?.trim())
-										? true
-										: 'URL er påkrevd'
-								),
-						}),
-						defineField({
-							name: 'openInNewTab',
-							type: 'boolean',
-							title: 'Åpnes i ny fane',
-							description:
-								'Åpne lenken i en ny fane i stedet for i samme fane.',
-							initialValue: false,
-							hidden: ({ parent }) => !isLinkValueParent(parent),
-						}),
 					],
 					preview: {
 						prepare() {
@@ -225,15 +247,70 @@ export const innholdField = defineField({
 						name: 'link',
 						type: 'object',
 						title: 'Lenke',
+						components: {
+							input: LinkAnnotationInput,
+							annotation: LinkAnnotationEditor,
+						},
+						options: {
+							modal: { type: 'dialog', width: 1 },
+						},
 						fields: [
+							{
+								name: 'linkType',
+								type: 'string',
+								title: 'Lenketype',
+								components: { input: LinkAnnotationTypeInput },
+								initialValue: 'external',
+								options: {
+									layout: 'dropdown',
+									list: [
+										{ title: 'Lenke til element på siden', value: 'anchor' },
+										{ title: 'Stegvisning', value: 'route' },
+										{ title: 'Ekstern lenke', value: 'external' },
+									],
+								},
+							},
 							{
 								name: 'href',
 								type: 'url',
 								title: 'URL',
+								hidden: ({ parent }) =>
+									getPortableTextLinkType(parent) !== 'external',
 								validation: (Rule) =>
 									Rule.uri({
 										scheme: ['http', 'https', 'mailto', 'tel'],
 									}),
+							},
+							{
+								name: 'anchorId',
+								type: 'string',
+								title: 'ID på mål',
+								description: 'ID på elementet på siden, uten #.',
+								hidden: ({ parent }) =>
+									getPortableTextLinkType(parent) !== 'anchor',
+								validation: (Rule) =>
+									Rule.custom((value, context) =>
+										getPortableTextLinkType(context.parent) !== 'anchor' ||
+										(typeof value === 'string' && Boolean(value.trim()))
+											? true
+											: 'ID på mål er påkrevd'
+									),
+							},
+							{
+								name: 'route',
+								type: 'string',
+								title: 'Stegvisningsrute',
+								description: 'Velg hvilket steg lenken skal åpne.',
+								hidden: ({ parent }) =>
+									getPortableTextLinkType(parent) !== 'route',
+								options: { layout: 'dropdown', list: externalStepRoutes },
+								validation: (Rule) =>
+									Rule.custom((value, context) =>
+										getPortableTextLinkType(context.parent) !== 'route' ||
+										Boolean(value)
+											? true
+											: 'Velg et steg fra listen.'
+									).error('Velg et steg fra listen.'),
 							},
 							{
 								name: 'blank',
@@ -241,6 +318,8 @@ export const innholdField = defineField({
 								title: 'Åpnes i ny fane',
 								description:
 									'Ved å huke av denne boksen vil lenken vises med "external" ikon og åpnes i ny fane',
+								hidden: ({ parent }) =>
+									getPortableTextLinkType(parent) !== 'external',
 							},
 							{
 								name: 'className',

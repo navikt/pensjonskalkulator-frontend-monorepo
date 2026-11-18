@@ -120,7 +120,7 @@ describe('Gitt at AfpDetaljer rendres', () => {
       />
     )
 
-    const box = container.querySelector('.navds-box')
+    const box = container.querySelector('.aksel-box')
     expect(box).toBeInTheDocument()
   })
 
@@ -251,7 +251,7 @@ describe('Gitt at AfpDetaljer rendres', () => {
     )
 
     // Kun box elementet skal være tilstede
-    const box = container.querySelector('.navds-box')
+    const box = container.querySelector('.aksel-box')
     expect(box).toBeInTheDocument()
     expect(screen.queryByText('Kompensasjonstillegg:')).not.toBeInTheDocument()
     expect(screen.queryByText('AFP grad:')).not.toBeInTheDocument()
@@ -339,7 +339,7 @@ describe('Gitt at AfpDetaljer rendres', () => {
       />
     )
 
-    const vStack = container.querySelector('.navds-stack')
+    const vStack = container.querySelector('.aksel-stack')
     expect(vStack).toBeVisible()
   })
 
@@ -773,7 +773,7 @@ describe('Gitt at AfpDetaljer rendres', () => {
           alderspensjonColumnsCount={3}
         />
       )
-      const box = container.querySelector('.navds-box')
+      const box = container.querySelector('.aksel-box')
       expect(box).toBeInTheDocument()
     })
   })
@@ -1217,7 +1217,7 @@ describe('Gitt at AfpDetaljer rendres', () => {
         />
       )
 
-      const box = container.querySelector('.navds-box')
+      const box = container.querySelector('.aksel-box')
       expect(box).toBeInTheDocument()
     })
 

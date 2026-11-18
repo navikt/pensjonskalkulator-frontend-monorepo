@@ -172,7 +172,7 @@ export const Grunnlag: React.FC<Props> = ({
         )}
       </Heading>
 
-      <HStack gap="8" marginBlock="6 0">
+      <HStack gap="space-32" marginBlock="space-24 space-0">
         {visning === 'enkel' && !isEndring && (
           <GrunnlagItem color="gray">
             <Pensjonsgivendeinntekt goToAvansert={goToAvansert} />
@@ -180,7 +180,7 @@ export const Grunnlag: React.FC<Props> = ({
         )}
 
         <GrunnlagItem color="blue">
-          <VStack gap="1">
+          <VStack gap="space-4">
             <Heading level="3" size="small">
               <FormattedMessage id="beregning.highcharts.serie.alderspensjon.name" />
             </Heading>
@@ -200,7 +200,7 @@ export const Grunnlag: React.FC<Props> = ({
                     ...getFormatMessageValues(),
                     avansert: (
                       <Link href="#" onClick={goToAvansert}>
-                        avansert kalkulator
+                        Flere valg
                       </Link>
                     ),
                   }}
@@ -354,7 +354,7 @@ export const Grunnlag: React.FC<Props> = ({
       </HStack>
 
       {/* TODO: Fjern style når Accordion fjernes */}
-      <VStack marginBlock="12 0" style={{ marginBottom: '16px' }}>
+      <VStack marginBlock="space-48 space-0" style={{ marginBottom: '16px' }}>
         <Heading level={headingLevel} size="medium">
           <FormattedMessage id="om_deg.title" />
         </Heading>

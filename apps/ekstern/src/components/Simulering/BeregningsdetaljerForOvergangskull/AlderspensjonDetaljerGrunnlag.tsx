@@ -39,11 +39,15 @@ export const AlderspensjonDetaljerGrunnlag: React.FC<Props> = ({
   )
 
   return (
-    <VStack gap="14" width="100%">
+    <VStack gap="space-56" width="100%">
       {alderspensjonDetaljerListe.map(
         (alderspensjonDetaljForValgtUttak, index) => (
           <Box key={index}>
-            <VStack gap="4 8" width="100%" marginBlock="6 4">
+            <VStack
+              gap="space-16 space-32"
+              width="100%"
+              marginBlock="space-24 space-16"
+            >
               {renderHeading(index)}
               {renderDetaljer(alderspensjonDetaljForValgtUttak)}
             </VStack>

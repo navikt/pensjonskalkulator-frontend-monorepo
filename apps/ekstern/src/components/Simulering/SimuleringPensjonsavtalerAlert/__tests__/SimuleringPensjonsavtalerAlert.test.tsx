@@ -2,13 +2,10 @@ import offentligTpData from '@pensjonskalkulator-frontend-monorepo/mocks/data/of
 import pensjonsavtalerData from '@pensjonskalkulator-frontend-monorepo/mocks/data/pensjonsavtaler/67.json' with { type: 'json' }
 import { vi } from 'vitest'
 
-import { ShowMoreRef } from '@/components/common/ShowMore/ShowMore'
 import { loependeVedtakLoependeAlderspensjonMock } from '@/mocks'
-import {
-  AvansertBeregningModus,
-  BeregningContext,
-} from '@/pages/Beregning/context'
-import { fireEvent, render, screen } from '@/test-utils'
+import { BeregningContext } from '@/pages/Beregning/context'
+import { fireEvent, render, screen, within } from '@/test-utils'
+import * as loggerUtils from '@/utils/logging'
 
 import { SimuleringPensjonsavtalerAlert } from '../SimuleringPensjonsavtalerAlert'
 
@@ -21,15 +18,6 @@ describe('SimuleringPensjonsavtalerAlert', () => {
       }) as Pensjonsavtale
   )
 
-  const contextMockedValues = {
-    avansertSkjemaModus: 'resultat' as AvansertBeregningModus,
-    setAvansertSkjemaModus: vi.fn(),
-    harAvansertSkjemaUnsavedChanges: false,
-    setHarAvansertSkjemaUnsavedChanges: () => {},
-    pensjonsavtalerShowMoreRef: {
-      current: { focus: vi.fn() },
-    } as unknown as React.RefObject<ShowMoreRef>,
-  }
   afterEach(() => {
     vi.resetAllMocks()
   })
@@ -46,9 +34,7 @@ describe('SimuleringPensjonsavtalerAlert', () => {
             partialResponse: false,
           },
         }}
-        offentligTp={{
-          isError: false,
-        }}
+        offentligTp={{ isError: false }}
         isPensjonsavtaleFlagVisible={false}
       />,
       {
@@ -57,11 +43,44 @@ describe('SimuleringPensjonsavtalerAlert', () => {
         },
       }
     )
-    expect(screen.queryByTestId('pensjonsavtaler-alert')).toBeVisible()
-    expect(screen.getByTitle('Informasjon')).toBeInTheDocument()
-    expect(
-      screen.getByText('beregning.pensjonsavtaler.alert.endring')
-    ).toBeVisible()
+    const alert = screen.getByTestId(
+      'pensjonsavtaler.avtaler-ikke-med-i-beregning'
+    )
+    expect(alert).toBeVisible()
+  })
+
+  it('viser Sanity-alert når offentlig AFP-beregning ikke kunne hentes før 1963', () => {
+    const loggerSpy = vi.spyOn(loggerUtils, 'logger')
+
+    render(
+      <SimuleringPensjonsavtalerAlert
+        pensjonsavtaler={{
+          isLoading: false,
+          isSuccess: true,
+          isError: false,
+          data: { avtaler: avtalerWithKeys, partialResponse: false },
+        }}
+        offentligTp={{
+          isError: false,
+          data: {
+            feilkode: 'OPPFYLLER_IKKE_INNGANGSVILKAAR',
+          } as unknown as OffentligTp,
+        }}
+        isPensjonsavtaleFlagVisible={false}
+        erOffentligTpFoer1963
+      />
+    )
+
+    const alert = screen.getByTestId('afp.fikk-ikke-hentet-beregning-fra-spk')
+    expect(alert).toBeVisible()
+    expect(alert).toHaveTextContent(
+      'Vi fikk ikke hentet beregning av AFP fra SPK'
+    )
+    expect(loggerSpy).toHaveBeenCalledWith('alert vist', {
+      tekst:
+        'Du har fått en foreløpig beregning av AFP fra Nav. Vi fikk ikke hentet beregning av AFP fra Statens pensjonskasse (SPK).',
+      variant: 'warning',
+    })
   })
 
   describe('Gitt at henting av offentlig-tp er "OK", (dvs. vellykket med status OK eller BRUKER_ER_IKKE_MEDLEM_AV_TP_ORDNING),', () => {
@@ -105,7 +124,9 @@ describe('SimuleringPensjonsavtalerAlert', () => {
         />
       )
       expect(screen.queryByTestId('pensjonsavtaler-alert')).toBeVisible()
-      expect(screen.getByTitle('Informasjon')).toBeInTheDocument()
+      expect(
+        screen.getByTestId('pensjonsavtaler.starter-foer-valgt-alder')
+      ).toBeVisible()
       expect(
         screen.getByText(
           'Du har pensjonsavtaler som starter før valgt alder.',
@@ -132,7 +153,10 @@ describe('SimuleringPensjonsavtalerAlert', () => {
         />
       )
       expect(screen.queryByTestId('pensjonsavtaler-alert')).toBeVisible()
-      expect(screen.getByTitle('Advarsel')).toBeInTheDocument()
+      expect(
+        screen.getByTestId('pensjonsavtaler.noe-gikk-galt-ved-henting-privat')
+      ).toBeVisible()
+      expect(screen.getByLabelText('Advarsel')).toBeInTheDocument()
       expect(
         screen.getByText(
           'Beregningen viser kanskje ikke alt. Noe gikk galt ved henting av pensjonsavtaler i privat sektor. Les mer under',
@@ -164,8 +188,10 @@ describe('SimuleringPensjonsavtalerAlert', () => {
         expect(alert).toBeVisible()
       })
 
-      expect(screen.getByTitle('Informasjon')).toBeInTheDocument()
-      expect(screen.getByTitle('Advarsel')).toBeInTheDocument()
+      expect(
+        screen.getByTestId('pensjonsavtaler.starter-foer-valgt-alder')
+      ).toBeVisible()
+      expect(screen.getByLabelText('Advarsel')).toBeInTheDocument()
 
       expect(
         screen.getByText(
@@ -206,7 +232,10 @@ describe('SimuleringPensjonsavtalerAlert', () => {
         />
       )
       expect(screen.queryByTestId('pensjonsavtaler-alert')).toBeVisible()
-      expect(screen.getByTitle('Advarsel')).toBeInTheDocument()
+      expect(
+        screen.getByTestId('pensjonsavtaler.noe-gikk-galt-ved-henting-privat')
+      ).toBeVisible()
+      expect(screen.getByLabelText('Advarsel')).toBeInTheDocument()
       expect(
         screen.getByText(
           'Beregningen viser kanskje ikke alt. Noe gikk galt ved henting av pensjonsavtaler i privat sektor. Les mer under',
@@ -261,7 +290,10 @@ describe('SimuleringPensjonsavtalerAlert', () => {
         />
       )
       expect(screen.queryByTestId('pensjonsavtaler-alert')).toBeVisible()
-      expect(screen.getByTitle('Advarsel')).toBeInTheDocument()
+      expect(
+        screen.getByTestId('pensjonsavtaler.noe-gikk-galt-ved-henting-privat')
+      ).toBeVisible()
+      expect(screen.getByLabelText('Advarsel')).toBeInTheDocument()
       expect(
         screen.getByText(
           'Beregningen viser kanskje ikke alt. Noe gikk galt ved henting av pensjonsavtaler i privat sektor. Les mer under',
@@ -295,7 +327,7 @@ describe('SimuleringPensjonsavtalerAlert', () => {
         />
       )
       expect(screen.queryByTestId('pensjonsavtaler-alert')).toBeVisible()
-      expect(screen.getByTitle('Advarsel')).toBeInTheDocument()
+      expect(screen.getByLabelText('Advarsel')).toBeInTheDocument()
       expect(
         screen.getByText(
           'Beregningen viser kanskje ikke alt. Noe gikk galt ved henting av pensjonsavtaler i privat sektor. Les mer under',
@@ -331,7 +363,9 @@ describe('SimuleringPensjonsavtalerAlert', () => {
         />
       )
       expect(screen.queryByTestId('pensjonsavtaler-alert')).toBeVisible()
-      expect(screen.getByTitle('Informasjon')).toBeInTheDocument()
+      expect(
+        screen.getByTestId('pensjonsavtaler.kan-ha-rett-til-offentlig-tp')
+      ).toBeInTheDocument()
       expect(
         screen.getByText(
           'Beregningen viser kanskje ikke alt. Du kan ha rett til offentlig tjenestepensjon.',
@@ -361,7 +395,12 @@ describe('SimuleringPensjonsavtalerAlert', () => {
         />
       )
       expect(screen.queryByTestId('pensjonsavtaler-alert')).toBeVisible()
-      expect(screen.getByTitle('Advarsel')).toBeInTheDocument()
+      expect(
+        screen.getByTestId(
+          'pensjonsavtaler.noe-gikk-galt-ved-henting-offentlig-og-privat'
+        )
+      ).toBeVisible()
+      expect(screen.getByLabelText('Advarsel')).toBeInTheDocument()
       expect(
         screen.getByText(
           'Beregningen viser kanskje ikke alt. Noe gikk galt ved henting av pensjonsavtaler i offentlig og privat sektor',
@@ -395,7 +434,7 @@ describe('SimuleringPensjonsavtalerAlert', () => {
         />
       )
       expect(screen.queryByTestId('pensjonsavtaler-alert')).toBeVisible()
-      expect(screen.getByTitle('Advarsel')).toBeInTheDocument()
+      expect(screen.getByLabelText('Advarsel')).toBeInTheDocument()
       expect(
         screen.getByText(
           'Beregningen viser kanskje ikke alt. Noe gikk galt ved henting av pensjonsavtaler i offentlig og privat sektor',
@@ -423,7 +462,12 @@ describe('SimuleringPensjonsavtalerAlert', () => {
         />
       )
       expect(screen.queryByTestId('pensjonsavtaler-alert')).toBeVisible()
-      expect(screen.getByTitle('Advarsel')).toBeInTheDocument()
+      expect(
+        screen.getByTestId(
+          'pensjonsavtaler.noe-gikk-galt-ved-henting-offentlig-og-privat'
+        )
+      ).toBeVisible()
+      expect(screen.getByLabelText('Advarsel')).toBeInTheDocument()
       expect(
         screen.getByText(
           'Beregningen viser kanskje ikke alt. Noe gikk galt ved henting av pensjonsavtaler i offentlig og privat sektor',
@@ -453,7 +497,7 @@ describe('SimuleringPensjonsavtalerAlert', () => {
         />
       )
       expect(screen.queryByTestId('pensjonsavtaler-alert')).toBeVisible()
-      expect(screen.getByTitle('Advarsel')).toBeInTheDocument()
+      expect(screen.getByLabelText('Advarsel')).toBeInTheDocument()
       expect(
         screen.getByText(
           'Beregningen viser kanskje ikke alt. Noe gikk galt ved henting av pensjonsavtaler i offentlig og privat sektor',
@@ -483,7 +527,7 @@ describe('SimuleringPensjonsavtalerAlert', () => {
         />
       )
       expect(screen.queryByTestId('pensjonsavtaler-alert')).toBeVisible()
-      expect(screen.getByTitle('Advarsel')).toBeInTheDocument()
+      expect(screen.getByLabelText('Advarsel')).toBeInTheDocument()
       expect(
         screen.getByText(
           'Beregningen viser kanskje ikke alt. Noe gikk galt ved henting av pensjonsavtaler i offentlig og privat sektor',
@@ -513,7 +557,7 @@ describe('SimuleringPensjonsavtalerAlert', () => {
         />
       )
       expect(screen.queryByTestId('pensjonsavtaler-alert')).toBeVisible()
-      expect(screen.getByTitle('Advarsel')).toBeInTheDocument()
+      expect(screen.getByLabelText('Advarsel')).toBeInTheDocument()
       expect(
         screen.getByText(
           'Beregningen viser kanskje ikke alt. Noe gikk galt ved henting av pensjonsavtaler i offentlig og privat sektor',
@@ -547,7 +591,7 @@ describe('SimuleringPensjonsavtalerAlert', () => {
         />
       )
       expect(screen.queryByTestId('pensjonsavtaler-alert')).toBeVisible()
-      expect(screen.getByTitle('Advarsel')).toBeInTheDocument()
+      expect(screen.getByLabelText('Advarsel')).toBeInTheDocument()
       expect(
         screen.getByText(
           'Beregningen viser kanskje ikke alt. Noe gikk galt ved henting av pensjonsavtaler i offentlig og privat sektor',
@@ -581,7 +625,7 @@ describe('SimuleringPensjonsavtalerAlert', () => {
         />
       )
       expect(screen.queryByTestId('pensjonsavtaler-alert')).toBeVisible()
-      expect(screen.getByTitle('Advarsel')).toBeInTheDocument()
+      expect(screen.getByLabelText('Advarsel')).toBeInTheDocument()
       expect(
         screen.getByText(
           'Beregningen viser kanskje ikke alt. Noe gikk galt ved henting av pensjonsavtaler i offentlig og privat sektor',
@@ -611,15 +655,11 @@ describe('SimuleringPensjonsavtalerAlert', () => {
         />
       )
       expect(screen.queryByTestId('pensjonsavtaler-alert')).toBeVisible()
-      expect(screen.getByTitle('Advarsel')).toBeInTheDocument()
-      expect(
-        screen.getByText(
-          'Beregningen viser kanskje ikke alt. Noe gikk galt ved henting av pensjonsavtaler i offentlig sektor',
-          {
-            exact: false,
-          }
-        )
-      ).toBeVisible()
+      const alert = screen.getByTestId(
+        'pensjonsavtaler.noe-gikk-galt-ved-henting-offentlig'
+      )
+      expect(alert).toBeVisible()
+      expect(screen.getByLabelText('Advarsel')).toBeInTheDocument()
     })
 
     it('Når kall til offentlig-tp er vellykket men at simuleringen førte til teknisk feil, og henting av private pensjonsavtaler er vellykket, viser riktig alert.', () => {
@@ -645,15 +685,11 @@ describe('SimuleringPensjonsavtalerAlert', () => {
         />
       )
       expect(screen.queryByTestId('pensjonsavtaler-alert')).toBeVisible()
-      expect(screen.getByTitle('Advarsel')).toBeInTheDocument()
-      expect(
-        screen.getByText(
-          'Beregningen viser kanskje ikke alt. Noe gikk galt ved henting av pensjonsavtaler i offentlig sektor',
-          {
-            exact: false,
-          }
-        )
-      ).toBeVisible()
+      const alert = screen.getByTestId(
+        'pensjonsavtaler.noe-gikk-galt-ved-henting-offentlig'
+      )
+      expect(alert).toBeVisible()
+      expect(screen.getByLabelText('Advarsel')).toBeInTheDocument()
     })
 
     it('Når kall til offentlig-tp er vellykket men at simuleringen er tom, og henting av private pensjonsavtaler er vellykket, viser riktig alert.', () => {
@@ -679,15 +715,11 @@ describe('SimuleringPensjonsavtalerAlert', () => {
         />
       )
       expect(screen.queryByTestId('pensjonsavtaler-alert')).toBeVisible()
-      expect(screen.getByTitle('Advarsel')).toBeInTheDocument()
-      expect(
-        screen.getByText(
-          'Beregningen viser kanskje ikke alt. Noe gikk galt ved henting av pensjonsavtaler i offentlig sektor',
-          {
-            exact: false,
-          }
-        )
-      ).toBeVisible()
+      const alert = screen.getByTestId(
+        'pensjonsavtaler.noe-gikk-galt-ved-henting-offentlig'
+      )
+      expect(alert).toBeVisible()
+      expect(screen.getByLabelText('Advarsel')).toBeInTheDocument()
     })
 
     it('Når henting av private pensjonsavtaler er vellykket og isPensjonsavtaleFlagVisible er true, viser riktig alert.', () => {
@@ -710,7 +742,9 @@ describe('SimuleringPensjonsavtalerAlert', () => {
       )
 
       expect(screen.queryByTestId('pensjonsavtaler-alert')).toBeVisible()
-      expect(screen.getByTitle('Informasjon')).toBeInTheDocument()
+      expect(
+        screen.getByTestId('pensjonsavtaler.starter-foer-valgt-alder')
+      ).toBeVisible()
 
       expect(
         screen.getByText(
@@ -723,42 +757,26 @@ describe('SimuleringPensjonsavtalerAlert', () => {
     })
   })
 
-  it('scroller til pensjonsavtaler-heading når lenken klikkes i alert-boksen', () => {
-    const scrollToMock = vi.fn()
-    Object.defineProperty(global.window, 'scrollTo', {
-      value: scrollToMock,
-      writable: true,
-    })
-
-    const elemDiv = document.createElement('div')
-    elemDiv.setAttribute('id', 'pensjonsavtaler-heading')
-    document.body.appendChild(elemDiv)
+  it('fokuserer på pensjonsavtaler når Sanity-lenken klikkes', () => {
+    const focusMock = vi.fn()
 
     render(
-      <SimuleringPensjonsavtalerAlert
-        pensjonsavtaler={{
-          isLoading: false,
-          isSuccess: false,
-          isError: true,
+      <BeregningContext.Provider
+        value={{
+          avansertSkjemaModus: 'redigering',
+          setAvansertSkjemaModus: vi.fn(),
+          harAvansertSkjemaUnsavedChanges: false,
+          setHarAvansertSkjemaUnsavedChanges: vi.fn(),
+          pensjonsavtalerShowMoreRef: {
+            current: {
+              isOpen: false,
+              toggleOpen: vi.fn(),
+              scrollTo: vi.fn(),
+              focus: focusMock,
+            },
+          },
         }}
-        offentligTp={{
-          isError: false,
-          data: offentligTpData as OffentligTp,
-        }}
-        isPensjonsavtaleFlagVisible={false}
-      />
-    )
-    fireEvent.click(screen.getByTestId('pensjonsavtaler-alert-link'))
-
-    expect(scrollToMock).toHaveBeenCalledWith({
-      behavior: 'smooth',
-      top: -15,
-    })
-  })
-
-  it('ShowMore vises og scroller til Pensjonsavtaler når lenken klikkes i alert-boksen', () => {
-    render(
-      <BeregningContext.Provider value={contextMockedValues}>
+      >
         <SimuleringPensjonsavtalerAlert
           pensjonsavtaler={{
             isLoading: false,
@@ -773,12 +791,11 @@ describe('SimuleringPensjonsavtalerAlert', () => {
         />
       </BeregningContext.Provider>
     )
-    fireEvent.click(screen.getByTestId('pensjonsavtaler-alert-link'))
-    if (!contextMockedValues.pensjonsavtalerShowMoreRef.current) {
-      throw Error('pensjonsavtalerShowMoreRef.current should not be null')
-    }
-    expect(
-      contextMockedValues.pensjonsavtalerShowMoreRef.current.focus
-    ).toHaveBeenCalledTimes(1)
+    const privateAlert = screen.getByTestId(
+      'pensjonsavtaler.noe-gikk-galt-ved-henting-privat'
+    )
+    fireEvent.click(within(privateAlert).getByText('pensjon fra andre'))
+
+    expect(focusMock).toHaveBeenCalledWith({ scroll: false })
   })
 })

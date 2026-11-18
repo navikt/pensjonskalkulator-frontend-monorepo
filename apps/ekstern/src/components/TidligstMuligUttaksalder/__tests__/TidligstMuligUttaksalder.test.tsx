@@ -1,3 +1,4 @@
+import { IntlProvider } from 'react-intl'
 import { describe, it } from 'vitest'
 
 import {
@@ -9,6 +10,7 @@ import {
 import * as userInputReducerUtils from '@/state/userInput/userInputSlice'
 import { userInputInitialState } from '@/state/userInput/userInputSlice'
 import { render, screen, waitFor } from '@/test-utils'
+import nb from '@/translations/nb'
 import { loggerTeardown } from '@/utils/__tests__/logging-stub'
 
 import { TidligstMuligUttaksalder } from '..'
@@ -50,9 +52,7 @@ describe('TidligstMuligUttaksalder', () => {
         expect(screen.getByTestId('om_TMU')).toBeVisible()
       })
       expect(
-        screen.queryByText(
-          'tidligstmuliguttak.info_omstillingsstoenad_og_gjenlevende'
-        )
+        screen.queryByTestId('beregning.gjenlevende-eller-omstilling')
       ).not.toBeInTheDocument()
     })
 
@@ -92,9 +92,7 @@ describe('TidligstMuligUttaksalder', () => {
         ).toBeInTheDocument()
       })
       expect(
-        screen.queryByText(
-          'tidligstmuliguttak.info_omstillingsstoenad_og_gjenlevende'
-        )
+        screen.queryByTestId('beregning.gjenlevende-eller-omstilling')
       ).not.toBeInTheDocument()
     })
 
@@ -134,9 +132,7 @@ describe('TidligstMuligUttaksalder', () => {
         ).not.toBeInTheDocument()
       })
       expect(
-        screen.queryByText(
-          'tidligstmuliguttak.info_omstillingsstoenad_og_gjenlevende'
-        )
+        screen.queryByTestId('beregning.gjenlevende-eller-omstilling')
       ).not.toBeInTheDocument()
     })
 
@@ -202,40 +198,66 @@ describe('TidligstMuligUttaksalder', () => {
         ).not.toBeInTheDocument()
       })
       expect(
-        screen.queryByText(
-          'tidligstmuliguttak.info_omstillingsstoenad_og_gjenlevende'
-        )
+        screen.queryByTestId('beregning.gjenlevende-eller-omstilling')
       ).not.toBeInTheDocument()
     })
 
-    it('når brukeren mottar omstillingsstønad eller gjenlevendepensjon, vises riktig alertboks.', async () => {
-      render(
-        <TidligstMuligUttaksalder
-          tidligstMuligUttak={{ aar: 62, maaneder: 9 }}
-          ufoeregrad={0}
-          show1963Text={false}
-        />,
-        {
-          preloadedState: {
-            userInput: { ...userInputReducerUtils.userInputInitialState },
-          },
-          preloadedApiState: {
-            getOmstillingsstoenadOgGjenlevende:
-              omstillingsstoenadOgGjenlevendeMock,
-            getPerson: personMedOekteAldersgrenseMock,
-          },
-        }
-      )
+    it.each([
+      { alder: { aar: 70, maaneder: 0 }, formatertAlder: '70 år' },
+      { alder: { aar: 68, maaneder: 1 }, formatertAlder: '68 år og 1 måned' },
+    ])(
+      'viser varsel med normert pensjonsalder $formatertAlder ved omstillingsstønad eller gjenlevendepensjon',
+      async ({ alder, formatertAlder }) => {
+        render(
+          <IntlProvider locale="nb" messages={nb}>
+            <TidligstMuligUttaksalder
+              tidligstMuligUttak={{ aar: 62, maaneder: 9 }}
+              ufoeregrad={0}
+              show1963Text={false}
+            />
+          </IntlProvider>,
+          {
+            preloadedState: {
+              userInput: { ...userInputReducerUtils.userInputInitialState },
+            },
+            preloadedApiState: {
+              getOmstillingsstoenadOgGjenlevende:
+                omstillingsstoenadOgGjenlevendeMock,
+              getPerson: {
+                ...personMedOekteAldersgrenseMock,
+                pensjoneringAldre: {
+                  ...personMedOekteAldersgrenseMock.pensjoneringAldre,
+                  normertPensjoneringsalder: alder,
+                },
+              },
+            },
+          }
+        )
 
-      await waitFor(() => {
+        const alert = await screen.findByTestId(
+          'beregning.gjenlevende-eller-omstilling'
+        )
+        expect(alert).toHaveAttribute('data-size', 'medium')
         expect(
-          screen.getByText(
-            'Alderspensjon kan ikke kombineres med gjenlevendepensjon eller omstillingsstønad.',
-            { exact: false }
-          )
+          alert.querySelector('.aksel-base-alert__message')
         ).toBeInTheDocument()
-      })
-    })
+        expect(
+          alert.querySelector('.aksel-base-alert__header')
+        ).not.toBeInTheDocument()
+        expect(alert).toHaveTextContent(
+          'Alderspensjon kan ikke kombineres med gjenlevendepensjon eller omstillingsstønad'
+        )
+        expect(alert).toHaveTextContent(
+          `Ønsker du å ta ut alderspensjon før ${formatertAlder}, må du si fra deg`
+        )
+        expect(alert).not.toHaveTextContent('67 år')
+        expect(alert).toHaveTextContent('55 55 33 34')
+        expect(alert.querySelector('a')).toHaveAttribute(
+          'href',
+          expect.stringMatching(/^tel:/)
+        )
+      }
+    )
   })
 
   describe('Gitt at en bruker mottar uføretrygd, ', () => {
@@ -264,9 +286,7 @@ describe('TidligstMuligUttaksalder', () => {
         expect(screen.getByTestId('om_pensjonsalder_UT_hel')).toBeVisible()
       })
       expect(
-        screen.queryByText(
-          'tidligstmuliguttak.info_omstillingsstoenad_og_gjenlevende'
-        )
+        screen.queryByTestId('beregning.gjenlevende-eller-omstilling')
       ).not.toBeInTheDocument()
     })
 
@@ -335,14 +355,12 @@ describe('TidligstMuligUttaksalder', () => {
         }
       )
 
-      await waitFor(() => {
-        expect(
-          screen.getByText(
-            'Alderspensjon kan ikke kombineres med gjenlevendepensjon eller omstillingsstønad',
-            { exact: false }
-          )
-        ).toBeInTheDocument()
-      })
+      const alert = await screen.findByTestId(
+        'beregning.gjenlevende-eller-omstilling'
+      )
+      expect(alert).toHaveTextContent(
+        'Alderspensjon kan ikke kombineres med gjenlevendepensjon eller omstillingsstønad'
+      )
     })
 
     it('viser riktig ingress med gradert ufoeretrygd når AFP er valgt.', async () => {

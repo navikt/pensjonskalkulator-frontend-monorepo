@@ -75,7 +75,7 @@ describe('AlderspensjonDetaljerGrunnlag', () => {
       }
     )
     // Component renders a VStack wrapper, check that it's rendered
-    expect(container.querySelector('.navds-stack')).toBeInTheDocument()
+    expect(container.querySelector('.aksel-stack')).toBeInTheDocument()
   })
 
   it('rendrer både desktop og mobil versjon med riktig CSS klasser', () => {
@@ -85,7 +85,7 @@ describe('AlderspensjonDetaljerGrunnlag', () => {
     )
 
     // Component only renders a single version, not separate desktop/mobile versions
-    const stackDiv = container.querySelector('.navds-stack')
+    const stackDiv = container.querySelector('.aksel-stack')
     expect(stackDiv).toBeInTheDocument()
 
     // There are no desktop/mobile specific CSS classes in the actual implementation
@@ -109,9 +109,9 @@ describe('AlderspensjonDetaljerGrunnlag', () => {
     )
 
     // Component uses VStack for layout, not HStack and no desktop-specific version
-    const stackContainer = container.querySelector('.navds-stack')
+    const stackContainer = container.querySelector('.aksel-stack')
     expect(stackContainer).toBeInTheDocument()
-    expect(stackContainer).toHaveClass('navds-stack')
+    expect(stackContainer).toHaveClass('aksel-stack')
   })
 
   it('rendrer VStack for mobil versjon', () => {
@@ -123,9 +123,9 @@ describe('AlderspensjonDetaljerGrunnlag', () => {
     )
 
     // Component uses VStack for layout and there's no separate mobile version
-    const stackContainer = container.querySelector('.navds-stack')
+    const stackContainer = container.querySelector('.aksel-stack')
     expect(stackContainer).toBeInTheDocument()
-    expect(stackContainer).toHaveClass('navds-stack')
+    expect(stackContainer).toHaveClass('aksel-stack')
   })
 
   it('rendrer AlderspensjonDetaljer komponenter for hver item i listen', () => {

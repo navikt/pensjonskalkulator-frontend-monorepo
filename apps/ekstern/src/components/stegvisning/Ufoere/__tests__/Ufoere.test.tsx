@@ -18,12 +18,17 @@ describe('stegvisning - Ufoere', () => {
         onNext={onNextMock}
       />
     )
-    expect(screen.getByRole('heading', { level: 2 })).toHaveTextContent(
-      'stegvisning.ufoere.title'
-    )
+    expect(
+      screen.getByRole('heading', {
+        level: 2,
+        name: 'stegvisning.ufoere.title',
+      })
+    ).toBeVisible()
 
-    expect(screen.getByTestId('ufoere-info')).toHaveTextContent(
-      'Før du fyller 62 år må du'
+    const alert = screen.getByTestId('ufoeretrygd-afp.kan-ikke-kombineres')
+    expect(alert).toHaveAttribute('aria-live', 'polite')
+    expect(alert).toHaveTextContent(
+      'Før du fyller 62 år må du velge mellom å få AFP eller å beholde uføretrygden.'
     )
 
     await waitFor(() => {

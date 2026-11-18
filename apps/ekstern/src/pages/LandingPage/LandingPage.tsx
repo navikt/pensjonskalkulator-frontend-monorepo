@@ -70,7 +70,7 @@ export const LandingPage = () => {
 
     return (
       <section>
-        <VStack gap="4">
+        <VStack gap="space-16">
           {!isLoggedIn && (
             <Heading size="medium" level="2">
               {intl.formatMessage({
@@ -114,7 +114,7 @@ export const LandingPage = () => {
             </ul>
           </div>
 
-          <HStack gap="4">
+          <HStack gap="space-16">
             <Button
               data-testid="landingside-enkel-kalkulator-button"
               variant="primary"
@@ -149,17 +149,17 @@ export const LandingPage = () => {
 
   return isLoggedIn ? (
     <div className={styles.landingPage}>
-      <VStack gap="10">
+      <VStack gap="space-40">
         <TopSection />
       </VStack>
     </div>
   ) : (
     <div className={styles.landingPage}>
-      <VStack gap="10">
+      <VStack gap="space-40">
         <TopSection />
 
         <section>
-          <VStack gap="2">
+          <VStack gap="space-8">
             <Heading size="medium" level="2">
               {intl.formatMessage({
                 id: 'landingsside.text.uinnlogget_kalkulator',

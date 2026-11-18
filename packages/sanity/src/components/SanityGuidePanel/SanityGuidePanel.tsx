@@ -29,7 +29,7 @@ export const SanityGuidePanel = ({
 	onLinkClick,
 }: Props) => {
 	const intl = useIntl()
-	const { guidePanelData } = useContext(SanityContext)
+	const { guidePanelData, navigateToRoute } = useContext(SanityContext)
 	const sanityContent = guidePanelData[id]
 
 	if (!sanityContent) {
@@ -49,6 +49,7 @@ export const SanityGuidePanel = ({
 				components={getSanityPortableTextComponents({
 					intl,
 					onLinkClick,
+					navigateToRoute,
 					dynamicValues,
 				})}
 			/>

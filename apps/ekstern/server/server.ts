@@ -337,6 +337,12 @@ const getOboToken = async (req: Request) => {
   return obo.token
 }
 
+const apiProxy = createProxyMiddleware({
+  target: `${PENSJONSKALKULATOR_BACKEND}/api`,
+  changeOrigin: true,
+  logger: logger,
+})
+
 // Proxy til backend med token exchange
 app.use(
   '/pensjon/kalkulator/api',
@@ -350,14 +356,8 @@ app.use(
       return
     }
 
-    createProxyMiddleware({
-      target: `${PENSJONSKALKULATOR_BACKEND}/api`,
-      changeOrigin: true,
-      headers: {
-        Authorization: `Bearer ${oboToken}`,
-      },
-      logger: logger,
-    })(req, res, next)
+    req.headers.authorization = `Bearer ${oboToken}`
+    apiProxy(req, res, next)
   }
 )
 

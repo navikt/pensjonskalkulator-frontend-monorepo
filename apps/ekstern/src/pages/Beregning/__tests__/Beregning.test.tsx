@@ -98,11 +98,13 @@ describe('Beregning', () => {
         },
       })
 
-      expect(
-        screen.getByText(
-          'Du har vedtak om 100 % alderspensjon fra 01.01.2099. Frem til denne datoen kan du gjøre en ny beregning av andre alternativer.'
-        )
-      ).toBeVisible()
+      const futureDecisionAlert = screen.getByTestId(
+        'start.fremtidig-vedtak-uten-gjeldende'
+      )
+      expect(futureDecisionAlert).toBeVisible()
+      expect(futureDecisionAlert).toHaveTextContent(
+        'Du har vedtak om 100 % alderspensjon fra 01.01.2099. Frem til denne datoen kan du gjøre en ny beregning av andre alternativer.'
+      )
     })
   })
 
@@ -134,7 +136,7 @@ describe('Beregning', () => {
       expect(flushCurrentSimulationMock).toHaveBeenCalled()
     })
 
-    it('når brukeren begynner å fylle ut skjema på Avansert og bytter fane, gir Modalen muligheten til å avbryte eller avslutte beregningen', async () => {
+    it('når brukeren begynner å fylle ut skjema på Flere valg og bytter fane, gir Modalen muligheten til å avbryte eller avslutte beregningen', async () => {
       const user = userEvent.setup()
       const flushCurrentSimulationMock = vi.spyOn(
         userInputReducerUtils.userInputActions,
@@ -176,7 +178,7 @@ describe('Beregning', () => {
       expect(flushCurrentSimulationMock).toHaveBeenCalled()
     })
 
-    it('når brukeren er på resultatside etter en Avansert simulering og bytter fane, gir Modalen muligheten til å avbryte eller avslutte beregningen', async () => {
+    it('når brukeren er på resultatside etter en Flere valg simulering og bytter fane, gir Modalen muligheten til å avbryte eller avslutte beregningen', async () => {
       const user = userEvent.setup()
       render(<Beregning visning="avansert" />, {
         preloadedState: {
@@ -222,7 +224,7 @@ describe('Beregning', () => {
       ).toBeVisible()
     })
 
-    it('når brukeren har gjort en Avansert simulering som hen redigerer og bytter fane, gir Modalen muligheten til å avbryte eller avslutte beregningen', async () => {
+    it('når brukeren har gjort en Flere valg simulering som hen redigerer og bytter fane, gir Modalen muligheten til å avbryte eller avslutte beregningen', async () => {
       const user = userEvent.setup()
       render(<Beregning visning="avansert" />, {
         preloadedState: {
@@ -329,7 +331,7 @@ describe('Beregning', () => {
       ).not.toBeVisible()
     })
 
-    it('når brukeren begynner å fylle ut skjema på Avansert og trykker på tilbakeknappen, vises Avbryt-Modalen', async () => {
+    it('når brukeren begynner å fylle ut skjema på Flere valg og trykker på tilbakeknappen, vises Avbryt-Modalen', async () => {
       const user = userEvent.setup()
 
       render(
@@ -362,7 +364,7 @@ describe('Beregning', () => {
       ).toBeVisible()
     })
 
-    it('når brukeren er på resultatside etter en Avansert simulering og trykker på tilbakeknappen, vises Avbryt-Modalen', async () => {
+    it('når brukeren er på resultatside etter en Flere valg simulering og trykker på tilbakeknappen, vises Avbryt-Modalen', async () => {
       const user = userEvent.setup()
       render(
         <NavigateWrapper>
@@ -405,7 +407,7 @@ describe('Beregning', () => {
       ).toBeVisible()
     })
 
-    it('når brukeren har gjort en Avansert simulering og trykker på tilbakeknappen, vises Avbryt-Modalen', async () => {
+    it('når brukeren har gjort en Flere valg simulering og trykker på tilbakeknappen, vises Avbryt-Modalen', async () => {
       const user = userEvent.setup()
       render(
         <NavigateWrapper>
@@ -433,7 +435,7 @@ describe('Beregning', () => {
       ).toBeVisible()
     })
 
-    it('når brukeren med vedtak om alderspensjon er på resultatside etter en Avansert simulering og trykker på tilbakeknappen, vises Avbryt-Modalen og brukeren sendes til /start ved bekreftelse', async () => {
+    it('når brukeren med vedtak om alderspensjon er på resultatside etter en Flere valg simulering og trykker på tilbakeknappen, vises Avbryt-Modalen og brukeren sendes til /start ved bekreftelse', async () => {
       const user = userEvent.setup()
       const flushCurrentSimulationMock = vi.spyOn(
         userInputReducerUtils.userInputActions,

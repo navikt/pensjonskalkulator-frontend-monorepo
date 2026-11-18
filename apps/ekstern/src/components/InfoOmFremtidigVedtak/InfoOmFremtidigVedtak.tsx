@@ -1,8 +1,6 @@
+import { SanityAlert } from '@pensjonskalkulator-frontend-monorepo/sanity/SanityAlert'
 import clsx from 'clsx'
 import { format, parseISO } from 'date-fns'
-import { FormattedMessage } from 'react-intl'
-
-import { Alert } from '@navikt/ds-react'
 
 import { DATE_ENDUSER_FORMAT } from '@/utils/dates'
 import { ALERT_VIST } from '@/utils/loggerConstants'
@@ -29,22 +27,16 @@ export const InfoOmFremtidigVedtak = ({
   })
 
   return (
-    <Alert
+    <SanityAlert
+      id="start.fremtidig-vedtak-uten-gjeldende"
       className={clsx(styles.alert, { [styles.alert__centered]: isCentered })}
-      variant="info"
-      data-intl="stegvisning.fremtidigvedtak.alert"
-      role="alert"
-    >
-      <FormattedMessage
-        id="stegvisning.fremtidigvedtak.alert"
-        values={{
-          grad: loependeVedtak.fremtidigAlderspensjon.grad,
-          fom: format(
-            parseISO(loependeVedtak.fremtidigAlderspensjon.fom),
-            DATE_ENDUSER_FORMAT
-          ),
-        }}
-      />
-    </Alert>
+      dynamicValues={{
+        grad: loependeVedtak.fremtidigAlderspensjon.grad,
+        vedtakDato: format(
+          parseISO(loependeVedtak.fremtidigAlderspensjon.fom),
+          DATE_ENDUSER_FORMAT
+        ),
+      }}
+    />
   )
 }

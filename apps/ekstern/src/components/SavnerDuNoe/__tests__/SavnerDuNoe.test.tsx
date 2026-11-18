@@ -29,7 +29,6 @@ describe('SavnerDuNoe', () => {
     it('rendrer med riktig tittel og ingress', () => {
       render(<SavnerDuNoe isEndring={false} />)
 
-      expect(screen.queryByText('savnerdunoe.title')).toBeVisible()
       expect(screen.queryByText('savnerdunoe.ingress')).toBeVisible()
 
       expect(
@@ -56,7 +55,7 @@ describe('SavnerDuNoe', () => {
           },
         },
       })
-      await user.click(screen.getByText('savnerdunoe.title'))
+      await user.click(screen.getByText('savnerdunoe.ingress'))
       expect(navigateMock).toHaveBeenCalledWith(paths.beregningAvansert)
       expect(store.getState().userInput.currentSimulation).toStrictEqual({
         aarligInntektFoerUttakBeloep: null,

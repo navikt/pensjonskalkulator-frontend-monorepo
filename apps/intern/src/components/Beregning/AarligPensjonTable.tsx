@@ -196,7 +196,8 @@ export const AarligPensjonTable = ({
 						Årlig inntekt og pensjon
 					</Heading>
 					<BodyLong size="small" textColor="subtle">
-						Eventuell tilvekst av alderspensjon er inkludert i beløpene
+						Når Nav får pensjonsgivende inntekt fra Skatteetaten, legges den til
+						pensjonsopptjeningen i januar året etter. Det kan gi økt alderspensjon.
 					</BodyLong>
 				</VStack>
 				<Box overflowX={{ xs: 'auto', xl: 'visible' }}>

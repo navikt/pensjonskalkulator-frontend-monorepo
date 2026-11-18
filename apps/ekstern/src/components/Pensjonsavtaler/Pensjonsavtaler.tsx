@@ -112,7 +112,7 @@ export const Pensjonsavtaler = ({
       offentligTp?.simulertTjenestepensjon?.tpNummer !== undefined)
 
   return (
-    <VStack gap="1">
+    <VStack gap="space-4">
       <Heading
         id="pensjonsavtaler-heading"
         level={headingLevel}

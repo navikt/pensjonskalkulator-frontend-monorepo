@@ -1,5 +1,13 @@
+import {
+  type AlertQueryResult,
+  type DynamicValues,
+  getSanityPortableTextComponents,
+} from '@pensjonskalkulator-frontend-monorepo/sanity'
+import { PortableText } from '@portabletext/react'
 import { format, parseISO } from 'date-fns'
-import { IntlShape } from 'react-intl/src/types'
+import { createElement } from 'react'
+import { renderToStaticMarkup } from 'react-dom/server'
+import { IntlShape, RawIntlProvider } from 'react-intl'
 
 import { formatLeverandoerList } from '@/components/Pensjonsavtaler/OffentligTjenestePensjon/utils'
 import {
@@ -13,21 +21,112 @@ import { DATE_ENDUSER_FORMAT } from '@/utils/dates'
 import { ALERT_TRIANGLE_ICON, INFO_SQUARE_ICON } from './constants'
 import { getPdfLink, pdfFormatMessageValues } from './utils'
 
+type SanityAlertData = Record<string, AlertQueryResult[number]>
+
+function renderSanityAlertHtml({
+  alertData,
+  id,
+  intl,
+  dynamicValues,
+}: {
+  alertData: SanityAlertData
+  id: string
+  intl: IntlShape
+  dynamicValues?: DynamicValues
+}): string | null {
+  const alert = alertData[id]
+  if (!alert) return null
+
+  const alertStatus =
+    alert.type === 'info-card'
+      ? (alert.infoCardStatus ?? alert.status ?? 'info')
+      : (alert.status ?? 'info')
+  const tone =
+    alertStatus === 'error'
+      ? 'danger'
+      : alertStatus === 'warning' || alertStatus === 'attention'
+        ? 'warning'
+        : alertStatus === 'success'
+          ? 'success'
+          : 'info'
+  const icon =
+    alert.type === 'local-alert' ||
+    alert.type === 'inline-message' ||
+    alertStatus === 'message' ||
+    alertStatus === 'attention' ||
+    alertStatus === 'tips'
+      ? `<span class="pdf-sanity-alert__icon">${tone === 'warning' ? ALERT_TRIANGLE_ICON : INFO_SQUARE_ICON}</span>`
+      : ''
+  const title =
+    alert.type !== 'inline-message' &&
+    alertStatus !== 'message' &&
+    alert.overskrift
+      ? `<h3 class="pdf-sanity-alert__title">${escapeHtml(alert.overskrift)}</h3>`
+      : ''
+  const content = renderToStaticMarkup(
+    createElement(
+      RawIntlProvider,
+      { value: intl },
+      createElement(PortableText, {
+        value: alert.innhold,
+        components: getSanityPortableTextComponents({ intl, dynamicValues }),
+      })
+    )
+  )
+  const messageClass =
+    alert.type === 'info-card' && alertStatus === 'message'
+      ? ' pdf-sanity-alert--message'
+      : ''
+
+  return `<section class="pdf-sanity-alert pdf-sanity-alert--${tone}${messageClass}">
+  ${icon}
+  <div class="pdf-sanity-alert__body">${title}${content}</div>
+</section>`
+}
+
+function escapeHtml(value: string): string {
+  return value.replace(/[&<>"']/g, (character) => {
+    const replacements: Record<string, string> = {
+      '&': '&amp;',
+      '<': '&lt;',
+      '>': '&gt;',
+      '"': '&quot;',
+      "'": '&#39;',
+    }
+    return replacements[character]
+  })
+}
+
 export function getPensjonsavtalerAlertsText({
   pensjonsavtalerAlertsList,
   intl,
+  alertData,
 }: {
   pensjonsavtalerAlertsList: {
     variant: AlertVariant
-    text: string
+    text?: string
+    sanityId?: string
   }[]
   intl: IntlShape
+  alertData: SanityAlertData
 }): string {
   if (!pensjonsavtalerAlertsList.length) {
     return ''
   }
 
   const html = pensjonsavtalerAlertsList.map((alert) => {
+    if (alert.sanityId) {
+      return (
+        renderSanityAlertHtml({
+          alertData,
+          id: alert.sanityId,
+          intl,
+        }) ?? ''
+      )
+    }
+
+    if (!alert.text) return ''
+
     const alertIcon =
       alert.variant === 'warning' ? ALERT_TRIANGLE_ICON : INFO_SQUARE_ICON
     const alertMessage = intl.formatMessage(
@@ -50,9 +149,11 @@ export function getPensjonsavtalerAlertsText({
 export function getPrivatePensjonsavtalerAlertsText({
   pensjonsavtalerAlertsList,
   intl,
+  alertData,
 }: {
   pensjonsavtalerAlertsList: privatePensjonsavtalerAlert[]
   intl: IntlShape
+  alertData: SanityAlertData
 }): string {
   if (!pensjonsavtalerAlertsList.length) {
     return ''
@@ -61,6 +162,17 @@ export function getPrivatePensjonsavtalerAlertsText({
     const heading = alert.headingId
       ? `<h4>${intl.formatMessage({ id: alert.headingId })}</h4>`
       : ''
+
+    if (alert.sanityId) {
+      const alertHtml = renderSanityAlertHtml({
+        alertData,
+        id: alert.sanityId,
+        intl,
+      })
+      return `${heading}${alertHtml ?? ''}`
+    }
+
+    if (!alert.alertTextId) return heading
 
     const alertMessage = intl.formatMessage(
       { id: alert.alertTextId },
@@ -83,10 +195,12 @@ export function getOffentligTjenestePensjonAlertsText({
   offentligTpAlertsList,
   offentligTp,
   intl,
+  alertData,
 }: {
   offentligTpAlertsList: OffentligTpAlert[]
   offentligTp?: OffentligTpResponse
   intl: IntlShape
+  alertData: SanityAlertData
 }): string {
   if (!offentligTpAlertsList.length) {
     return ''
@@ -99,17 +213,14 @@ export function getOffentligTjenestePensjonAlertsText({
         : undefined
 
     const heading = `<h4>${intl.formatMessage({ id: 'pensjonsavtaler.offentligtp.title' })}</h4>`
-    const alertIcon =
-      alert.variant === 'info' ? INFO_SQUARE_ICON : ALERT_TRIANGLE_ICON
-    const alertMessage = intl.formatMessage(
-      { id: alert.alertTextId },
-      {
-        ...pdfFormatMessageValues,
-        chunk: chunk ? `(${chunk})` : '',
-      }
-    )
-    return `${heading}
-      ${renderAlertTable({ alertIcon, alertMessage })}`
+
+    const alertHtml = renderSanityAlertHtml({
+      alertData,
+      id: alert.sanityId,
+      intl,
+      dynamicValues: chunk ? { tpOrdning: chunk } : undefined,
+    })
+    return `${heading}${alertHtml ?? ''}`
   })
 
   return html.join('')
@@ -118,19 +229,26 @@ export function getOffentligTjenestePensjonAlertsText({
 export function getAfpOffentligAlertsText({
   afpOffentligAlertsList,
   intl,
+  alertData,
 }: {
   afpOffentligAlertsList: {
     variant: AlertVariant
     text: string
+    sanityId?: string
   }
   intl: IntlShape
+  alertData: SanityAlertData
 }): string {
-  if (
-    afpOffentligAlertsList.text ===
-    'beregning.alert.info.afp-offentlig-livsvarig'
-  ) {
-    return ''
+  if (afpOffentligAlertsList.sanityId) {
+    return (
+      renderSanityAlertHtml({
+        alertData,
+        id: afpOffentligAlertsList.sanityId,
+        intl,
+      }) ?? ''
+    )
   }
+
   const alertIcon =
     afpOffentligAlertsList.variant === 'info'
       ? INFO_SQUARE_ICON
@@ -144,63 +262,66 @@ export function getAfpOffentligAlertsText({
   return renderAlertTable({ alertIcon, alertMessage })
 }
 
-export function getApotekerAlert(intl: IntlShape): string {
-  const alertMessage = intl.formatMessage(
-    { id: 'error.apoteker_warning' },
-    {
-      ...pdfFormatMessageValues,
-    }
-  )
+export function getApotekerAlert(
+  intl: IntlShape,
+  alertData: SanityAlertData
+): string {
+  const alertMessage = renderSanityAlertHtml({
+    alertData,
+    id: 'apoteker.beregning-med-afp-feil',
+    intl,
+  })
 
-  return renderAlertTable({ alertIcon: ALERT_TRIANGLE_ICON, alertMessage })
+  return alertMessage ?? ''
 }
 
 export function getOmstillingsstoenadAlert(
   intl: IntlShape,
+  alertData: SanityAlertData,
   normertPensjonsalder: Alder
 ): string {
-  const formatertNormertPensjonsalder = formatUttaksalder(
-    intl,
-    normertPensjonsalder
+  return (
+    renderSanityAlertHtml({
+      alertData,
+      id: 'beregning.gjenlevende-eller-omstilling',
+      intl,
+      dynamicValues: {
+        normertPensjoneringsalder: formatUttaksalder(
+          intl,
+          normertPensjonsalder
+        ),
+      },
+    }) ?? ''
   )
-  const telefonNummer = intl.formatMessage({ id: 'link.telefon_pensjon' })
-  const linkHtml = `<span>${telefonNummer}</span>`
-
-  const alertMessage = intl.formatMessage(
-    { id: 'tidligstmuliguttak.info_omstillingsstoenad_og_gjenlevende' },
-    {
-      ...pdfFormatMessageValues,
-      normertPensjonsalder: formatertNormertPensjonsalder,
-      link: linkHtml,
-    }
-  )
-
-  return renderAlertTable({ alertIcon: INFO_SQUARE_ICON, alertMessage })
 }
 
 export const getFremtidigVedtakAlert = ({
   loependeVedtak,
   intl,
+  alertData,
 }: {
   loependeVedtak: LoependeVedtak
   intl: IntlShape
+  alertData: SanityAlertData
 }): string | null => {
   if (!loependeVedtak.fremtidigAlderspensjon || loependeVedtak.alderspensjon)
     return null
 
-  const alertMessage = intl.formatMessage(
-    { id: 'stegvisning.fremtidigvedtak.alert' },
-    {
-      ...pdfFormatMessageValues,
+  const alertMessage = renderSanityAlertHtml({
+    alertData,
+    id: 'start.fremtidig-vedtak-uten-gjeldende',
+    intl,
+    dynamicValues: {
       grad: loependeVedtak.fremtidigAlderspensjon.grad,
-      fom: format(
+      vedtakDato: format(
         parseISO(loependeVedtak.fremtidigAlderspensjon.fom),
         DATE_ENDUSER_FORMAT
       ),
-    }
-  )
+    },
+  })
+  if (!alertMessage) return null
 
-  return renderAlertTable({ alertMessage, alertIcon: INFO_SQUARE_ICON })
+  return alertMessage
 }
 
 function renderAlertTable({

@@ -1,11 +1,11 @@
 import { SanityReadmore } from '@pensjonskalkulator-frontend-monorepo/sanity'
+import { SanityAlert } from '@pensjonskalkulator-frontend-monorepo/sanity/SanityAlert'
 import React from 'react'
 import { FormattedMessage, useIntl } from 'react-intl'
 import { useNavigate } from 'react-router'
 
-import { Alert, BodyLong, Link } from '@navikt/ds-react'
+import { BodyLong, Link } from '@navikt/ds-react'
 
-import { TelefonLink } from '@/components/common/TelefonLink'
 import { paths } from '@/router/constants'
 import { useGetOmstillingsstoenadOgGjenlevendeQuery } from '@/state/api/apiSlice'
 import { useAppDispatch, useAppSelector } from '@/state/hooks'
@@ -55,6 +55,8 @@ export const TidligstMuligUttaksalder = ({
     intl,
     normertPensjonsalder
   )
+  const ufoeregradMellom80Og100 =
+    ufoeregrad && ufoeregrad >= 80 && ufoeregrad < 100
 
   const hasAFP =
     (afp === 'ja_offentlig' && samtykkeOffentligAFP) || afp === 'ja_privat'
@@ -142,6 +144,7 @@ export const TidligstMuligUttaksalder = ({
                 ),
                 nedreAldersgrense: formatertNedreAldersgrense,
                 normertPensjonsalder: formatertNormertPensjonsalder,
+                skjulAvansertLenke: ufoeregradMellom80Og100,
               }}
             />
           </BodyLong>
@@ -185,16 +188,14 @@ export const TidligstMuligUttaksalder = ({
           ))}
 
         {omstillingsstoenadOgGjenlevende?.harLoependeSak && (
-          <Alert className={styles.alert} variant="info" aria-live="polite">
-            <FormattedMessage
-              id="tidligstmuliguttak.info_omstillingsstoenad_og_gjenlevende"
-              values={{
-                ...getFormatMessageValues(),
-                normertPensjonsalder: formatertNormertPensjonsalder,
-                link: <TelefonLink />,
-              }}
-            />
-          </Alert>
+          <SanityAlert
+            id="beregning.gjenlevende-eller-omstilling"
+            className={styles.alert}
+            aria-live="polite"
+            dynamicValues={{
+              normertPensjoneringsalder: formatertNormertPensjonsalder,
+            }}
+          />
         )}
 
         {ufoeregrad ? (

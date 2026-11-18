@@ -28,7 +28,7 @@ export const SanityReadmore = ({
 	onOpenChange,
 }: Props) => {
 	const intl = useIntl()
-	const { readMoreData } = React.useContext(SanityContext)
+	const { readMoreData, navigateToRoute } = React.useContext(SanityContext)
 	const sanityContent = readMoreData[id]
 
 	return (
@@ -43,6 +43,7 @@ export const SanityReadmore = ({
 				components={getSanityPortableTextComponents({
 					intl,
 					onLinkClick,
+					navigateToRoute,
 					dynamicValues,
 				})}
 			/>

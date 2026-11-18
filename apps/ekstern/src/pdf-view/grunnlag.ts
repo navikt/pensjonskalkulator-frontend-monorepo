@@ -80,7 +80,7 @@ export function getGrunnlagIngress({
     }
   )}</h3>
   
-  <p class="pdf-h3-paragraph">${inntektBeloepOgÅr} avansert kalkulator.</p>
+  <p class="pdf-h3-paragraph">${inntektBeloepOgÅr} Flere valg.</p>
   
   <h3>Alderspensjon (Nav)</h3>
   <p class="pdf-h3-paragraph">

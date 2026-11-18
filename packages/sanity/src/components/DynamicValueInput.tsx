@@ -5,19 +5,26 @@ import {
 	type ReactNode,
 	type SetStateAction,
 	createContext,
+	useCallback,
 	useContext,
 	useEffect,
 	useEffectEvent,
 	useId,
+	useLayoutEffect,
+	useRef,
 	useState,
 } from 'react'
 import {
+	type ArrayOfObjectsFormNode,
 	type ArrayOfObjectsInputProps,
+	type BlockAnnotationProps,
 	type BlockProps,
 	type ObjectInputProps,
 	PatchEvent,
 	type StringInputProps,
 	set,
+	unset,
+	useFormValue,
 } from 'sanity'
 
 interface TypeOption {
@@ -38,6 +45,51 @@ const InlineEditorContext = createContext<Dispatch<
 	SetStateAction<InlineEditor | null>
 > | null>(null)
 
+const suppressNativeAnnotationDialog = (
+	members: ArrayOfObjectsInputProps['members'],
+	editorKey: string
+) =>
+	members.map((block) => {
+		if (block.kind !== 'item') {
+			return block
+		}
+
+		let blockChanged = false
+		const fields = block.item.members.map((field) => {
+			if (field.kind !== 'field' || field.name !== 'markDefs') {
+				return field
+			}
+
+			const annotationField = field.field as ArrayOfObjectsFormNode
+			let fieldChanged = false
+			const annotations = annotationField.members.map((annotation) => {
+				if (
+					annotation.kind !== 'item' ||
+					!annotation.open ||
+					getEditorKey(annotation.item.path) !== editorKey
+				) {
+					return annotation
+				}
+
+				fieldChanged = true
+				return { ...annotation, open: false }
+			})
+
+			if (!fieldChanged) {
+				return field
+			}
+			blockChanged = true
+			return {
+				...field,
+				field: { ...annotationField, members: annotations },
+			}
+		})
+
+		return blockChanged
+			? { ...block, item: { ...block.item, members: fields } }
+			: block
+	})
+
 export const DynamicValuePortableTextInput = (
 	props: ArrayOfObjectsInputProps
 ) => {
@@ -54,9 +106,13 @@ export const DynamicValuePortableTextInput = (
 		return props.renderDefault(props)
 	}
 
+	const members = editor
+		? suppressNativeAnnotationDialog(props.members, editor.key)
+		: props.members
+
 	return (
 		<InlineEditorContext.Provider value={setEditor}>
-			{props.renderDefault(props)}
+			{props.renderDefault(editor ? { ...props, members } : props)}
 			{editor && (
 				<Dialog
 					id={dialogId}
@@ -72,14 +128,20 @@ export const DynamicValuePortableTextInput = (
 	)
 }
 
-export const DynamicValueInlineEditor = (props: BlockProps) => {
-	const setEditor = useContext(InlineEditorContext)
-	const key = props.path
+const getEditorKey = (path: BlockProps['path']) =>
+	path
 		.map((segment) =>
 			typeof segment === 'object' && '_key' in segment ? segment._key : segment
 		)
 		.join('/')
+
+const useHostedEditor = <Props extends BlockProps | BlockAnnotationProps>(
+	props: Props
+): Props => {
+	const setEditor = useContext(InlineEditorContext)
+	const key = getEditorKey(props.path)
 	const valueVersion = JSON.stringify(props.value)
+	const validationVersion = JSON.stringify(props.validation)
 	const currentEditor: InlineEditor = {
 		key,
 		form: props.children,
@@ -94,24 +156,39 @@ export const DynamicValueInlineEditor = (props: BlockProps) => {
 
 	useEffect(() => {
 		updateEditor()
-	}, [key, valueVersion, props.open])
+	}, [key, valueVersion, validationVersion, props.open])
+
+	const latestEditor = useRef({ currentEditor, onOpen: props.onOpen })
+	useLayoutEffect(() => {
+		latestEditor.current = { currentEditor, onOpen: props.onOpen }
+	})
+	const onOpen = useCallback(() => {
+		setEditor?.(latestEditor.current.currentEditor)
+		latestEditor.current.onOpen()
+	}, [setEditor])
 
 	if (!setEditor) {
-		return props.renderDefault(props)
+		return props
 	}
 
-	return props.renderDefault({
+	return {
 		...props,
 		open: false,
-		onOpen: () => {
-			setEditor(currentEditor)
-			props.onOpen()
-		},
-	})
+		onOpen,
+	}
 }
 
-export const DynamicValueTypeInput = (props: StringInputProps) => {
+export const DynamicValueInlineEditor = (props: BlockProps) =>
+	props.renderDefault(useHostedEditor(props))
+
+export const LinkAnnotationEditor = (props: BlockAnnotationProps) =>
+	props.renderDefault(useHostedEditor(props))
+
+export const DynamicValueTypeInput = (
+	props: StringInputProps & { fallbackValue?: string }
+) => {
 	const onTypeChange = useContext(TypeChangeContext)
+	const selectedValue = props.value ?? props.fallbackValue
 	const options: TypeOption[] = (props.schemaType.options?.list ?? []).flatMap(
 		(option) =>
 			typeof option === 'string'
@@ -124,7 +201,7 @@ export const DynamicValueTypeInput = (props: StringInputProps) => {
 	return (
 		<MenuButton
 			id={props.elementProps.id}
-			popover={{ portal: false }}
+			popover={{ portal: false, placement: 'bottom-start' }}
 			button={
 				<Button
 					{...props.elementProps}
@@ -132,7 +209,7 @@ export const DynamicValueTypeInput = (props: StringInputProps) => {
 					iconRight={ChevronDownIcon}
 					disabled={props.readOnly}
 					text={
-						options.find((option) => option.value === props.value)?.text ??
+						options.find((option) => option.value === selectedValue)?.text ??
 						'Velg type'
 					}
 				/>
@@ -143,7 +220,7 @@ export const DynamicValueTypeInput = (props: StringInputProps) => {
 						<MenuItem
 							key={option.value}
 							text={option.text}
-							selected={option.value === props.value}
+							selected={option.value === selectedValue}
 							onClick={() => {
 								if (option.value !== props.value) {
 									if (onTypeChange) {
@@ -161,22 +238,20 @@ export const DynamicValueTypeInput = (props: StringInputProps) => {
 	)
 }
 
-const typeSpecificFields = [
-	'key',
-	'label',
-	'anchorId',
-	'url',
-	'openInNewTab',
-	'gMultiplier',
-] as const
-
-export const DynamicValueInput = (props: ObjectInputProps) => {
+const renderTypeChangingInput = (
+	props: ObjectInputProps,
+	typeField: 'linkType' | 'valueType',
+	resetValues: Record<string, string | boolean | undefined>,
+	currentType = props.value?.[typeField] as string | undefined
+) => {
 	const onTypeChange = (value: string) => {
 		props.onChange(
-			PatchEvent.from(set(value, ['valueType'])).append(
-				...typeSpecificFields
-					.filter((field) => props.value && Object.hasOwn(props.value, field))
-					.map((field) => set(field === 'openInNewTab' ? false : '', [field]))
+			PatchEvent.from(set(value, [typeField])).append(
+				...Object.entries(value === currentType ? {} : resetValues)
+					.filter(([field]) => props.value && Object.hasOwn(props.value, field))
+					.map(([field, resetValue]) =>
+						resetValue === undefined ? unset([field]) : set(resetValue, [field])
+					)
 			)
 		)
 	}
@@ -186,4 +261,68 @@ export const DynamicValueInput = (props: ObjectInputProps) => {
 			{props.renderDefault(props)}
 		</TypeChangeContext.Provider>
 	)
+}
+
+const getLinkType = (value: unknown): string => {
+	if (typeof value === 'object' && value !== null) {
+		if ('linkType' in value && typeof value.linkType === 'string') {
+			return value.linkType
+		}
+		if (
+			'href' in value &&
+			typeof value.href === 'string' &&
+			value.href.startsWith('#')
+		) {
+			return 'anchor'
+		}
+	}
+	return 'external'
+}
+
+export const LinkAnnotationTypeInput = (props: StringInputProps) => {
+	const parent = useFormValue(props.path.slice(0, -1))
+	return (
+		<DynamicValueTypeInput {...props} fallbackValue={getLinkType(parent)} />
+	)
+}
+
+const linkValueFields = ['href', 'anchorId', 'route'] as const
+const typeSpecificFields = ['key', 'gMultiplier'] as const
+
+const useClearEmptyFields = (
+	props: ObjectInputProps,
+	fields: readonly string[]
+) => {
+	useEffect(() => {
+		const emptyFields = fields.filter((field) => props.value?.[field] === '')
+		if (emptyFields.length > 0) {
+			props.onChange(
+				PatchEvent.from(emptyFields.map((field) => unset([field])))
+			)
+		}
+	}, [props.value, props.onChange, fields])
+}
+
+export const LinkAnnotationInput = (props: ObjectInputProps) => {
+	useClearEmptyFields(props, linkValueFields)
+	return renderTypeChangingInput(
+		props,
+		'linkType',
+		{
+			href: undefined,
+			anchorId: undefined,
+			route: undefined,
+			blank: false,
+		},
+		getLinkType(props.value)
+	)
+}
+
+export const DynamicValueInput = (props: ObjectInputProps) => {
+	useClearEmptyFields(props, typeSpecificFields)
+
+	return renderTypeChangingInput(props, 'valueType', {
+		key: undefined,
+		gMultiplier: undefined,
+	})
 }

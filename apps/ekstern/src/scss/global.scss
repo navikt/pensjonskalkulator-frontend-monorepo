@@ -2,6 +2,12 @@
   white-space: nowrap;
 }
 
+.aksel-heading--medium,
+.aksel-heading--large,
+.aksel-heading--xlarge {
+  font-weight: var(--ax-font-weight-bold);
+}
+
 .list-title {
   margin-bottom: 0;
 }

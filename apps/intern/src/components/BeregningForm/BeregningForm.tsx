@@ -53,6 +53,7 @@ import {
 	getAlderForAfpEndring,
 	getForTidligEndringAvUttaksgradDato,
 	getUttaksGradArray,
+	getVilkaarsproevingDynamicValues,
 	showBeregnMedGjenlevenderett,
 	showSivilstatus,
 } from './utils'
@@ -88,6 +89,18 @@ export const BeregningForm = () => {
 	const { data: grunnbeloep } = useGrunnbeloepQuery()
 	const dynamicGrunnbeloep: Record<string, string | number> = grunnbeloep
 		? { G: grunnbeloep.grunnbeløp }
+		: {}
+	const dynamicPensjonsaldre: Record<string, string> = person
+		? {
+				normertPensjoneringsalder: formaterAlderString(
+					person.pensjoneringAldre.normertPensjoneringsalder.aar,
+					person.pensjoneringAldre.normertPensjoneringsalder.maaneder
+				),
+				nedreAldersgrense: formaterAlderString(
+					person.pensjoneringAldre.nedreAldersgrense.aar,
+					person.pensjoneringAldre.nedreAldersgrense.maaneder
+				),
+			}
 		: {}
 	const { validate } = useFormValidation()
 	const [isSubmitDisabled, setIsSubmitDisabled] = useState(false)
@@ -254,14 +267,6 @@ export const BeregningForm = () => {
 	const partnerBetegnelse = getPartnerBetegnelse(sivilstatus)
 	const initialSivilstatus =
 		vedtak?.loependeAlderspensjon?.sivilstatus ?? (person && person.sivilstatus)
-	const sanityTextGradert =
-		beregning?.vilkaarsproevingsresultat?.alternativ?.gradertUttakAlder &&
-		beregning?.vilkaarsproevingsresultat?.alternativ?.heltUttakAlder &&
-		!isAlderLikAnnenAlder(
-			beregning?.vilkaarsproevingsresultat?.alternativ?.heltUttakAlder,
-			heltUttakAlder
-		)
-
 	const visGradert =
 		beregning?.vilkaarsproevingsresultat?.alternativ?.heltUttakAlder &&
 		isAlderLikAnnenAlder(
@@ -391,7 +396,7 @@ export const BeregningForm = () => {
 				name="afp"
 				legend="Skal AFP inkluderes?"
 				options={afpOptions}
-				className={styles.horizontalRadioGroup}
+				gap="space-24"
 				testid="afp"
 				onChange={(value) => {
 					setAlertDismissed(true)
@@ -474,7 +479,7 @@ export const BeregningForm = () => {
 								name="epsHarPensjon"
 								testid="eps-har-pensjon"
 								legend={`Mottar ${partnerBetegnelse} pensjon, uføretrygd eller AFP ved uttak?`}
-								className={styles.horizontalRadioGroup}
+								gap="space-24"
 							/>
 						)}
 
@@ -489,7 +494,7 @@ export const BeregningForm = () => {
 								name="epsHarInntektOver2G"
 								testid="eps-har-inntekt-over-2g"
 								legend={`Vil ${partnerBetegnelse} ha inntekt over 2G ${grunnbeloep ? ` (${formatInntekt(2 * grunnbeloep.grunnbeløp)} kr)` : ''} ved uttak?`}
-								className={styles.horizontalRadioGroup}
+								gap="space-24"
 							/>
 						)}
 
@@ -507,10 +512,11 @@ export const BeregningForm = () => {
 
 						{forTidligEndringAvUttaksgradDato && (
 							<SanityAlert
-								id="beregning.ugyldig-uttaksgrad"
+								id="beregning.ugyldig-uttaksgrad.12-maaneder"
 								className={styles.sanityAlert}
 								dynamicValues={{
 									...dynamicGrunnbeloep,
+									...dynamicPensjonsaldre,
 									'tidligst-endring-uttaksgrad-dato':
 										forTidligEndringAvUttaksgradDato,
 								}}
@@ -522,36 +528,22 @@ export const BeregningForm = () => {
 								<div data-testid="vilkaarsproeving-alert">
 									<SanityAlert
 										id={
-											sanityTextGradert
+											vilkaarAlternativGradert && !visGradert
 												? 'beregning.vilkaarsproeving.ikke_nok_opptjening_gradert'
 												: 'beregning.vilkaarsproeving.ikke_nok_opptjening'
 										}
 										className={styles.sanityAlert}
 										dynamicValues={{
 											...dynamicGrunnbeloep,
-											grad: visGradert
-												? (beregning.vilkaarsproevingsresultat?.alternativ
-														?.uttaksgrad ?? 100)
-												: 100,
-											alder:
-												visGradert && vilkaarAlternativGradert
-													? formaterAlderString(
-															vilkaarAlternativGradert.aar,
-															vilkaarAlternativGradert.maaneder
-														)
-													: formaterAlderString(
-															vilkaarAlternativHelt.aar,
-															vilkaarAlternativHelt.maaneder
-														),
-											grad_gradert:
-												beregning.vilkaarsproevingsresultat?.alternativ
-													?.uttaksgrad ?? 100,
-											gradert_alder: vilkaarAlternativGradert
-												? formaterAlderString(
-														vilkaarAlternativGradert.aar,
-														vilkaarAlternativGradert.maaneder
-													)
-												: '',
+											...dynamicPensjonsaldre,
+											...getVilkaarsproevingDynamicValues({
+												heltUttakAlder: vilkaarAlternativHelt,
+												gradertUttakAlder: vilkaarAlternativGradert,
+												uttaksgrad:
+													beregning.vilkaarsproevingsresultat?.alternativ
+														?.uttaksgrad,
+												visGradert: Boolean(visGradert),
+											}),
 										}}
 									/>
 								</div>
@@ -585,6 +577,7 @@ export const BeregningForm = () => {
 										className={styles.sanityAlert}
 										dynamicValues={{
 											...dynamicGrunnbeloep,
+											...dynamicPensjonsaldre,
 											grad: fremtidigAlderspensjon?.grad ?? 100,
 											vedtakDato: fremtidigAlderspensjon
 												? format(
@@ -737,7 +730,7 @@ export const BeregningForm = () => {
 												name="harInntektVedSidenAvUttak"
 												testid="har-inntekt-vsa-helt-uttak"
 												legend="Har bruker inntekt ved siden av 100 % uttak?"
-												className={styles.horizontalRadioGroup}
+												gap="space-24"
 											/>
 										)}
 

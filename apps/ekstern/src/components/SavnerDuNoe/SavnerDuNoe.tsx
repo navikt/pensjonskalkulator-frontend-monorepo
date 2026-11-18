@@ -57,18 +57,17 @@ export const SavnerDuNoe = ({ isEndring }: Props) => {
             data-testid="savnerdunoe-title"
           >
             <FormattedMessage
-              id={isEndring ? 'savnerdunoe.title.endring' : 'savnerdunoe.title'}
+              id={
+                isEndring ? 'savnerdunoe.title.endring' : 'savnerdunoe.ingress'
+              }
             />
           </LinkCard.Anchor>
         </LinkCard.Title>
-
-        <LinkCard.Description>
-          {isEndring ? (
+        {isEndring && (
+          <LinkCard.Description>
             <FormattedMessage id="savnerdunoe.ingress.endring" />
-          ) : (
-            <FormattedMessage id="savnerdunoe.ingress" />
-          )}
-        </LinkCard.Description>
+          </LinkCard.Description>
+        )}
       </LinkCard>
     </section>
   )

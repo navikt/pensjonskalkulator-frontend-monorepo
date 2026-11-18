@@ -27,6 +27,7 @@ import '@formatjs/intl-numberformat/locale-data/nn'
 
 import {
   getCookie,
+  getSanityDataset,
   getTranslations,
   isOnSanityTimeoutRoute,
   redirectToSanityTimeout,
@@ -37,15 +38,9 @@ import {
 const akselLocales: Record<Locales, typeof nb> = { nb, nn, en }
 const SANITY_FETCH_TIMEOUT_MS = 10_000
 
-const dataset =
-  window.location.href.includes('ekstern.dev') ||
-  window.location.href.includes('localhost')
-    ? 'development'
-    : 'production'
-
 export const sanityClient = createSanityAppClient({
   projectId: 'g2by7q6m',
-  dataset,
+  dataset: getSanityDataset(window.location.hostname),
 })
 
 // Kjør `npm run sanity-typegen` for å generere typer for Sanity-data
@@ -59,7 +54,7 @@ const readMoreQuery = defineQuery(
   `*[_type == "readmore" && language == $locale] | {name,overskrift,innhold}`
 )
 const alertQuery = defineQuery(
-  `*[_type == "alert" && language == $locale] | {name,type,status,infoCardStatus,overskrift,buttonLabel,innhold}`
+  `*[_type == "alert"]{name,type,status,infoCardStatus,overskrift,buttonLabel,innhold}`
 )
 
 interface Props {
@@ -158,7 +153,7 @@ export function LanguageProvider({ children }: Props) {
       })
 
     const handleAlertFetch = sanityClient
-      .fetch<AlertQueryResult>(alertQuery, { locale })
+      .fetch<AlertQueryResult>(alertQuery)
       .then((sanityAlertResponse) => {
         const data = Object.fromEntries(
           (sanityAlertResponse || []).map((alert) => [alert.name, alert])

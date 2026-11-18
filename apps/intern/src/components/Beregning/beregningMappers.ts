@@ -114,6 +114,11 @@ export function mapAlderspensjonToRows({
 			hide: skjermingstillegg <= 0,
 			formula: getFormula('skjerm1'),
 		},
+		{
+			label: 'Minstenivåtillegg individuelt',
+			value: Math.round(entry.minstenivaatilleggIndividuelt ?? 0),
+			yearlyValue: Math.round(entry.minstenivaatilleggIndividuelt ?? 0) * 12,
+		},
 	]
 }
 

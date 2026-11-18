@@ -1,3 +1,4 @@
+import { SerializedError } from '@reduxjs/toolkit'
 import { FetchBaseQueryError } from '@reduxjs/toolkit/query'
 
 import { render, screen } from '@/test-utils'
@@ -11,7 +12,7 @@ describe('veileder - feilmeldinger', () => {
       data: null,
     }
     render(<VeilederInputRequestError personError={personError} />)
-    expect(screen.getByTestId('alert-ikke-tilgang')).toBeInTheDocument()
+    expect(screen.getByTestId('veileder.ingen-tilgang')).toBeVisible()
   })
 
   it('404 - Ikke funnet/gyldig fnr', () => {
@@ -20,7 +21,7 @@ describe('veileder - feilmeldinger', () => {
       data: null,
     }
     render(<VeilederInputRequestError personError={personError} />)
-    expect(screen.getByTestId('alert-ikke-gyldig')).toBeInTheDocument()
+    expect(screen.getByTestId('veileder.ugyldig-foedselsnummer')).toBeVisible()
   })
 
   it('500 - Annet', () => {
@@ -29,15 +30,15 @@ describe('veileder - feilmeldinger', () => {
       data: null,
     }
     render(<VeilederInputRequestError personError={personError} />)
-    expect(screen.getByTestId('alert-annet')).toBeInTheDocument()
+    expect(screen.getByTestId('veileder.alle-andre-feil')).toBeVisible()
   })
 
-  it('Feil i formatring er request error', () => {
-    const personError = {
-      data: null,
-    } as FetchBaseQueryError
+  it('Serialisert feil viser generelt Sanity-varsel', () => {
+    const personError: SerializedError = {
+      message: 'Request failed',
+    }
     render(<VeilederInputRequestError personError={personError} />)
-    expect(screen.getByTestId('alert-annet')).toBeInTheDocument()
+    expect(screen.getByTestId('veileder.alle-andre-feil')).toBeVisible()
   })
 
   it('Ingen feil', async () => {

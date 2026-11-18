@@ -32,8 +32,8 @@
 		"styled-components": "catalog:"
 	},
 	"peerDependencies": {
-		"@navikt/aksel-icons": ">=7",
-		"@navikt/ds-react": ">=7"
+		"@navikt/aksel-icons": ">=8",
+		"@navikt/ds-react": ">=8"
 	},
 	"devDependencies": {
 		"sass-embedded": "catalog:",

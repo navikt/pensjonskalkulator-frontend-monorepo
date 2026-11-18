@@ -1,5 +1,7 @@
+import { SanityContext } from '@pensjonskalkulator-frontend-monorepo/sanity'
+import { type ReactNode, useContext } from 'react'
 import { FormattedMessage } from 'react-intl'
-import { Navigate, Outlet, RouteObject } from 'react-router'
+import { Navigate, Outlet, RouteObject, useNavigate } from 'react-router'
 
 import { Loader } from '@/components/common/Loader'
 import { PageFramework } from '@/components/common/PageFramework'
@@ -20,7 +22,7 @@ import { StepUtenlandsopphold } from '@/pages/StepUtenlandsopphold'
 import { RouteErrorBoundary } from '@/router/RouteErrorBoundary'
 
 import { ErrorPage404 } from './RouteErrorBoundary/ErrorPage404'
-import { paths } from './constants'
+import { BASE_PATH, paths } from './constants'
 import {
   authenticationGuard,
   beregningEnkelAccessGuard,
@@ -42,17 +44,40 @@ const fallback = (
   />
 )
 
+const SanityRouteBridge = ({ children }: { children: ReactNode }) => {
+  const navigate = useNavigate()
+  const sanityContext = useContext(SanityContext)
+
+  return (
+    <SanityContext.Provider
+      value={{
+        ...sanityContext,
+        navigateToRoute: (destination) => {
+          const route = destination.startsWith(BASE_PATH)
+            ? destination.slice(BASE_PATH.length) || '/'
+            : destination
+          navigate(route)
+        },
+      }}
+    >
+      {children}
+    </SanityContext.Provider>
+  )
+}
+
 export const routes: RouteObject[] = [
   {
     path: paths.forbehold,
     element: (
-      <PageFramework
-        shouldRedirectNonAuthenticated={false}
-        noMinHeight={true}
-        showLoader={false}
-      >
-        <Forbehold />
-      </PageFramework>
+      <SanityRouteBridge>
+        <PageFramework
+          shouldRedirectNonAuthenticated={false}
+          noMinHeight={true}
+          showLoader={false}
+        >
+          <Forbehold />
+        </PageFramework>
+      </SanityRouteBridge>
     ),
     ErrorBoundary: RouteErrorBoundary,
   },
@@ -60,14 +85,16 @@ export const routes: RouteObject[] = [
     loader: authenticationGuard,
     hydrateFallbackElement: fallback,
     element: (
-      <PageFramework
-        shouldShowLogo
-        hasWhiteBg
-        shouldRedirectNonAuthenticated={false}
-        noMinHeight={true}
-      >
-        <Outlet />
-      </PageFramework>
+      <SanityRouteBridge>
+        <PageFramework
+          shouldShowLogo
+          hasWhiteBg
+          shouldRedirectNonAuthenticated={false}
+          noMinHeight={true}
+        >
+          <Outlet />
+        </PageFramework>
+      </SanityRouteBridge>
     ),
     ErrorBoundary: RouteErrorBoundary,
     children: [
@@ -86,9 +113,11 @@ export const routes: RouteObject[] = [
     loader: authenticationGuard,
     hydrateFallbackElement: fallback,
     element: (
-      <PageFramework>
-        <Outlet />
-      </PageFramework>
+      <SanityRouteBridge>
+        <PageFramework>
+          <Outlet />
+        </PageFramework>
+      </SanityRouteBridge>
     ),
     ErrorBoundary: RouteErrorBoundary,
     children: [
@@ -153,9 +182,11 @@ export const routes: RouteObject[] = [
     loader: authenticationGuard,
     // showLoader={false} trengs for at det skal virke å vise modal i avansert skjema når man trykker på tilbakeknappen i nettleseren
     element: (
-      <PageFramework isFullWidth hasWhiteBg showLoader={false}>
-        <Outlet />
-      </PageFramework>
+      <SanityRouteBridge>
+        <PageFramework isFullWidth hasWhiteBg showLoader={false}>
+          <Outlet />
+        </PageFramework>
+      </SanityRouteBridge>
     ),
     ErrorBoundary: RouteErrorBoundary,
     children: [

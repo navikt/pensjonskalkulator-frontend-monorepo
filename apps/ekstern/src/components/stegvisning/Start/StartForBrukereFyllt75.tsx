@@ -45,7 +45,7 @@ export function StartForBrukereFyllt75() {
             }}
           />
         </BodyLong>
-        <HStack gap="4" marginBlock="6 0">
+        <HStack gap="space-16" marginBlock="space-24 space-0">
           <Button
             data-testid="start-brukere-fyllt-75-din-pensjon-button"
             type="submit"

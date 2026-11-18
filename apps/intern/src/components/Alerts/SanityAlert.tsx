@@ -87,7 +87,7 @@ export const SanityAlert = ({
 }: Props) => {
 	dynamicValues = { nbsp: '\u00A0', ...dynamicValues }
 	const intl = useIntl()
-	const { alertData } = useContext(SanityContext)
+	const { alertData, navigateToRoute } = useContext(SanityContext)
 	const sanityContent = alertData[id]
 
 	if (!sanityContent) {
@@ -102,11 +102,12 @@ export const SanityAlert = ({
 				infoCardStatus?: InfoCardStatus | null
 			}
 		).infoCardStatus ?? status
-	const portableTextComponents = getSanityPortableTextComponents(
+	const portableTextComponents = getSanityPortableTextComponents({
 		intl,
 		onLinkClick,
-		dynamicValues
-	)
+		navigateToRoute,
+		dynamicValues,
+	})
 	const buttonLabel =
 		'buttonLabel' in sanityContent &&
 		typeof sanityContent.buttonLabel === 'string'

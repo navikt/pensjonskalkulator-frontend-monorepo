@@ -10,46 +10,46 @@
 
 .section {
   display: none;
-  padding: 0 var(--a-spacing-6) var(--a-spacing-8) var(--a-spacing-6);
+  padding: 0 var(--ax-space-24) var(--ax-space-32) var(--ax-space-24);
 
-  @media (min-width: variables.$a-breakpoint-lg) {
+  @media (min-width: variables.$ax-breakpoint-lg) {
     max-width: variables.$container-max-width;
     padding-left: 0;
     padding-right: 0;
   }
 
   &.xs {
-    @media (min-width: variables.$a-breakpoint-xs) {
+    @media (min-width: variables.$ax-breakpoint-xs) {
       display: block;
     }
   }
 
   &.sm {
-    @media (min-width: variables.$a-breakpoint-sm) {
+    @media (min-width: variables.$ax-breakpoint-sm) {
       display: block;
     }
   }
 
   &.md {
-    @media (min-width: variables.$a-breakpoint-md) {
+    @media (min-width: variables.$ax-breakpoint-md) {
       display: block;
     }
   }
 
   &.lg {
-    @media (min-width: variables.$a-breakpoint-lg) {
+    @media (min-width: variables.$ax-breakpoint-lg) {
       display: block;
     }
   }
 
   &.xl {
-    @media (min-width: variables.$a-breakpoint-xl) {
+    @media (min-width: variables.$ax-breakpoint-xl) {
       display: block;
     }
   }
 
   &.xxl {
-    @media (min-width: variables.$a-breakpoint-2xl) {
+    @media (min-width: variables.$ax-breakpoint-2xl) {
       display: block;
     }
   }
