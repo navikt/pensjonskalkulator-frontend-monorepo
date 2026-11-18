@@ -17,6 +17,10 @@ export const harTekniskSimuleringsfeil = (
   return kode !== undefined && TEKNISKE_PROBLEMKODER.has(kode)
 }
 
+export const harUtilstrekkeligTrygdetid = (
+  alderspensjon?: Pick<AlderspensjonResponseBody, 'problem'>
+): boolean => alderspensjon?.problem?.kode === 'UTILSTREKKELIG_TRYGDETID'
+
 export const getSimuleringstypeFromRadioEllerVedtak = (
   loependeVedtak: LoependeVedtak,
   afp: AfpRadio | null,

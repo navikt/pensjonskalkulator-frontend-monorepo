@@ -50,7 +50,8 @@ import styles from './AvansertSkjemaForAndreBrukere.module.scss'
 
 export const AvansertSkjemaForAndreBrukere: React.FC<{
   vilkaarsproeving?: Vilkaarsproeving
-}> = ({ vilkaarsproeving }) => {
+  utilstrekkeligTrygdetid?: boolean
+}> = ({ vilkaarsproeving, utilstrekkeligTrygdetid }) => {
   const intl = useIntl()
   const dispatch = useAppDispatch()
 
@@ -493,6 +494,7 @@ export const AvansertSkjemaForAndreBrukere: React.FC<{
               <div className={styles.alertWrapper}>
                 <VilkaarsproevingAlert
                   alternativ={vilkaarsproeving?.alternativ}
+                  utilstrekkeligTrygdetid={utilstrekkeligTrygdetid}
                   uttaksalder={uttaksalder}
                 />
               </div>
