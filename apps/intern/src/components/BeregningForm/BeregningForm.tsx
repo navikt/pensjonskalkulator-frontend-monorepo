@@ -553,10 +553,6 @@ export const BeregningForm = () => {
 								<SanityAlert
 									id="beregning.vilkaarsproeving.kan-ikke-beregne"
 									className={styles.sanityAlert}
-									dynamicValues={{
-										...dynamicGrunnbeloep,
-										...dynamicPensjonsaldre,
-									}}
 								/>
 							)}
 						{(showAlderspensjonFields(afp) || hideAfpSporsmaal) && (
