@@ -210,7 +210,7 @@ test.describe('AFP Offentlig', () => {
 				if (afpStatus !== true) {
 					for (const valg of ['Ja, offentlig', 'Ja, privat', 'Nei']) {
 						await page.getByTestId('afp').getByLabel(valg).check()
-						await expect(alert).toHaveCount(0)
+						await expect(alert).toHaveCount(valg === 'Ja, offentlig' ? 1 : 0)
 					}
 				}
 			})

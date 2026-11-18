@@ -446,6 +446,16 @@ export const BeregningForm = () => {
 						resetAlderVelger(value)
 					}}
 				/>
+				{afp === 'ja_offentlig' &&
+					showLivsvarigAFP({
+						foedselsdato: person?.foedselsdato,
+						erApoteker,
+					}) && (
+						<SanityAlert
+							id="beregning.livsvarig-AFP-forvaltes-ikke"
+							className={styles.sanityAlert}
+						/>
+					)}
 				{showUTOgAFPAlert && (
 					<SanityAlert
 						id="beregning.ufoeretrygd-med-sim-ap-og-afp-privat"
