@@ -41,15 +41,15 @@ const NORMERT_PENSJONSALDER_ALDER: Alder = {
 
 function getLivsvarigAfpBrevBeskrivelse({
 	harVedtakAP,
-	harVedtakLivsvarigAFP,
+	harVedtakLivsvarigAfp,
 }: {
 	harVedtakAP: boolean
-	harVedtakLivsvarigAFP: boolean
+	harVedtakLivsvarigAfp: boolean
 }): string {
-	if (harVedtakAP && harVedtakLivsvarigAFP) {
+	if (harVedtakAP && harVedtakLivsvarigAfp) {
 		return 'I beregningen av alderspensjon er livsvarig AFP tatt med fordi den kan ha betydning for når og hvordan alderspensjonen tas ut. AFP-beløpet ble hentet fra tjenestepensjonsordningen din ved saksbehandling av alderspensjonen din.'
 	}
-	if (harVedtakLivsvarigAFP) {
+	if (harVedtakLivsvarigAfp) {
 		return 'AFP-beløpet er hentet fra <Statens pensjonskasse>. I beregningen av alderspensjon er livsvarig AFP tatt med fordi den kan ha betydning for når og hvordan alderspensjonen tas ut. Nav er ikke ansvarlig for beløpene som er hentet fra andre.'
 	}
 	return 'AFP-beløpet er estimert av Nav og er ikke en bekreftelse av rett til AFP. I beregningen av alderspensjon er livsvarig AFP tatt med fordi den kan ha betydning for når og hvordan alderspensjonen tas ut. Det er tjenestepensjonsordningen din som beregner og vurderer retten til AFP.'
@@ -140,7 +140,7 @@ export function mapBeregningResultToLagreSpec(
 	vedtak?: Vedtak,
 	omstillingsstoenad?: OmstillingsstoenadOgGjenlevende,
 	person?: PersonInternV1 | null,
-	livsvarigAFP?: AfpOffentligLivsvarig
+	livsvarigAfp?: AfpOffentligLivsvarig
 ): LagreSimuleringSpecDtoV1 {
 	const forbeholdVisningsvilkaar: Vilkaarsliste = []
 
@@ -194,8 +194,8 @@ export function mapBeregningResultToLagreSpec(
 	const harVedtakAP = Boolean(
 		vedtak?.loependeAlderspensjon || vedtak?.fremtidigAlderspensjon
 	)
-	const harVedtakLivsvarigAFP = livsvarigAFP?.afpStatus === true
-	const visKunLivsvarigAfpBeskrivelse = harVedtakAP && harVedtakLivsvarigAFP
+	const harVedtakLivsvarigAfp = livsvarigAfp?.afpStatus === true
+	const visKunLivsvarigAfpBeskrivelse = harVedtakAP && harVedtakLivsvarigAfp
 	const livsvarigOffentligAfpBeloep =
 		livsvarigOffentligAfp && !visKunLivsvarigAfpBeskrivelse
 			? {
@@ -345,7 +345,7 @@ export function mapBeregningResultToLagreSpec(
 				? {
 						beskrivelse: getLivsvarigAfpBrevBeskrivelse({
 							harVedtakAP,
-							harVedtakLivsvarigAFP,
+							harVedtakLivsvarigAfp,
 						}),
 						vedGradertUttak: gradertUttakAlder
 							? livsvarigOffentligAfpBeloep

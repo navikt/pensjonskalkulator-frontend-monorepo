@@ -504,6 +504,98 @@ test.describe('AFP Offentlig', () => {
 			).toHaveCount(0)
 		})
 
+		for (const scenario of [
+			{ uttaksgrad: '100', alder: '65', normert: 'helt', apGrad: 100 },
+			{ uttaksgrad: '50', alder: '66', normert: 'helt', apGrad: 100 },
+			{ uttaksgrad: '50', alder: '69', normert: 'gradert', apGrad: 50 },
+			{ uttaksgrad: '100', alder: '67', normert: null, apGrad: 100 },
+			{ uttaksgrad: '100', alder: '69', normert: null, apGrad: 100 },
+			{ uttaksgrad: '50', alder: '67', normert: null, apGrad: 100 },
+		]) {
+			test(`viser normert AFP-seksjon ${scenario.normert} ved ${scenario.uttaksgrad} % og helt uttak ${scenario.alder} år`, async ({
+				page,
+			}) => {
+				await setupDefaultMocks(page)
+				await setupSimuleringMockWithCapture(page, {
+					livsvarigOffentligAfpListe: [
+						{ alderAar: 62, maanedligBeloep: 8347, aarligBeloep: 100164 },
+						{ alderAar: 67, maanedligBeloep: 8500, aarligBeloep: 102000 },
+					],
+					maanedligAlderspensjonForKnekkpunkter: {
+						...(scenario.uttaksgrad === '50'
+							? {
+									vedGradertUttak: {
+										beloep: 10000,
+										inntektspensjonBeloep: 10000,
+									},
+								}
+							: {}),
+						vedHeltUttak: { beloep: 23333, inntektspensjonBeloep: 23333 },
+						vedNormertPensjonsalder: {
+							beloep: 15000,
+							inntektspensjonBeloep: 15000,
+						},
+					},
+				})
+				await navigateToApp(page)
+				await page.getByTestId('eps-har-pensjon').getByLabel('Nei').check()
+				await page
+					.getByTestId('eps-har-inntekt-over-2g')
+					.getByLabel('Ja')
+					.check()
+				await fillMainFormFields({
+					page,
+					fields: {
+						afp: 'Ja, offentlig',
+						'alder-uttak-aar':
+							scenario.uttaksgrad === '100' ? scenario.alder : '65',
+						'alder-uttak-md': '0',
+						uttaksgrad: scenario.uttaksgrad,
+					},
+				})
+				if (scenario.uttaksgrad !== '100') {
+					await page.getByTestId('inntekt-vsa-gradert-uttak').fill('0')
+					await page
+						.getByTestId('alder-helt-uttak-aar')
+						.selectOption(scenario.alder)
+					await page.getByTestId('alder-helt-uttak-md').selectOption('0')
+				}
+				await page.getByTestId('beregn-button').click()
+				await expect(page.getByTestId('beregning-section-helt')).toBeVisible()
+				for (const plassering of ['gradert', 'helt']) {
+					const section = page.getByTestId(`beregning-section-${plassering}-67`)
+					await expect(section).toHaveCount(
+						scenario.normert === plassering ? 1 : 0
+					)
+					if (scenario.normert !== plassering) continue
+					expect(
+						await section.evaluate((element) =>
+							element.previousElementSibling?.getAttribute('data-testid')
+						)
+					).toBe(`beregning-section-${plassering}`)
+					await expect(
+						section.getByRole('heading', { name: /67 år/ })
+					).toBeVisible()
+					await expect(
+						section.getByRole('row', { name: /Livsvarig AFP/ })
+					).toContainText('8 347')
+					await expect(section.getByText('AFP i privat sektor')).toHaveCount(0)
+					await expect(
+						section.getByText(`${scenario.apGrad} % alderspensjon`, {
+							exact: true,
+						})
+					).toBeVisible()
+					await expect(
+						section.getByRole('row', { name: /Sum pensjon/ })
+					).toContainText('23 347')
+					await page.getByRole('checkbox', { name: 'Vis årsbeløp' }).check()
+					await expect(
+						section.getByRole('row', { name: /Livsvarig AFP/ })
+					).toContainText('100 164')
+				}
+			})
+		}
+
 		test('viser livsvarig AFP én gang når AP-utbetalinger mangler', async ({
 			page,
 		}) => {

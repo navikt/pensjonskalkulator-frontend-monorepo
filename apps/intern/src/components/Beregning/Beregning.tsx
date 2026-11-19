@@ -75,7 +75,7 @@ export const Beregning = () => {
 	} = useBeregningContext()
 	const { isSanityLoading } = useContext(SanityContext)
 	const { data: grunnbeloep } = useGrunnbeloepQuery()
-	const { data: livsvarigAFP } = useLivsvarigAFPQuery({
+	const { data: livsvarigAfp } = useLivsvarigAFPQuery({
 		fnr,
 		enabled: showLivsvarigAFP({
 			foedselsdato: person?.foedselsdato,
@@ -222,11 +222,12 @@ export const Beregning = () => {
 	const gradertMaanedligAlderspensjon =
 		beregning.maanedligAlderspensjonForKnekkpunkter?.vedGradertUttak
 
-	const visLivsvarigOffentligAfp =
-		aktivBeregning?.afp === 'ja_offentlig' &&
-		showLivsvarigAFP({ foedselsdato: person?.foedselsdato, erApoteker })
 	// Bruk alltid første AFP-beløp, uavhengig av AP-uttaksalder.
 	const livsvarigOffentligAfp = beregning.livsvarigOffentligAfpListe?.[0]
+	const visLivsvarigOffentligAfp =
+		Boolean(livsvarigOffentligAfp) &&
+		aktivBeregning?.afp === 'ja_offentlig' &&
+		showLivsvarigAFP({ foedselsdato: person?.foedselsdato, erApoteker })
 
 	// Livsvarig offentlig AFP kan finnes uten vedtak om AP, i motsetning til privat AFP.
 	let offentligAfpIEgenSeksjon: OffentligAfp | null = null
@@ -311,23 +312,26 @@ export const Beregning = () => {
 	const visGradertUttaksseksjon =
 		Boolean(gradertMaanedligAlderspensjon) || (harAfpPrivat && erUttaksgradNull)
 
-	const shouldRenderAFPPrivatForGradertSection =
-		gradertMaanedligAlderspensjon || erUttaksgradNull
+	const harAfpVedNormertPensjonsalder =
+		harAfpPrivat ||
+		(visLivsvarigOffentligAfp && offentligAfpIEgenSeksjon === null)
 
 	const shouldRenderNormertAfpBeforeHeltSection =
-		harAfpPrivat &&
-		shouldRenderAFPPrivatForGradertSection &&
+		harAfpVedNormertPensjonsalder &&
+		(Boolean(gradertMaanedligAlderspensjon) || erUttaksgradNull) &&
 		(heltUttakAlder.aar ?? 0) > 67 &&
 		(gradertUttakAlder?.aar ?? 0) < 67
 
 	const shouldRenderNormertAfpAfterHeltSection =
-		harAfpPrivat && (heltUttakAlder.aar ?? 0) < 67
+		harAfpVedNormertPensjonsalder && (heltUttakAlder.aar ?? 0) < 67
 
 	const normertAfpAlderspensjonGrad = shouldRenderNormertAfpBeforeHeltSection
 		? (aktivBeregning?.uttaksgrad ?? 0)
 		: 100
 
-	const simulererMedGjenlevenderett = !!aktivBeregning?.beregnMedGjenlevenderett
+	const simulererMedGjenlevenderett = Boolean(
+		aktivBeregning?.beregnMedGjenlevenderett
+	)
 
 	const ufoeretrygdBeregningInfo = 'Uføretrygd vises ikke i beregningen.'
 
@@ -339,7 +343,7 @@ export const Beregning = () => {
 		harVedtakAP: Boolean(
 			vedtak?.loependeAlderspensjon || vedtak?.fremtidigAlderspensjon
 		),
-		harVedtakLivsvarigAFP: livsvarigAFP?.afpStatus === true,
+		harVedtakLivsvarigAFP: livsvarigAfp?.afpStatus === true,
 	})
 
 	const sectionCommonProps = {
@@ -355,7 +359,7 @@ export const Beregning = () => {
 	const showCheckboxOnAfpKap19 =
 		!visGradertUttaksseksjon &&
 		skalBeregneAfpKap19 &&
-		!!beregning.tidsbegrensetOffentligAfp
+		Boolean(beregning.tidsbegrensetOffentligAfp)
 
 	const showCheckboxOnHelt =
 		!visGradertUttaksseksjon && !showCheckboxOnAfpKap19 && !erServiceberegning
@@ -396,8 +400,11 @@ export const Beregning = () => {
 				title={formatAlderTitle(67, 0, normertUttakDato)}
 				{...sectionCommonProps}
 				entry={normertMaanedligAlderspensjon ?? undefined}
-				visPrivatAfp
+				visPrivatAfp={harAfpPrivat}
 				privatAfp={afpPrivatVed67Aar ?? undefined}
+				livsvarigOffentligAfp={
+					visLivsvarigOffentligAfp ? livsvarigOffentligAfp : undefined
+				}
 				alderspensjonGrad={normertAfpAlderspensjonGrad}
 				isGradert
 				testId={testId}
@@ -426,7 +433,7 @@ export const Beregning = () => {
 					vedtak,
 					omstillingsstoenad,
 					person,
-					livsvarigAFP
+					livsvarigAfp
 				),
 			},
 			{
@@ -489,7 +496,7 @@ export const Beregning = () => {
 								gradertUttaksseksjon}
 
 							{/*
-								Kun privat AFP: ekstra seksjon ved 67 år mellom gradert/0 % AP
+								Privat og livsvarig offentlig AFP: ekstra seksjon ved 67 år mellom gradert/0 % AP
 								og helt uttak, når helt uttak starter etter 67 år.
 							*/}
 							{!erServiceberegning &&
@@ -559,7 +566,7 @@ export const Beregning = () => {
 								)}
 
 							{/*
-								Kun privat AFP: ekstra seksjon ved 67 år etter helt uttak
+								Privat og livsvarig offentlig AFP: ekstra seksjon ved 67 år etter helt uttak
 								når helt uttak starter før 67 år.
 							*/}
 							{!erServiceberegning &&
