@@ -24,6 +24,7 @@ interface BeregningSectionProps {
 	visPrivatAfp?: boolean
 	privatAfp?: SimuleringAfpPrivat
 	livsvarigOffentligAfp?: LivsvarigOffentligAFP
+	livsvarigAfpBeskrivelse: string
 	visKronetillegg?: boolean
 	alderspensjonGrad: number
 	simulererMedGjenlevenderett?: boolean
@@ -48,6 +49,7 @@ export const BeregningSection = ({
 	visPrivatAfp = false,
 	privatAfp,
 	livsvarigOffentligAfp,
+	livsvarigAfpBeskrivelse,
 	visKronetillegg = false,
 	alderspensjonGrad,
 	simulererMedGjenlevenderett = false,
@@ -131,6 +133,7 @@ export const BeregningSection = ({
 				{livsvarigOffentligAfp && (
 					<LivsvarigOffentligAfpTables
 						entry={livsvarigOffentligAfp}
+						beskrivelse={livsvarigAfpBeskrivelse}
 						alderspensjonBeloep={visAlderspensjon ? entry?.beloep : undefined}
 						visAarsbelop={visAarsbelop}
 						testId={testId ? `${testId}-afp` : undefined}

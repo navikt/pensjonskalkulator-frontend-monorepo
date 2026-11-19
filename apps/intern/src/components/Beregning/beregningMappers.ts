@@ -274,6 +274,22 @@ export type ServiceberegnetAfpResult = NonNullable<
 	NonNullable<BeregningResult['serviceberegnetAfp']>['beregnetAfp']
 >
 
+export function getLivsvarigAfpBeskrivelse({
+	harVedtakAP,
+	harVedtakLivsvarigAFP,
+}: {
+	harVedtakAP: boolean
+	harVedtakLivsvarigAFP: boolean
+}): string {
+	if (harVedtakAP && harVedtakLivsvarigAFP) {
+		return 'AFP-beløpet er hentet fra brukerens vedtak om alderspensjon.'
+	}
+	if (harVedtakAP || harVedtakLivsvarigAFP) {
+		return 'AFP-beløpet er hentet fra <Statens pensjonskasse>.'
+	}
+	return 'AFP-beløpet er estimert av Nav og innebærer ikke en vurdering eller bekreftelse av rett til AFP.'
+}
+
 export function mapLivsvarigOffentligAfpToRows(
 	entry: LivsvarigOffentligAFP
 ): BeregningTableRow[] {

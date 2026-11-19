@@ -27,6 +27,7 @@ interface ValidateFormOptions {
 	foedselsdato?: string
 	erEndring?: boolean
 	hideAfpSporsmaal?: boolean
+	manglerLivsvarigAfpBeloep?: boolean
 	initialInntektAar?: number
 }
 
@@ -150,13 +151,19 @@ function validateSivilstand(
 function validateAfp(
 	formData: BeregningFormData,
 	errors: ValidationErrors,
-	options?: { foedselsdato?: string; initialInntektAar?: number }
+	options?: {
+		foedselsdato?: string
+		initialInntektAar?: number
+		manglerLivsvarigAfpBeloep?: boolean
+	}
 ) {
 	if (formData.beregnMedGjenlevenderett) {
 		return
 	}
 	if (!formData.afp) {
-		errors.afp = 'Velg om AFP skal inkluderes.'
+		errors.afp = options?.manglerLivsvarigAfpBeloep
+			? 'Velg om AFP-beløp skal hentes i beregningen.'
+			: 'Velg om AFP skal inkluderes.'
 	}
 
 	if (formData.afp === 'serviceberegning') {
@@ -405,6 +412,7 @@ export function useFormValidation() {
 				foedselsdato,
 				erEndring = false,
 				hideAfpSporsmaal = false,
+				manglerLivsvarigAfpBeloep = false,
 				initialInntektAar,
 			}: ValidateFormOptions
 		): ValidationErrors => {
@@ -421,7 +429,11 @@ export function useFormValidation() {
 				validateSivilstand(formData, errors)
 			}
 			if (!hideAfpSporsmaal) {
-				validateAfp(formData, errors, { foedselsdato, initialInntektAar })
+				validateAfp(formData, errors, {
+					foedselsdato,
+					initialInntektAar,
+					manglerLivsvarigAfpBeloep,
+				})
 			}
 			validateInntektFoerUttak(formData, errors)
 			validateUttaksalder(formData, errors)

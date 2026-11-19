@@ -7,6 +7,7 @@ import { mapLivsvarigOffentligAfpToRows } from './beregningMappers'
 
 interface LivsvarigOffentligAfpTablesProps {
 	entry: LivsvarigOffentligAFP
+	beskrivelse: string
 	alderspensjonBeloep?: number
 	visAarsbelop: boolean
 	testId?: string
@@ -14,6 +15,7 @@ interface LivsvarigOffentligAfpTablesProps {
 
 export const LivsvarigOffentligAfpTables = ({
 	entry,
+	beskrivelse,
 	alderspensjonBeloep,
 	visAarsbelop,
 	testId,
@@ -37,7 +39,7 @@ export const LivsvarigOffentligAfpTables = ({
 					visAarsbelop={visAarsbelop}
 				/>
 				<BodyLong size="small" textColor="subtle">
-					AFP-beløpet er hentet fra TP ordning.
+					{beskrivelse}
 				</BodyLong>
 			</VStack>
 			{sumAlderspensjonOgAfp != null && (

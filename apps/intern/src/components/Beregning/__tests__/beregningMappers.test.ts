@@ -1,7 +1,44 @@
 import type { SimuleringMaanedligAlderspensjon } from '@pensjonskalkulator-frontend-monorepo/types'
 import { describe, expect, test } from 'vitest'
 
-import { mapAfpToRows, mapAlderspensjonToRows } from '../beregningMappers'
+import {
+	getLivsvarigAfpBeskrivelse,
+	mapAfpToRows,
+	mapAlderspensjonToRows,
+} from '../beregningMappers'
+
+describe('getLivsvarigAfpBeskrivelse', () => {
+	test.each([
+		{
+			harVedtakAP: false,
+			harVedtakLivsvarigAFP: false,
+			tekst:
+				'AFP-beløpet er estimert av Nav og innebærer ikke en vurdering eller bekreftelse av rett til AFP.',
+		},
+		{
+			harVedtakAP: true,
+			harVedtakLivsvarigAFP: false,
+			tekst: 'AFP-beløpet er hentet fra <Statens pensjonskasse>.',
+		},
+		{
+			harVedtakAP: false,
+			harVedtakLivsvarigAFP: true,
+			tekst: 'AFP-beløpet er hentet fra <Statens pensjonskasse>.',
+		},
+		{
+			harVedtakAP: true,
+			harVedtakLivsvarigAFP: true,
+			tekst: 'AFP-beløpet er hentet fra brukerens vedtak om alderspensjon.',
+		},
+	])(
+		'velger tekst med AP-vedtak $harVedtakAP og AFP-vedtak $harVedtakLivsvarigAFP',
+		({ harVedtakAP, harVedtakLivsvarigAFP, tekst }) => {
+			expect(
+				getLivsvarigAfpBeskrivelse({ harVedtakAP, harVedtakLivsvarigAFP })
+			).toBe(tekst)
+		}
+	)
+})
 
 const baseEntry: SimuleringMaanedligAlderspensjon = {
 	beloep: 20000,

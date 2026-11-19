@@ -35,6 +35,7 @@ import {
 	useGrunnbeloepQuery,
 	useInternsimulatorLagreBrevButtonQuery,
 	useLagreSimuleringMutation,
+	useLivsvarigAFPQuery,
 	useOpptjeningQueryForAvdoed,
 } from '../../api/queries'
 import { formatEndUserDate } from '../../utils/dates'
@@ -50,7 +51,11 @@ import { AfpBeregningSection, type OffentligAfp } from './AfpBeregningSection'
 import { OpptjeningTable } from './OpptjeningTable'
 import { ServiceAfpBeregningSection } from './ServiceAfpBeregningSection'
 import { SimuleringFeil } from './SimuleringFeil'
-import { formatAfpTitle, formatAlderTitle } from './beregningMappers'
+import {
+	formatAfpTitle,
+	formatAlderTitle,
+	getLivsvarigAfpBeskrivelse,
+} from './beregningMappers'
 
 import styles from './Beregning.module.css'
 
@@ -70,6 +75,13 @@ export const Beregning = () => {
 	} = useBeregningContext()
 	const { isSanityLoading } = useContext(SanityContext)
 	const { data: grunnbeloep } = useGrunnbeloepQuery()
+	const { data: livsvarigAFP } = useLivsvarigAFPQuery({
+		fnr,
+		enabled: showLivsvarigAFP({
+			foedselsdato: person?.foedselsdato,
+			erApoteker,
+		}),
+	})
 	const { data: forbeholdInternSynlig } = useFeatureToggleQuery(
 		'forbehold-intern-synlig'
 	)
@@ -323,6 +335,13 @@ export const Beregning = () => {
 		Boolean(aktivBeregning?.epsHarPensjon) ||
 		Boolean(aktivBeregning?.epsHarInntektOver2G)
 
+	const livsvarigAfpBeskrivelse = getLivsvarigAfpBeskrivelse({
+		harVedtakAP: Boolean(
+			vedtak?.loependeAlderspensjon || vedtak?.fremtidigAlderspensjon
+		),
+		harVedtakLivsvarigAFP: livsvarigAFP?.afpStatus === true,
+	})
+
 	const sectionCommonProps = {
 		tableCount,
 		erFoedtFoer1963,
@@ -331,6 +350,7 @@ export const Beregning = () => {
 		grunnbeloep: grunnbeloep?.grunnbeløp,
 		simulererMedGjenlevenderett,
 		reducedGrunnpensjon,
+		livsvarigAfpBeskrivelse,
 	}
 	const showCheckboxOnAfpKap19 =
 		!visGradertUttaksseksjon &&
@@ -493,6 +513,7 @@ export const Beregning = () => {
 									}
 									tableCount={tableCount}
 									afp={offentligAfpIEgenSeksjon}
+									livsvarigAfpBeskrivelse={livsvarigAfpBeskrivelse}
 									testId="beregning-section-offentlig-afp"
 									visAarsbelop={visAarsbelop}
 									showVisAarsbelopCheckbox={showCheckboxOnAfpKap19}

@@ -22,6 +22,9 @@ const livsvarigEntry: LivsvarigOffentligAFP = {
 	aarligBeloep: 100164,
 }
 
+const estimertAfpBeskrivelse =
+	'AFP-beløpet er estimert av Nav og innebærer ikke en vurdering eller bekreftelse av rett til AFP.'
+
 const tidsbegrensetEntry: TidsbegrensetOffentligAFP = {
 	alderAar: 65,
 	totaltAfpBeloep: 15285,
@@ -54,6 +57,7 @@ describe('BeregningSection med privat AFP', () => {
 					entry={{ beloep: 10000 }}
 					alderspensjonGrad={50}
 					visPrivatAfp
+					livsvarigAfpBeskrivelse={estimertAfpBeskrivelse}
 					privatAfp={{
 						...livsvarigEntry,
 						kompensasjonstillegg: 0,
@@ -90,6 +94,7 @@ describe('BeregningSection med livsvarig offentlig AFP', () => {
 					erFoedtEtter1963
 					alderspensjonGrad={grad}
 					livsvarigOffentligAfp={{ ...livsvarigEntry, aarligBeloep: 50082 }}
+					livsvarigAfpBeskrivelse={estimertAfpBeskrivelse}
 					visAarsbelop={visAarsbelop}
 				/>
 			)
@@ -123,6 +128,7 @@ describe('BeregningSection med livsvarig offentlig AFP', () => {
 						maanedligBeloep: 0,
 						aarligBeloep: 0,
 					}}
+					livsvarigAfpBeskrivelse={estimertAfpBeskrivelse}
 					visAarsbelop={visAarsbelop}
 				/>
 			)
@@ -142,6 +148,7 @@ describe('BeregningSection med livsvarig offentlig AFP', () => {
 				alderspensjonGrad={0}
 				erUttaksgradNull
 				livsvarigOffentligAfp={livsvarigEntry}
+				livsvarigAfpBeskrivelse={estimertAfpBeskrivelse}
 				visAarsbelop={false}
 			/>
 		)
@@ -151,6 +158,41 @@ describe('BeregningSection med livsvarig offentlig AFP', () => {
 		)
 		expect(screen.queryByText('Alderspensjon og AFP')).not.toBeInTheDocument()
 	})
+})
+
+describe('Beskrivelse under livsvarig AFP', () => {
+	test.each(['AP-seksjon', 'egen AFP-seksjon'])(
+		'viser beskrivelsen fra vedtak i %s',
+		(seksjon) => {
+			const livsvarigAfpBeskrivelse =
+				'AFP-beløpet er hentet fra brukerens vedtak om alderspensjon.'
+			const props = {
+				title: 'Pensjon ved 65 år',
+				tableCount: 1,
+				visAarsbelop: false,
+				livsvarigAfpBeskrivelse,
+			}
+
+			render(
+				seksjon === 'AP-seksjon' ? (
+					<BeregningSection
+						{...props}
+						entry={{ beloep: 10000 }}
+						alderspensjonGrad={100}
+						livsvarigOffentligAfp={livsvarigEntry}
+					/>
+				) : (
+					<AfpBeregningSection
+						{...props}
+						afp={{ type: 'livsvarig', entry: livsvarigEntry }}
+					/>
+				)
+			)
+
+			expect(screen.getByText(livsvarigAfpBeskrivelse)).toBeVisible()
+			expect(screen.queryByText(estimertAfpBeskrivelse)).not.toBeInTheDocument()
+		}
+	)
 })
 
 describe('AfpBeregningSection', () => {
@@ -165,6 +207,7 @@ describe('AfpBeregningSection', () => {
 						type: 'livsvarig',
 						entry: { ...livsvarigEntry, maanedligBeloep: 0, aarligBeloep: 0 },
 					}}
+					livsvarigAfpBeskrivelse={estimertAfpBeskrivelse}
 					visAarsbelop={visAarsbelop}
 				/>
 			)
@@ -173,9 +216,7 @@ describe('AfpBeregningSection', () => {
 				const row = screen.getByRole('row', { name: new RegExp(label) })
 				expect(within(row).getByRole('cell', { name: /^0$/ })).toBeVisible()
 			}
-			expect(
-				screen.getByText('AFP-beløpet er hentet fra TP ordning.')
-			).toBeVisible()
+			expect(screen.getByText(estimertAfpBeskrivelse)).toBeVisible()
 			expect(screen.queryByText('Alderspensjon og AFP')).not.toBeInTheDocument()
 			expect(
 				screen.queryByText('Opptjening AFP i offentlig sektor')
@@ -189,6 +230,7 @@ describe('AfpBeregningSection', () => {
 				title="Pensjon ved 65 år"
 				tableCount={2}
 				afp={{ type: 'tidsbegrenset', entry: tidsbegrensetEntry }}
+				livsvarigAfpBeskrivelse={estimertAfpBeskrivelse}
 				visAarsbelop={false}
 			/>
 		)
@@ -209,6 +251,7 @@ describe('AfpBeregningSection', () => {
 				title="Pensjon ved 65 år"
 				tableCount={1}
 				afp={{ type: 'livsvarig', entry: livsvarigEntry }}
+				livsvarigAfpBeskrivelse={estimertAfpBeskrivelse}
 				visAarsbelop={false}
 				showVisAarsbelopCheckbox
 				onVisAarsbelopChange={onChange}

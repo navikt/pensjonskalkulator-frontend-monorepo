@@ -24,6 +24,7 @@ interface AfpBeregningSectionProps {
 	title: string
 	tableCount: number
 	afp: OffentligAfp
+	livsvarigAfpBeskrivelse: string
 	alderspensjonBeloep?: number
 	visAarsbelop: boolean
 	testId?: string
@@ -35,6 +36,7 @@ export const AfpBeregningSection = ({
 	title,
 	tableCount,
 	afp,
+	livsvarigAfpBeskrivelse,
 	alderspensjonBeloep,
 	visAarsbelop,
 	testId,
@@ -66,6 +68,7 @@ export const AfpBeregningSection = ({
 				{afp.type === 'livsvarig' ? (
 					<LivsvarigOffentligAfpTables
 						entry={afp.entry}
+						beskrivelse={livsvarigAfpBeskrivelse}
 						alderspensjonBeloep={alderspensjonBeloep}
 						visAarsbelop={visAarsbelop}
 					/>

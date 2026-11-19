@@ -214,6 +214,13 @@ test.describe('AFP Offentlig', () => {
 				const alert = page.getByTestId('beregning.livsvarig-AFP-forvaltes-ikke')
 				await expect(alert).toHaveCount(manglerBeloep ? 1 : 0)
 
+				if (afpStatus === false) {
+					await page.getByTestId('beregn-button').click()
+					await expect(
+						page.getByTestId('afp').getByText('Velg om AFP skal inkluderes.')
+					).toBeVisible()
+				}
+
 				if (afpStatus !== true) {
 					for (const valg of ['Ja, offentlig', 'Ja, privat', 'Nei']) {
 						await page.getByTestId('afp').getByLabel(valg).check()
@@ -338,7 +345,7 @@ test.describe('AFP Offentlig', () => {
 			await expect(sporsmaal).toBeVisible()
 			await page.getByTestId('beregn-button').click()
 			await expect(
-				sporsmaal.getByText('Velg om AFP skal inkluderes.')
+				sporsmaal.getByText('Velg om AFP-beløp skal hentes i beregningen.')
 			).toBeVisible()
 			expect(capture.getCapturedBody()).toBeUndefined()
 
@@ -429,7 +436,9 @@ test.describe('AFP Offentlig', () => {
 				page.getByTestId('beregning-section-offentlig-afp')
 			).toHaveCount(0)
 			await expect(
-				helt.getByText('AFP-beløpet er hentet fra TP ordning.')
+				helt.getByText(
+					'AFP-beløpet er estimert av Nav og innebærer ikke en vurdering eller bekreftelse av rett til AFP.'
+				)
 			).toBeVisible()
 			await expect(
 				page.getByText('Opptjening AFP i offentlig sektor')

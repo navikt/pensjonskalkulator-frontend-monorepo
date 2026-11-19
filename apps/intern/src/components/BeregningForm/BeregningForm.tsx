@@ -241,6 +241,7 @@ export const BeregningForm = () => {
 			foedselsdato: person?.foedselsdato,
 			erEndring,
 			hideAfpSporsmaal: hideAfpSporsmaal && !manglerLivsvarigAfpBeloep,
+			manglerLivsvarigAfpBeloep,
 			initialInntektAar,
 			erApoteker,
 		})
@@ -415,34 +416,37 @@ export const BeregningForm = () => {
 		})
 
 	const afpSporsmaal = harVedtakLivsvarigAFP ? (
-		<div className={styles.fieldGroup}>
-			<Heading level="3" size="xsmall">
-				AFP
-			</Heading>
-			<BodyShort size="small">
-				{erEndring
-					? 'Brukeren har livsvarig AFP i offentlig sektor. Beløpet vil inkluderes i vilkårsprøvingen av alderspensjon.'
-					: 'Brukeren har livsvarig AFP i offentlig sektor fra tjenestepensjonsordning.'}
-			</BodyShort>
-			{manglerLivsvarigAfpBeloep && (
-				<>
-					<RHFRadio
-						name="afp"
-						legend="Skal AFP-beløp hentes i beregningen?"
-						options={[
-							{ value: 'ja_offentlig', label: 'Ja' },
-							{ value: 'nei', label: 'Nei' },
-						]}
-						testid="afp"
-						onChange={() => setAlertDismissed(true)}
-					/>
-					<SanityAlert
-						id="beregning.livsvarig-AFP-forvaltes-ikke"
-						className={styles.sanityAlert}
-					/>
-				</>
-			)}
-		</div>
+		<>
+			<div className={styles.fieldGroup}>
+				<Heading level="3" size="xsmall">
+					AFP
+				</Heading>
+				<BodyShort size="small">
+					{erEndring
+						? 'Brukeren har livsvarig AFP i offentlig sektor. Beløpet vil inkluderes i vilkårsprøvingen av alderspensjon.'
+						: 'Brukeren har livsvarig AFP i offentlig sektor fra tjenestepensjonsordning.'}
+				</BodyShort>
+				{manglerLivsvarigAfpBeloep && (
+					<>
+						<RHFRadio
+							name="afp"
+							legend="Skal AFP-beløp hentes i beregningen?"
+							options={[
+								{ value: 'ja_offentlig', label: 'Ja' },
+								{ value: 'nei', label: 'Nei' },
+							]}
+							testid="afp"
+							onChange={() => setAlertDismissed(true)}
+						/>
+						<SanityAlert
+							id="beregning.livsvarig-AFP-forvaltes-ikke"
+							className={styles.sanityAlert}
+						/>
+					</>
+				)}
+			</div>
+			<Divider noMargin />
+		</>
 	) : (
 		!hideAfpSporsmaal && (
 			<>
