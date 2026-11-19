@@ -226,10 +226,22 @@ test.describe('AFP Offentlig', () => {
 								element.nextElementSibling!.getBoundingClientRect().top -
 								element.getBoundingClientRect().bottom
 						)
-					).toBe(24)
+					).toBe(8)
 				}
 
 				if (manglerBeloep) {
+					await expect
+						.poll(() =>
+							page
+								.getByTestId('afp')
+								.evaluate(
+									(element) =>
+										element.getBoundingClientRect().top -
+										element.parentElement!.previousElementSibling!.getBoundingClientRect()
+											.bottom
+								)
+						)
+						.toBe(24)
 					await expect
 						.poll(() =>
 							alert.evaluate(

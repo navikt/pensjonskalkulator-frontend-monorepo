@@ -418,14 +418,16 @@ export const BeregningForm = () => {
 	const afpSporsmaal = harVedtakLivsvarigAFP ? (
 		<>
 			<VStack gap="space-24">
-				<Heading level="3" size="xsmall">
-					AFP
-				</Heading>
-				<BodyShort size="small">
-					{erEndring
-						? 'Brukeren har livsvarig AFP i offentlig sektor. Beløpet vil inkluderes i vilkårsprøvingen av alderspensjon.'
-						: 'Brukeren har livsvarig AFP i offentlig sektor fra tjenestepensjonsordning.'}
-				</BodyShort>
+				<VStack gap="space-8">
+					<Heading level="3" size="xsmall">
+						AFP
+					</Heading>
+					<BodyShort size="small">
+						{erEndring
+							? 'Brukeren har livsvarig AFP i offentlig sektor. Beløpet vil inkluderes i vilkårsprøvingen av alderspensjon.'
+							: 'Brukeren har livsvarig AFP i offentlig sektor fra tjenestepensjonsordning.'}
+					</BodyShort>
+				</VStack>
 				{manglerLivsvarigAfpBeloep && (
 					<VStack gap="space-8">
 						<RHFRadio
