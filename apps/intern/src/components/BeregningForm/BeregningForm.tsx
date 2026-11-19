@@ -13,6 +13,7 @@ import {
 	isAlderLikAnnenAlder,
 } from '@pensjonskalkulator-frontend-monorepo/utils/alder'
 import { DATE_ENDUSER_FORMAT } from '@pensjonskalkulator-frontend-monorepo/utils/dates'
+import clsx from 'clsx'
 import { addMonths, format, parseISO } from 'date-fns'
 import { type SubmitEvent, useCallback, useEffect, useState } from 'react'
 import { useWatch } from 'react-hook-form'
@@ -547,6 +548,13 @@ export const BeregningForm = () => {
 										}}
 									/>
 								</div>
+							)}
+						{beregning?.problem?.kode === 'UTILSTREKKELIG_TRYGDETID' &&
+							!alertDismissed && (
+								<SanityAlert
+									id="beregning.vilkaarsproeving.kan-ikke-beregne"
+									className={clsx(styles.sanityAlert, styles.kompaktAlert)}
+								/>
 							)}
 						{(showAlderspensjonFields(afp) || hideAfpSporsmaal) && (
 							<>

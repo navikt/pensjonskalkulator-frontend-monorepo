@@ -26,6 +26,7 @@ import {
 import {
   generateAlderspensjonRequestBody,
   harTekniskSimuleringsfeil,
+  harUtilstrekkeligTrygdetid,
 } from '@/state/api/utils'
 import { useAppDispatch, useAppSelector } from '@/state/hooks'
 import {
@@ -151,6 +152,8 @@ export const BeregningAvansert = () => {
 
   const harTekniskFeil = harTekniskSimuleringsfeil(alderspensjon)
   const harFeil = isError || harTekniskFeil
+  const utilstrekkeligTrygdetid =
+    !harFeil && harUtilstrekkeligTrygdetid(alderspensjon)
 
   useEffect(() => {
     if (uttaksalder) {
@@ -220,6 +223,7 @@ export const BeregningAvansert = () => {
         vilkaarsproeving={
           harTekniskFeil ? undefined : alderspensjon?.vilkaarsproeving
         }
+        utilstrekkeligTrygdetid={utilstrekkeligTrygdetid}
       />
     )
   }

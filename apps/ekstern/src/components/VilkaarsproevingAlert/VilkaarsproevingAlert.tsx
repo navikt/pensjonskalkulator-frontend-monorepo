@@ -19,12 +19,14 @@ export interface Props {
   alternativ: Vilkaarsproeving['alternativ']
   uttaksalder: Alder
   withAFP?: boolean
+  utilstrekkeligTrygdetid?: boolean
 }
 
 export const VilkaarsproevingAlert = ({
   alternativ,
   uttaksalder,
   withAFP = false,
+  utilstrekkeligTrygdetid = false,
 }: Props) => {
   const intl = useIntl()
   const dispatch = useAppDispatch()
@@ -57,6 +59,21 @@ export const VilkaarsproevingAlert = ({
   const erKombinertUttak =
     !isHeltUttaksalderLik &&
     Boolean(altGradertUttaksalder && altHeltUttaksalder)
+
+  if (utilstrekkeligTrygdetid) {
+    logger(ALERT_VIST, {
+      tekst: 'beregning.vilkaarsproeving.kan-ikke-beregne-ekstern',
+      variant: 'warning',
+    })
+
+    return (
+      <SanityAlert
+        id="beregning.vilkaarsproeving.kan-ikke-beregne-ekstern"
+        role="alert"
+        dynamicValues={dynamicPensjonsaldre}
+      />
+    )
+  }
 
   if (withAFP) {
     const getAlertId = () => {

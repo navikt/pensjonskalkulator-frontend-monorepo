@@ -27,6 +27,7 @@ import {
   generateAlderspensjonEnkelRequestBody,
   generateTidligstMuligHeltUttakRequestBody,
   harTekniskSimuleringsfeil,
+  harUtilstrekkeligTrygdetid,
 } from '@/state/api/utils'
 import { useAppDispatch, useAppSelector } from '@/state/hooks'
 import {
@@ -192,6 +193,8 @@ export const BeregningEnkel = () => {
 
   const harTekniskFeil = harTekniskSimuleringsfeil(alderspensjon)
   const harFeil = isError || harTekniskFeil
+  const utilstrekkeligTrygdetid =
+    !harFeil && harUtilstrekkeligTrygdetid(alderspensjon)
 
   useEffect(() => {
     if (!harTekniskFeil && alderspensjon?.vilkaarsproeving.vilkaarErOppfylt) {
@@ -209,6 +212,11 @@ export const BeregningEnkel = () => {
         logger(ALERT_VIST, {
           tekst: 'Beregning enkel: Klarte ikke beregne pensjon',
           variant: 'error',
+        })
+      } else if (utilstrekkeligTrygdetid) {
+        logger(ALERT_VIST, {
+          tekst: 'Beregning enkel: Utilstrekkelig trygdetid',
+          variant: 'warning',
         })
       } else if (
         alderspensjon &&
@@ -330,6 +338,7 @@ export const BeregningEnkel = () => {
           className={clsx(styles.container, styles.container__hasMobilePadding)}
         >
           {harFeil ||
+          utilstrekkeligTrygdetid ||
           (alderspensjon &&
             !alderspensjon?.vilkaarsproeving.vilkaarErOppfylt &&
             uttaksalder &&
@@ -347,6 +356,11 @@ export const BeregningEnkel = () => {
                     beregningStyles.beregningErrorAlert
                   )}
                   onButtonClick={onRetry}
+                />
+              ) : utilstrekkeligTrygdetid ? (
+                <SanityAlert
+                  id="beregning.vilkaarsproeving.kan-ikke-beregne-ekstern"
+                  className={beregningStyles.beregningAlert}
                 />
               ) : (
                 <SanityAlert
