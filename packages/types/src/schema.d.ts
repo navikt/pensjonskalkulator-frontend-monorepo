@@ -3125,7 +3125,10 @@ export interface components {
 			vedGradertUttak?:
 				| components['schemas']['LagreLivsvarigOffentligAfpDto']
 				| null
-			vedHeltUttak: components['schemas']['LagreLivsvarigOffentligAfpDto']
+			vedHeltUttak?:
+				| components['schemas']['LagreLivsvarigOffentligAfpDto']
+				| null
+			beskrivelse?: string | null
 		}
 		LagreAfpPrivatSimuleringDto: {
 			vedGradertUttak?: components['schemas']['LagrePrivatAfpDto'] | null

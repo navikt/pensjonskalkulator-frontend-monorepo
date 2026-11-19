@@ -214,6 +214,33 @@ test.describe('AFP Offentlig', () => {
 				const alert = page.getByTestId('beregning.livsvarig-AFP-forvaltes-ikke')
 				await expect(alert).toHaveCount(manglerBeloep ? 1 : 0)
 
+				if (afpStatus === true) {
+					const heading = page.getByRole('heading', {
+						name: 'AFP',
+						exact: true,
+					})
+					await expect(heading).toBeVisible()
+					expect(
+						await heading.evaluate(
+							(element) =>
+								element.nextElementSibling!.getBoundingClientRect().top -
+								element.getBoundingClientRect().bottom
+						)
+					).toBe(24)
+				}
+
+				if (manglerBeloep) {
+					await expect
+						.poll(() =>
+							alert.evaluate(
+								(element) =>
+									element.getBoundingClientRect().top -
+									element.previousElementSibling!.getBoundingClientRect().bottom
+							)
+						)
+						.toBe(8)
+				}
+
 				if (afpStatus === false) {
 					await page.getByTestId('beregn-button').click()
 					await expect(
@@ -225,6 +252,18 @@ test.describe('AFP Offentlig', () => {
 					for (const valg of ['Ja, offentlig', 'Ja, privat', 'Nei']) {
 						await page.getByTestId('afp').getByLabel(valg).check()
 						await expect(alert).toHaveCount(valg === 'Ja, offentlig' ? 1 : 0)
+						if (valg === 'Ja, offentlig') {
+							await expect
+								.poll(() =>
+									alert.evaluate(
+										(element) =>
+											element.getBoundingClientRect().top -
+											element.previousElementSibling!.getBoundingClientRect()
+												.bottom
+									)
+								)
+								.toBe(8)
+						}
 					}
 				}
 			})

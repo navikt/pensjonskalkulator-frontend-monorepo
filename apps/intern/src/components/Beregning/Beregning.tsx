@@ -425,7 +425,8 @@ export const Beregning = () => {
 					aktivRequest?.utenlandsperiodeListe ?? undefined,
 					vedtak,
 					omstillingsstoenad,
-					person
+					person,
+					livsvarigAFP
 				),
 			},
 			{

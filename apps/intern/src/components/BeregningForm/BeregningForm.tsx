@@ -17,7 +17,7 @@ import { addMonths, format, parseISO } from 'date-fns'
 import { type SubmitEvent, useCallback, useEffect, useState } from 'react'
 import { useWatch } from 'react-hook-form'
 
-import { BodyShort, Box, HStack, Heading } from '@navikt/ds-react'
+import { BodyShort, Box, HStack, Heading, VStack } from '@navikt/ds-react'
 
 import { BLOCKING_TILGANG_CODES } from '../../api/beregningTypes'
 import {
@@ -417,7 +417,7 @@ export const BeregningForm = () => {
 
 	const afpSporsmaal = harVedtakLivsvarigAFP ? (
 		<>
-			<div className={styles.fieldGroup}>
+			<VStack gap="space-24">
 				<Heading level="3" size="xsmall">
 					AFP
 				</Heading>
@@ -427,7 +427,7 @@ export const BeregningForm = () => {
 						: 'Brukeren har livsvarig AFP i offentlig sektor fra tjenestepensjonsordning.'}
 				</BodyShort>
 				{manglerLivsvarigAfpBeloep && (
-					<>
+					<VStack gap="space-8">
 						<RHFRadio
 							name="afp"
 							legend="Skal AFP-beløp hentes i beregningen?"
@@ -442,35 +442,37 @@ export const BeregningForm = () => {
 							id="beregning.livsvarig-AFP-forvaltes-ikke"
 							className={styles.sanityAlert}
 						/>
-					</>
+					</VStack>
 				)}
-			</div>
+			</VStack>
 			<Divider noMargin />
 		</>
 	) : (
 		!hideAfpSporsmaal && (
 			<>
-				<RHFRadio
-					name="afp"
-					legend="Skal AFP inkluderes?"
-					options={afpOptions}
-					gap="space-24"
-					testid="afp"
-					onChange={(value) => {
-						setAlertDismissed(true)
-						resetAlderVelger(value)
-					}}
-				/>
-				{afp === 'ja_offentlig' &&
-					showLivsvarigAFP({
-						foedselsdato: person?.foedselsdato,
-						erApoteker,
-					}) && (
-						<SanityAlert
-							id="beregning.livsvarig-AFP-forvaltes-ikke"
-							className={styles.sanityAlert}
-						/>
-					)}
+				<VStack gap="space-8">
+					<RHFRadio
+						name="afp"
+						legend="Skal AFP inkluderes?"
+						options={afpOptions}
+						gap="space-24"
+						testid="afp"
+						onChange={(value) => {
+							setAlertDismissed(true)
+							resetAlderVelger(value)
+						}}
+					/>
+					{afp === 'ja_offentlig' &&
+						showLivsvarigAFP({
+							foedselsdato: person?.foedselsdato,
+							erApoteker,
+						}) && (
+							<SanityAlert
+								id="beregning.livsvarig-AFP-forvaltes-ikke"
+								className={styles.sanityAlert}
+							/>
+						)}
+				</VStack>
 				{showUTOgAFPAlert && (
 					<SanityAlert
 						id="beregning.ufoeretrygd-med-sim-ap-og-afp-privat"

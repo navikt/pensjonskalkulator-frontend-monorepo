@@ -49,12 +49,6 @@
 	height: var(--ax-space-32);
 }
 
-.fieldGroup {
-	display: flex;
-	flex-direction: column;
-	gap: 8px;
-}
-
 .selectWrapper :global(.aksel-select__container) {
 	width: 192px;
 }
