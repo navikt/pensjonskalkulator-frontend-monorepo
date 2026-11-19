@@ -1,9 +1,10 @@
 import type { SimuleringRequestBody } from '@pensjonskalkulator-frontend-monorepo/types'
 import { type Page, expect, test } from '@playwright/test'
 
-import { loadJSONMock } from '../utils/mock'
+import { loadJSONMock, mockApi } from '../utils/mock'
 import {
 	API_URLS,
+	MOCK_FILES,
 	fillMainFormFields,
 	navigateToApp,
 	setupDefaultMocks,
@@ -189,10 +190,16 @@ test.describe('AFP Offentlig', () => {
 				const manglerBeloep = afpStatus === true && maanedligBeloep == null
 				await expect(
 					page.getByText(
-						'Brukeren har livsvarig AFP i offentlig sektor. Beløpet vil inkluderes i vilkårsprøvingen av alderspensjon.',
+						'Brukeren har livsvarig AFP i offentlig sektor fra tjenestepensjonsordning.',
 						{ exact: true }
 					)
 				).toHaveCount(afpStatus === true ? 1 : 0)
+				await expect(
+					page.getByText(
+						'Brukeren har livsvarig AFP i offentlig sektor. Beløpet vil inkluderes i vilkårsprøvingen av alderspensjon.',
+						{ exact: true }
+					)
+				).toHaveCount(0)
 				await expect(
 					page.getByRole('heading', { name: 'AFP', exact: true })
 				).toHaveCount(afpStatus === true ? 1 : 0)
@@ -215,6 +222,34 @@ test.describe('AFP Offentlig', () => {
 				}
 			})
 		}
+
+		test('beholder teksten om vilkaarsproeving naar brukeren har baade AP-vedtak og livsvarig AFP', async ({
+			page,
+		}) => {
+			await setupDefaultMocks(page)
+			await mockApi(page, API_URLS.VEDTAK, MOCK_FILES.VEDTAK)
+			await page.route('**/api/v2/tpo-livsvarig-offentlig-afp', (route) =>
+				route.fulfill({
+					status: 200,
+					json: { afpStatus: true, maanedligBeloep: 8347 },
+				})
+			)
+
+			await navigateToApp(page)
+
+			await expect(
+				page.getByText(
+					'Brukeren har livsvarig AFP i offentlig sektor. Beløpet vil inkluderes i vilkårsprøvingen av alderspensjon.',
+					{ exact: true }
+				)
+			).toBeVisible()
+			await expect(
+				page.getByText(
+					'Brukeren har livsvarig AFP i offentlig sektor fra tjenestepensjonsordning.',
+					{ exact: true }
+				)
+			).toHaveCount(0)
+		})
 
 		for (const { maanedligBeloep, forventetBeloep } of [
 			{ maanedligBeloep: 8347, forventetBeloep: '8 347' },
