@@ -492,8 +492,8 @@ describe('VilkaarsproevingAlert', () => {
               value={{
                 ...sanityContext,
                 alertData: {
-                  'beregning.vilkaarsproeving.kan-ikke-beregne-ekstern': {
-                    name: 'beregning.vilkaarsproeving.kan-ikke-beregne-ekstern',
+                  'beregning.vilkaarsproeving.kan-ikke-beregne': {
+                    name: 'beregning.vilkaarsproeving.kan-ikke-beregne',
                     type: 'local-alert',
                     status: 'warning',
                     innhold: [
@@ -528,9 +528,7 @@ describe('VilkaarsproevingAlert', () => {
       )
 
       expect(
-        screen.getByTestId(
-          'beregning.vilkaarsproeving.kan-ikke-beregne-ekstern'
-        )
+        screen.getByTestId('beregning.vilkaarsproeving.kan-ikke-beregne')
       ).toHaveTextContent('Kan ikke beregne alderspensjon.')
       expect(screen.getAllByRole('alert')).toHaveLength(1)
     })
