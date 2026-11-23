@@ -14,7 +14,7 @@ export function erKap19EllerApoteker(
 	return !!foedselsdato && (isFoedtFoer1963(foedselsdato) || erApoteker)
 }
 
-export function showLivsvarigAFP({
+export function erLivsvarigAfpAktuell({
 	foedselsdato,
 	erApoteker,
 }: {

@@ -26,7 +26,7 @@ import {
 
 import {
 	erKap19EllerApoteker,
-	showLivsvarigAFP,
+	erLivsvarigAfpAktuell,
 } from '../../api/formConditions'
 import { mapBeregningParamsToRequest } from '../../api/mapBeregningParams'
 import { mapBeregningResultToLagreSpec } from '../../api/mapLagreSimulering'
@@ -77,7 +77,7 @@ export const Beregning = () => {
 	const { data: grunnbeloep } = useGrunnbeloepQuery()
 	const { data: livsvarigAfp } = useLivsvarigAFPQuery({
 		fnr,
-		enabled: showLivsvarigAFP({
+		enabled: erLivsvarigAfpAktuell({
 			foedselsdato: person?.foedselsdato,
 			erApoteker,
 		}),
@@ -227,7 +227,7 @@ export const Beregning = () => {
 	const visLivsvarigOffentligAfp =
 		Boolean(livsvarigOffentligAfp) &&
 		aktivBeregning?.afp === 'ja_offentlig' &&
-		showLivsvarigAFP({ foedselsdato: person?.foedselsdato, erApoteker })
+		erLivsvarigAfpAktuell({ foedselsdato: person?.foedselsdato, erApoteker })
 
 	// Livsvarig offentlig AFP kan finnes uten vedtak om AP, i motsetning til privat AFP.
 	let offentligAfpIEgenSeksjon: OffentligAfp | null = null

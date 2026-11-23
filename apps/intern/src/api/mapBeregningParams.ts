@@ -16,7 +16,7 @@ import type {
 	BeregningFormData,
 	UtenlandsOppholdFormValues,
 } from './beregningTypes'
-import { erKap19EllerApoteker, showLivsvarigAFP } from './formConditions'
+import { erKap19EllerApoteker, erLivsvarigAfpAktuell } from './formConditions'
 import type { Grunnbeloep } from './queries'
 
 const toBackendDate = (value: string) =>
@@ -109,7 +109,7 @@ export function mapBeregningParamsToRequest(
 		simuleringstype = 'ALDERSPENSJON_MED_TIDSBEGRENSET_OFFENTLIG_AFP'
 	} else if (
 		formData.afp === 'ja_offentlig' &&
-		showLivsvarigAFP({ foedselsdato: person?.foedselsdato, erApoteker })
+		erLivsvarigAfpAktuell({ foedselsdato: person?.foedselsdato, erApoteker })
 	) {
 		simuleringstype = formData.endringAP
 			? 'ENDRING_ALDERSPENSJON_MED_LIVSVARIG_OFFENTLIG_AFP'

@@ -12,7 +12,7 @@ import {
 	TextField,
 } from '@navikt/ds-react'
 
-import { showLivsvarigAFP } from './api/formConditions'
+import { erLivsvarigAfpAktuell } from './api/formConditions'
 import {
 	useDecryptPidQuery,
 	useEncryptPidMutation,
@@ -56,7 +56,7 @@ export const PersonInfo = ({ onPidChange }: PersonInfoProps) => {
 	const { data: vedtak } = useVedtakQuery(fnr)
 	const { data: erApoteker } = useErApotekerQuery(fnr)
 
-	const hentLivsvarigAFP = showLivsvarigAFP({
+	const hentLivsvarigAFP = erLivsvarigAfpAktuell({
 		foedselsdato: person?.foedselsdato,
 		erApoteker: Boolean(erApoteker),
 	})

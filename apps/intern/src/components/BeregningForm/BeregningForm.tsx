@@ -22,6 +22,7 @@ import { BodyShort, Box, HStack, Heading, VStack } from '@navikt/ds-react'
 import { BLOCKING_TILGANG_CODES } from '../../api/beregningTypes'
 import {
 	erKap19EllerApoteker,
+	erLivsvarigAfpAktuell,
 	getPartnerBetegnelse,
 	isUttakEtterInnevaerendeAar,
 	showAfpOffentligFields,
@@ -32,7 +33,6 @@ import {
 	showHarInntektVedSidenAvUttak,
 	showHeltUttakAlder,
 	showInntektHeltFields,
-	showLivsvarigAFP,
 } from '../../api/formConditions'
 import { useGrunnbeloepQuery, useLivsvarigAFPQuery } from '../../api/queries'
 import { getUttakInfo } from '../../utils/getUttakInfo'
@@ -88,13 +88,14 @@ export const BeregningForm = () => {
 		erApoteker,
 		fnr,
 	} = useBeregningContext()
+	const visLivsvarigAfp = erLivsvarigAfpAktuell({
+		foedselsdato: person?.foedselsdato,
+		erApoteker,
+	})
 	const { data: grunnbeloep } = useGrunnbeloepQuery()
 	const { data: livsvarigAFP } = useLivsvarigAFPQuery({
 		fnr,
-		enabled: showLivsvarigAFP({
-			foedselsdato: person?.foedselsdato,
-			erApoteker,
-		}),
+		enabled: visLivsvarigAfp,
 	})
 	const dynamicGrunnbeloep: Record<string, string | number> = grunnbeloep
 		? { G: grunnbeloep.grunnbeløp }
@@ -333,7 +334,9 @@ export const BeregningForm = () => {
 		alderAarUttak &&
 		alderAarUttak < 67
 
-	const showUTOgAFPAlert = afp === 'ja_privat' && vedtak?.ufoeretrygdgrad
+	const showUTOgAFPAlert =
+		vedtak?.ufoeretrygdgrad &&
+		Boolean(afp === 'ja_privat' || (afp === 'ja_offentlig' && visLivsvarigAfp))
 
 	const showUTOgFolketrygdBeregnetAFPAlert =
 		(afp === 'ja_offentlig' || afp === 'serviceberegning') &&
@@ -372,7 +375,7 @@ export const BeregningForm = () => {
 
 	const kanVelgeOffentligAfp = person?.foedselsdato
 		? (erKap19EllerApoteker(person.foedselsdato, erApoteker) ||
-				showLivsvarigAFP({ foedselsdato: person?.foedselsdato, erApoteker })) &&
+				visLivsvarigAfp) &&
 			!isAlder67MaanedenFylt(person.foedselsdato)
 		: false
 
@@ -464,16 +467,12 @@ export const BeregningForm = () => {
 							resetAlderVelger(value)
 						}}
 					/>
-					{afp === 'ja_offentlig' &&
-						showLivsvarigAFP({
-							foedselsdato: person?.foedselsdato,
-							erApoteker,
-						}) && (
-							<SanityAlert
-								id="beregning.livsvarig-AFP-forvaltes-ikke"
-								className={styles.sanityAlert}
-							/>
-						)}
+					{afp === 'ja_offentlig' && visLivsvarigAfp && (
+						<SanityAlert
+							id="beregning.livsvarig-AFP-forvaltes-ikke"
+							className={styles.sanityAlert}
+						/>
+					)}
 				</VStack>
 				{showUTOgAFPAlert && (
 					<SanityAlert
