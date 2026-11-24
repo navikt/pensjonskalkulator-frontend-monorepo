@@ -23,6 +23,7 @@ vi.mock('./api/queries.ts', () => ({
 	useFeatureToggleQuery: () => ({ data: darkModeToggle }),
 	useInntektQuery: () => ({}),
 	useInternsimulatorLagreBrevButtonQuery: () => ({}),
+	useLivsvarigAFPQuery: () => ({}),
 	useOmstillingsstoenadQuery: () => ({}),
 	usePersonQuery: () => ({}),
 	useVedtakQuery: () => ({}),

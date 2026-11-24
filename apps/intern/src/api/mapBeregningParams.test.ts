@@ -62,6 +62,7 @@ describe('innvilget livsvarig AFP fra v4', () => {
 		{ maanedligBeloepListe: [{ virkningFom: '2030-01-01', beloep: 8000 }] },
 		{ maanedligBeloepListe: [{ virkningFom: '2029-01-01', beloep: null }] },
 		{ maanedligBeloepListe: [{ virkningFom: null, beloep: 8000 }] },
+		{ maanedligBeloepListe: [{ virkningFom: '2029-01-01', beloep: Infinity }] },
 	])(
 		'gir feil hvis beløp ved valgt AP-uttak mangler (%j)',
 		({ maanedligBeloepListe }) => {

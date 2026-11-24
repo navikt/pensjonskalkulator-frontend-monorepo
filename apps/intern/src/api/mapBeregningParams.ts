@@ -43,7 +43,7 @@ export function mapInnvilgetLivsvarigAfp(
 		if (
 			!periode.virkningFom ||
 			periode.beloep == null ||
-			!Number(periode.beloep) ||
+			!Number.isFinite(periode.beloep) ||
 			periode.beloep < 0
 		) {
 			throw new Error('Mangler gyldig dato eller beløp for livsvarig AFP.')
