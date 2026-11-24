@@ -494,12 +494,39 @@
 							"_key": "eebf82c4b9dc",
 							"_type": "span",
 							"marks": [],
-							"text": "Når du ikke har opplyst om utenlandsopphold, forutsetter beregningen at du har bodd eller jobbet i Norge fra fylte 16 år og frem til du tar ut pensjon."
+							"text": "Når du ikke har opplyst om utenlandsopphold, forutsetter beregningen at du har bodd i Norge fra fylte 16 år og frem til du tar ut pensjon."
 						}
 					],
 					"markDefs": [],
 					"style": "normal"
-				},
+				}
+			],
+			"overskrift": "Opphold utenfor Norge",
+			"vilkaar": null,
+			"visEkstern": true,
+			"visIntern": true
+		},
+		{
+			"_id": "c44e4d87-cc85-4bce-acfc-6b97de2ecdc8",
+			"alltidSynlig": false,
+			"innhold": [
+				{
+					"_key": "e8552cb11a66",
+					"_type": "block",
+					"children": [
+						{
+							"_key": "a859f7f33eb8",
+							"_type": "span",
+							"marks": [],
+							"text": "Vi bruker opplysningene du har gitt om botid og arbeid i andre land i beregningen. Beregningen og tidspunktet du tidligst kan ta ut den norske pensjonen din kan være unøyaktig hvis du har oppgitt opphold utenfor Norge."
+						}
+					],
+					"markDefs": [],
+					"style": "normal"
+				}
+			],
+			"innholdEkstern": [],
+			"innholdIntern": [
 				{
 					"_key": "e8552cb11a66",
 					"_type": "block",
@@ -607,9 +634,34 @@
 					"style": "normal"
 				}
 			],
-			"overskrift": "Opphold utenfor Norge",
-			"vilkaar": null,
-			"visEkstern": true,
+			"overskrift": null,
+			"vilkaar": [
+				{
+					"_key": "a1b2c3d4e5f6",
+					"_type": "vilkaarGruppe",
+					"betingelser": [
+						{
+							"_key": "b1c2d3e4f5a6",
+							"_type": "forbeholdBetingelse",
+							"negert": false,
+							"tag": "harUtenlandsopphold"
+						}
+					]
+				},
+				{
+					"_key": "c1d2e3f4a5b6",
+					"_type": "vilkaarGruppe",
+					"betingelser": [
+						{
+							"_key": "d1e2f3a4b5c6",
+							"_type": "forbeholdBetingelse",
+							"negert": false,
+							"tag": "harVedtakUtenlandsopphold"
+						}
+					]
+				}
+			],
+			"visEkstern": false,
 			"visIntern": true
 		},
 		{
