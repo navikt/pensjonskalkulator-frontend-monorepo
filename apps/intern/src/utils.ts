@@ -1,5 +1,5 @@
 import type {
-	AfpOffentligLivsvarig,
+	LivsvarigOffentligAfpStatus,
 	OmstillingsstoenadOgGjenlevende,
 	Vedtak,
 	VedtakInformasjonOmAvdoed,
@@ -25,7 +25,7 @@ export function getPesysBrukeroversiktUrl(): string {
 export function getVedtakStatus(
 	vedtak?: Vedtak,
 	omstillingsstoenad?: OmstillingsstoenadOgGjenlevende,
-	livsvarigAfpStatus?: AfpOffentligLivsvarig
+	livsvarigAfpStatus?: LivsvarigOffentligAfpStatus
 ): string {
 	const loependeAlderspensjon = vedtak?.loependeAlderspensjon
 	const fremtidigAlderspensjon = vedtak?.fremtidigAlderspensjon
@@ -38,7 +38,7 @@ export function getVedtakStatus(
 		? `${alderspensjonString.length > 0 ? ' / ' : ''}${fremtidigAlderspensjon.grad} % alderspensjon fra ${format(parseISO(fremtidigAlderspensjon.fom), 'dd.MM.yyyy')}`
 		: ''
 
-	if (livsvarigAfpStatus?.afpStatus === true) {
+	if (livsvarigAfpStatus?.harLivsvarigOffentligAfp === true) {
 		return [
 			`${alderspensjonString}${fremtidigAlderspensjonString}`,
 			'Livsvarig AFP i offentlig sektor',

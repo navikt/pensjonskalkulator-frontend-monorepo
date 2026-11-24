@@ -11,7 +11,7 @@ import {
 const estimertBeskrivelse =
 	'AFP-beløpet er estimert av Nav og er ikke en bekreftelse av rett til AFP. I beregningen av alderspensjon er livsvarig AFP tatt med fordi den kan ha betydning for når og hvordan alderspensjonen tas ut. Det er tjenestepensjonsordningen din som beregner og vurderer retten til AFP.'
 const hentetBeskrivelse =
-	'AFP-beløpet er hentet fra <Statens pensjonskasse>. I beregningen av alderspensjon er livsvarig AFP tatt med fordi den kan ha betydning for når og hvordan alderspensjonen tas ut. Nav er ikke ansvarlig for beløpene som er hentet fra andre.'
+	'AFP-beløpet er hentet fra KLP. I beregningen av alderspensjon er livsvarig AFP tatt med fordi den kan ha betydning for når og hvordan alderspensjonen tas ut. Nav er ikke ansvarlig for beløpene som er hentet fra andre.'
 const beggeVedtakBeskrivelse =
 	'I beregningen av alderspensjon er livsvarig AFP tatt med fordi den kan ha betydning for når og hvordan alderspensjonen tas ut. AFP-beløpet ble hentet fra tjenestepensjonsordningen din ved saksbehandling av alderspensjonen din.'
 const foersteUtbetaling = {
@@ -60,14 +60,22 @@ test.describe('Livsvarig AFP i brev', () => {
 					json: { enhetListe: [{ id: '1234', navn: 'Testenhet' }] },
 				})
 			)
-			await page.route('**/api/v2/tpo-livsvarig-offentlig-afp', (route) =>
+			await page.route('**/api/v1/har-livsvarig-offentlig-afp', (route) =>
 				route.fulfill({
 					json: {
-						afpStatus: scenario.harVedtakLivsvarigAFP,
-						maanedligBeloep: scenario.harVedtakLivsvarigAFP ? 8347 : null,
+						harLivsvarigOffentligAfp: scenario.harVedtakLivsvarigAFP,
 					},
 				})
 			)
+			await mockApi(page, API_URLS.LIVSVARIG_AFP_BELOEP, undefined, {
+				afpInnvilget: true,
+				tpOrdningNavn: 'KLP',
+				virkningFom: '2027-01-01',
+				maanedligBeloepListe: [
+					{ virkningFom: '2029-01-01', beloep: 8347 },
+					{ virkningFom: '2030-01-01', beloep: 9000 },
+				],
+			})
 			if (scenario.harVedtakAP) {
 				await mockApi(page, API_URLS.VEDTAK, MOCK_FILES.VEDTAK_UTEN_VEDTAK, {
 					harVedtak: true,
@@ -95,7 +103,7 @@ test.describe('Livsvarig AFP i brev', () => {
 				page,
 				withDefaults: false,
 				fields: {
-					...(scenario.harVedtakLivsvarigAFP ? {} : { afp: 'Ja, offentlig' }),
+					afp: scenario.harVedtakLivsvarigAFP ? 'Ja' : 'Ja, offentlig',
 					'eps-har-pensjon': 'Nei',
 					'eps-har-inntekt-over-2g': 'Ja',
 					'har-opphold-utenfor-norge': 'Nei',
@@ -112,12 +120,35 @@ test.describe('Livsvarig AFP i brev', () => {
 				.getByTestId('har-inntekt-vsa-helt-uttak')
 				.getByLabel('Nei')
 				.check()
+			const simuleringRequest = page.waitForRequest(API_URLS.SIMULERING)
 			await page.getByTestId('beregn-button').click()
+			const body: unknown = (await simuleringRequest).postDataJSON()
+			if (scenario.harVedtakLivsvarigAFP) {
+				expect(body).toEqual(
+					expect.objectContaining({
+						offentligAfp: {
+							innvilgetLivsvarigAfpListe: [
+								{
+									aarligBruttoBeloep: 100164,
+									uttakFom: '2027-01-01',
+								},
+							],
+						},
+					})
+				)
+			}
 			await expect(
 				page
 					.getByTestId('beregning-section-gradert')
 					.getByRole('row', { name: /Livsvarig AFP/ })
 			).toContainText('8 347')
+			if (scenario.harVedtakLivsvarigAFP && !scenario.harVedtakAP) {
+				await expect(
+					page
+						.getByText('AFP-beløpet er hentet fra KLP.', { exact: true })
+						.first()
+				).toBeVisible()
+			}
 
 			const request = page.waitForRequest(lagreUrl)
 			await page

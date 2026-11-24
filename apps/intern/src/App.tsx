@@ -12,6 +12,7 @@ import {
 import { PersonInfo } from './PersonInfo.tsx'
 import { PesysHeader } from './PesysHeader.tsx'
 import { SanityProvider } from './SanityProvider.tsx'
+import { erLivsvarigAfpAktuell } from './api/formConditions'
 import {
 	useDecryptPidQuery,
 	useEnheterQuery,
@@ -19,6 +20,7 @@ import {
 	useFeatureToggleQuery,
 	useInntektQuery,
 	useInternsimulatorLagreBrevButtonQuery,
+	useLivsvarigAFPQuery,
 	useOmstillingsstoenadQuery,
 	usePersonQuery,
 	useVedtakQuery,
@@ -105,7 +107,20 @@ const AppContent = () => {
 	const { isLoading: isLoadingOmstilling, error: omstillingError } =
 		useOmstillingsstoenadQuery(fnr)
 
-	const { isLoading: isLoadingErApoteker } = useErApotekerQuery(fnr)
+	const { data: erApoteker, isLoading: isLoadingErApoteker } =
+		useErApotekerQuery(fnr)
+	const {
+		isLoading: isLoadingLivsvarigAfpStatus,
+		error: livsvarigAfpStatusError,
+	} = useLivsvarigAFPQuery({
+		fnr,
+		enabled:
+			!isLoadingErApoteker &&
+			erLivsvarigAfpAktuell({
+				foedselsdato: person?.foedselsdato,
+				erApoteker: Boolean(erApoteker),
+			}),
+	})
 
 	const {
 		data: enheterData,
@@ -137,6 +152,7 @@ const AppContent = () => {
 		isLoadingInntekt ||
 		isLoadingOmstilling ||
 		isLoadingErApoteker ||
+		isLoadingLivsvarigAfpStatus ||
 		(visLagreBrevButton ? isLoadingEnheter : false)
 
 	if (isAppLoading) {
@@ -162,6 +178,7 @@ const AppContent = () => {
 		vedtakError ||
 		inntektError ||
 		omstillingError ||
+		livsvarigAfpStatusError ||
 		(visLagreBrevButton ? enheterError : null)
 
 	if (error) {

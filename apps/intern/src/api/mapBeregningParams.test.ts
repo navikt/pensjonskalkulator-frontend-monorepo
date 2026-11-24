@@ -2,7 +2,79 @@ import type { PersonInternV1 } from '@pensjonskalkulator-frontend-monorepo/types
 import { describe, expect, test } from 'vitest'
 
 import { defaultBeregningFormData } from './beregningTypes'
-import { mapBeregningParamsToRequest } from './mapBeregningParams'
+import {
+	mapBeregningParamsToRequest,
+	mapInnvilgetLivsvarigAfp,
+} from './mapBeregningParams'
+
+describe('innvilget livsvarig AFP fra v4', () => {
+	test('støtter responsen med kun periodedato og null kroner', () => {
+		expect(
+			mapInnvilgetLivsvarigAfp(
+				{
+					afpInnvilget: true,
+					maanedligBeloepListe: [{ virkningFom: '2026-11-24', beloep: 0 }],
+				},
+				{ aar: 65, maaneder: 0 },
+				'1964-04-30'
+			)
+		).toMatchObject({
+			aarligBruttoBeloep: 0,
+			uttakFom: '2026-11-24',
+		})
+	})
+
+	const afp = {
+		afpInnvilget: true,
+		virkningFom: '2027-01-01',
+		sistBenyttetGrunnbeloep: 130160,
+		maanedligBeloepListe: [
+			{ virkningFom: '2031-01-01', beloep: 9000 },
+			{ virkningFom: '2029-01-01', beloep: 8347 },
+		],
+	}
+
+	test('velger beløpet som gjelder ved første AP-uttak fra to perioder', () => {
+		expect(
+			mapInnvilgetLivsvarigAfp(afp, { aar: 65, maaneder: 0 }, '1964-04-30')
+		).toEqual({
+			aarligBruttoBeloep: 100164,
+			uttakFom: '2027-01-01',
+			sistRegulertGrunnbeloep: 130160,
+		})
+	})
+
+	test('beholder null kroner som et gyldig beløp', () => {
+		expect(
+			mapInnvilgetLivsvarigAfp(
+				{
+					...afp,
+					maanedligBeloepListe: [{ virkningFom: '2029-05-01', beloep: 0 }],
+				},
+				{ aar: 65, maaneder: 0 },
+				'1964-04-30'
+			).aarligBruttoBeloep
+		).toBe(0)
+	})
+
+	test.each([
+		{ maanedligBeloepListe: [] },
+		{ maanedligBeloepListe: [{ virkningFom: '2030-01-01', beloep: 8000 }] },
+		{ maanedligBeloepListe: [{ virkningFom: '2029-01-01', beloep: null }] },
+		{ maanedligBeloepListe: [{ virkningFom: null, beloep: 8000 }] },
+	])(
+		'gir feil hvis beløp ved valgt AP-uttak mangler (%j)',
+		({ maanedligBeloepListe }) => {
+			expect(() =>
+				mapInnvilgetLivsvarigAfp(
+					{ ...afp, maanedligBeloepListe },
+					{ aar: 65, maaneder: 0 },
+					'1964-04-30'
+				)
+			).toThrow()
+		}
+	)
+})
 
 const person: PersonInternV1 = {
 	navn: 'Test Person',

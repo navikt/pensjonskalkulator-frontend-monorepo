@@ -8,27 +8,27 @@ describe('AFP validation', () => {
 	it.each([
 		{
 			hideAfpSporsmaal: true,
-			manglerLivsvarigAfpBeloep: true,
+			harVedtakLivsvarigAfp: true,
 			expectedError: undefined,
 		},
 		{
 			hideAfpSporsmaal: true,
-			manglerLivsvarigAfpBeloep: false,
+			harVedtakLivsvarigAfp: false,
 			expectedError: undefined,
 		},
 		{
 			hideAfpSporsmaal: false,
-			manglerLivsvarigAfpBeloep: true,
+			harVedtakLivsvarigAfp: true,
 			expectedError: 'Velg om AFP-beløp skal hentes i beregningen.',
 		},
 		{
 			hideAfpSporsmaal: false,
-			manglerLivsvarigAfpBeloep: false,
+			harVedtakLivsvarigAfp: false,
 			expectedError: 'Velg om AFP skal inkluderes.',
 		},
 	])(
-		'hidden=$hideAfpSporsmaal, missing amount=$manglerLivsvarigAfpBeloep',
-		({ hideAfpSporsmaal, manglerLivsvarigAfpBeloep, expectedError }) => {
+		'hidden=$hideAfpSporsmaal, existing AFP=$harVedtakLivsvarigAfp',
+		({ hideAfpSporsmaal, harVedtakLivsvarigAfp, expectedError }) => {
 			const { result } = renderHook(() => useFormValidation())
 
 			act(() => {
@@ -37,7 +37,7 @@ describe('AFP validation', () => {
 					{
 						erApoteker: false,
 						hideAfpSporsmaal,
-						manglerLivsvarigAfpBeloep,
+						harVedtakLivsvarigAfp,
 					}
 				)
 

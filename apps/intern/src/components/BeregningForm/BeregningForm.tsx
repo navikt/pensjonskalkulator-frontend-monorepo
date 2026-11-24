@@ -121,9 +121,7 @@ export const BeregningForm = () => {
 	const harVedtakPrivatAFP = erEndring && Boolean(vedtak?.privatAfpFom)
 	const harVedtakTidsbegrensetOffentligAFP =
 		!erEndring && Boolean(vedtak?.tidsbegrensetOffentligAfpFom)
-	const harVedtakLivsvarigAFP = livsvarigAFP?.afpStatus === true
-	const manglerLivsvarigAfpBeloep =
-		harVedtakLivsvarigAFP && livsvarigAFP?.maanedligBeloep == null
+	const harVedtakLivsvarigAFP = livsvarigAFP?.harLivsvarigOffentligAfp === true
 	const nullGradAP = erEndring && vedtak?.loependeAlderspensjon?.grad === 0
 
 	useEffect(() => {
@@ -165,16 +163,6 @@ export const BeregningForm = () => {
 			'epsTilgangNektAarsak',
 		] as const,
 	})
-
-	useEffect(() => {
-		if (
-			harVedtakLivsvarigAFP &&
-			!manglerLivsvarigAfpBeloep &&
-			afp !== 'ja_offentlig'
-		) {
-			form.setValue('afp', 'ja_offentlig')
-		}
-	}, [harVedtakLivsvarigAFP, manglerLivsvarigAfpBeloep, afp, form])
 
 	const epsRestrictionCode =
 		epsTilgangNektAarsak ?? epsOpplysninger?.problem?.tilgangsnekt?.aarsak
@@ -241,8 +229,8 @@ export const BeregningForm = () => {
 		const errors = validate(normalizedFormData, {
 			foedselsdato: person?.foedselsdato,
 			erEndring,
-			hideAfpSporsmaal: hideAfpSporsmaal && !manglerLivsvarigAfpBeloep,
-			manglerLivsvarigAfpBeloep,
+			hideAfpSporsmaal: hideAfpSporsmaal && !harVedtakLivsvarigAFP,
+			harVedtakLivsvarigAfp: harVedtakLivsvarigAFP,
 			initialInntektAar,
 			erApoteker,
 		})
@@ -432,61 +420,61 @@ export const BeregningForm = () => {
 							: 'Brukeren har livsvarig AFP i offentlig sektor fra tjenestepensjonsordning.'}
 					</BodyShort>
 				</VStack>
-				{manglerLivsvarigAfpBeloep && (
-					<VStack gap="space-8">
-						<RHFRadio
-							name="afp"
-							legend="Skal AFP-beløp hentes i beregningen?"
-							options={[
-								{ value: 'ja_offentlig', label: 'Ja' },
-								{ value: 'nei', label: 'Nei' },
-							]}
-							testid="afp"
-							onChange={() => setAlertDismissed(true)}
-						/>
-						<SanityAlert
-							id="beregning.livsvarig-AFP-forvaltes-ikke"
-							className={styles.sanityAlert}
-						/>
-					</VStack>
-				)}
+				<VStack gap="space-8">
+					<RHFRadio
+						name="afp"
+						legend="Skal AFP-beløp hentes i beregningen?"
+						options={[
+							{ value: 'ja_offentlig', label: 'Ja' },
+							{ value: 'nei', label: 'Nei' },
+						]}
+						testid="afp"
+						onChange={() => setAlertDismissed(true)}
+					/>
+					<SanityAlert
+						id="beregning.livsvarig-AFP-forvaltes-ikke"
+						className={styles.sanityAlert}
+					/>
+				</VStack>
 			</VStack>
 			<Divider noMargin />
 		</>
 	) : (
 		!hideAfpSporsmaal && (
 			<>
-				<VStack gap="space-8">
-					<RHFRadio
-						name="afp"
-						legend="Skal AFP inkluderes?"
-						options={afpOptions}
-						gap="space-24"
-						testid="afp"
-						onChange={(value) => {
-							setAlertDismissed(true)
-							resetAlderVelger(value)
-						}}
-					/>
-					{afp === 'ja_offentlig' && visLivsvarigAfp && (
+				<VStack gap="space-16">
+					<VStack gap="space-8">
+						<RHFRadio
+							name="afp"
+							legend="Skal AFP inkluderes?"
+							options={afpOptions}
+							gap="space-24"
+							testid="afp"
+							onChange={(value) => {
+								setAlertDismissed(true)
+								resetAlderVelger(value)
+							}}
+						/>
+						{afp === 'ja_offentlig' && visLivsvarigAfp && (
+							<SanityAlert
+								id="beregning.livsvarig-AFP-forvaltes-ikke"
+								className={styles.sanityAlert}
+							/>
+						)}
+					</VStack>
+					{showUTOgAFPAlert && (
 						<SanityAlert
-							id="beregning.livsvarig-AFP-forvaltes-ikke"
+							id="beregning.ufoeretrygd-med-sim-ap-og-afp-privat"
+							className={styles.sanityAlert}
+						/>
+					)}
+					{showUTOgFolketrygdBeregnetAFPAlert && (
+						<SanityAlert
+							id="beregning.ufoeretrygd-med-sim-ap-og-afp-offentlig-eller-service-beregning"
 							className={styles.sanityAlert}
 						/>
 					)}
 				</VStack>
-				{showUTOgAFPAlert && (
-					<SanityAlert
-						id="beregning.ufoeretrygd-med-sim-ap-og-afp-privat"
-						className={styles.sanityAlert}
-					/>
-				)}
-				{showUTOgFolketrygdBeregnetAFPAlert && (
-					<SanityAlert
-						id="beregning.ufoeretrygd-med-sim-ap-og-afp-offentlig-eller-service-beregning"
-						className={styles.sanityAlert}
-					/>
-				)}
 				<Divider noMargin />
 			</>
 		)
@@ -624,6 +612,7 @@ export const BeregningForm = () => {
 						{(showAlderspensjonFields(afp) || hideAfpSporsmaal) && (
 							<>
 								{(afp === 'serviceberegning' || afp === 'ja_offentlig') &&
+									erKap19EllerApoteker(person?.foedselsdato, erApoteker) &&
 									beregning?.vilkaarsproevingsresultat.erInnvilget === false &&
 									!alertDismissed && (
 										<SanityAlert

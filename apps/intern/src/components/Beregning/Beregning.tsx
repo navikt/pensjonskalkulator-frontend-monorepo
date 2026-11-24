@@ -343,7 +343,8 @@ export const Beregning = () => {
 		harVedtakAP: Boolean(
 			vedtak?.loependeAlderspensjon || vedtak?.fremtidigAlderspensjon
 		),
-		harVedtakLivsvarigAFP: livsvarigAfp?.afpStatus === true,
+		harVedtakLivsvarigAFP: Boolean(livsvarigAfp?.harLivsvarigOffentligAfp),
+		tpOrdningNavn: beregning.livsvarigAfpTpOrdningNavn,
 	})
 
 	const sectionCommonProps = {

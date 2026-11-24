@@ -18,12 +18,12 @@ describe('getLivsvarigAfpBeskrivelse', () => {
 		{
 			harVedtakAP: true,
 			harVedtakLivsvarigAFP: false,
-			tekst: 'AFP-beløpet er hentet fra <Statens pensjonskasse>.',
+			tekst: 'AFP-beløpet er hentet fra KLP.',
 		},
 		{
 			harVedtakAP: false,
 			harVedtakLivsvarigAFP: true,
-			tekst: 'AFP-beløpet er hentet fra <Statens pensjonskasse>.',
+			tekst: 'AFP-beløpet er hentet fra KLP.',
 		},
 		{
 			harVedtakAP: true,
@@ -34,7 +34,11 @@ describe('getLivsvarigAfpBeskrivelse', () => {
 		'velger tekst med AP-vedtak $harVedtakAP og AFP-vedtak $harVedtakLivsvarigAFP',
 		({ harVedtakAP, harVedtakLivsvarigAFP, tekst }) => {
 			expect(
-				getLivsvarigAfpBeskrivelse({ harVedtakAP, harVedtakLivsvarigAFP })
+				getLivsvarigAfpBeskrivelse({
+					harVedtakAP,
+					harVedtakLivsvarigAFP,
+					tpOrdningNavn: 'KLP',
+				})
 			).toBe(tekst)
 		}
 	)

@@ -19,7 +19,7 @@ describe('lagring av livsvarig offentlig AFP', () => {
 	const estimertBeskrivelse =
 		'AFP-beløpet er estimert av Nav og er ikke en bekreftelse av rett til AFP. I beregningen av alderspensjon er livsvarig AFP tatt med fordi den kan ha betydning for når og hvordan alderspensjonen tas ut. Det er tjenestepensjonsordningen din som beregner og vurderer retten til AFP.'
 	const hentetBeskrivelse =
-		'AFP-beløpet er hentet fra <Statens pensjonskasse>. I beregningen av alderspensjon er livsvarig AFP tatt med fordi den kan ha betydning for når og hvordan alderspensjonen tas ut. Nav er ikke ansvarlig for beløpene som er hentet fra andre.'
+		'AFP-beløpet er hentet fra KLP. I beregningen av alderspensjon er livsvarig AFP tatt med fordi den kan ha betydning for når og hvordan alderspensjonen tas ut. Nav er ikke ansvarlig for beløpene som er hentet fra andre.'
 	const beggeVedtakBeskrivelse =
 		'I beregningen av alderspensjon er livsvarig AFP tatt med fordi den kan ha betydning for når og hvordan alderspensjonen tas ut. AFP-beløpet ble hentet fra tjenestepensjonsordningen din ved saksbehandling av alderspensjonen din.'
 	const apVedtak: Vedtak = {
@@ -161,51 +161,52 @@ describe('lagring av livsvarig offentlig AFP', () => {
 		{
 			navn: 'ingen vedtak',
 			vedtak: undefined,
-			afpStatus: false,
+			harLivsvarigOffentligAfp: false,
 			beskrivelse: estimertBeskrivelse,
 			kunBeskrivelse: false,
 		},
 		{
 			navn: 'kun AP-vedtak',
 			vedtak: apVedtak,
-			afpStatus: false,
+			harLivsvarigOffentligAfp: false,
 			beskrivelse: estimertBeskrivelse,
 			kunBeskrivelse: false,
 		},
 		{
 			navn: 'kun fremtidig AP-vedtak',
 			vedtak: fremtidigApVedtak,
-			afpStatus: false,
+			harLivsvarigOffentligAfp: false,
 			beskrivelse: estimertBeskrivelse,
 			kunBeskrivelse: false,
 		},
 		{
 			navn: 'kun AFP-vedtak',
 			vedtak: undefined,
-			afpStatus: true,
+			harLivsvarigOffentligAfp: true,
 			beskrivelse: hentetBeskrivelse,
 			kunBeskrivelse: false,
 		},
 		{
 			navn: 'AP- og AFP-vedtak',
 			vedtak: apVedtak,
-			afpStatus: true,
+			harLivsvarigOffentligAfp: true,
 			beskrivelse: beggeVedtakBeskrivelse,
 			kunBeskrivelse: true,
 		},
 		{
 			navn: 'fremtidig AP- og AFP-vedtak',
 			vedtak: fremtidigApVedtak,
-			afpStatus: true,
+			harLivsvarigOffentligAfp: true,
 			beskrivelse: beggeVedtakBeskrivelse,
 			kunBeskrivelse: true,
 		},
 	])(
 		'lagrer riktig brevtekst og tabellgrunnlag ved $navn',
-		({ vedtak, afpStatus, beskrivelse, kunBeskrivelse }) => {
+		({ vedtak, harLivsvarigOffentligAfp, beskrivelse, kunBeskrivelse }) => {
 			const spec = mapBeregningResultToLagreSpec(
 				{
 					...result,
+					livsvarigAfpTpOrdningNavn: 'KLP',
 					livsvarigOffentligAfpListe: [
 						foersteUtbetaling,
 						{ alderAar: 67, maanedligBeloep: 8500, aarligBeloep: 102000 },
@@ -227,7 +228,7 @@ describe('lagring av livsvarig offentlig AFP', () => {
 				vedtak,
 				undefined,
 				undefined,
-				{ afpStatus }
+				{ harLivsvarigOffentligAfp }
 			)
 
 			expect(spec.afpOffentligLivsvarig).toEqual({
@@ -251,7 +252,7 @@ describe('lagring av livsvarig offentlig AFP', () => {
 				apVedtak,
 				undefined,
 				undefined,
-				{ afpStatus: true }
+				{ harLivsvarigOffentligAfp: true }
 			)
 
 			expect(spec.afpOffentligLivsvarig).toEqual({

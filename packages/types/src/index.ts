@@ -25,8 +25,11 @@ export type EkskludertStatus = components['schemas']['EkskluderingStatusV1']
 export type ApotekerStatus = components['schemas']['ApotekerStatusV1']
 
 // AFP
-export type AfpOffentligLivsvarig =
-	components['schemas']['LivsvarigOffentligAfpResultV2']
+export type AfpOffentligLivsvarigDetaljer =
+	components['schemas']['LivsvarigOffentligAfpResultV4']
+export interface LivsvarigOffentligAfpStatus {
+	harLivsvarigOffentligAfp: boolean
+}
 
 // Loepende vedtak
 export type LoependeVedtak = components['schemas']['LoependeVedtakV4']

@@ -28,6 +28,7 @@ import {
 } from '../api/beregningTypes'
 import {
 	erKap19EllerApoteker,
+	erLivsvarigAfpAktuell,
 	harPartner,
 	showAfpOffentligFields,
 } from '../api/formConditions'
@@ -37,6 +38,7 @@ import {
 	useDecryptPidQuery,
 	useErApotekerQuery,
 	useGrunnbeloepQuery,
+	useLivsvarigAFPQuery,
 	useOmstillingsstoenadQuery,
 	usePersonQuery,
 	useVedtakQuery,
@@ -148,6 +150,14 @@ export function BeregningProvider({
 			'alderAarUttak',
 			'alderMdUttak',
 		] as const,
+	})
+
+	const { data: livsvarigAfpStatus } = useLivsvarigAFPQuery({
+		fnr,
+		enabled: erLivsvarigAfpAktuell({
+			foedselsdato: person?.foedselsdato,
+			erApoteker: Boolean(erApoteker),
+		}),
 	})
 
 	const skalBeregneAfpKap19 =
@@ -341,6 +351,10 @@ export function BeregningProvider({
 		setPendingBeregning(null)
 	}, [form, person?.sivilstatus, initialSivilstatus, initialInntekt])
 
+	const skalHenteLivsvarigAfpBeloep =
+		livsvarigAfpStatus?.harLivsvarigOffentligAfp === true &&
+		pendingBeregning?.afp === 'ja_offentlig'
+
 	const pendingRequest = pendingBeregning
 		? mapBeregningParamsToRequest(
 				pendingBeregning,
@@ -355,13 +369,19 @@ export function BeregningProvider({
 		data: beregning,
 		isFetching: isBeregningLoading,
 		error: beregningError,
-	} = useBeregningQuery(fnr, pendingRequest, submitCount)
+	} = useBeregningQuery(
+		fnr,
+		pendingRequest,
+		submitCount,
+		skalHenteLivsvarigAfpBeloep,
+		person?.foedselsdato
+	)
 
 	useEffect(() => {
-		if (!isBeregningLoading && pendingBeregning) {
+		if (!isBeregningLoading && pendingBeregning && !beregningError) {
 			setAktivBeregning(cloneBeregningParams(pendingBeregning))
 		}
-	}, [isBeregningLoading, pendingBeregning])
+	}, [isBeregningLoading, pendingBeregning, beregningError])
 
 	return (
 		<FormProvider {...form}>

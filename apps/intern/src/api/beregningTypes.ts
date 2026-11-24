@@ -113,7 +113,9 @@ export interface ValidationErrors {
 	vedtakInfoAvdoed?: string
 }
 
-export type BeregningResult = SimuleringResponseBody
+export type BeregningResult = SimuleringResponseBody & {
+	livsvarigAfpTpOrdningNavn?: string | null
+}
 
 export const defaultBeregningFormData: BeregningFormData = {
 	sivilstatus: 'UOPPGITT',

@@ -7,17 +7,23 @@ describe('getVedtakStatus', () => {
 	test.each([undefined, { harVedtak: false }])(
 		'viser livsvarig AFP uten AP-vedtak (%s)',
 		(vedtak) => {
-			expect(getVedtakStatus(vedtak, undefined, { afpStatus: true })).toBe(
-				'Livsvarig AFP i offentlig sektor'
-			)
+			expect(
+				getVedtakStatus(vedtak, undefined, { harLivsvarigOffentligAfp: true })
+			).toBe('Livsvarig AFP i offentlig sektor')
 		}
 	)
 
-	test.each([false, null, undefined])(
+	test.each([false, undefined])(
 		'beholder Uten vedtak når AFP-status er %s',
-		(afpStatus) => {
+		(harLivsvarigOffentligAfp) => {
 			expect(
-				getVedtakStatus({ harVedtak: false }, undefined, { afpStatus })
+				getVedtakStatus(
+					{ harVedtak: false },
+					undefined,
+					harLivsvarigOffentligAfp === undefined
+						? undefined
+						: { harLivsvarigOffentligAfp }
+				)
 			).toBe('Uten vedtak')
 		}
 	)
@@ -37,12 +43,14 @@ describe('getVedtakStatus', () => {
 				},
 			}
 
-			expect(getVedtakStatus(vedtak, undefined, { afpStatus: true })).toBe(
+			expect(
+				getVedtakStatus(vedtak, undefined, { harLivsvarigOffentligAfp: true })
+			).toBe(
 				`${grad} % alderspensjon fra 01.01.2026 / Livsvarig AFP i offentlig sektor`
 			)
-			expect(getVedtakStatus(vedtak, undefined, { afpStatus: false })).toBe(
-				`${grad} % alderspensjon fra 01.01.2026`
-			)
+			expect(
+				getVedtakStatus(vedtak, undefined, { harLivsvarigOffentligAfp: false })
+			).toBe(`${grad} % alderspensjon fra 01.01.2026`)
 		}
 	)
 
@@ -54,7 +62,7 @@ describe('getVedtakStatus', () => {
 					fremtidigAlderspensjon: { grad: 100, fom: '2027-01-01' },
 				},
 				undefined,
-				{ afpStatus: true }
+				{ harLivsvarigOffentligAfp: true }
 			)
 		).toBe(
 			'100 % alderspensjon fra 01.01.2027 / Livsvarig AFP i offentlig sektor'

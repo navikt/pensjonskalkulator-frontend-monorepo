@@ -144,49 +144,99 @@ async function fillFormWithServiceberegning(page: Page) {
 }
 
 test.describe('AFP Offentlig', () => {
+	test('viser ikke vilkårsvarsel for gammel AFP ved livsvarig AFP', async ({
+		page,
+	}) => {
+		await setupDefaultMocks(page, { foedselsdato: '1963-04-30' })
+		const alertId = 'afp.vilkaarsproeving.vilkaar-ikke-oppfylt'
+		await page.route(API_URLS.SANITY, (route) =>
+			route.fulfill({
+				json: {
+					result: [
+						{
+							name: alertId,
+							type: 'local-alert',
+							status: 'warning',
+							overskrift:
+								'Et eller flere av følgende vilkårene for uttak av AFP er ikke oppfylt',
+							innhold: [],
+						},
+					],
+				},
+			})
+		)
+		await setupSimuleringMockWithCapture(page, {
+			vilkaarsproevingsresultat: {
+				erInnvilget: false,
+				alternativ: { heltUttakAlder: { aar: 67, maaneder: 0 } },
+			},
+		})
+		await navigateToApp(page)
+		await page.getByTestId('eps-har-pensjon').getByLabel('Nei').check()
+		await page.getByTestId('eps-har-inntekt-over-2g').getByLabel('Ja').check()
+		await fillMainFormFields({
+			page,
+			fields: {
+				afp: 'Ja, offentlig',
+				'alder-uttak-aar': '65',
+				'alder-uttak-md': '0',
+			},
+		})
+		await page.getByTestId('beregn-button').click()
+		await expect(page.getByTestId('vilkaarsproeving-alert')).toHaveCount(1)
+		await expect(page.getByTestId(alertId)).toHaveCount(0)
+	})
+
 	test('viser kun ett uføretrygd-varsel ved livsvarig offentlig AFP', async ({
 		page,
 	}) => {
 		const afpAlert = 'beregning.ufoeretrygd-med-sim-ap-og-afp-privat'
 		const folketrygdAlert =
 			'beregning.ufoeretrygd-med-sim-ap-og-afp-offentlig-eller-service-beregning'
+		const livsvarigAlertId = 'beregning.livsvarig-AFP-forvaltes-ikke'
 
 		await setupDefaultMocks(page)
+		await mockApi(page, API_URLS.SANITY, undefined, {
+			result: [livsvarigAlertId, afpAlert].map((name) => ({
+				name,
+				type: 'local-alert',
+				status: 'info',
+				overskrift: name,
+				innhold: [],
+			})),
+		})
 		await mockApi(page, API_URLS.VEDTAK, MOCK_FILES.VEDTAK_UTEN_VEDTAK, {
 			harVedtak: true,
 			ufoeretrygdgrad: 100,
 		})
-		await page.route('**/api/v2/tpo-livsvarig-offentlig-afp', (route) =>
-			route.fulfill({ status: 200, json: { afpStatus: false } })
+		await page.route('**/api/v1/har-livsvarig-offentlig-afp', (route) =>
+			route.fulfill({ status: 200, json: { harLivsvarigOffentligAfp: false } })
 		)
 		await navigateToApp(page)
 		await page.getByTestId('afp').getByLabel('Ja, offentlig').check()
 
 		await expect(page.getByTestId(afpAlert)).toBeVisible()
 		await expect(page.getByTestId(folketrygdAlert)).toHaveCount(0)
+		const livsvarigAlert = page.getByTestId(livsvarigAlertId)
+		await expect(livsvarigAlert).toBeVisible()
+		const livsvarigBoks = await livsvarigAlert.boundingBox()
+		const ufoereBoks = await page.getByTestId(afpAlert).boundingBox()
+		expect(ufoereBoks!.y - (livsvarigBoks!.y + livsvarigBoks!.height)).toBe(16)
 
 		await page.getByTestId('afp').getByLabel('Nei').check()
 		await expect(page.getByTestId(afpAlert)).toHaveCount(0)
 	})
 
 	test.describe('Livsvarig AFP', () => {
-		for (const { afpStatus, maanedligBeloep } of [
-			{ afpStatus: true, maanedligBeloep: 8347 },
-			{ afpStatus: true, maanedligBeloep: 0 },
-			{ afpStatus: true, maanedligBeloep: null },
-			{ afpStatus: true, maanedligBeloep: undefined },
-			{ afpStatus: false, maanedligBeloep: undefined },
-			{ afpStatus: null, maanedligBeloep: undefined },
-			{ afpStatus: undefined, maanedligBeloep: undefined },
-		]) {
-			test(`viser AFP-felt ved afpStatus ${afpStatus} og månedsbeløp ${maanedligBeloep}`, async ({
+		for (const harLivsvarigOffentligAfp of [true, false]) {
+			test(`viser AFP-felt ved harLivsvarigOffentligAfp ${harLivsvarigOffentligAfp}`, async ({
 				page,
 			}) => {
 				await setupDefaultMocks(page)
-				await page.route('**/api/v2/tpo-livsvarig-offentlig-afp', (route) =>
+				await page.route('**/api/v1/har-livsvarig-offentlig-afp', (route) =>
 					route.fulfill({
 						status: 200,
-						json: { afpStatus, maanedligBeloep },
+						json: { harLivsvarigOffentligAfp },
 					})
 				)
 				await page.route(API_URLS.SANITY, (route) =>
@@ -207,18 +257,17 @@ test.describe('AFP Offentlig', () => {
 					})
 				)
 				const response = page.waitForResponse((apiResponse) =>
-					apiResponse.url().includes('/v2/tpo-livsvarig-offentlig-afp')
+					apiResponse.url().includes('/v1/har-livsvarig-offentlig-afp')
 				)
 
 				await navigateToApp(page)
 				await response
-				const manglerBeloep = afpStatus === true && maanedligBeloep == null
 				await expect(
 					page.getByText(
 						'Brukeren har livsvarig AFP i offentlig sektor fra tjenestepensjonsordning.',
 						{ exact: true }
 					)
-				).toHaveCount(afpStatus === true ? 1 : 0)
+				).toHaveCount(harLivsvarigOffentligAfp === true ? 1 : 0)
 				await expect(
 					page.getByText(
 						'Brukeren har livsvarig AFP i offentlig sektor. Beløpet vil inkluderes i vilkårsprøvingen av alderspensjon.',
@@ -227,19 +276,19 @@ test.describe('AFP Offentlig', () => {
 				).toHaveCount(0)
 				await expect(
 					page.getByRole('heading', { name: 'AFP', exact: true })
-				).toHaveCount(afpStatus === true ? 1 : 0)
-				await expect(page.getByTestId('afp')).toHaveCount(
-					afpStatus === true && !manglerBeloep ? 0 : 1
-				)
+				).toHaveCount(harLivsvarigOffentligAfp === true ? 1 : 0)
+				await expect(page.getByTestId('afp')).toHaveCount(1)
 				await expect(
 					page.getByRole('radiogroup', {
 						name: 'Skal AFP-beløp hentes i beregningen?',
 					})
-				).toHaveCount(manglerBeloep ? 1 : 0)
+				).toHaveCount(harLivsvarigOffentligAfp === true ? 1 : 0)
 				const alert = page.getByTestId('beregning.livsvarig-AFP-forvaltes-ikke')
-				await expect(alert).toHaveCount(manglerBeloep ? 1 : 0)
+				await expect(alert).toHaveCount(
+					harLivsvarigOffentligAfp === true ? 1 : 0
+				)
 
-				if (afpStatus === true) {
+				if (harLivsvarigOffentligAfp === true) {
 					const heading = page.getByRole('heading', {
 						name: 'AFP',
 						exact: true,
@@ -254,7 +303,7 @@ test.describe('AFP Offentlig', () => {
 					).toBe(8)
 				}
 
-				if (manglerBeloep) {
+				if (harLivsvarigOffentligAfp === true) {
 					await expect
 						.poll(() =>
 							page
@@ -276,16 +325,23 @@ test.describe('AFP Offentlig', () => {
 							)
 						)
 						.toBe(8)
+					for (const valg of ['Ja', 'Nei']) {
+						await page
+							.getByTestId('afp')
+							.getByRole('radio', { name: valg, exact: true })
+							.check()
+						await expect(alert).toBeVisible()
+					}
 				}
 
-				if (afpStatus === false) {
+				if (harLivsvarigOffentligAfp === false) {
 					await page.getByTestId('beregn-button').click()
 					await expect(
 						page.getByTestId('afp').getByText('Velg om AFP skal inkluderes.')
 					).toBeVisible()
 				}
 
-				if (afpStatus !== true) {
+				if (harLivsvarigOffentligAfp !== true) {
 					for (const valg of ['Ja, offentlig', 'Ja, privat', 'Nei']) {
 						await page.getByTestId('afp').getByLabel(valg).check()
 						await expect(alert).toHaveCount(valg === 'Ja, offentlig' ? 1 : 0)
@@ -311,10 +367,10 @@ test.describe('AFP Offentlig', () => {
 		}) => {
 			await setupDefaultMocks(page)
 			await mockApi(page, API_URLS.VEDTAK, MOCK_FILES.VEDTAK)
-			await page.route('**/api/v2/tpo-livsvarig-offentlig-afp', (route) =>
+			await page.route('**/api/v1/har-livsvarig-offentlig-afp', (route) =>
 				route.fulfill({
 					status: 200,
-					json: { afpStatus: true, maanedligBeloep: 8347 },
+					json: { harLivsvarigOffentligAfp: true },
 				})
 			)
 
@@ -338,16 +394,23 @@ test.describe('AFP Offentlig', () => {
 			{ maanedligBeloep: 8347, forventetBeloep: '8 347' },
 			{ maanedligBeloep: 0, forventetBeloep: '0' },
 		]) {
-			test(`inkluderer eksisterende AFP med beløp ${maanedligBeloep} automatisk uten AP-vedtak, også etter nullstilling`, async ({
+			test(`henter AFP med beløp ${maanedligBeloep} etter ja, også etter nullstilling`, async ({
 				page,
 			}) => {
 				await setupDefaultMocks(page)
-				await page.route('**/api/v2/tpo-livsvarig-offentlig-afp', (route) =>
+				await page.route('**/api/v1/har-livsvarig-offentlig-afp', (route) =>
 					route.fulfill({
 						status: 200,
-						json: { afpStatus: true, maanedligBeloep },
+						json: { harLivsvarigOffentligAfp: true },
 					})
 				)
+				await mockApi(page, API_URLS.LIVSVARIG_AFP_BELOEP, undefined, {
+					afpInnvilget: true,
+					virkningFom: '2027-01-01',
+					maanedligBeloepListe: [
+						{ virkningFom: '2027-01-01', beloep: maanedligBeloep },
+					],
+				})
 				await setupSimuleringMockWithCapture(page, {
 					livsvarigOffentligAfpListe: [
 						{
@@ -373,6 +436,7 @@ test.describe('AFP Offentlig', () => {
 						page,
 						withDefaults: false,
 						fields: {
+							afp: 'Ja',
 							'eps-har-pensjon': 'Nei',
 							'eps-har-inntekt-over-2g': 'Ja',
 							'har-opphold-utenfor-norge': 'Nei',
@@ -383,7 +447,7 @@ test.describe('AFP Offentlig', () => {
 							'har-inntekt-vsa-helt-uttak': 'Nei',
 						},
 					})
-					await expect(page.getByTestId('afp')).toHaveCount(0)
+					await expect(page.getByTestId('afp')).toHaveCount(1)
 					const request = page.waitForRequest(API_URLS.SIMULERING)
 					await page.getByTestId('beregn-button').click()
 					expect((await request).postDataJSON()).toMatchObject({
@@ -403,10 +467,25 @@ test.describe('AFP Offentlig', () => {
 			page,
 		}) => {
 			await setupDefaultMocks(page)
-			await page.route('**/api/v2/tpo-livsvarig-offentlig-afp', (route) =>
+			let antallBeloepKall = 0
+			await page.route(API_URLS.LIVSVARIG_AFP_BELOEP, (route) => {
+				antallBeloepKall++
+				return route.fulfill({
+					json: {
+						afpInnvilget: true,
+						virkningFom: '2027-01-01',
+						sistBenyttetGrunnbeloep: 130160,
+						maanedligBeloepListe: [
+							{ virkningFom: '2031-01-01', beloep: 9000 },
+							{ virkningFom: '2029-01-01', beloep: 8347 },
+						],
+					},
+				})
+			})
+			await page.route('**/api/v1/har-livsvarig-offentlig-afp', (route) =>
 				route.fulfill({
 					status: 200,
-					json: { afpStatus: true, maanedligBeloep: null },
+					json: { harLivsvarigOffentligAfp: true },
 				})
 			)
 			const capture = await setupSimuleringMockWithCapture(page, {
@@ -419,6 +498,7 @@ test.describe('AFP Offentlig', () => {
 				name: 'Skal AFP-beløp hentes i beregningen?',
 			})
 			await expect(sporsmaal).toBeVisible()
+			expect(antallBeloepKall).toBe(0)
 			await page.getByTestId('beregn-button').click()
 			await expect(
 				sporsmaal.getByText('Velg om AFP-beløp skal hentes i beregningen.')
@@ -435,24 +515,77 @@ test.describe('AFP Offentlig', () => {
 				},
 			})
 			await sporsmaal.getByRole('radio', { name: 'Ja', exact: true }).check()
+			expect(antallBeloepKall).toBe(0)
 			await page.getByTestId('beregn-button').click()
 			await expect
 				.poll(() => capture.getCapturedBody()?.simuleringstype)
 				.toBe('ALDERSPENSJON_MED_LIVSVARIG_OFFENTLIG_AFP')
+			expect(antallBeloepKall).toBe(1)
+			expect(
+				capture.getCapturedBody()?.offentligAfp?.innvilgetLivsvarigAfpListe
+			).toEqual([
+				{
+					aarligBruttoBeloep: 100164,
+					uttakFom: '2027-01-01',
+					sistRegulertGrunnbeloep: 130160,
+				},
+			])
 			await expect(
 				page
 					.getByTestId('beregning-section-helt')
 					.getByRole('row', { name: /Livsvarig AFP/ })
 			).toContainText('8 347')
 
+			const nySimulering = page.waitForRequest(API_URLS.SIMULERING)
+			await page.getByTestId('beregn-button').click()
+			await nySimulering
+			expect(antallBeloepKall).toBe(2)
+
 			await sporsmaal.getByRole('radio', { name: 'Nei', exact: true }).check()
 			await page.getByTestId('beregn-button').click()
 			await expect
 				.poll(() => capture.getCapturedBody()?.simuleringstype)
 				.toBe('ALDERSPENSJON')
+			expect(capture.getCapturedBody()?.offentligAfp).toBeUndefined()
+			expect(antallBeloepKall).toBe(2)
 			await expect(
 				page.getByRole('row', { name: /Livsvarig AFP/ })
 			).toHaveCount(0)
+		})
+
+		test('viser feil og lar bruker prøve igjen når AFP-beløp ikke kan hentes', async ({
+			page,
+		}) => {
+			await setupDefaultMocks(page)
+			await page.route('**/api/v1/har-livsvarig-offentlig-afp', (route) =>
+				route.fulfill({ json: { harLivsvarigOffentligAfp: true } })
+			)
+			await page.route(API_URLS.LIVSVARIG_AFP_BELOEP, (route) =>
+				route.fulfill({ status: 503, json: { message: 'Utilgjengelig' } })
+			)
+			const capture = await setupSimuleringMockWithCapture(page, {})
+			await navigateToApp(page)
+			await page.getByTestId('eps-har-pensjon').getByLabel('Nei').check()
+			await page.getByTestId('eps-har-inntekt-over-2g').getByLabel('Ja').check()
+			await fillMainFormFields({
+				page,
+				fields: {
+					afp: 'Ja',
+					'alder-uttak-aar': '65',
+					'alder-uttak-md': '0',
+				},
+			})
+			await page.getByTestId('beregn-button').click()
+			await expect(page.getByTestId('simulering-feil')).toBeVisible()
+			expect(capture.getCapturedBody()).toBeUndefined()
+
+			await mockApi(page, API_URLS.LIVSVARIG_AFP_BELOEP, undefined, {
+				afpInnvilget: true,
+				maanedligBeloepListe: [{ virkningFom: '2026-11-24', beloep: 0 }],
+			})
+			await page.getByTestId('simulering-feil-retry').click()
+			await expect.poll(() => capture.getCapturedBody()).toBeDefined()
+			await expect(page.getByTestId('simulering-feil')).toHaveCount(0)
 		})
 
 		test('bruker første AFP-beløp ved både gradert og helt uttak uavhengig av alder', async ({

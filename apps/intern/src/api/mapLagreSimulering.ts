@@ -1,8 +1,8 @@
 import type {
-	AfpOffentligLivsvarig,
 	Alder,
 	LagreSimuleringSpecDtoV1,
 	LagreUttaksinformasjonDto,
+	LivsvarigOffentligAfpStatus,
 	OmstillingsstoenadOgGjenlevende,
 	PersonInternV1,
 	SimuleringUtenlandsperiode,
@@ -42,15 +42,17 @@ const NORMERT_PENSJONSALDER_ALDER: Alder = {
 function getLivsvarigAfpBrevBeskrivelse({
 	harVedtakAP,
 	harVedtakLivsvarigAfp,
+	tpOrdningNavn,
 }: {
 	harVedtakAP: boolean
 	harVedtakLivsvarigAfp: boolean
+	tpOrdningNavn?: string | null
 }): string {
 	if (harVedtakAP && harVedtakLivsvarigAfp) {
 		return 'I beregningen av alderspensjon er livsvarig AFP tatt med fordi den kan ha betydning for når og hvordan alderspensjonen tas ut. AFP-beløpet ble hentet fra tjenestepensjonsordningen din ved saksbehandling av alderspensjonen din.'
 	}
 	if (harVedtakLivsvarigAfp) {
-		return 'AFP-beløpet er hentet fra <Statens pensjonskasse>. I beregningen av alderspensjon er livsvarig AFP tatt med fordi den kan ha betydning for når og hvordan alderspensjonen tas ut. Nav er ikke ansvarlig for beløpene som er hentet fra andre.'
+		return `AFP-beløpet er hentet fra ${tpOrdningNavn?.trim() || 'tjenestepensjonsordningen din'}. I beregningen av alderspensjon er livsvarig AFP tatt med fordi den kan ha betydning for når og hvordan alderspensjonen tas ut. Nav er ikke ansvarlig for beløpene som er hentet fra andre.`
 	}
 	return 'AFP-beløpet er estimert av Nav og er ikke en bekreftelse av rett til AFP. I beregningen av alderspensjon er livsvarig AFP tatt med fordi den kan ha betydning for når og hvordan alderspensjonen tas ut. Det er tjenestepensjonsordningen din som beregner og vurderer retten til AFP.'
 }
@@ -140,7 +142,7 @@ export function mapBeregningResultToLagreSpec(
 	vedtak?: Vedtak,
 	omstillingsstoenad?: OmstillingsstoenadOgGjenlevende,
 	person?: PersonInternV1 | null,
-	livsvarigAfp?: AfpOffentligLivsvarig
+	livsvarigAfp?: LivsvarigOffentligAfpStatus
 ): LagreSimuleringSpecDtoV1 {
 	const forbeholdVisningsvilkaar: Vilkaarsliste = []
 
@@ -195,7 +197,7 @@ export function mapBeregningResultToLagreSpec(
 	const harVedtakAP = Boolean(
 		vedtak?.loependeAlderspensjon || vedtak?.fremtidigAlderspensjon
 	)
-	const harVedtakLivsvarigAfp = livsvarigAfp?.afpStatus === true
+	const harVedtakLivsvarigAfp = livsvarigAfp?.harLivsvarigOffentligAfp === true
 	const visKunLivsvarigAfpBeskrivelse = harVedtakAP && harVedtakLivsvarigAfp
 	const livsvarigOffentligAfpBeloep =
 		livsvarigOffentligAfp && !visKunLivsvarigAfpBeskrivelse
@@ -347,6 +349,7 @@ export function mapBeregningResultToLagreSpec(
 						beskrivelse: getLivsvarigAfpBrevBeskrivelse({
 							harVedtakAP,
 							harVedtakLivsvarigAfp,
+							tpOrdningNavn: result.livsvarigAfpTpOrdningNavn,
 						}),
 						vedGradertUttak: gradertUttakAlder
 							? livsvarigOffentligAfpBeloep

@@ -344,6 +344,26 @@ export interface paths {
 		patch?: never
 		trace?: never
 	}
+	'/api/v4/tpo-livsvarig-offentlig-afp': {
+		parameters: {
+			query?: never
+			header?: never
+			path?: never
+			cookie?: never
+		}
+		/**
+		 * Hent løpende livsvarig offentlig AFP
+		 * @description Henter detaljer om løpende livsvarig AFP i offentlig sektor med tjenestepensjonsordning navn og nummer
+		 */
+		get: operations['hentLivsvarigOffentligAfpDetaljerV4']
+		put?: never
+		post?: never
+		delete?: never
+		options?: never
+		head?: never
+		patch?: never
+		trace?: never
+	}
 	'/api/v3/tpo-livsvarig-offentlig-afp': {
 		parameters: {
 			query?: never
@@ -2357,6 +2377,8 @@ export interface components {
 			erInnvilget: boolean
 			/** @description Et alternativ sett av uttaksparametre som vil resultere i innvilget pensjon (relevant når de opprinnelig angitte parametre ga avslag) */
 			alternativ?: components['schemas']['SimuleringV2Uttaksparametre'] | null
+			/** @description Hvorvidt livsvarig AFP i offentlig sektor har betydning for innvilgelse av alderspensjon */
+			livsvarigOffentligAfpHarBetydningForInnvilgelse?: boolean | null
 		}
 		SimuleringV1AlderSpec: {
 			/** Format: int32 */
@@ -3614,6 +3636,22 @@ export interface components {
 			/** Format: date */
 			utbetalingsdato: string
 		}
+		LivsvarigOffentligAfpResultV4: {
+			afpInnvilget?: boolean | null
+			maanedligBeloepListe?: components['schemas']['MaanedligBeloepV4'][]
+			/** Format: date */
+			virkningFom?: string | null
+			/** Format: int32 */
+			sistBenyttetGrunnbeloep?: number | null
+			tpNummer?: string | null
+			tpOrdningNavn?: string | null
+		}
+		MaanedligBeloepV4: {
+			/** Format: date */
+			virkningFom?: string | null
+			/** Format: int32 */
+			beloep?: number | null
+		}
 		LivsvarigOffentligAfpResultV3: {
 			afpInnvilget?: boolean | null
 			maanedligBeloepListe?: components['schemas']['MaanedligBeloepV3'][]
@@ -4775,6 +4813,26 @@ export interface operations {
 					 *     }
 					 */
 					'*/*': unknown
+				}
+			}
+		}
+	}
+	hentLivsvarigOffentligAfpDetaljerV4: {
+		parameters: {
+			query?: never
+			header?: never
+			path?: never
+			cookie?: never
+		}
+		requestBody?: never
+		responses: {
+			/** @description OK */
+			200: {
+				headers: {
+					[name: string]: unknown
+				}
+				content: {
+					'*/*': components['schemas']['LivsvarigOffentligAfpResultV4']
 				}
 			}
 		}

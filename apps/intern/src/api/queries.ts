@@ -1,10 +1,11 @@
 import type {
-	AfpOffentligLivsvarig,
+	AfpOffentligLivsvarigDetaljer,
 	AnsattEnhetResult,
 	ApotekerStatus,
 	EpsOpplysninger,
 	LagreSimuleringResponseDtoV1,
 	LagreSimuleringSpecDtoV1,
+	LivsvarigOffentligAfpStatus,
 	OmstillingsstoenadOgGjenlevende,
 	OpptjeningAvdoed,
 	PersonInternV1,
@@ -21,6 +22,7 @@ import {
 } from '@tanstack/react-query'
 
 import type { BeregningResult } from './beregningTypes'
+import { mapInnvilgetLivsvarigAfp } from './mapBeregningParams'
 import type { TilgangsnektResponse } from './typeguards'
 import { isTilgangsnektResponse } from './typeguards'
 
@@ -165,8 +167,10 @@ async function fetchVedtak(fnr: string): Promise<Vedtak> {
 	return response.json() as Promise<Vedtak>
 }
 
-async function fetchLivsvarigAFP(fnr: string): Promise<AfpOffentligLivsvarig> {
-	const response = await fetch(`${API_BASE}/v2/tpo-livsvarig-offentlig-afp`, {
+async function fetchLivsvarigAFP(
+	fnr: string
+): Promise<LivsvarigOffentligAfpStatus> {
+	const response = await fetch(`${API_BASE}/v1/har-livsvarig-offentlig-afp`, {
 		headers: {
 			fnr,
 		},
@@ -176,7 +180,19 @@ async function fetchLivsvarigAFP(fnr: string): Promise<AfpOffentligLivsvarig> {
 		throw await toKalkulatorError(response, 'Failed to fetch livsvarig AFP')
 	}
 
-	return response.json() as Promise<AfpOffentligLivsvarig>
+	return response.json() as Promise<LivsvarigOffentligAfpStatus>
+}
+
+async function fetchLivsvarigAfpBeloep(
+	fnr: string
+): Promise<AfpOffentligLivsvarigDetaljer> {
+	const response = await fetch(`${API_BASE}/v4/tpo-livsvarig-offentlig-afp`, {
+		headers: { fnr },
+	})
+	if (!response.ok) {
+		throw await toKalkulatorError(response, 'Kunne ikke hente AFP-beløp')
+	}
+	return response.json() as Promise<AfpOffentligLivsvarigDetaljer>
 }
 
 export class EpsError extends KalkulatorError {
@@ -298,8 +314,8 @@ export function useLivsvarigAFPQuery({
 	fnr: string | undefined
 	enabled: boolean
 }) {
-	return useQuery<AfpOffentligLivsvarig, KalkulatorError>({
-		queryKey: ['livsvarig-afp', fnr],
+	return useQuery<LivsvarigOffentligAfpStatus, KalkulatorError>({
+		queryKey: ['livsvarig-afp-status', fnr],
 		queryFn: fnr && enabled ? () => fetchLivsvarigAFP(fnr) : skipToken,
 		retry: false,
 	})
@@ -374,11 +390,51 @@ export function useGrunnbeloepQuery() {
 export function useBeregningQuery(
 	fnr: string | undefined,
 	request: SimuleringRequestBody | null,
-	submitCount: number
+	submitCount: number,
+	skalHenteLivsvarigAfpBeloep: boolean,
+	foedselsdato: string | undefined
 ) {
-	return useQuery<BeregningResult, KalkulatorError>({
-		queryKey: ['beregning', fnr, request, submitCount],
-		queryFn: fnr && request ? () => fetchBeregning(fnr, request) : skipToken,
+	return useQuery<BeregningResult, Error>({
+		queryKey: [
+			'beregning',
+			fnr,
+			request,
+			submitCount,
+			skalHenteLivsvarigAfpBeloep,
+			foedselsdato,
+		],
+		queryFn:
+			fnr && request
+				? async () => {
+						if (!skalHenteLivsvarigAfpBeloep) {
+							return fetchBeregning(fnr, request)
+						}
+						if (!foedselsdato) {
+							throw new Error(
+								'Fødselsdato mangler for beregning med livsvarig AFP.'
+							)
+						}
+						const detaljer = await fetchLivsvarigAfpBeloep(fnr)
+						const beregning = await fetchBeregning(fnr, {
+							...request,
+							offentligAfp: {
+								...request.offentligAfp,
+								innvilgetLivsvarigAfpListe: [
+									mapInnvilgetLivsvarigAfp(
+										detaljer,
+										request.gradertUttak?.uttaksalder ??
+											request.heltUttak.uttaksalder,
+										foedselsdato
+									),
+								],
+							},
+						})
+						return {
+							...beregning,
+							livsvarigAfpTpOrdningNavn: detaljer.tpOrdningNavn,
+						}
+					}
+				: skipToken,
 		placeholderData: keepPreviousData,
 	})
 }

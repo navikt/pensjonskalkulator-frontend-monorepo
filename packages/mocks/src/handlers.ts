@@ -303,6 +303,29 @@ export const getHandlers = (options: HandlerOptions = {}) => {
 			return HttpResponse.json(afpOffentligLivsvarigResponse)
 		}),
 
+		http.get(`${baseUrl}/v1/har-livsvarig-offentlig-afp`, async () => {
+			await delay(delayMs)
+			return HttpResponse.json({
+				harLivsvarigOffentligAfp: afpOffentligLivsvarigResponse.afpStatus,
+			})
+		}),
+
+		http.get(`${baseUrl}/v4/tpo-livsvarig-offentlig-afp`, async () => {
+			await delay(delayMs)
+			return HttpResponse.json({
+				afpInnvilget: afpOffentligLivsvarigResponse.afpStatus,
+				virkningFom: afpOffentligLivsvarigResponse.virkningFom,
+				sistBenyttetGrunnbeloep:
+					afpOffentligLivsvarigResponse.sistBenyttetGrunnbeloep,
+				maanedligBeloepListe: [
+					{
+						virkningFom: afpOffentligLivsvarigResponse.virkningFom,
+						beloep: afpOffentligLivsvarigResponse.maanedligBeloep,
+					},
+				],
+			})
+		}),
+
 		http.get(
 			`${baseUrl}/v1/loepende-omstillingsstoenad-eller-gjenlevendeytelse`,
 			async () => {

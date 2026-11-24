@@ -15,6 +15,8 @@ export const API_URLS = {
 	OPPTJENING: '**/api/intern/v1/opptjening',
 	SANITY: '**/g2by7q6m**/data/query/**',
 	ER_APOTEKER: '**/api/v1/er-apoteker',
+	LIVSVARIG_AFP_BELOEP: '**/api/v4/tpo-livsvarig-offentlig-afp',
+	LIVSVARIG_AFP_STATUS: '**/api/v1/har-livsvarig-offentlig-afp',
 } as const
 
 export const MOCK_FILES = {
@@ -64,6 +66,15 @@ export async function setupDefaultMocks(
 	await mockApi(page, API_URLS.GRUNNBELOEP, undefined, DEFAULT_GRUNNBELOEP)
 	await mockApi(page, API_URLS.OPPTJENING, MOCK_FILES.OPPTJENING)
 	await mockApi(page, API_URLS.ER_APOTEKER, MOCK_FILES.ER_APOTEKER)
+	await mockApi(page, API_URLS.LIVSVARIG_AFP_STATUS, undefined, {
+		harLivsvarigOffentligAfp: false,
+	})
+	await mockApi(page, API_URLS.LIVSVARIG_AFP_BELOEP, undefined, {
+		afpInnvilget: true,
+		virkningFom: '2027-01-01',
+		sistBenyttetGrunnbeloep: 130160,
+		maanedligBeloepListe: [{ virkningFom: '2027-01-01', beloep: 8347 }],
+	})
 	await setupSanityMocks(page)
 }
 

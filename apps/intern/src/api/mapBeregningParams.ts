@@ -1,10 +1,13 @@
 import type {
+	AfpOffentligLivsvarigDetaljer,
+	Alder,
 	PersonInternV1,
 	SimuleringRequestBody,
 	SimuleringUtenlandsperiode,
 	SimuleringsType,
 	Vedtak,
 } from '@pensjonskalkulator-frontend-monorepo/types'
+import { calculateUttaksalderAsDate } from '@pensjonskalkulator-frontend-monorepo/utils/alder'
 import {
 	DATE_BACKEND_FORMAT,
 	DATE_ENDUSER_FORMAT,
@@ -21,6 +24,52 @@ import type { Grunnbeloep } from './queries'
 
 const toBackendDate = (value: string) =>
 	format(parse(value, DATE_ENDUSER_FORMAT, new Date()), DATE_BACKEND_FORMAT)
+
+export function mapInnvilgetLivsvarigAfp(
+	afp: AfpOffentligLivsvarigDetaljer,
+	uttaksalder: Alder,
+	foedselsdato: string
+) {
+	if (afp.afpInnvilget !== true) {
+		throw new Error('Mangler opplysninger om innvilget livsvarig AFP.')
+	}
+
+	const uttaksdato = format(
+		calculateUttaksalderAsDate(uttaksalder, foedselsdato),
+		DATE_BACKEND_FORMAT
+	)
+	let valgtPeriode: { virkningFom: string; beloep: number } | undefined
+	for (const periode of afp.maanedligBeloepListe ?? []) {
+		if (
+			!periode.virkningFom ||
+			periode.beloep == null ||
+			!Number(periode.beloep) ||
+			periode.beloep < 0
+		) {
+			throw new Error('Mangler gyldig dato eller beløp for livsvarig AFP.')
+		}
+		if (
+			periode.virkningFom <= uttaksdato &&
+			(!valgtPeriode || periode.virkningFom > valgtPeriode.virkningFom)
+		) {
+			valgtPeriode = {
+				virkningFom: periode.virkningFom,
+				beloep: periode.beloep,
+			}
+		}
+	}
+	if (!valgtPeriode) {
+		throw new Error(
+			'Fant ikke AFP-beløp som gjelder ved valgt uttakstidspunkt.'
+		)
+	}
+
+	return {
+		aarligBruttoBeloep: valgtPeriode.beloep * 12,
+		uttakFom: afp.virkningFom ?? valgtPeriode.virkningFom,
+		sistRegulertGrunnbeloep: afp.sistBenyttetGrunnbeloep,
+	}
+}
 
 export const mapUtenlandsperiodeListe = (
 	utenlandsOpphold: UtenlandsOppholdFormValues[]
