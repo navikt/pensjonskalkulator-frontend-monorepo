@@ -339,8 +339,7 @@ export const BeregningForm = () => {
 		Boolean(afp === 'ja_privat' || (afp === 'ja_offentlig' && visLivsvarigAfp))
 
 	const showUTOgFolketrygdBeregnetAFPAlert =
-		((afp === 'ja_offentlig' && !visLivsvarigAfp) ||
-			afp === 'serviceberegning') &&
+		(afp === 'ja_offentlig' || afp === 'serviceberegning') &&
 		vedtak?.ufoeretrygdgrad
 
 	const fremtidigAlderspensjon = vedtak?.fremtidigAlderspensjon

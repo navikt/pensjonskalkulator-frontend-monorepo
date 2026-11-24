@@ -144,31 +144,6 @@ async function fillFormWithServiceberegning(page: Page) {
 }
 
 test.describe('AFP Offentlig', () => {
-	test('viser kun ett uføretrygd-varsel ved livsvarig offentlig AFP', async ({
-		page,
-	}) => {
-		const afpAlert = 'beregning.ufoeretrygd-med-sim-ap-og-afp-privat'
-		const folketrygdAlert =
-			'beregning.ufoeretrygd-med-sim-ap-og-afp-offentlig-eller-service-beregning'
-
-		await setupDefaultMocks(page)
-		await mockApi(page, API_URLS.VEDTAK, MOCK_FILES.VEDTAK_UTEN_VEDTAK, {
-			harVedtak: true,
-			ufoeretrygdgrad: 100,
-		})
-		await page.route('**/api/v2/tpo-livsvarig-offentlig-afp', (route) =>
-			route.fulfill({ status: 200, json: { afpStatus: false } })
-		)
-		await navigateToApp(page)
-		await page.getByTestId('afp').getByLabel('Ja, offentlig').check()
-
-		await expect(page.getByTestId(afpAlert)).toBeVisible()
-		await expect(page.getByTestId(folketrygdAlert)).toHaveCount(0)
-
-		await page.getByTestId('afp').getByLabel('Nei').check()
-		await expect(page.getByTestId(afpAlert)).toHaveCount(0)
-	})
-
 	test.describe('Livsvarig AFP', () => {
 		for (const { afpStatus, maanedligBeloep } of [
 			{ afpStatus: true, maanedligBeloep: 8347 },
