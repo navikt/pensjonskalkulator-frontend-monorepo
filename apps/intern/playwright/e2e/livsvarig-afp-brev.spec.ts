@@ -129,6 +129,22 @@ test.describe('Livsvarig AFP i brev', () => {
 			expect(payload).toEqual(
 				expect.objectContaining({
 					navEnhetId: '1234',
+					simuleringsinformasjon: expect.objectContaining({
+						gradertUttakInformasjon: {
+							alder: { aar: 65, maaneder: 0 },
+							uttaksdato: '01.05.2029',
+							grad: 50,
+						},
+						heltUttakInformasjon: {
+							alder: { aar: 67, maaneder: 0 },
+							uttaksdato: '01.05.2031',
+							grad: 100,
+						},
+					}),
+					maanedligAlderspensjonForKnekkpunkter: expect.objectContaining({
+						vedGradertUttak: expect.objectContaining({ beloep: 10000 }),
+						vedHeltUttak: expect.objectContaining({ beloep: 23333 }),
+					}),
 					afpOffentligLivsvarig: {
 						beskrivelse: scenario.beskrivelse,
 						vedGradertUttak: kunBeskrivelse ? null : foersteUtbetaling,

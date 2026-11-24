@@ -3,7 +3,6 @@ import type {
 	SimuleringResponseBody,
 } from '@pensjonskalkulator-frontend-monorepo/types'
 
-import type { InternAfpRadio } from '../api/beregningTypes'
 import { mapLagreMaanedligAlderspensjon } from './mapLagreMaanedligAlderspensjon'
 
 type ResultKnekkpunkter =
@@ -13,7 +12,7 @@ export function mapMaanedligAlderspensjonForKnekkpunkter(
 	knekkpunkter: ResultKnekkpunkter,
 	grunnbeloep?: number | null,
 	kull?: Kull | null,
-	afpType?: InternAfpRadio,
+	harTidsbegrensetOffentligAfp = false,
 	simulererMedGjenlevenderett?: boolean,
 	harGjenlevenderett?: boolean,
 	removeNormertPensjonsalder?: boolean
@@ -28,7 +27,7 @@ export function mapMaanedligAlderspensjonForKnekkpunkter(
 				kull
 			)
 
-	if (afpType === 'ja_offentlig') {
+	if (harTidsbegrensetOffentligAfp) {
 		if (!vedNormertPensjonsalder) return null
 
 		return {

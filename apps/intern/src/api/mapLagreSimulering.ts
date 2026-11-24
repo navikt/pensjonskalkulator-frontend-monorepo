@@ -191,6 +191,7 @@ export function mapBeregningResultToLagreSpec(
 	})
 
 	const livsvarigOffentligAfp = result.livsvarigOffentligAfpListe?.[0]
+	const harTidsbegrensetOffentligAfp = Boolean(result.tidsbegrensetOffentligAfp)
 	const harVedtakAP = Boolean(
 		vedtak?.loependeAlderspensjon || vedtak?.fremtidigAlderspensjon
 	)
@@ -252,7 +253,7 @@ export function mapBeregningResultToLagreSpec(
 			result.maanedligAlderspensjonForKnekkpunkter,
 			grunnbeloep,
 			kull,
-			aktivBeregning?.afp,
+			harTidsbegrensetOffentligAfp,
 			!!aktivBeregning?.beregnMedGjenlevenderett,
 			Boolean(vedtak?.loependeAlderspensjon?.harGjenlevenderett),
 			isAlderLikEllerOverAnnenAlder(heltUttakAlder, { aar: 67, maaneder: 0 }) &&
@@ -378,20 +379,14 @@ export function mapBeregningResultToLagreSpec(
 		aarligInntektOgPensjonListe,
 		pensjonsopptjeningListe,
 		simuleringsinformasjon: {
-			gradertUttakInformasjon:
-				aktivBeregning?.afp === 'ja_offentlig'
-					? mapUttaksinformasjon(heltUttakAlder, foedselsdato, uttaksgrad)
-					: gradertUttakAlder
-						? mapUttaksinformasjon(gradertUttakAlder, foedselsdato, uttaksgrad)
-						: null,
-			heltUttakInformasjon:
-				aktivBeregning?.afp !== 'ja_offentlig'
-					? mapUttaksinformasjon(heltUttakAlder, foedselsdato, 100)
-					: mapUttaksinformasjon(
-							NORMERT_PENSJONSALDER_ALDER,
-							foedselsdato,
-							100
-						),
+			gradertUttakInformasjon: harTidsbegrensetOffentligAfp
+				? mapUttaksinformasjon(heltUttakAlder, foedselsdato, uttaksgrad)
+				: gradertUttakAlder
+					? mapUttaksinformasjon(gradertUttakAlder, foedselsdato, uttaksgrad)
+					: null,
+			heltUttakInformasjon: !harTidsbegrensetOffentligAfp
+				? mapUttaksinformasjon(heltUttakAlder, foedselsdato, 100)
+				: mapUttaksinformasjon(NORMERT_PENSJONSALDER_ALDER, foedselsdato, 100),
 			normertUttakInformasjon: mapUttaksinformasjon(
 				NORMERT_PENSJONSALDER_ALDER,
 				foedselsdato,

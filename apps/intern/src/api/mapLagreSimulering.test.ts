@@ -48,6 +48,60 @@ describe('lagring av livsvarig offentlig AFP', () => {
 		vilkaarsproevingsresultat: { erInnvilget: true },
 	}
 
+	test.each([50, 100])(
+		'lagrer AP-tidspunkter og månedsbeløp ved %s prosent uttak med livsvarig AFP',
+		(uttaksgrad) => {
+			const spec = mapBeregningResultToLagreSpec(
+				{
+					...result,
+					livsvarigOffentligAfpListe: [foersteUtbetaling],
+					maanedligAlderspensjonForKnekkpunkter: {
+						vedGradertUttak: uttaksgrad === 50 ? { beloep: 10000 } : null,
+						vedHeltUttak: { beloep: 20000 },
+						vedNormertPensjonsalder: { beloep: 25000 },
+					},
+				},
+				'1964-04-30',
+				{
+					...defaultBeregningFormData,
+					afp: 'ja_offentlig',
+					uttaksgrad,
+					alderAarUttak: 65,
+					alderMdUttak: 0,
+					alderAarHeltUttak: 68,
+					alderMdHeltUttak: 2,
+				}
+			)
+
+			expect(spec.simuleringsinformasjon?.gradertUttakInformasjon).toEqual(
+				uttaksgrad === 50
+					? {
+							alder: { aar: 65, maaneder: 0 },
+							uttaksdato: '01.05.2029',
+							grad: 50,
+						}
+					: null
+			)
+			expect(spec.simuleringsinformasjon?.heltUttakInformasjon).toEqual({
+				alder: {
+					aar: uttaksgrad === 50 ? 68 : 65,
+					maaneder: uttaksgrad === 50 ? 2 : 0,
+				},
+				uttaksdato: uttaksgrad === 50 ? '01.07.2032' : '01.05.2029',
+				grad: 100,
+			})
+			expect(
+				spec.maanedligAlderspensjonForKnekkpunkter?.vedHeltUttak.beloep
+			).toBe(20000)
+			expect(
+				spec.maanedligAlderspensjonForKnekkpunkter?.vedGradertUttak?.beloep
+			).toBe(uttaksgrad === 50 ? 10000 : undefined)
+			expect(
+				spec.simuleringsinformasjon?.normertPensjonsalderPlassering
+			).toBeUndefined()
+		}
+	)
+
 	test.each([
 		{ uttaksgrad: 0, utbetaling: foersteUtbetaling },
 		{ uttaksgrad: 50, utbetaling: foersteUtbetaling },
