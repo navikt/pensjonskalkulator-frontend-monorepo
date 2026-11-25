@@ -213,11 +213,13 @@ export function isEpsUnder67EllerDoedsdatoFoer67aar({
 
 export function getUttaksGradArray({
 	skalBeregneAFPPrivat,
+	skalBeregneLivsvarigAFP = false,
 	erEndring,
 	ufoeretrygdgrad,
 	alderAarUttak,
 }: {
 	skalBeregneAFPPrivat: boolean
+	skalBeregneLivsvarigAFP?: boolean
 	erEndring: boolean
 	ufoeretrygdgrad?: number | null
 	alderAarUttak: number | null
@@ -229,6 +231,7 @@ export function getUttaksGradArray({
 	if (
 		ufoeretrygdgrad &&
 		!skalBeregneAFPPrivat &&
+		!skalBeregneLivsvarigAFP &&
 		alderAarUttak !== null &&
 		alderAarUttak < 67
 	) {

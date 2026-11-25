@@ -36,8 +36,11 @@ export const AlderspensjonTables = ({
 	harGjenlevenderett = false,
 	reducedGrunnpensjon = false,
 }: AlderspensjonTablesProps) => {
-	const { aktivBeregning } = useBeregningContext()
+	const { aktivBeregning, beregning } = useBeregningContext()
 	const erEndring = Boolean(aktivBeregning?.endringAP)
+	const afpPaavirketVilkaarsproeving =
+		beregning?.vilkaarsproevingsresultat
+			?.livsvarigOffentligAfpHarBetydningForInnvilgelse
 
 	return (
 		<>
@@ -73,7 +76,11 @@ export const AlderspensjonTables = ({
 			{(erOvergangskull || erFoedtEtter1963) && (
 				<BeregningDetailTable
 					title="Opptjening alderspensjon etter kapittel 20"
-					rows={mapOpptjeningEtterKapittel20ToRows(entry, !erFoedtEtter1963)}
+					rows={mapOpptjeningEtterKapittel20ToRows(
+						entry,
+						!erFoedtEtter1963,
+						afpPaavirketVilkaarsproeving
+					)}
 					visAarsbelop={visAarsbelop}
 				/>
 			)}

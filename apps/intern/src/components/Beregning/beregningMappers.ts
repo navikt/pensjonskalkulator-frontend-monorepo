@@ -188,7 +188,8 @@ export function mapOpptjeningEtterKapittel19ToRows(
 
 export function mapOpptjeningEtterKapittel20ToRows(
 	opptjening: SimuleringMaanedligAlderspensjon,
-	visAndelsbroek = true
+	visAndelsbroek = true,
+	livsvarigOffentligAfpHarBetydningForInnvilgelse?: boolean | null
 ): BeregningDetailRow[] {
 	return [
 		{
@@ -217,6 +218,11 @@ export function mapOpptjeningEtterKapittel20ToRows(
 		{
 			label: 'Trygdetid',
 			value: formatAar(opptjening.kapittel20Trygdetid),
+		},
+		{
+			label: 'AFP påvirket vilkårsprøving',
+			value: livsvarigOffentligAfpHarBetydningForInnvilgelse ? 'Ja' : 'Nei',
+			hide: livsvarigOffentligAfpHarBetydningForInnvilgelse == null,
 		},
 	]
 }

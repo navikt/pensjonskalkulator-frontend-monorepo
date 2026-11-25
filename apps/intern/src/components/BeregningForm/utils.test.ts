@@ -1,9 +1,48 @@
 import { describe, expect, it } from 'vitest'
 
 import {
+	getUttaksGradArray,
 	getVilkaarsproevingDynamicValues,
 	showEPSMinstePensjonsgivendeInntektFoerDoedsfall,
 } from './utils'
+
+describe('getUttaksGradArray', () => {
+	it.each([
+		{
+			ufoeretrygdgrad: 50,
+			skalBeregneLivsvarigAFP: true,
+			grader: [20, 40, 50, 60, 80, 100],
+		},
+		{
+			ufoeretrygdgrad: 100,
+			skalBeregneLivsvarigAFP: true,
+			grader: [20, 40, 50, 60, 80, 100],
+		},
+		{
+			ufoeretrygdgrad: 50,
+			skalBeregneLivsvarigAFP: false,
+			grader: [20, 40, 50, 100],
+		},
+		{
+			ufoeretrygdgrad: 100,
+			skalBeregneLivsvarigAFP: false,
+			grader: [100],
+		},
+	])(
+		'gir riktige grader ved UT $ufoeretrygdgrad og livsvarig AFP $skalBeregneLivsvarigAFP',
+		({ ufoeretrygdgrad, skalBeregneLivsvarigAFP, grader }) => {
+			expect(
+				getUttaksGradArray({
+					skalBeregneAFPPrivat: false,
+					skalBeregneLivsvarigAFP,
+					ufoeretrygdgrad,
+					erEndring: false,
+					alderAarUttak: 65,
+				})
+			).toEqual(grader)
+		}
+	)
+})
 
 describe('getVilkaarsproevingDynamicValues', () => {
 	it.each([true, false])(

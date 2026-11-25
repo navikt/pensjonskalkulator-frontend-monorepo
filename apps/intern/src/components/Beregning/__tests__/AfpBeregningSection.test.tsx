@@ -3,18 +3,33 @@ import type {
 	TidsbegrensetOffentligAFP,
 } from '@pensjonskalkulator-frontend-monorepo/types'
 import { fireEvent, render, screen, within } from '@testing-library/react'
-import { describe, expect, test, vi } from 'vitest'
+import { afterEach, describe, expect, test, vi } from 'vitest'
 
 import { BeregningSection } from '../../BeregningSection/BeregningSection'
 import { AfpBeregningSection } from '../AfpBeregningSection'
 
+const vilkaarsproevingsresultat = vi.hoisted(() => ({
+	livsvarigOffentligAfpHarBetydningForInnvilgelse: undefined as
+		| boolean
+		| null
+		| undefined,
+}))
+
 vi.mock('../../BeregningContext', () => ({
-	useBeregningContext: () => ({ aktivBeregning: { epsHarPensjon: false } }),
+	useBeregningContext: () => ({
+		aktivBeregning: { epsHarPensjon: false },
+		beregning: { vilkaarsproevingsresultat },
+	}),
 }))
 
 vi.mock('../../../api/queries', () => ({
 	useFeatureToggleQuery: () => ({ data: { enabled: false } }),
 }))
+
+afterEach(() => {
+	vilkaarsproevingsresultat.livsvarigOffentligAfpHarBetydningForInnvilgelse =
+		undefined
+})
 
 const livsvarigEntry: LivsvarigOffentligAFP = {
 	alderAar: 65,
@@ -80,6 +95,48 @@ describe('BeregningSection med privat AFP', () => {
 })
 
 describe('BeregningSection med livsvarig offentlig AFP', () => {
+	test.each([
+		{ verdi: true, tekst: 'Ja' },
+		{ verdi: false, tekst: 'Nei' },
+		{ verdi: null, tekst: undefined },
+		{ verdi: undefined, tekst: undefined },
+	])(
+		'viser AFP påvirket vilkårsprøving ved verdi $verdi',
+		({ verdi, tekst }) => {
+			vilkaarsproevingsresultat.livsvarigOffentligAfpHarBetydningForInnvilgelse =
+				verdi
+			render(
+				<BeregningSection
+					title="Pensjon ved 65 år"
+					tableCount={2}
+					entry={{ beloep: 10000, inntektspensjonBeloep: 10000 }}
+					erFoedtEtter1963
+					alderspensjonGrad={100}
+					livsvarigOffentligAfp={livsvarigEntry}
+					livsvarigAfpBeskrivelse={estimertAfpBeskrivelse}
+					visAarsbelop={false}
+				/>
+			)
+
+			if (tekst) {
+				const table = screen
+					.getByRole('columnheader', {
+						name: 'Opptjening alderspensjon etter kapittel 20',
+					})
+					.closest('table')!
+				expect(
+					within(table).getByRole('row', {
+						name: `AFP påvirket vilkårsprøving ${tekst}`,
+					})
+				).toBeVisible()
+			} else {
+				expect(
+					screen.queryByText('AFP påvirket vilkårsprøving')
+				).not.toBeInTheDocument()
+			}
+		}
+	)
+
 	test.each([
 		{ grad: 50, visAarsbelop: false, sum: '18 347', afp: '8 347' },
 		{ grad: 100, visAarsbelop: true, sum: '170 082', afp: '50 082' },

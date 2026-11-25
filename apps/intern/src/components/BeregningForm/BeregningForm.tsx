@@ -310,6 +310,7 @@ export const BeregningForm = () => {
 
 	const uttaksGradArray = getUttaksGradArray({
 		skalBeregneAFPPrivat: afp === 'ja_privat',
+		skalBeregneLivsvarigAFP: afp === 'ja_offentlig' && visLivsvarigAfp,
 		erEndring,
 		ufoeretrygdgrad: vedtak?.ufoeretrygdgrad,
 		alderAarUttak,
