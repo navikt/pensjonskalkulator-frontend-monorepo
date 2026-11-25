@@ -431,10 +431,12 @@ export const BeregningForm = () => {
 						testid="afp"
 						onChange={() => setAlertDismissed(true)}
 					/>
-					<SanityAlert
-						id="beregning.livsvarig-AFP-forvaltes-ikke"
-						className={styles.sanityAlert}
-					/>
+					{afp === 'ja_offentlig' && (
+						<SanityAlert
+							id="beregning.livsvarig-AFP-forvaltes-ikke"
+							className={styles.sanityAlert}
+						/>
+					)}
 				</VStack>
 			</VStack>
 			<Divider noMargin />

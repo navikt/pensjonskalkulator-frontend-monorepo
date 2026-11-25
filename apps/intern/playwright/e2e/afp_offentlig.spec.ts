@@ -284,9 +284,7 @@ test.describe('AFP Offentlig', () => {
 					})
 				).toHaveCount(harLivsvarigOffentligAfp === true ? 1 : 0)
 				const alert = page.getByTestId('beregning.livsvarig-AFP-forvaltes-ikke')
-				await expect(alert).toHaveCount(
-					harLivsvarigOffentligAfp === true ? 1 : 0
-				)
+				await expect(alert).toHaveCount(0)
 
 				if (harLivsvarigOffentligAfp === true) {
 					const heading = page.getByRole('heading', {
@@ -316,6 +314,11 @@ test.describe('AFP Offentlig', () => {
 								)
 						)
 						.toBe(24)
+					await page
+						.getByTestId('afp')
+						.getByRole('radio', { name: 'Ja', exact: true })
+						.check()
+					await expect(alert).toBeVisible()
 					await expect
 						.poll(() =>
 							alert.evaluate(
@@ -330,7 +333,7 @@ test.describe('AFP Offentlig', () => {
 							.getByTestId('afp')
 							.getByRole('radio', { name: valg, exact: true })
 							.check()
-						await expect(alert).toBeVisible()
+						await expect(alert).toHaveCount(valg === 'Ja' ? 1 : 0)
 					}
 				}
 
@@ -467,6 +470,18 @@ test.describe('AFP Offentlig', () => {
 			page,
 		}) => {
 			await setupDefaultMocks(page)
+			const alertId = 'beregning.livsvarig-AFP-forvaltes-ikke'
+			await mockApi(page, API_URLS.SANITY, undefined, {
+				result: [
+					{
+						name: alertId,
+						type: 'local-alert',
+						status: 'info',
+						overskrift: 'Merk at livsvarig AFP ikke forvaltes av Nav',
+						innhold: [],
+					},
+				],
+			})
 			let antallBeloepKall = 0
 			await page.route(API_URLS.LIVSVARIG_AFP_BELOEP, (route) => {
 				antallBeloepKall++
@@ -498,6 +513,7 @@ test.describe('AFP Offentlig', () => {
 				name: 'Skal AFP-beløp hentes i beregningen?',
 			})
 			await expect(sporsmaal).toBeVisible()
+			await expect(page.getByTestId(alertId)).toHaveCount(0)
 			expect(antallBeloepKall).toBe(0)
 			await page.getByTestId('beregn-button').click()
 			await expect(
@@ -515,6 +531,7 @@ test.describe('AFP Offentlig', () => {
 				},
 			})
 			await sporsmaal.getByRole('radio', { name: 'Ja', exact: true }).check()
+			await expect(page.getByTestId(alertId)).toBeVisible()
 			expect(antallBeloepKall).toBe(0)
 			await page.getByTestId('beregn-button').click()
 			await expect
@@ -535,6 +552,7 @@ test.describe('AFP Offentlig', () => {
 					.getByTestId('beregning-section-helt')
 					.getByRole('row', { name: /Livsvarig AFP/ })
 			).toContainText('8 347')
+			await expect(page.getByTestId(alertId)).toBeVisible()
 
 			const nySimulering = page.waitForRequest(API_URLS.SIMULERING)
 			await page.getByTestId('beregn-button').click()
@@ -542,6 +560,7 @@ test.describe('AFP Offentlig', () => {
 			expect(antallBeloepKall).toBe(2)
 
 			await sporsmaal.getByRole('radio', { name: 'Nei', exact: true }).check()
+			await expect(page.getByTestId(alertId)).toHaveCount(0)
 			await page.getByTestId('beregn-button').click()
 			await expect
 				.poll(() => capture.getCapturedBody()?.simuleringstype)
