@@ -293,7 +293,9 @@ export function getLivsvarigAfpBeskrivelse({
 		return 'AFP-beløpet er hentet fra brukerens vedtak om alderspensjon.'
 	}
 	if (harVedtakAP || harVedtakLivsvarigAFP) {
-		return `AFP-beløpet er hentet fra ${tpOrdningNavn?.trim() || 'tjenestepensjonsordningen din'}.`
+		return tpOrdningNavn?.trim()
+			? `AFP-beløpet er hentet fra ${tpOrdningNavn.trim()}.`
+			: 'AFP-beløpet er estimert av Nav og innebærer ikke en vurdering eller bekreftelse av rett til AFP.'
 	}
 	return 'AFP-beløpet er estimert av Nav og innebærer ikke en vurdering eller bekreftelse av rett til AFP.'
 }

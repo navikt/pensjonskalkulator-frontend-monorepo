@@ -8,6 +8,21 @@ import {
 } from '../beregningMappers'
 
 describe('getLivsvarigAfpBeskrivelse', () => {
+	test.each([undefined, null, '', '   '])(
+		'viser tekst om estimat når TP-navn er %s',
+		(tpOrdningNavn) => {
+			expect(
+				getLivsvarigAfpBeskrivelse({
+					harVedtakAP: true,
+					harVedtakLivsvarigAFP: false,
+					tpOrdningNavn,
+				})
+			).toBe(
+				'AFP-beløpet er estimert av Nav og innebærer ikke en vurdering eller bekreftelse av rett til AFP.'
+			)
+		}
+	)
+
 	test.each([
 		{
 			harVedtakAP: false,

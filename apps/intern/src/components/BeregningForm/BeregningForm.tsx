@@ -416,7 +416,7 @@ export const BeregningForm = () => {
 						AFP
 					</Heading>
 					<BodyShort size="small">
-						{erEndring
+						{erEndring && !harVedtakLivsvarigAFP
 							? 'Brukeren har livsvarig AFP i offentlig sektor. Beløpet vil inkluderes i vilkårsprøvingen av alderspensjon.'
 							: 'Brukeren har livsvarig AFP i offentlig sektor fra tjenestepensjonsordning.'}
 					</BodyShort>
