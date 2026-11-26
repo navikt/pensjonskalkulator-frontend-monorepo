@@ -76,6 +76,14 @@
 	margin: 0;
 }
 
+.kompaktAlert p:first-child {
+	margin-top: 0;
+}
+
+.kompaktAlert p:last-child {
+	margin-bottom: 0;
+}
+
 .buttonBar {
 	gap: 24px;
 	padding: 0 48px 24px 48px;

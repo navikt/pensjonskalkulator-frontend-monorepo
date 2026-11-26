@@ -46,7 +46,9 @@ export default defineConfig({
     }),
     process.env.NODE_ENV !== 'test' && eslint(),
     process.env.NODE_ENV !== 'test' && stylelint({ fix: true }),
-    process.env.NODE_ENV !== 'test' && !process.env.VITEST && sassDts(),
+    process.env.NODE_ENV !== 'test' &&
+      !process.env.VITEST &&
+      sassDts({ esmExport: true }),
 
     process.env.NODE_ENV !== 'test' &&
       visualizer({

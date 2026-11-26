@@ -47,7 +47,8 @@ import styles from './AvansertSkjemaForBrukereMedKap19Afp.module.scss'
 
 export const AvansertSkjemaForBrukereMedKap19Afp: React.FC<{
   vilkaarsproeving?: Vilkaarsproeving
-}> = ({ vilkaarsproeving }) => {
+  utilstrekkeligTrygdetid?: boolean
+}> = ({ vilkaarsproeving, utilstrekkeligTrygdetid }) => {
   const intl = useIntl()
   const dispatch = useAppDispatch()
 
@@ -304,6 +305,7 @@ export const AvansertSkjemaForBrukereMedKap19Afp: React.FC<{
               uttaksalder && (
                 <VilkaarsproevingAlert
                   alternativ={vilkaarsproeving?.alternativ}
+                  utilstrekkeligTrygdetid={utilstrekkeligTrygdetid}
                   uttaksalder={uttaksalder}
                 />
               )}
