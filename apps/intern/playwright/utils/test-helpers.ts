@@ -5,7 +5,7 @@ import { mockApi } from './mock'
 export const API_URLS = {
 	DECRYPT: '**/api/v1/decrypt',
 	PERSON: '**/api/intern/v1/person',
-	VEDTAK: '**/api/v1/vedtak**',
+	VEDTAK: '**/api/v2/vedtak**',
 	OMSTILLINGSSTOENAD:
 		'**/api/v1/loepende-omstillingsstoenad-eller-gjenlevendeytelse',
 	INNTEKT: '**/api/inntekt',

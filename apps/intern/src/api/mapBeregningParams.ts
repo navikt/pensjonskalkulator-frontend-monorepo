@@ -19,7 +19,11 @@ import type {
 	BeregningFormData,
 	UtenlandsOppholdFormValues,
 } from './beregningTypes'
-import { erKap19EllerApoteker, erLivsvarigAfpAktuell } from './formConditions'
+import {
+	erKap19EllerApoteker,
+	erLivsvarigAfpAktuell,
+	getLivsvarigAfpBeloep,
+} from './formConditions'
 import type { Grunnbeloep } from './queries'
 
 const toBackendDate = (value: string) =>
@@ -105,6 +109,15 @@ export function mapBeregningParamsToRequest(
 
 	const skalBeregneTidsbegrensetOffentligAfp =
 		skalBeregneAfpKap19 || skalBeregneServiceberegnetAfp
+	const livsvarigAfpBeloep =
+		formData.afp === 'ja_offentlig' &&
+		erLivsvarigAfpAktuell({ foedselsdato: person?.foedselsdato, erApoteker })
+			? getLivsvarigAfpBeloep(vedtak)
+			: undefined
+	const livsvarigAfpFom =
+		vedtak?.fremtidigAlderspensjon?.livsvarigOffentligAfpMaanedsbeloep != null
+			? vedtak.fremtidigAlderspensjon.fom
+			: vedtak?.loependeAlderspensjon?.fom
 
 	const harInntektVedSiden = formData.harInntektVedSidenAvUttak === true
 	const inntektVsaBeloep = harInntektVedSiden
@@ -278,6 +291,15 @@ export function mapBeregningParamsToRequest(
 						inntektMaanedFoerAfp: formData.inntektSisteMaanedFoerUttak,
 						afpOrdning: 'STATLIG',
 					}
-				: undefined,
+				: livsvarigAfpBeloep != null && livsvarigAfpFom != null
+					? {
+							innvilgetLivsvarigAfpListe: [
+								{
+									aarligBruttoBeloep: livsvarigAfpBeloep * 12,
+									uttakFom: livsvarigAfpFom,
+								},
+							],
+						}
+					: undefined,
 	}
 }

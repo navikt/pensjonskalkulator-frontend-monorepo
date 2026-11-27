@@ -21,6 +21,61 @@ const foersteUtbetaling = {
 }
 
 test.describe('Livsvarig AFP i brev', () => {
+	test('bruker AFP-beløp på 0 fra vedtak uten å hente fra TP', async ({
+		page,
+	}) => {
+		await setupDefaultMocks(page)
+		await mockApi(page, API_URLS.LIVSVARIG_AFP_STATUS, undefined, {
+			harLivsvarigOffentligAfp: true,
+		})
+		await mockApi(page, API_URLS.VEDTAK, MOCK_FILES.VEDTAK_UTEN_VEDTAK, {
+			harVedtak: true,
+			fremtidigAlderspensjon: {
+				grad: 100,
+				fom: '2029-05-01',
+				livsvarigOffentligAfpMaanedsbeloep: 0,
+			},
+		})
+		await mockApi(page, API_URLS.SIMULERING, MOCK_FILES.SIMULERING_V1)
+		const tpRequests: string[] = []
+		page.on('request', (request) => {
+			if (request.url().includes('/v4/tpo-livsvarig-offentlig-afp')) {
+				tpRequests.push(request.url())
+			}
+		})
+		await page.goto('/?pid=encrypted-default-pid')
+		await fillMainFormFields({
+			page,
+			withDefaults: false,
+			fields: {
+				'eps-har-pensjon': 'Nei',
+				'eps-har-inntekt-over-2g': 'Ja',
+				'har-opphold-utenfor-norge': 'Nei',
+				'inntekt-foer-uttak': '500000',
+				'alder-uttak-aar': '65',
+				'alder-uttak-md': '0',
+				uttaksgrad: '100',
+				'har-inntekt-vsa-helt-uttak': 'Nei',
+			},
+		})
+		await expect(
+			page.getByText('Skal AFP-beløp hentes i beregningen?', { exact: true })
+		).toHaveCount(0)
+		const simuleringRequest = page.waitForRequest(API_URLS.SIMULERING)
+		await page.getByTestId('beregn-button').click()
+		const body: unknown = (await simuleringRequest).postDataJSON()
+		expect(body).toEqual(
+			expect.objectContaining({
+				offentligAfp: {
+					innvilgetLivsvarigAfpListe: [
+						{ aarligBruttoBeloep: 0, uttakFom: '2029-05-01' },
+					],
+				},
+			})
+		)
+		expect(tpRequests).toHaveLength(0)
+	})
+
 	for (const scenario of [
 		{
 			navn: 'ingen vedtak',

@@ -23,6 +23,7 @@ import { BLOCKING_TILGANG_CODES } from '../../api/beregningTypes'
 import {
 	erKap19EllerApoteker,
 	erLivsvarigAfpAktuell,
+	getLivsvarigAfpBeloep,
 	getPartnerBetegnelse,
 	isUttakEtterInnevaerendeAar,
 	showAfpOffentligFields,
@@ -122,6 +123,7 @@ export const BeregningForm = () => {
 	const harVedtakTidsbegrensetOffentligAFP =
 		!erEndring && Boolean(vedtak?.tidsbegrensetOffentligAfpFom)
 	const harVedtakLivsvarigAFP = livsvarigAFP?.harLivsvarigOffentligAfp === true
+	const harLivsvarigAfpBeloepIVedtak = getLivsvarigAfpBeloep(vedtak) != null
 	const nullGradAP = erEndring && vedtak?.loependeAlderspensjon?.grad === 0
 
 	useEffect(() => {
@@ -163,6 +165,16 @@ export const BeregningForm = () => {
 			'epsTilgangNektAarsak',
 		] as const,
 	})
+
+	useEffect(() => {
+		if (
+			visLivsvarigAfp &&
+			harLivsvarigAfpBeloepIVedtak &&
+			afp !== 'ja_offentlig'
+		) {
+			form.setValue('afp', 'ja_offentlig')
+		}
+	}, [visLivsvarigAfp, harLivsvarigAfpBeloepIVedtak, afp, form])
 
 	const epsRestrictionCode =
 		epsTilgangNektAarsak ?? epsOpplysninger?.problem?.tilgangsnekt?.aarsak
@@ -229,7 +241,9 @@ export const BeregningForm = () => {
 		const errors = validate(normalizedFormData, {
 			foedselsdato: person?.foedselsdato,
 			erEndring,
-			hideAfpSporsmaal: hideAfpSporsmaal && !harVedtakLivsvarigAFP,
+			hideAfpSporsmaal:
+				hideAfpSporsmaal &&
+				(!harVedtakLivsvarigAFP || harLivsvarigAfpBeloepIVedtak),
 			harVedtakLivsvarigAfp: harVedtakLivsvarigAFP,
 			initialInntektAar,
 			erApoteker,
@@ -297,6 +311,7 @@ export const BeregningForm = () => {
 		harVedtakPrivatAFP ||
 		harVedtakTidsbegrensetOffentligAFP ||
 		harVedtakLivsvarigAFP ||
+		harLivsvarigAfpBeloepIVedtak ||
 		(nullGradAP && Boolean(vedtak?.tidsbegrensetOffentligAfpFom))
 
 	const serviceBeregning = afp === 'serviceberegning'
@@ -408,80 +423,81 @@ export const BeregningForm = () => {
 			maaneder: alderMdHeltUttak ?? alderMdUttak,
 		})
 
-	const afpSporsmaal = harVedtakLivsvarigAFP ? (
-		<>
-			<VStack gap="space-24">
-				<VStack gap="space-8">
-					<Heading level="3" size="xsmall">
-						AFP
-					</Heading>
-					<BodyShort size="small">
-						{erEndring && !harVedtakLivsvarigAFP
-							? 'Brukeren har livsvarig AFP i offentlig sektor. Beløpet vil inkluderes i vilkårsprøvingen av alderspensjon.'
-							: 'Brukeren har livsvarig AFP i offentlig sektor fra tjenestepensjonsordning.'}
-					</BodyShort>
-				</VStack>
-				<VStack gap="space-8">
-					<RHFRadio
-						name="afp"
-						legend="Skal AFP-beløp hentes i beregningen?"
-						options={[
-							{ value: 'ja_offentlig', label: 'Ja' },
-							{ value: 'nei', label: 'Nei' },
-						]}
-						testid="afp"
-						onChange={() => setAlertDismissed(true)}
-					/>
-					{afp === 'ja_offentlig' && (
-						<SanityAlert
-							id="beregning.livsvarig-AFP-forvaltes-ikke"
-							className={styles.sanityAlert}
-						/>
-					)}
-				</VStack>
-			</VStack>
-			<Divider noMargin />
-		</>
-	) : (
-		!hideAfpSporsmaal && (
+	const afpSporsmaal =
+		harVedtakLivsvarigAFP && !harLivsvarigAfpBeloepIVedtak ? (
 			<>
-				<VStack gap="space-16">
+				<VStack gap="space-24">
+					<VStack gap="space-8">
+						<Heading level="3" size="xsmall">
+							AFP
+						</Heading>
+						<BodyShort size="small">
+							{erEndring && !harVedtakLivsvarigAFP
+								? 'Brukeren har livsvarig AFP i offentlig sektor. Beløpet vil inkluderes i vilkårsprøvingen av alderspensjon.'
+								: 'Brukeren har livsvarig AFP i offentlig sektor fra tjenestepensjonsordning.'}
+						</BodyShort>
+					</VStack>
 					<VStack gap="space-8">
 						<RHFRadio
 							name="afp"
-							legend="Skal AFP inkluderes?"
-							options={afpOptions}
-							gap="space-24"
+							legend="Skal AFP-beløp hentes i beregningen?"
+							options={[
+								{ value: 'ja_offentlig', label: 'Ja' },
+								{ value: 'nei', label: 'Nei' },
+							]}
 							testid="afp"
-							onChange={(value) => {
-								setAlertDismissed(true)
-								resetAlderVelger(value)
-							}}
+							onChange={() => setAlertDismissed(true)}
 						/>
-						{afp === 'ja_offentlig' && visLivsvarigAfp && (
+						{afp === 'ja_offentlig' && (
 							<SanityAlert
 								id="beregning.livsvarig-AFP-forvaltes-ikke"
 								className={styles.sanityAlert}
 							/>
 						)}
 					</VStack>
-					{showUTOgAFPAlert && (
-						<SanityAlert
-							id="beregning.ufoeretrygd-med-sim-ap-og-afp-privat"
-							className={styles.sanityAlert}
-						/>
-					)}
-					{showUTOgFolketrygdBeregnetAFPAlert && (
-						<SanityAlert
-							id="beregning.ufoeretrygd-med-sim-ap-og-afp-offentlig-eller-service-beregning"
-							className={styles.sanityAlert}
-						/>
-					)}
 				</VStack>
 				<Divider noMargin />
 			</>
+		) : (
+			!hideAfpSporsmaal && (
+				<>
+					<VStack gap="space-16">
+						<VStack gap="space-8">
+							<RHFRadio
+								name="afp"
+								legend="Skal AFP inkluderes?"
+								options={afpOptions}
+								gap="space-24"
+								testid="afp"
+								onChange={(value) => {
+									setAlertDismissed(true)
+									resetAlderVelger(value)
+								}}
+							/>
+							{afp === 'ja_offentlig' && visLivsvarigAfp && (
+								<SanityAlert
+									id="beregning.livsvarig-AFP-forvaltes-ikke"
+									className={styles.sanityAlert}
+								/>
+							)}
+						</VStack>
+						{showUTOgAFPAlert && (
+							<SanityAlert
+								id="beregning.ufoeretrygd-med-sim-ap-og-afp-privat"
+								className={styles.sanityAlert}
+							/>
+						)}
+						{showUTOgFolketrygdBeregnetAFPAlert && (
+							<SanityAlert
+								id="beregning.ufoeretrygd-med-sim-ap-og-afp-offentlig-eller-service-beregning"
+								className={styles.sanityAlert}
+							/>
+						)}
+					</VStack>
+					<Divider noMargin />
+				</>
+			)
 		)
-	)
 
 	return (
 		<Box as="form" onSubmit={handleSubmit} className={styles.beregningForm}>

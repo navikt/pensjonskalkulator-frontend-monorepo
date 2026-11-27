@@ -35,13 +35,13 @@ export interface LivsvarigOffentligAfpStatus {
 export type LoependeVedtak = components['schemas']['LoependeVedtakV4']
 
 // Vedtak
-export type Vedtak = components['schemas']['VedtakV1Samling']
+export type Vedtak = components['schemas']['VedtakV2Samling']
 
 export type VedtakInformasjonOmAvdoed =
-	components['schemas']['VedtakV1InformasjonOmAvdoed']
+	components['schemas']['VedtakV2InformasjonOmAvdoed']
 
 export type VedtakGjenlevenderett =
-	components['schemas']['VedtakV1Gjenlevenderett']
+	components['schemas']['VedtakV2Gjenlevenderett']
 
 // Omstillingsstoenad
 export type OmstillingsstoenadOgGjenlevende =

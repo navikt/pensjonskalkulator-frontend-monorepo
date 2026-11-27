@@ -382,7 +382,7 @@ export const getHandlers = (options: HandlerOptions = {}) => {
 			return HttpResponse.json(opptjeningResponse)
 		}),
 
-		http.get(`${baseUrl}/v1/vedtak`, async () => {
+		http.get(`${baseUrl}/v2/vedtak`, async () => {
 			await delay(delayMs)
 			return HttpResponse.json(vedtakResponse)
 		}),

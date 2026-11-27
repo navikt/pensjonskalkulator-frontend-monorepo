@@ -29,6 +29,7 @@ import {
 import {
 	erKap19EllerApoteker,
 	erLivsvarigAfpAktuell,
+	getLivsvarigAfpBeloep,
 	harPartner,
 	showAfpOffentligFields,
 } from '../api/formConditions'
@@ -353,6 +354,7 @@ export function BeregningProvider({
 
 	const skalHenteLivsvarigAfpBeloep =
 		livsvarigAfpStatus?.harLivsvarigOffentligAfp === true &&
+		getLivsvarigAfpBeloep(vedtak) == null &&
 		pendingBeregning?.afp === 'ja_offentlig'
 
 	const pendingRequest = pendingBeregning

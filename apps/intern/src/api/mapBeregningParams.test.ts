@@ -1,11 +1,33 @@
-import type { PersonInternV1 } from '@pensjonskalkulator-frontend-monorepo/types'
+import type {
+	PersonInternV1,
+	Vedtak,
+} from '@pensjonskalkulator-frontend-monorepo/types'
 import { describe, expect, test } from 'vitest'
 
 import { defaultBeregningFormData } from './beregningTypes'
+import { getLivsvarigAfpBeloep } from './formConditions'
 import {
 	mapBeregningParamsToRequest,
 	mapInnvilgetLivsvarigAfp,
 } from './mapBeregningParams'
+
+describe('getLivsvarigAfpBeloep', () => {
+	test.each([undefined, null, 0, 8347])(
+		'returnerer beløp %s fra vedtak',
+		(beloep) => {
+			expect(
+				getLivsvarigAfpBeloep({
+					harVedtak: true,
+					fremtidigAlderspensjon: {
+						grad: 100,
+						fom: '2029-01-01',
+						livsvarigOffentligAfpMaanedsbeloep: beloep,
+					},
+				})
+			).toBe(beloep ?? undefined)
+		}
+	)
+})
 
 describe('innvilget livsvarig AFP fra v4', () => {
 	test('støtter responsen med kun periodedato og null kroner', () => {
@@ -90,6 +112,28 @@ const person: PersonInternV1 = {
 }
 
 describe('simuleringstype for offentlig AFP', () => {
+	test.each([8347, 0])('bruker månedlig AFP-beløp %s fra vedtak', (beloep) => {
+		const vedtak: Vedtak = {
+			harVedtak: true,
+			fremtidigAlderspensjon: {
+				grad: 100,
+				fom: '2029-01-01',
+				livsvarigOffentligAfpMaanedsbeloep: beloep,
+			},
+		}
+		const request = mapBeregningParamsToRequest(
+			{ ...defaultBeregningFormData, afp: 'ja_offentlig', endringAP: true },
+			false,
+			person,
+			undefined,
+			vedtak
+		)
+
+		expect(request.offentligAfp?.innvilgetLivsvarigAfpListe).toEqual([
+			{ aarligBruttoBeloep: beloep * 12, uttakFom: '2029-01-01' },
+		])
+	})
+
 	test.each([false, true])(
 		'velger simuleringstype for ja/nei til AFP med endringAP %s',
 		(endringAP) => {

@@ -333,6 +333,7 @@ export interface paths {
 		}
 		/**
 		 * Har løpende vedtak
+		 * @deprecated
 		 * @description Hvorvidt den innloggede brukeren har løpende uføretrygd med uttaksgrad, alderspensjon med uttaksgrad, AFP i privat eller offentlig sektor
 		 */
 		get: operations['hentLoependeVedtakV4']
@@ -373,9 +374,30 @@ export interface paths {
 		}
 		/**
 		 * Hent løpende livsvarig offentlig AFP
+		 * @deprecated
 		 * @description Henter detaljer om løpende livsvarig AFP i offentlig sektor for brukeren
 		 */
 		get: operations['hentLivsvarigOffentligAfpDetaljerV3']
+		put?: never
+		post?: never
+		delete?: never
+		options?: never
+		head?: never
+		patch?: never
+		trace?: never
+	}
+	'/api/v2/vedtak': {
+		parameters: {
+			query?: never
+			header?: never
+			path?: never
+			cookie?: never
+		}
+		/**
+		 * Hent vedtak
+		 * @description Henter løpende vedtak om alderspensjon, AFP (i privat og offentlig sektor) og uføretrygd, samt fremtidige alderspensjonsvedtak
+		 */
+		get: operations['hentVedtak']
 		put?: never
 		post?: never
 		delete?: never
@@ -393,6 +415,7 @@ export interface paths {
 		}
 		/**
 		 * Hent løpende livsvarig offentlig AFP
+		 * @deprecated
 		 * @description Henter detaljer om løpende livsvarig AFP i offentlig sektor for brukeren
 		 */
 		get: operations['hentLivsvarigOffentligAfpDetaljer']
@@ -435,7 +458,7 @@ export interface paths {
 		 * Hent vedtak
 		 * @description Henter løpende vedtak om alderspensjon, AFP (i privat og offentlig sektor) og uføretrygd, samt fremtidige alderspensjonsvedtak
 		 */
-		get: operations['hentVedtak']
+		get: operations['hentVedtak_1']
 		put?: never
 		post?: never
 		delete?: never
@@ -516,6 +539,26 @@ export interface paths {
 		 * @description Henter liste over land med navn og status som avtaleland. Denne tjenesten er åpen - krever ikke autentisering.
 		 */
 		get: operations['landListe']
+		put?: never
+		post?: never
+		delete?: never
+		options?: never
+		head?: never
+		patch?: never
+		trace?: never
+	}
+	'/api/v1/har-livsvarig-offentlig-afp': {
+		parameters: {
+			query?: never
+			header?: never
+			path?: never
+			cookie?: never
+		}
+		/**
+		 * Livsvarig offentlig AFP status
+		 * @description Hvorvidt den innloggede brukeren har livsvarig offentlig AFP
+		 */
+		get: operations['harLivsvarigOffentligAfpV1']
 		put?: never
 		post?: never
 		delete?: never
@@ -2213,6 +2256,8 @@ export interface components {
 				| 'SERVERFEIL'
 			/** @description Fritekstlig beskrivelse av problemet */
 			beskrivelse: string
+			/** @description ID for sporing av kallrekke */
+			traceId: string
 		}
 		SimuleringV2Result: {
 			/** @description Alderspensjon for hvert år */
@@ -3666,6 +3711,157 @@ export interface components {
 			/** Format: int32 */
 			beloep?: number | null
 		}
+		VedtakV2Alderspensjonsuttak: {
+			/**
+			 * Format: int32
+			 * @description Uttaksgrad (prosent) for alderspensjonen
+			 */
+			grad: number
+			/**
+			 * Format: date
+			 * @description Startdato (fra og med) for alderspensjonen
+			 */
+			fom: string
+			/**
+			 * Format: int32
+			 * @description Livsvarig AFP i offentlig sektor
+			 */
+			livsvarigOffentligAfpMaanedsbeloep?: number | null
+		}
+		VedtakV2Gjenlevenderett: {
+			/** @description Avdødes personidentifikator (som oftest fødselsnummer) */
+			avdoedPid: string
+			/** @description Avdødes navn */
+			avdoedNavn?: components['schemas']['VedtakV2Navn'] | null
+			/**
+			 * Format: date
+			 * @description Dødsdato
+			 */
+			doedsdato?: string | null
+			/**
+			 * Format: date
+			 * @description Første virkningsdato for gjenlevenderetten
+			 */
+			foersteVirkningsdato?: string | null
+		}
+		VedtakV2InformasjonOmAvdoed: {
+			/** @description Avdødes person-ID */
+			pid?: string | null
+			/**
+			 * Format: date
+			 * @description Dato for dødsfallet
+			 */
+			doedsdato?: string | null
+			/**
+			 * Format: date
+			 * @description Virkningsdato (fra og med) for avdødes første vedtak om alderspensjon
+			 */
+			foersteAlderspensjonVirkningsdato?: string | null
+			/** @description Hvorvidt avdødes årlige pensjonsgivende inntekt var minst 1G (grunnbeløpet) */
+			aarligPensjonsgivendeInntektErMinst1G?: boolean | null
+			/** @description Hvorvidt avdøde hadde tilstrekkelig medlemskap i folketrygden */
+			harTilstrekkeligMedlemskapIFolketrygden?: boolean | null
+			/**
+			 * Format: int32
+			 * @description Antall år som avdøde hadde oppholdt seg i utlandet
+			 */
+			antallAarUtenlands?: number | null
+			/** @description Hvorvidt avdøde var flyktning */
+			erFlyktning?: boolean | null
+		}
+		VedtakV2LoependeAlderspensjon: {
+			/**
+			 * Format: int32
+			 * @description Uttaksgrad (prosent) for alderspensjonen
+			 */
+			grad: number
+			/**
+			 * Format: date
+			 * @description Startdato (fra og med) for alderspensjonen
+			 */
+			fom: string
+			/**
+			 * Format: date
+			 * @description Startdato (fra og med) for uttaksgraden
+			 */
+			uttaksgradFom: string
+			/** @description Siste utbetaling av alderspensjon */
+			sisteUtbetaling?: components['schemas']['VedtakV2Utbetaling'] | null
+			/**
+			 * @description Sivilstatus
+			 * @enum {string}
+			 */
+			sivilstatus:
+				| 'UNKNOWN'
+				| 'UOPPGITT'
+				| 'UGIFT'
+				| 'GIFT'
+				| 'ENKE_ELLER_ENKEMANN'
+				| 'SKILT'
+				| 'SEPARERT'
+				| 'REGISTRERT_PARTNER'
+				| 'SEPARERT_PARTNER'
+				| 'SKILT_PARTNER'
+				| 'GJENLEVENDE_PARTNER'
+				| 'SAMBOER'
+			/** @description Hvorvidt personen har rett til gjenlevendeytelse */
+			harGjenlevenderett: boolean
+			/** @description Hvorvidt personen har opphold i utlandet */
+			harUtenlandsopphold: boolean
+			/**
+			 * Format: int32
+			 * @description Livsvarig AFP i offentlig sektor
+			 */
+			livsvarigOffentligAfpMaanedsbeloep?: number | null
+		}
+		VedtakV2Navn: {
+			/** @description Fornavn */
+			fornavn?: string | null
+			/** @description Mellomnavn */
+			mellomnavn?: string | null
+			/** @description Etternavn */
+			etternavn?: string | null
+		}
+		VedtakV2Samling: {
+			/** @description Hvorvidt personen har løpende eller fremtidig vedtak */
+			harVedtak: boolean
+			/** @description Løpende alderspensjon */
+			loependeAlderspensjon?:
+				| components['schemas']['VedtakV2LoependeAlderspensjon']
+				| null
+			/** @description Fremtidig alderspensjon */
+			fremtidigAlderspensjon?:
+				| components['schemas']['VedtakV2Alderspensjonsuttak']
+				| null
+			/**
+			 * Format: int32
+			 * @description Grad av uføretrygd (0-100)
+			 */
+			ufoeretrygdgrad?: number | null
+			/**
+			 * Format: date
+			 * @description Startdato (fra og med) for AFP i privat sektor
+			 */
+			privatAfpFom?: string | null
+			/**
+			 * Format: date
+			 * @description Startdato (fra og med) for tidsbegrenset AFP i offentlig sektor ('gammel ordning')
+			 */
+			tidsbegrensetOffentligAfpFom?: string | null
+			/** @description Gjenlevenderett */
+			gjenlevenderett?: components['schemas']['VedtakV2Gjenlevenderett'] | null
+			/** @description Informasjon om eventuell avdød ektefelle/partner/samboer */
+			avdoed?: components['schemas']['VedtakV2InformasjonOmAvdoed'] | null
+		}
+		VedtakV2Utbetaling: {
+			/** @description Beløp utbetalt */
+			beloep: number
+			/**
+			 * Format: date
+			 * @description Dato for utbetalingen
+			 */
+			utbetalingsdato: string
+		}
 		LivsvarigOffentligAfpResultV2: {
 			afpStatus?: boolean | null
 			/** Format: date */
@@ -3837,6 +4033,9 @@ export interface components {
 			bokmaalNavn: string
 			nynorskNavn: string
 			engelskNavn: string
+		}
+		HarLivsvarigOffentligAfpDtoV1: {
+			harLivsvarigOffentligAfp: boolean
 		}
 		ApotekerStatusV1: {
 			apoteker: boolean
@@ -4857,6 +5056,71 @@ export interface operations {
 			}
 		}
 	}
+	hentVedtak: {
+		parameters: {
+			query?: never
+			header?: never
+			path?: never
+			cookie?: never
+		}
+		requestBody?: never
+		responses: {
+			/** @description Henting av vedtak utført. */
+			200: {
+				headers: {
+					[name: string]: unknown
+				}
+				content: {
+					'*/*': components['schemas']['VedtakV2Samling']
+				}
+			}
+			/** @description Tjenesten kunne ikke utføres pga. uakseptable inndata. */
+			400: {
+				headers: {
+					[name: string]: unknown
+				}
+				content: {
+					'*/*': components['schemas']['VedtakV2Samling']
+				}
+			}
+			/** @description Tjenesten kunne ikke utføres pga. manglende/feilaktig autentisering. */
+			401: {
+				headers: {
+					[name: string]: unknown
+				}
+				content: {
+					'*/*': components['schemas']['VedtakV2Samling']
+				}
+			}
+			/** @description Tjenesten kunne ikke utføres pga. manglende tilgang til tjenesten. */
+			403: {
+				headers: {
+					[name: string]: unknown
+				}
+				content: {
+					'*/*': components['schemas']['VedtakV2Samling']
+				}
+			}
+			/** @description Tjenesten kunne ikke utføres fordi angitt person ikke finnes i systemet. */
+			404: {
+				headers: {
+					[name: string]: unknown
+				}
+				content: {
+					'*/*': components['schemas']['VedtakV2Samling']
+				}
+			}
+			/** @description Tjenesten kunne ikke utføres pga. feil i systemet. */
+			500: {
+				headers: {
+					[name: string]: unknown
+				}
+				content: {
+					'*/*': components['schemas']['VedtakV2Samling']
+				}
+			}
+		}
+	}
 	hentLivsvarigOffentligAfpDetaljer: {
 		parameters: {
 			query?: never
@@ -4915,7 +5179,7 @@ export interface operations {
 			}
 		}
 	}
-	hentVedtak: {
+	hentVedtak_1: {
 		parameters: {
 			query?: never
 			header?: never
@@ -5110,6 +5374,26 @@ export interface operations {
 					 *     }
 					 */
 					'*/*': unknown
+				}
+			}
+		}
+	}
+	harLivsvarigOffentligAfpV1: {
+		parameters: {
+			query?: never
+			header?: never
+			path?: never
+			cookie?: never
+		}
+		requestBody?: never
+		responses: {
+			/** @description OK */
+			200: {
+				headers: {
+					[name: string]: unknown
+				}
+				content: {
+					'*/*': components['schemas']['HarLivsvarigOffentligAfpDtoV1']
 				}
 			}
 		}

@@ -154,7 +154,7 @@ async function fetchPerson(fnr: string): Promise<PersonInternV1> {
 }
 
 async function fetchVedtak(fnr: string): Promise<Vedtak> {
-	const response = await fetch(`${API_BASE}/v1/vedtak`, {
+	const response = await fetch(`${API_BASE}/v2/vedtak`, {
 		headers: {
 			fnr,
 		},

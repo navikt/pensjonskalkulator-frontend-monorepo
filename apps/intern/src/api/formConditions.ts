@@ -1,4 +1,7 @@
-import type { Sivilstatus } from '@pensjonskalkulator-frontend-monorepo/types'
+import type {
+	Sivilstatus,
+	Vedtak,
+} from '@pensjonskalkulator-frontend-monorepo/types'
 import {
 	calculateUttaksalderAsDate,
 	isFoedtFoer1963,
@@ -6,6 +9,14 @@ import {
 
 import { isFoedtEtter1963 } from '../../../../packages/utils/src/alder'
 import type { BeregningFormData, InternAfpRadio } from './beregningTypes'
+
+export function getLivsvarigAfpBeloep(vedtak?: Vedtak): number | undefined {
+	return (
+		vedtak?.fremtidigAlderspensjon?.livsvarigOffentligAfpMaanedsbeloep ??
+		vedtak?.loependeAlderspensjon?.livsvarigOffentligAfpMaanedsbeloep ??
+		undefined
+	)
+}
 
 export function erKap19EllerApoteker(
 	foedselsdato: string | undefined,
