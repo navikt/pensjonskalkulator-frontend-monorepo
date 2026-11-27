@@ -158,6 +158,17 @@ export function mapBeregningResultToLagreSpec(
 	) {
 		forbeholdVisningsvilkaar.push('BEREGNER_MED_GJENLEVENDERETT')
 	}
+
+	if (
+		aktivBeregning?.harOppholdUtenforNorge === true ||
+		(aktivBeregning?.utenlandsOpphold?.length ?? 0) > 0
+	) {
+		forbeholdVisningsvilkaar.push('HAR_UTENLANDSOPPHOLD')
+	}
+
+	if (vedtak?.loependeAlderspensjon?.harUtenlandsopphold === true) {
+		forbeholdVisningsvilkaar.push('HAR_VEDTAK_UTENLANDSOPPHOLD')
+	}
 	const { heltUttakAlder, gradertUttakAlder } = getUttakInfo(
 		aktivBeregning ?? null
 	)
