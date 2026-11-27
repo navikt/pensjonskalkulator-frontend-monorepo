@@ -318,7 +318,7 @@ describe('PDF Sanity alerts', () => {
         }),
         offentligTp: {
           simuleringsresultatStatus: status,
-          muligeTpLeverandoerListe: ['KLP'],
+          muligeTpLeverandoerListe: [{ tpNummer: '4082', tpNavn: 'KLP' }],
         },
         offentligTpAlertsList: [
           {

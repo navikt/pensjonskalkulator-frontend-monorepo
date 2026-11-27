@@ -10,8 +10,10 @@ export type InntektDto = components['schemas']['InntektDto']
 
 export type LoependeVedtakV4 = components['schemas']['LoependeVedtakV4']
 
-export type OffentligTjenestepensjonSimuleringResultV2 =
-  components['schemas']['OffentligTjenestepensjonSimuleringResultV2']
+export type OffentligTjenestepensjonSimuleringResultV3 =
+  components['schemas']['OffentligTjenestepensjonSimuleringResultV3']
+
+export type TpOrdningV3 = components['schemas']['TpOrdningV3']
 
 export type ApotekerStatusV1 = components['schemas']['ApotekerStatusV1']
 

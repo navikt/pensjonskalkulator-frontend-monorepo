@@ -47,6 +47,8 @@ export function buildForbeholdContext({
 	const harUtenlandsopphold =
 		aktivBeregning?.harOppholdUtenforNorge === true ||
 		(aktivBeregning?.utenlandsOpphold?.length ?? 0) > 0
+	const harVedtakUtenlandsopphold =
+		vedtak?.loependeAlderspensjon?.harUtenlandsopphold === true
 	const harFremtidigUtenlandsopphold =
 		aktivBeregning?.utenlandsOpphold?.some((opphold) => !opphold.tom) ?? false
 
@@ -78,6 +80,7 @@ export function buildForbeholdContext({
 		beregnerMedGjenlevenderett: !!aktivBeregning?.beregnMedGjenlevenderett,
 		harGjenlevendeEllerOmstillingsstoenad: !!omstillingsstoenad?.harLoependeSak,
 		harUtenlandsopphold,
+		harVedtakUtenlandsopphold,
 		harFremtidigUtenlandsopphold,
 		erGift,
 		erSamboer,

@@ -239,7 +239,11 @@ export const isOffentligTp = (data?: any): data is OffentligTp => {
     !Array.isArray(data) &&
     Array.isArray(data.muligeTpLeverandoerListe) &&
     data.muligeTpLeverandoerListe.every(
-      (tpLeverandoer: string) => typeof tpLeverandoer === 'string'
+      (tpOrdning: any) =>
+        typeof tpOrdning === 'object' &&
+        tpOrdning !== null &&
+        typeof tpOrdning.tpNummer === 'string' &&
+        typeof tpOrdning.tpNavn === 'string'
     ) &&
     simulertTjenestepensjonValid
   )
