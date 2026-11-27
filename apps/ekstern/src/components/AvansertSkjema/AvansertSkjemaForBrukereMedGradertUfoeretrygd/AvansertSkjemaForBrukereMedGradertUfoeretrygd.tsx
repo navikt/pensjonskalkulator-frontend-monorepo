@@ -50,7 +50,8 @@ import styles from './AvansertSkjemaForBrukereMedGradertUfoeretrygd.module.scss'
 
 export const AvansertSkjemaForBrukereMedGradertUfoeretrygd: React.FC<{
   vilkaarsproeving?: Vilkaarsproeving
-}> = ({ vilkaarsproeving }) => {
+  utilstrekkeligTrygdetid?: boolean
+}> = ({ vilkaarsproeving, utilstrekkeligTrygdetid }) => {
   const intl = useIntl()
   const dispatch = useAppDispatch()
 
@@ -477,6 +478,7 @@ export const AvansertSkjemaForBrukereMedGradertUfoeretrygd: React.FC<{
                   localBeregningsTypeRadio === beregningsvalg && (
                     <VilkaarsproevingAlert
                       alternativ={vilkaarsproeving?.alternativ}
+                      utilstrekkeligTrygdetid={utilstrekkeligTrygdetid}
                       uttaksalder={uttaksalder}
                       withAFP={localBeregningsTypeRadio === 'med_afp'}
                     />

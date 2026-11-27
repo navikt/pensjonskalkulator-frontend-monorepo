@@ -24,6 +24,10 @@ export const FORBEHOLD_VILKAAR_TAGS = [
 	},
 	{ value: 'harUtenlandsopphold', title: 'Har opphold utenfor Norge' },
 	{
+		value: 'harVedtakUtenlandsopphold',
+		title: 'Har vedtak om AP med opphold utenfor Norge',
+	},
+	{
 		value: 'harFremtidigUtenlandsopphold',
 		title: 'Har fremtidig opphold utenfor Norge',
 	},
