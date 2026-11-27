@@ -43,6 +43,10 @@ export const SanityForbehold = ({
 			</Heading>
 			{avsnitt.map((forbeholdAvsnitt, i) => {
 				const key = forbeholdAvsnitt._id ?? i
+				// Et avsnitt uten overskrift fortsetter avsnittet foran, så det skal
+				// ikke ha ekstra luft mellom dokumentene.
+				const fortsettesAvNeste =
+					!avsnitt[i + 1]?.overskrift && i + 1 < avsnitt.length
 				return forbeholdAvsnitt.overskrift ? (
 					<section data-testid={avsnittTestId} key={key}>
 						<Heading
@@ -54,7 +58,7 @@ export const SanityForbehold = ({
 						</Heading>
 						<BodyLong
 							size={size === 'medium' ? 'medium' : 'small'}
-							spacing
+							spacing={!fortsettesAvNeste}
 							as="div"
 						>
 							<PortableText
@@ -68,7 +72,7 @@ export const SanityForbehold = ({
 						size={size === 'medium' ? 'medium' : 'small'}
 						data-testid={avsnittTestId}
 						key={key}
-						spacing
+						spacing={!fortsettesAvNeste}
 						as="div"
 					>
 						<PortableText
